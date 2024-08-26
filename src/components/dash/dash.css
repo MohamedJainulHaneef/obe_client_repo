@@ -52,15 +52,14 @@ header {
 
 header p {
     text-align: center;
-    font-size: 23px;
-    padding-bottom:13px;
-    letter-spacing: 2px;
+    font-size: 15px;
+    padding-top:15px;
     font-weight: 500;
 }
 
 .dash-menu {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .dash-item {
