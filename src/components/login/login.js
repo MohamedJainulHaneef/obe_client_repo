@@ -8,7 +8,7 @@ function Login()
 {
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
-    const Navigate=useNavigate();
+    const navigate=useNavigate();
 
     const handleLogin = async () => 
     {
@@ -20,7 +20,7 @@ function Login()
 
             if (response.data.success) {
                 alert('Login Success');
-                Navigate(`dashboard/${staffId}`);
+                navigate(`dashboard/${staffId}`);
             } 
 
             else {
