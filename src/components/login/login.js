@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import './login.css';
 import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login()
 {
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
+    const Navigate=useNavigate();
 
     const handleLogin = async () => 
     {
         try {
             const response = await axios.post('http://localhost:5000/login', {
                 staff_id: staffId,
-                staff_password: password,
+                staff_pass: password,
             });
 
             if (response.data.success) {
                 alert('Login Success');
+                Navigate(`dashboard/${staffId}`);
             } 
 
             else {
