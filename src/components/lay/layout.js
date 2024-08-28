@@ -32,10 +32,10 @@ function Layout() {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    navigate('/login', { replace: true });
-    window.history.pushState(null, null, '/login');
+    navigate('/', { replace: true });
+    window.history.pushState(null, null, '/');
     window.addEventListener('popstate', function (event) {
-      navigate('/login', { replace: true });
+      navigate('/', { replace: true });
     });
   };
 
