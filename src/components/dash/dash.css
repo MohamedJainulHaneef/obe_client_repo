@@ -7,17 +7,22 @@
 .dummy_main {
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(to bottom right,
-    rgb(26, 112, 30), rgb(18, 144, 163));
+    background-image: linear-gradient(to bottom right);
+    /* rgb(26, 112, 30), rgb(18, 144, 163)); */
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.box{
+    border: 2px solid black;
+    padding: 50px;
+    margin: 50px;
 }
 
 .dummy_left {
     width: 30%;
     height: 100%;
-    background-color: rgb(92, 255, 124);
+    /* background-color: rgb(92, 255, 124); */
 }
 
 .dummy_right {

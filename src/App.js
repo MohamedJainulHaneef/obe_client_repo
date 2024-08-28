@@ -2,17 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/login/login';
 import Dash from './components/dash/dash';
+import Layout from './components/lay/layout';
+import Mark from './components/mark/mark';
 
-function App() 
-{
+function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Login />} />
-                {/* Add route with staffId parameter */}
-                <Route path="/dashboard/:staffId" element={<Dash />} />
+                <Route path="/staff/:staffId/*" element={<Layout />} >
+                    <Route path="dashboard" element={<Dash />} />
+                    <Route path="mark" element={<Mark />} />
+                </Route>
             </Routes>
-        </Router>
+        </Router >
     );
 }
 

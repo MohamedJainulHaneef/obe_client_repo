@@ -18,8 +18,8 @@ function Login() {
             });
 
             if (response.data.success) {
-                alert('Login Successful');
-                navigate(`dashboard/${staffId}`);
+                // alert(`Login Successful, ${staffId}`);
+                navigate(`staff/${staffId}/dashboard`);
             } 
             else {
                 alert(response.data.message);
@@ -41,7 +41,7 @@ function Login() {
                     <div className='log-clg-desc'>
                         <span className='log-clg-span'>JAMAL MOHAMED COLLEGE</span>
                         <span className='log-clg-span'>( AUTONOMOUS )</span>
-                        <span className='log-clg-span'>TRICHY - 620 008 .</span>
+                        <span className='log-clg-span'>TRICHY - 620 020 .</span>
                     </div>
                 </div>
             </div>

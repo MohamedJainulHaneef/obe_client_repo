@@ -90,11 +90,12 @@
     width: 77%;
     height: 40px;
     background-color: rgb(26, 112, 30);
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    letter-spacing: 2px;
 }
