@@ -1,14 +1,13 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import './login.css';
 import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Login()
-{
+function Login() {
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const handleLogin = async () => 
     {
@@ -19,17 +18,16 @@ function Login()
             });
 
             if (response.data.success) {
-                alert('Login Success');
+                alert('Login Successful');
                 navigate(`dashboard/${staffId}`);
             } 
-
             else {
-                alert('Invalid Staff ID or Password');
+                alert(response.data.message);
             }
         } 
         catch (error) {
-            alert('Invalid Staff ID or Password');
-            console.error('Login Error : ', error);
+            alert('An error occurred. Please try again later.');
+            console.error('Login Error: ', error);
         }
     };
 
