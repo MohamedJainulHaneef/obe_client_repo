@@ -26,14 +26,18 @@ function Dash() {
 }, [staffId]);
   return (
     <div className="dummy_main">
+      <div class="content-box">
       {users.map((user) => (
-                <button key={user.s_no} class="box">
+                <button key={user.s_no} class="subject-box">
                     {/* <div className="font-bold border border-white text-center uppercase">{user.fresherOrRenewal}</div> */}
-                    <div class="">{user.dept_id}</div>
-                    <div className="font-bold border border-white text-center py-3 uppercase">{user.course_code}</div>
-                    <div className="font-bold border border-white text-center py-3 uppercase">{user.section}</div>                    
+                    <div className="box-text">{user.category}</div>      
+                    <div class="box-text">DEPARTMENT-ID : {user.dept_id}</div>
+                    <div className="box-text">COURSE-CODE : {user.course_code}</div>
+                    <div className="box-text">SECTION : {user.section}</div>      
+
                 </button >
             ))}
+      </div>
     </div>
   );
 }
