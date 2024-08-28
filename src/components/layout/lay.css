@@ -1,120 +1,119 @@
 .container {
     display: flex;
     flex-direction: row;
-    background-color: #ffffff; /* bg-slate-400 */
-    height: 100vh; /* h-screen */
-    width: 100vw; /* w-screen */
-  }
-  
-  .sidebar {
-    background-image: linear-gradient(to bottom right,
+    background-color: #ffffff;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sidebar {
+    background-image: linear-gradient(to bottom right, 
     rgb(26, 112, 30), rgb(18, 144, 163));
-    width: 16rem; /* w-64 */
-    padding: 0.75rem; /* p-3 */
+    width: 16rem;
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
-    color: #000000; /* text-black */
-    
-  }
-  
-  .header {
+    color: #000000;
+}
+
+.header {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2.5rem; /* mb-10 */
-    align-items: center; /* place-items-center */
-  }
-  
-  .logo {
-    width: 9rem; /* w-36 */
-    height: 10rem; /* h-40 */
-  }
-  
-  .logo-alt {
-    width: 15rem; /* w-60 */
-  }
-  
-  .college-info {
-    margin-top: 0.5rem; /* mt-2 */
-    color: #ffffff; /* text-white */
+    margin-bottom: 2.5rem;
+    align-items: center;
+}
+
+.logo {
+    width: 9rem;
+    height: 10rem;
+}
+
+.logo-alt {
+    width: 15rem;
+}
+
+.college-info {
+    margin-top: 0.5rem;
+    color: #ffffff;
     text-align: center;
-  }
-  
-  .college-name {
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 800; /* font-extrabold */
-  }
-  
-  .college-type,
-  .college-location {
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 700; /* font-bold */
-    margin-top: -0.25rem; /* -mt-1 */
-  }
-  
-  .staff-id {
-    color: #ffffff; /* text-white */
-    font-weight: 700; /* font-bold */
-    margin-top: 1.25rem; /* mt-5 */
-  }
-  
-  .menu-item {
+}
+
+.college-name {
+    font-size: 0.875rem;
+    font-weight: 800;
+}
+
+.college-type,
+.college-location {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-top: -0.25rem;
+}
+
+.staff-id {
+    color: #ffffff;
+    font-weight: 700;
+    margin-top: 1.25rem;
+}
+
+.menu-item {
     display: flex;
     align-items: center;
-    height: 45px; /* h-[45px] */
-    padding-left: 5px; /* pl-[5px] */
-    font-size: 1.25rem; /* text-xl */
+    height: 45px;
+    padding-left: 5px;
+    font-size: 1.25rem;
     text-decoration: none;
     font-weight: bold;
-    transition: all 0.8s ease; /* transition-all duration-800 */
-    color: #ffffff; /* text-white */
-  }
-  
-  .menu-item:hover {
-    background-color: rgba(0, 0, 0, 0.5); /* hover:bg-black hover:bg-opacity-50 */
-    border-radius: 5px; /* hover:rounded-[5px] */
-  }
-  
-  .active {
-    background-color: rgba(0, 0, 0, 0.5); /* bg-black bg-opacity-50 */
-    border-radius: 5px; /* rounded-[5px] */
-  }
-  
-  .menu-label {
+    transition: all 0.8s ease;
+    color: #ffffff;
+}
+
+.menu-item:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.active {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.menu-label {
     cursor: pointer;
-    font-weight: 500; /* font-medium */
-    font-size: 1rem; /* text-base */
+    font-weight: 500;
+    font-size: 1rem;
     text-align: center;
     position: relative;
     z-index: 10;
-  }
-  
-  .logout-btn {
+}
+
+.logout-btn {
     display: flex;
     align-items: center;
-    height: 45px; /* h-[45px] */
-    padding-left: 5px; /* pl-[5px] */
-    font-size: 1.25rem; /* text-xl */
-    transition: all 0.8s ease; /* transition-all duration-800 */
-    color: #ffffff; /* text-white */
+    height: 45px;
+    padding-left: 5px;
+    font-size: 1.25rem;
+    transition: all 0.8s ease;
+    color: #ffffff;
     background-color: none;
-  }
-  
-  .logout-btn:hover {
-    background-color: rgba(0, 0, 0, 0.5); /* hover:bg-black hover:bg-opacity-50 */
-    border-radius: 5px; /* hover:rounded-[5px] */
-  }
-  
-  .content {
-    padding: 1rem; /* p-4 */
+}
+
+.logout-btn:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.content {
+    padding: 1rem;
     flex: 1;
-    overflow: auto; /* overflow-auto */
-  }
-  .log_button{
+    overflow: auto;
+}
+
+.log_button {
     color: white;
     background-color: none;
-  }
-  
-  .content-inner {
-    margin-top: 1rem; /* mt-4 */
-  }
-  
+}
+
+.content-inner {
+    margin-top: 1rem;
+}
