@@ -1,13 +1,14 @@
 .container {
     display: flex;
     flex-direction: row;
-    background-color: #94a3b8; /* bg-slate-400 */
+    background-color: #ffffff; /* bg-slate-400 */
     height: 100vh; /* h-screen */
     width: 100vw; /* w-screen */
   }
   
   .sidebar {
-    background-color: #065f46; /* bg-emerald-700 */
+    background-image: linear-gradient(to bottom right,
+    rgb(26, 112, 30), rgb(18, 144, 163));
     width: 16rem; /* w-64 */
     padding: 0.75rem; /* p-3 */
     display: flex;
@@ -62,6 +63,8 @@
     height: 45px; /* h-[45px] */
     padding-left: 5px; /* pl-[5px] */
     font-size: 1.25rem; /* text-xl */
+    text-decoration: none;
+    font-weight: bold;
     transition: all 0.8s ease; /* transition-all duration-800 */
     color: #ffffff; /* text-white */
   }
@@ -93,6 +96,7 @@
     font-size: 1.25rem; /* text-xl */
     transition: all 0.8s ease; /* transition-all duration-800 */
     color: #ffffff; /* text-white */
+    background-color: none;
   }
   
   .logout-btn:hover {
@@ -104,6 +108,10 @@
     padding: 1rem; /* p-4 */
     flex: 1;
     overflow: auto; /* overflow-auto */
+  }
+  .log_button{
+    color: white;
+    background-color: none;
   }
   
   .content-inner {

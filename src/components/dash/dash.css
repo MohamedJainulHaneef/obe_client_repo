@@ -17,8 +17,15 @@
     border: 2px solid black;
     padding: 50px;
     margin: 50px;
+    cursor: pointer;
+    transition: 0.5s;
+    
 }
-
+.box:hover{
+    border: 6px solid green;
+    border-radius: 30px;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0);
+}
 .dummy_left {
     width: 30%;
     height: 100%;

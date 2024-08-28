@@ -13,9 +13,9 @@ function Dash() {
         try {
             console.log(staffId)
             const usersResponse = await axios.get('http://localhost:5000/coursemap');
-          
+    
 
-            const usersData = usersResponse.data.filter(user => user.staff_id === staffId);;
+            const usersData = usersResponse.data.filter(user => user.staff_id === staffId);
             setUsers(usersData);
         
         } catch (err) {
@@ -27,14 +27,12 @@ function Dash() {
   return (
     <div className="dummy_main">
       {users.map((user) => (
-                <div key={user.s_no} class="box">
+                <button key={user.s_no} class="box">
                     {/* <div className="font-bold border border-white text-center uppercase">{user.fresherOrRenewal}</div> */}
                     <div class="">{user.dept_id}</div>
                     <div className="font-bold border border-white text-center py-3 uppercase">{user.course_code}</div>
-                    <div className="font-bold border border-white text-center py-3 uppercase">{user.section}</div>
-                    <div className="font-bold border border-white text-center py-3 uppercase">{user.scholtype}</div>
-                    
-                </div>
+                    <div className="font-bold border border-white text-center py-3 uppercase">{user.section}</div>                    
+                </button >
             ))}
     </div>
   );
