@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faPlusCircle, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
@@ -12,22 +12,22 @@ function Layout()
 
     let menus = [
         {
-            icon: faTachometerAlt, // Updated icon to Font Awesome
+            icon: faHome, 
             name: 'Dashboard',
             path: `/staff/${staffId}/dashboard`,
         },
         {
-            icon: faPlusCircle, // Updated icon to Font Awesome
+            icon: faFileAlt, 
             name: 'Mark',
             path: `/staff/${staffId}/mark`,
         },
         {
-            icon: faUsers, // Updated icon to Font Awesome
+            icon: faExchangeAlt, 
             name: 'Status',
             path: '/student/status',
         },
         {
-            icon: faPlusCircle, // Updated icon to Font Awesome
+            icon: faKey, 
             name: 'GuideLines',
             path: '/student/guidelines',
         },
@@ -75,11 +75,6 @@ function Layout()
                 </button> */}
             </div>
             <div className="layout-content">
-                {/* <div className="layout-top-div">
-                    <div className="layout-top-element">
-                        <div><p className="layout-staff_id"> <span class="staff">Staff Id :</span> {staffId}</p></div>
-                    </div>
-                </div> */}
                 <div className="layout-content-inner">
                     <Outlet />
                 </div>

@@ -12,7 +12,8 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/staff/:staffId/*" element={<Layout />} >
                     <Route path="dashboard" element={<Dash />} />
-                    <Route path="mark" element={<Mark />} />
+                    <Route path="markpage" element={<Mark />} />
+
                 </Route>
             </Routes>
         </Router >
