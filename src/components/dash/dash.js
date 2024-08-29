@@ -29,9 +29,9 @@ function Dash()
             <div class="content-box">
                 {users.map((user) => (
                     <button key={user.s_no} class="subject-box">
-                        <div className="box-text">{user.category}</div>
-                        <div class="box-text">DEPARTMENT-ID : {user.dept_id}</div>
-                        <div className="box-text">COURSE-CODE : {user.course_code}</div>
+                        <div className="box-text-category">{user.category}</div>
+                        <div class="box-text">{user.dept_id}</div>
+                        <div className="box-text">{user.course_code}</div>
                         <div className="box-text">SECTION : {user.section}</div>
                     </button >
                 ))}

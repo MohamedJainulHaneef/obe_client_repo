@@ -1,0 +1,144 @@
+.layout-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    height: 100vh;
+    width: 100%;
+}
+
+.layout-sidebar {
+    background-image: linear-gradient(to bottom, 
+    rgb(26, 112, 30), rgb(18, 144, 163));
+    width: 20rem;
+    padding: 0.layout-75rem;
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+}
+
+.layout-top-div{
+    position:absolute;
+    width: 69%;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-left: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+    
+.layout-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.layout-logo {
+    margin-top: 20px;
+    width: 9rem;
+    height: 10rem;
+}
+
+.layout-logo-alt {
+    width: 15rem;
+}
+
+.layout-college-info {
+    margin-top: 0.layout-5rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.layout-college-name {
+    font-size: 0.layout-875rem;
+    font-weight: 800;
+}
+
+.layout-college-type,
+.layout-college-location {
+    font-size: 0.layout-875rem;
+    font-weight: 700;
+    margin-top: -0.layout-25rem;
+}
+
+.layout-staff-id {
+    color: #ffffff;
+    font-weight: 700;
+    margin-top: 1.layout-25rem;
+}
+
+.layout-menu-item {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    padding-left: 5px;
+    font-size: 1.layout-25rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.layout-8s ease;
+    color: #ffffff;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.layout-menu-item:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+.layout-staff_id{
+    text-transform: uppercase;
+    color: green;
+    font-weight: bolder;
+}
+.staff{
+    color: black;
+}
+
+.layout-active {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.layout-menu-label {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    margin: 50px;
+}
+
+.layout-logout-btn {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    padding-left: 5px;
+    font-size: 1.layout-25rem;
+    transition: all 0.layout-8s ease;
+    color: #ffffff;
+    background-color: none;
+}
+
+.layout-logout-btn:hover {
+    background-color: rgba(0, 0, 0, 0.layout-5);
+    border-radius: 5px;
+}
+
+.layout-content {
+    padding: 1rem;
+    flex: 1;
+    overflow: auto;
+}
+
+.layout-log_button {
+    color: white;
+    background-color: none;
+}
+
+.layout-content-inner {
+    margin-top: 1rem;
+}

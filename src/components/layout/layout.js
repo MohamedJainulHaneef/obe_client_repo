@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
-import './lay.css';
+import './layout.css';
 
 function Layout() 
 {
@@ -29,46 +29,57 @@ function Layout()
             name: 'GuideLines',
             path: '/student/guidelines',
         },
+        {
+            icon: 'logout',
+            name: 'Logout',
+            path: '/student/logout',
+        },
+        
     ];
 
-    const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        navigate('/', { replace: true });
-        window.history.pushState(null, null, '/');
-        window.addEventListener('popstate', function (event) {
-            navigate('/', { replace: true });
-        });
-    };
+    // const handleLogout = () => {
+    //     localStorage.removeItem('authToken');
+    //     navigate('/', { replace: true });
+    //     window.history.pushState(null, null, '/');
+    //     window.addEventListener('popstate', function (event) {
+    //         navigate('/', { replace: true });
+    //     });
+    // };
 
     return (
-        <div className="container">
-            <div className="sidebar">
-                <div className="header">
-                    <img src={Jmclogo} alt="" className="logo" />
-                    <div className="college-info">
-                        <span className="college-name">JAMAL MOHAMED COLLEGE<br /></span>
-                        <span className="college-type">(Autonomous)<br /></span>
-                        <span className="college-location">TIRUCHIRAPPALLI - 620 020<br /></span>
-                    </div>
-                    <div className="staff-id">{staffId}</div>
+        <div className="layout-container">
+            <div className="layout-sidebar">
+                <div className="layout-header">
+                    <img src={Jmclogo} alt="" className="layout-logo" />
+                    <div className="layout-college-info">
+                        <span className="layout-college-name">JAMAL MOHAMED COLLEGE<br /></span>
+                        <span className="layout-college-type">(Autonomous)<br /></span>
+                        <span className="layout-college-location">TIRUCHIRAPPALLI - 620 020 .<br /></span>
+                    </div>  
                 </div>
                 {menus.map((item, index) => (
                     <NavLink
                         key={index}
                         to={item.path}
-                        className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}
+                        className={({ isActive }) => `layout-menu-item ${isActive ? 'layout-active' : ''}`}
                     >
                         <ion-icon name={item.icon}></ion-icon>
-                        <label className="menu-label">{item.name}</label>
+                        <label className="layout-menu-label">{item.name}</label>
                     </NavLink>
                 ))}
-                <button onClick={handleLogout} className="logout-btn">
+                {/* <button onClick={handleLogout} className="layout-logout-btn">
                     <ion-icon name="log-out"></ion-icon>
-                    <label className="menu-label">Logout</label>
-                </button>
+                    <label className="layout-menu-label">Logout</label>
+
+                </button> */}
             </div>
-            <div className="content">
-                <div className="content-inner">
+            <div className="layout-content">
+                <div className="layout-top-div">
+                    <div className="layout-top-element">
+                        <div><p className="layout-staff_id"> <span class="staff">Staff Id :</span> {staffId}</p></div>
+                    </div>
+                </div>
+                <div className="layout-content-inner">
                     <Outlet />
                 </div>
             </div>

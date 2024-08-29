@@ -15,8 +15,8 @@
 }
 
 .log-left-container {
-    width: 320px;
-    height: 320px;
+    width: 450px;
+    height: 450px;
     padding: 10px;
     border-radius: 10px 0px 0px 10px;
     border-right: 2px solid rgb(26, 112, 30);
@@ -50,18 +50,18 @@
 
 .log-clg-span {
     display: block;
-    font-size: 18px;
+    font-size: 23px;
     font-weight: bold ;
 }
 
 .log-right-container {
-    width: 320px;
-    height: 320px;
+    width: 450px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 40px;
     border-radius: 0px 10px 10px 0px;
     background-color: white;
 }
@@ -75,10 +75,10 @@
 
 .log-desc-input {
     width: 75%;
-    height: 40px;
+    height: 50px;
     border-radius: 5px;
     border: 1px solid black;
-    font-size: 17px;
+    font-size: 19px;
     padding-left: 10px;
 }
 
@@ -88,7 +88,7 @@
 
 .log-desc-btn {
     width: 77%;
-    height: 40px;
+    height: 50px;
     background-color: rgb(26, 112, 30);
     font-size: 18px;
     font-weight: bold;
@@ -97,5 +97,5 @@
     border: none;
     cursor: pointer;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
