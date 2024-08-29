@@ -67,7 +67,7 @@
 }
 
 .log-desc-para {
-    font-size: 20px;
+    font-size: 25px;
     color:rgb(26, 112, 30);
     font-weight: bold;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -90,12 +90,22 @@
     width: 77%;
     height: 50px;
     background-color: rgb(26, 112, 30);
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: white;
     border-radius: 5px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     cursor: pointer;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     letter-spacing: 1px;
+}
+
+.log-fa-fa-icons
+{
+    color:white;
+    font-size: 18px;
+    width: 30px;
 }

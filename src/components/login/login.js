@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 import './login.css';
 import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
@@ -41,7 +43,7 @@ function Login() {
                     <div className='log-clg-desc'>
                         <span className='log-clg-span'>JAMAL MOHAMED COLLEGE</span>
                         <span className='log-clg-span'>( AUTONOMOUS )</span>
-                        <span className='log-clg-span'>TRICHY - 620 020 .</span>
+                        <span className='log-clg-span'>TIRUCHIRAPPALLI - 620 020 .</span>
                     </div>
                 </div>
             </div>
@@ -64,7 +66,10 @@ function Login() {
                     required 
                 />
                 <a href="www.google.com" className="log-desc-anchor">Forgot Password</a>
-                <button className="log-desc-btn" onClick={handleLogin}>LOGIN</button>
+                <button className="log-desc-btn" onClick={handleLogin}>
+                    <FontAwesomeIcon icon={faLock} className='log-fa-fa-icons' />
+                    <div className='log-login-desc'>LOGIN</div>
+                </button>
             </div>
         </div>
     );

@@ -1,40 +1,41 @@
 import React from 'react';
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faPlusCircle, faUsers, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
 
 function Layout() 
 {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { staffId } = useParams();
 
     let menus = [
         {
-            icon: 'menu',
+            icon: faTachometerAlt, // Updated icon to Font Awesome
             name: 'Dashboard',
             path: `/staff/${staffId}/dashboard`,
         },
         {
-            icon: 'add-circle',
+            icon: faPlusCircle, // Updated icon to Font Awesome
             name: 'Mark',
             path: `/staff/${staffId}/mark`,
         },
         {
-            icon: 'people',
+            icon: faUsers, // Updated icon to Font Awesome
             name: 'Status',
             path: '/student/status',
         },
         {
-            icon: 'add-circle',
+            icon: faPlusCircle, // Updated icon to Font Awesome
             name: 'GuideLines',
             path: '/student/guidelines',
         },
         {
-            icon: 'logout',
+            icon: faSignOutAlt, // Updated icon to Font Awesome
             name: 'Logout',
             path: '/student/logout',
         },
-        
     ];
 
     // const handleLogout = () => {
@@ -63,7 +64,7 @@ function Layout()
                         to={item.path}
                         className={({ isActive }) => `layout-menu-item ${isActive ? 'layout-active' : ''}`}
                     >
-                        <ion-icon name={item.icon}></ion-icon>
+                        <FontAwesomeIcon icon={item.icon} className="lay-fa-fa-icons"/>
                         <label className="layout-menu-label">{item.name}</label>
                     </NavLink>
                 ))}
@@ -74,11 +75,11 @@ function Layout()
                 </button> */}
             </div>
             <div className="layout-content">
-                <div className="layout-top-div">
+                {/* <div className="layout-top-div">
                     <div className="layout-top-element">
                         <div><p className="layout-staff_id"> <span class="staff">Staff Id :</span> {staffId}</p></div>
                     </div>
-                </div>
+                </div> */}
                 <div className="layout-content-inner">
                     <Outlet />
                 </div>

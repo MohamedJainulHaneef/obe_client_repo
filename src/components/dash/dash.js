@@ -32,7 +32,7 @@ function Dash()
                         <div className="box-text-category">{user.category}</div>
                         <div class="box-text">{user.dept_id}</div>
                         <div className="box-text">{user.course_code}</div>
-                        <div className="box-text">SECTION : {user.section}</div>
+                        <div className="box-text">{user.section}</div>
                     </button >
                 ))}
             </div>
