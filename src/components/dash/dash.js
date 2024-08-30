@@ -27,12 +27,9 @@ function Dash()
     }, [staffId]);
 
     const markpage = async () => 
-        {
-           
-                    navigate(`staff/${staffId}/markpage`);
-               
-            
-        };
+    {
+        navigate(`staff/${staffId}/markpage`);
+    };
 
     return (
 
