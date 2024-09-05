@@ -13,11 +13,10 @@ function App() {
                 <Route path="/staff/:staffId/*" element={<Layout />} >
                     <Route path="dashboard" element={<Dash />} />
                     <Route path="markpage" element={<Mark />} />
-
                 </Route>
             </Routes>
         </Router >
-    );
+    )
 }
 
 export default App;

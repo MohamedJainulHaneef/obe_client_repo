@@ -6,11 +6,11 @@ import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login()  
+{
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
     const handleLogin = async () => 
     {
         try {
@@ -20,7 +20,6 @@ function Login() {
             });
 
             if (response.data.success) {
-                // alert(`Login Successful, ${staffId}`);
                 navigate(`staff/${staffId}/dashboard`);
             } 
             else {
