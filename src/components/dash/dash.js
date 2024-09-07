@@ -12,9 +12,9 @@ function Dash ()
 
     useEffect(() => 
     {
-        const fetchUsersAndDonors = async () => {
+        const fetchCourseMapDetails = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/coursemapp', {
+                const response = await axios.post('http://localhost:5000/coursemap', {
                     staff_id: staffId
                 });
                 setCourseData(response.data);
@@ -23,7 +23,7 @@ function Dash ()
                 console.log('Error fetching data:', err);
             }
         };
-        fetchUsersAndDonors();
+        fetchCourseMapDetails();
     }, [staffId] );
 
     const markpage = (user) => 
