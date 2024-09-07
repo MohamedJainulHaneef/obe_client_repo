@@ -4,11 +4,9 @@ import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawes
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
-// import { useNavigate } from 'react-router-dom';
 
 function Layout() 
 {
-    // const navigate = useNavigate();
     const { staffId } = useParams();
 
     let menus = [
@@ -39,15 +37,6 @@ function Layout()
         },
     ];
 
-    // const handleLogout = () => {
-    //     localStorage.removeItem('authToken');
-    //     navigate('/', { replace: true });
-    //     window.history.pushState(null, null, '/');
-    //     window.addEventListener('popstate', function (event) {
-    //         navigate('/', { replace: true });
-    //     });
-    // };
-
     return (
         <div className="layout-container">
             <div className="layout-sidebar">
@@ -61,7 +50,7 @@ function Layout()
                 </div>
                 {menus.map((item, index) => (
                     <NavLink
-                        key={index}
+                        key={index} 
                         to={item.path}
                         className={({ isActive }) => `layout-menu-item ${isActive ? 'layout-active' : ''}`}
                     >
@@ -69,10 +58,6 @@ function Layout()
                         <label className="layout-menu-label">{item.name}</label>
                     </NavLink>
                 ))}
-                {/* <button onClick={handleLogout} className="layout-logout-btn">
-                    <ion-icon name="log-out"></ion-icon>
-                    <label className="layout-menu-label">Logout</label>
-                </button> */}
             </div>
             <div className="layout-content">
                 <div className="layout-content-inner">

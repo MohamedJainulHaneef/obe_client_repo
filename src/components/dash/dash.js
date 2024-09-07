@@ -4,51 +4,61 @@ import axios from "axios";
 import './dash.css';
 import { useParams } from 'react-router-dom';
 
-function Dash() 
+function Dash ()
 {
     const { staffId } = useParams();
-    const [users, setUsers] = useState([]);
     const navigate = useNavigate();
+    const [courseData, setCourseData] = useState([]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         const fetchUsersAndDonors = async () => {
             try {
-                const usersResponse = await axios.get('http://localhost:5000/coursemap');
-                const usersData = usersResponse.data.filter(user => user.staff_id === staffId);
-                setUsers(usersData);
+                const response = await axios.post('http://localhost:5000/coursemapp', {
+                    staff_id: staffId
+                });
+                setCourseData(response.data);
             } 
             catch (err) {
-                console.log(err);
+                console.log('Error fetching data:', err);
             }
         };
         fetchUsersAndDonors();
-    }, [staffId]);
+    }, [staffId] );
 
-    const markpage = (user) => {
+    const markpage = (user) => 
+    {
         navigate(`/staff/${staffId}/markpage`, { state: { 
             deptName: user.dept_name, 
             section: user.section, 
-            semester: user.semester 
-        }});
-    };
+            semester: user.semester,
+            classDetails: user.class,
+            courseCode: user.course_code,
+            courseTitle: user.course_title
+        }})
+    }
     
-
     return (
+
         <div className="dash-main">
             <div className="dash-layout-top-div">
                 <p className="dash-layout-staff-id"> <span className="dash-staff">Staff Id :</span> {staffId}</p>
             </div>
             <div className="dash-content-box">
-                {users.map((user) => (
-                    <button key={user.s_no} className="dash-subject-box" onClick={() => markpage(user)} >
+                {courseData.map((user, index) => (
+                    <button 
+                        key={index} 
+                        className="dash-subject-box" 
+                        onClick={() => markpage(user)} >
                         <div className="dash-box-text-category">{user.category}</div>
                         <div className="dash-box-text">{user.dept_name}</div>
-                        <div className="dash-box-text">{user.class} ({user.section}) - Semester : {user.semester}</div>
+                        <div className="dash-box-text">{user.class} ( {user.section} ) - Semester : {user.semester}</div>
                         <div className="dash-box-text">{user.course_code}</div>
-                    </button >
+                    </button>
                 ))}
             </div>
         </div>
+        
     )
 }
 

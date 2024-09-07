@@ -92,17 +92,6 @@
     margin-left: 10px;
 }
 
-.layout-logout-btn {
-    display: flex;
-    align-items: center;
-    height: 45px;
-    padding-left: 5px;
-    font-size: 1.layout-25rem;
-    transition: all 0.layout-8s ease;
-    color: #ffffff;
-    background-color: none;
-}
-
 .layout-logout-btn:hover {
     background-color: rgba(0, 0, 0, 0.layout-5);
     border-radius: 5px;

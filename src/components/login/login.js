@@ -6,7 +6,7 @@ import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Login()  
+function Login()
 {
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
