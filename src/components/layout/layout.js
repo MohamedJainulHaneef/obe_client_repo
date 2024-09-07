@@ -4,6 +4,7 @@ import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawes
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
+// import { useNavigate } from 'react-router-dom';
 
 function Layout() 
 {
@@ -32,9 +33,9 @@ function Layout()
             path: '/student/guidelines',
         },
         {
-            icon: faSignOutAlt, // Updated icon to Font Awesome
+            icon: faSignOutAlt,
             name: 'Logout',
-            path: '/student/logout',
+            path: '/',
         },
     ];
 
@@ -71,7 +72,6 @@ function Layout()
                 {/* <button onClick={handleLogout} className="layout-logout-btn">
                     <ion-icon name="log-out"></ion-icon>
                     <label className="layout-menu-label">Logout</label>
-
                 </button> */}
             </div>
             <div className="layout-content">

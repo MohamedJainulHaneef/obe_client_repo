@@ -17,7 +17,7 @@ function Login()
             const response = await axios.post('http://localhost:5000/login', {
                 staff_id: staffId,
                 staff_pass: password,
-            });
+            }); 
 
             if (response.data.success) {
                 navigate(`staff/${staffId}/dashboard`);

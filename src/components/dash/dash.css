@@ -1,43 +1,40 @@
-
-
-.dummy_main {
+* {
+    margin: 0px;
+    padding: 0px;
+}
+.dash-main {
     width: 100%;
     height: 100%;
-    /* display: flex;
-    justify-content: center;
-    position: sticky;
-    margin-top: 70px; */
 }
 
-.subject-box {
+.dash-subject-box {
     border: 1px solid black;
     border-radius: 10px;
-    padding-left: 20px;
     width: 30%;
-    margin-bottom: 25px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.dash-3s;
+    margin-left: 0px;
+    margin: 0 auto;
     padding: 10px;
     background-color: white;
 }
 
-.subject-box:hover {
+.dash-subject-box:hover {
     box-shadow: 5px 5px 5px rgb(172, 172, 172);
 }
 
-.box:hover {
+.dash-box:hover {
     border: 3px solid rgb(0, 0, 0);
-    /* box-shadow: 1px 1px 15px 1px rgb(186, 186, 186); */
 }
 
-.box-text {
+.dash-box-text {
     text-transform: uppercase;
     font-weight: bold;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.box-text-category {
+.dash-box-text-category {
     text-transform: uppercase;
     font-weight: bold;
     padding-top: 5px;
@@ -45,21 +42,17 @@
     color: green;
 }
 
-.content-box {
+.dash-content-box {
     border: 1px solid black;
     border-radius: 10px;
     width: 80%;
-    height: 80%;
-    padding: 20px 20px 0px 20px;
+    padding: 30px 20px;
     margin: 0 auto;
-    margin-bottom: 20px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     box-shadow: 2px  4px 5px rgb(183, 183, 183);
 }
 
-.layout-top-div {
+.dash-layout-top-div {
     width: 80%;
     height: 80%;
     padding: 20px 0px;

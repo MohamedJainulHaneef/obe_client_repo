@@ -13,9 +13,7 @@ function Dash()
     useEffect(() => {
         const fetchUsersAndDonors = async () => {
             try {
-                console.log(staffId)
                 const usersResponse = await axios.get('http://localhost:5000/coursemap');
-
                 const usersData = usersResponse.data.filter(user => user.staff_id === staffId);
                 setUsers(usersData);
             } 
@@ -26,29 +24,32 @@ function Dash()
         fetchUsersAndDonors();
     }, [staffId]);
 
-    const markpage = async () => 
-    {
-        navigate(`staff/${staffId}/markpage`);
+    const markpage = (user) => {
+        navigate(`/staff/${staffId}/markpage`, { state: { 
+            deptName: user.dept_name, 
+            section: user.section, 
+            semester: user.semester 
+        }});
     };
+    
 
     return (
-
-        <div className="dummy_main">
-            <div className="layout-top-div">
-                <p className="layout-staff_id"> <span class="staff">Staff Id :</span> {staffId}</p>
+        <div className="dash-main">
+            <div className="dash-layout-top-div">
+                <p className="dash-layout-staff-id"> <span className="dash-staff">Staff Id :</span> {staffId}</p>
             </div>
-            <div class="content-box">
+            <div className="dash-content-box">
                 {users.map((user) => (
-                    <button key={user.s_no} class="subject-box" onClick={markpage} >
-                        <div className="box-text-category">{user.category}</div>
-                        <div class="box-text">{user.dept_id}</div>
-                        <div className="box-text">{user.course_code}</div>
-                        <div className="box-text">SECTION : {user.section}</div>
+                    <button key={user.s_no} className="dash-subject-box" onClick={() => markpage(user)} >
+                        <div className="dash-box-text-category">{user.category}</div>
+                        <div className="dash-box-text">{user.dept_name}</div>
+                        <div className="dash-box-text">{user.class} ({user.section}) - Semester : {user.semester}</div>
+                        <div className="dash-box-text">{user.course_code}</div>
                     </button >
                 ))}
             </div>
         </div>
-    );
+    )
 }
 
 export default Dash;
