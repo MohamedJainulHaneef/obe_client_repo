@@ -1,47 +1,54 @@
-import  {useEffect , React} from 'react';
+import  {useEffect , React, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams  } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
 
 function Layout() 
 {
     const { staffId } = useParams();
-    useEffect(() => {
-        axios.get(`http://localhost:5000/api/scope/:${staffId}`)
+    const [ user, setUsers ] = useState([]);
+    useEffect(() => 
+    {
+        axios.get(`http://localhost:5000/scope/${staffId}`)
             .then(response => {
                 setUsers(response.data);
-
             })
             .catch(err => console.log(err));
-    }, []);
+    }, [ staffId ]);
 
-    let menus = [
+    const menus = [
         {
             icon: faHome, 
             name: 'Dashboard',
             path: `/staff/${staffId}/dashboard`,
+            show: user && user.dashboard === 1,
         },
         {
             icon: faFileAlt, 
             name: 'Mark',
             path: `/staff/${staffId}/mark`,
+            show: user && user.mark_entry === 1,
         },
         {
             icon: faExchangeAlt, 
-            name: 'Status',
+            name: 'Report',
             path: '/student/status',
+            show: user && user.report === 1,
         },
         {
             icon: faKey, 
-            name: 'GuideLines',
+            name: 'Upload Files',
             path: '/student/guidelines',
+            show: user && user.upload_files === 1,
         },
         {
             icon: faSignOutAlt,
             name: 'Logout',
             path: '/',
+            show: user && user.logout === 1,
         },
     ];
 
@@ -56,7 +63,9 @@ function Layout()
                         <span className="layout-college-location">TIRUCHIRAPPALLI - 620 020 .<br /></span>
                     </div>  
                 </div>
-                {menus.map((item, index) => (
+                {menus
+                .filter(item => item.show)
+                .map((item, index) => (
                     <NavLink
                         key={index} 
                         to={item.path}
