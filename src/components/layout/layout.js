@@ -1,4 +1,4 @@
-import React from 'react';
+import  {useEffect , React} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
@@ -8,6 +8,14 @@ import './layout.css';
 function Layout() 
 {
     const { staffId } = useParams();
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/scope/:${staffId}`)
+            .then(response => {
+                setUsers(response.data);
+
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     let menus = [
         {
