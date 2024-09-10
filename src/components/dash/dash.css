@@ -13,9 +13,9 @@
     width: 30%;
     cursor: pointer;
     transition: 0.dash-3s;
-    margin-left: 0px;
-    margin: 0 auto;
     padding: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     background-color: white;
 }
 
@@ -46,8 +46,9 @@
     border: 1px solid black;
     border-radius: 10px;
     width: 80%;
-    padding: 30px 20px;
-    margin: 0 auto;
+    padding: 25px 20px;
+    margin:0 auto;
+    margin-bottom: 40px;
     box-shadow: 2px  4px 5px rgb(183, 183, 183);
 }
 

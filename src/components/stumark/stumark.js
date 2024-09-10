@@ -60,7 +60,7 @@ function Stumark() {
         return stuData.length > 0 ? stuData.map((student, index) => (
             <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{student.stu_regno}</td>
+                <td>{student.reg_no}</td>
                 <td>{student.stu_name}</td>
                 {activeSection === "CIA-1" || activeSection === "CIA-2" ? (
                     <>

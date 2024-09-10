@@ -29,10 +29,10 @@ function Dash ()
     const markpage = (user) => 
     {
         navigate(`/staff/${staffId}/markpage`, { state: { 
-            deptName: user.dept_name, 
+            deptName: user.branch, 
             section: user.section, 
             semester: user.semester,
-            classDetails: user.class,
+            classDetails: user.degree,
             courseCode: user.course_code,
             courseTitle: user.course_title
         }})
@@ -51,8 +51,8 @@ function Dash ()
                         className="dash-subject-box" 
                         onClick={() => markpage(user)} >
                         <div className="dash-box-text-category">{user.category}</div>
-                        <div className="dash-box-text">{user.dept_name}</div>
-                        <div className="dash-box-text">{user.class} ( {user.section} ) - Semester : {user.semester}</div>
+                        <div className="dash-box-text">{user.branch}</div>
+                        <div className="dash-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
                         <div className="dash-box-text">{user.course_code}</div>
                     </button>
                 ))}
