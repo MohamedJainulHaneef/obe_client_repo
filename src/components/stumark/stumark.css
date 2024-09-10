@@ -10,6 +10,7 @@
 }
 
 .mark-body {
+    /* border: 2px solid rgb(0, 255, 255);  */
     padding: 20px;
 }
 
@@ -28,22 +29,24 @@
 }
 
 .mark-header-title2 {
+    margin-top: 10px;
     width: 100%;
     height: 80px;
-    margin-top: 10px;
-    background-color: cyan;
+    background-color: rgb(66, 178, 72); /* Using RGB for cyan */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5px;
+    font-weight: bold;
+    color: white;
 }
 
 .mark-title-content {
     width: 100%;
     height: 100px;
-    margin-top: 10px;
     display: flex;
+    margin: 10px;
 }
 
 .mark-header-details1 {
@@ -53,6 +56,37 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     font-weight: bold;
+}
+
+.mark-dropdown-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.mark-dropdown {
+    border-radius: 5px;
+    background-color: rgb(13, 124, 228);
+    color: white;
+    padding:20px;
+    width: 150px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+}
+
+.mark-dropdown option {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+
+}
+
+.mark-dropdown:hover {
+    background-color: rgb(9, 61, 113);
 }
 
 .mark-button-group {
@@ -77,24 +111,31 @@
     border-radius: 5px;
     background-color: rgb(13, 124, 228);
     color: white;
-    padding: 10px 20px;
+    padding: 10px;
     font-weight: bold;
+    font-size: 16px;
     border: none;
+    width: 200px;
+}
+.mark-button-save:hover {
+    background-color: rgb(9, 61, 113);
 }
 
 .mark-button-saveconfirm {
     border-radius: 5px;
     background-color: rgb(13, 124, 228);
     color: white;
-    padding: 10px 20px;
+    padding: 10px;
     font-weight: bold;
+    font-size: 16px;
     border: none;
+    width: 200px;
+
 }
 
 .mark-button-saveconfirm:hover {
     background-color: rgb(222, 87, 87);
 }
-
 
 .mark-button.active {
     background-color: rgb(9, 61, 113);
@@ -113,15 +154,19 @@ table {
 }
 
 th {
-    background-color: cyan;
+    background-color: rgb(66, 178, 72);
     text-align: center;
     padding: 10px;
+    font-size: 18px;
+    color: white;
 }
 
-td,
-th {
-    border: 1px solid #ddd;
-    padding: 8px;
+td, th {
+    border: 0.5px solid black;
+    padding: 10px;
+    width: 50px;
+    font-weight: bold;
+    text-align: center;
 }
 
 table input[type="text"] {
@@ -129,8 +174,8 @@ table input[type="text"] {
     width: 100%;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 2px solid #ddd;
-    padding: 5px;
+    border: 1px solid gray;
+    padding: 10px;
     font-size: 14px;
 }
 
@@ -138,7 +183,7 @@ table input[type="text"] {
     width: 100%;
     margin-top: 20px;
     display: flex;
-    justify-content: end;
-    gap: 20px;
+    justify-content:center; 
+    gap: 900px;
     padding: 20px;
 }

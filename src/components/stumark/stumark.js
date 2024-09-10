@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./stumark.css";
 import axios from "axios";
+import "./stumark.css";
 import { useLocation } from 'react-router-dom';
 
-function Stumark() 
-{
+function Stumark() {
     const location = useLocation();
     const [stuData, setStuData] = useState([]);
+    const [activeSection, setActiveSection] = useState(null);
     const { deptName, section, semester, classDetails, courseCode, courseTitle } = location.state || {};
 
-    useEffect(() => 
-    {
+    useEffect(() => {
         const stuDetails = async () => {
             try {
                 const response = await axios.post('http://localhost:5000/studentdetails', {
@@ -18,15 +17,77 @@ function Stumark()
                     stu_section: section,
                     stu_semester: semester
                 });
-
                 setStuData(response.data);
-            } 
-            catch (err) {
+            } catch (err) {
                 console.log('Error fetching data:', err);
             }
         };
         stuDetails();
     }, [classDetails, section, semester]);
+
+    const handleSectionChange = (event) => {
+        setActiveSection(event.target.value);
+    };
+
+    // Determine column headers and spans based on the active section
+    const renderTableHeaders = () => {
+        if (activeSection === "CIA-1" || activeSection === "CIA-2") {
+            return (
+                <>
+                    <th>LOT</th>
+                    <th>MOT</th>
+                    <th>HOT</th>
+                    <th>TOTAL</th>
+                </>
+            );
+        }
+        if (activeSection === "ESE") {
+            return (
+                <>
+                    <th>LOT</th>
+                    <th>MOT</th>
+                    <th>HOT</th>
+                    <th>TOTAL</th>
+                </>
+            );
+        }
+        return (
+            <th>LOT</th>
+        );
+    };
+
+    const renderTableData = () => {
+        return stuData.length > 0 ? stuData.map((student, index) => (
+            <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{student.stu_regno}</td>
+                <td>{student.stu_name}</td>
+                {activeSection === "CIA-1" || activeSection === "CIA-2" ? (
+                    <>
+                        <td><input type="text" /></td>
+                        <td><input type="text" /></td>
+                        <td><input type="text" /></td>
+                        <td><input type="text" /></td>
+                    </>
+                ) : activeSection === "ESE" ? (
+                    <>
+                        <td><input type="text" /></td>
+                        <td><input type="text" /></td>
+                        <td><input type="text" /></td>
+                        <td><input type="text" /></td>
+                    </>
+                ) : (
+                    <td><input type="text" /></td>
+                )}
+            </tr>
+        )) : (
+            <tr>
+                <td colSpan={activeSection === "CIA-1" || activeSection === "CIA-2" ? 7 : (activeSection === "ESE" ? 5 : 4)}>
+                    No student data available.
+                </td>
+            </tr>
+        );
+    };
 
     return (
         <div className="mark-main">
@@ -55,29 +116,46 @@ function Stumark()
                         <span>Course Title: {courseTitle}</span>
                     </div>
                 </div>
-                <div className="student-table">
-                    <h3>Student List</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Register Number</th>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stuData.length > 0 ? stuData.map((student, index) => (
-                                <tr key={index}>
-                                    <td>{student.stu_regno}</td>
-                                    <td>{student.stu_name}</td>
-                                </tr>
-                            )) : (
-                                <tr>
-                                    <td colSpan="2">No student data available.</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                <div className="mark-dropdown-group">
+                    <select
+                        value={activeSection || ''}
+                        onChange={handleSectionChange}
+                        className="mark-dropdown"
+                    >
+                        <option value="">Select</option>
+                        <option value="CIA-1">CIA-1</option>
+                        <option value="CIA-2">CIA-2</option>
+                        <option value="ASS-1">ASS-1</option>
+                        <option value="ASS-2">ASS-2</option>
+                        <option value="ESE">ESE</option>
+                    </select>
                 </div>
+                {activeSection && (
+                    <div className="student-table">
+                        <h3>Student List for {activeSection}</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Regno</th>
+                                    <th>Name</th>
+                                    {renderTableHeaders()}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {renderTableData()}
+                            </tbody>
+                        </table>
+                        <div className="mark-button-head">
+                            <button type="submit" className="mark-button-save">
+                                SAVE
+                            </button>
+                            <button type="submit" className="mark-button-saveconfirm">
+                                SAVE & CONFIRM
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
