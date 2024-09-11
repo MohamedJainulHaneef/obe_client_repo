@@ -3,7 +3,8 @@ import axios from "axios";
 import "./stumark.css";
 import { useLocation } from 'react-router-dom';
 
-function Stumark() {
+function Stumark() 
+{
     const location = useLocation();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState(null);
@@ -30,7 +31,6 @@ function Stumark() {
         setActiveSection(event.target.value);
     };
 
-    // Determine column headers and spans based on the active section
     const renderTableHeaders = () => {
         if (activeSection === "CIA-1" || activeSection === "CIA-2") {
             return (
@@ -101,7 +101,7 @@ function Stumark() {
                             3.69 out of 4.0
                         </span>
                         <span>Affiliated to Bharathidasan University</span>
-                        <h3>TIRUCHIRAPPALLI-620 020</h3>
+                        <h3>TIRUCHIRAPPALLI - 620 020 .</h3>
                     </div>
                 </div>
                 <div className="mark-header-title2">
@@ -110,11 +110,26 @@ function Stumark() {
                 </div>
                 <div className="mark-title-content">
                     <div className="mark-header-details1">
-                        <span>Class: {classDetails} - {section}</span>
-                        <span>Semester: {semester}</span>
-                        <span>Course Code: {courseCode}</span>
-                        <span>Maximum Marks: 100</span>
-                        <span>Course Title: {courseTitle}</span>
+                        <div className="mark-course-details">
+                            <span className="mark-course-header">Class</span>
+                            :
+                            <span className="mark-course-footer">{classDetails} - {section}</span>
+                        </div>
+                        <div className="mark-course-details">
+                            <span className="mark-course-header">Semester</span>
+                            :
+                            <span className="mark-course-footer">{semester}</span>
+                        </div>
+                        <div className="mark-course-details">
+                            <span className="mark-course-header">Course Code</span>
+                            :
+                            <span className="mark-course-footer">{courseCode}</span>
+                        </div>
+                        <div className="mark-course-details">
+                            <span className="mark-course-header">Course Title</span>
+                            :
+                            <span className="mark-course-footer">{courseTitle}</span>
+                        </div>
                     </div>
                 </div>
                 <div className="mark-dropdown-group">
@@ -124,16 +139,15 @@ function Stumark() {
                         className="mark-dropdown"
                     >
                         <option value="">Select</option>
-                        <option value="CIA-1">CIA-1</option>
-                        <option value="CIA-2">CIA-2</option>
-                        <option value="ASS-1">ASS-1</option>
-                        <option value="ASS-2">ASS-2</option>
+                        <option value="CIA-1">CIA - 1</option>
+                        <option value="CIA-2">CIA - 2</option>
+                        <option value="ASS-1">ASS - 1</option>
+                        <option value="ASS-2">ASS - 2</option>
                         <option value="ESE">ESE</option>
                     </select>
                 </div>
                 {activeSection && (
                     <div className="student-table">
-                        <h3>Student List for {activeSection}</h3>
                         <table>
                             <thead>
                                 <tr>

@@ -7,8 +7,9 @@
 }
 
 .layout-sidebar {
-    background-image: linear-gradient(to bottom, 
-    rgb(26, 112, 30), rgb(18, 144, 163));
+    /* background-image: linear-gradient(to bottom, 
+    rgb(26, 112, 30), rgb(18, 144, 163)); */
+    background-color: #057252;
     width: 20rem;
     padding: 0.layout-75rem;
     display: flex;
@@ -109,4 +110,5 @@
 
 .lay-fa-fa-icons {
     margin-left: 15px;
+    width: 20px;
 }
