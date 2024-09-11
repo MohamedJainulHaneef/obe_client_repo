@@ -34,7 +34,9 @@ function Dash ()
             semester: user.semester,
             classDetails: user.degree,
             courseCode: user.course_code,
-            courseTitle: user.course_title
+            courseTitle: user.course_title,
+            courseId: user.course_id,
+            category: user.category
         }})
     }
     

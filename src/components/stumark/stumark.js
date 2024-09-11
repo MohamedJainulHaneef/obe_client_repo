@@ -7,15 +7,16 @@ function Stumark() {
     const location = useLocation();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState(null);
-    const { deptName, section, semester, classDetails, courseCode, courseTitle } = location.state || {};
+    const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
 
     useEffect(() => {
         const stuDetails = async () => {
             try {
                 const response = await axios.post('http://localhost:5000/studentdetails', {
-                    dept_name: classDetails,
+                    course_id: courseId,
                     stu_section: section,
-                    stu_semester: semester
+                    stu_semester: semester,
+                    stu_category: category
                 });
                 setStuData(response.data);
             } catch (err) {
@@ -23,7 +24,7 @@ function Stumark() {
             }
         };
         stuDetails();
-    }, [classDetails, section, semester]);
+    }, [courseId, section, semester, category]);
 
     const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
