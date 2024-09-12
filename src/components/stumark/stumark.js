@@ -17,15 +17,18 @@ function Stumark()
                     course_id: courseId,
                     stu_section: section,
                     stu_semester: semester,
-                    stu_category: category
+                    stu_category: category,
+                    stu_course_code: courseCode
                 });
+                console.log(response.data.reg_no);
                 setStuData(response.data);
-            } catch (err) {
+            } 
+            catch (err) {
                 console.log('Error fetching data:', err);
             }
         };
         stuDetails();
-    }, [courseId, section, semester, category]);
+    }, [courseId, section, semester, category, courseCode]);
 
     const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
