@@ -2,7 +2,7 @@ import { useEffect, useState, React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './courselist.css';
-import { useParams , Outlet } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function CourseList ()
 {
@@ -42,20 +42,20 @@ function CourseList ()
     
     return (
 
-        <div className="dash-main">
-            <div className="dash-layout-top-div">
-                <p className="dash-layout-staff-id"> <span className="dash-staff">Staff Id :</span> {staffId}</p>
+        <div className="course-main">
+            <div className="course-layout-top-div">
+                <p className="course-layout-staff-id"> <span className="course-staff">Staff Id :</span> {staffId}</p>
             </div>
-            <div className="dash-content-box">
+            <div className="course-content-box">
                 {courseData.map((user, index) => (
                     <button 
                         key={index} 
-                        className="dash-subject-box" 
+                        className="course-subject-box" 
                         onClick={() => markpage(user)} >
-                        <div className="dash-box-text-category">{user.category}</div>
-                        <div className="dash-box-text">{user.branch}</div>
-                        <div className="dash-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
-                        <div className="dash-box-text">{user.course_code}</div>
+                        <div className="course-box-text-category">{user.category}</div>
+                        <div className="course-box-text">{user.branch}</div>
+                        <div className="course-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
+                        <div className="course-box-text">{user.course_code}</div>
                     </button>
                 ))}
             </div>
