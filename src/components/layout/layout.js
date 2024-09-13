@@ -28,20 +28,20 @@ function Layout()
         },
         {
             icon: faFileAlt, 
-            name: 'Mark',
-            path: `/staff/${staffId}/mark`,
-            show: user && user.mark_entry === 1,
+            name: 'Course List',
+            path: `/staff/${staffId}/courselist`,
+            show: user && user.course_list === 1,
         },
         {
             icon: faExchangeAlt, 
             name: 'Report',
-            path: '/student/status',
+            path: `/staff/${staffId}/report`,
             show: user && user.report === 1,
         },
         {
             icon: faKey, 
             name: 'Upload Files',
-            path: '/student/guidelines',
+            path: `/staff/${staffId}/uploadfile`,
             show: user && user.upload_files === 1,
         },
         {

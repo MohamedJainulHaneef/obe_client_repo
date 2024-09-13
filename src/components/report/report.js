@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Dash ()
+function Report ()
 {
     return (
         <div>
-            Dashboard Content Goes Here
+            Report Content Goes Here
         </div>
     )
 }
 
-export default Dash;
+export default Report;
