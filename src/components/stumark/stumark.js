@@ -3,8 +3,7 @@ import axios from "axios";
 import "./stumark.css";
 import { useLocation } from 'react-router-dom';
 
-function Stumark() 
-{
+function Stumark() {
     const location = useLocation();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState(null);
@@ -22,7 +21,7 @@ function Stumark()
                 });
                 console.log(response.data.reg_no);
                 setStuData(response.data);
-            } 
+            }
             catch (err) {
                 console.log('Error fetching data:', err);
             }
@@ -32,66 +31,7 @@ function Stumark()
 
     const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
-    };
-
-    const renderTableHeaders = () => {
-        if (activeSection === "CIA-1" || activeSection === "CIA-2") {
-            return (
-                <>
-                    <th>LOT</th>
-                    <th>MOT</th>
-                    <th>HOT</th>
-                    <th>TOTAL</th>
-                </>
-            );
-        }
-        if (activeSection === "ESE") {
-            return (
-                <>
-                    <th>LOT</th>
-                    <th>MOT</th>
-                    <th>HOT</th>
-                    <th>TOTAL</th>
-                </>
-            );
-        }
-        return (
-            <th>LOT</th>
-        );
-    };
-
-    const renderTableData = () => {
-        return stuData.length > 0 ? stuData.map((student, index) => (
-            <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{student.reg_no}</td>
-                <td>{student.stu_name}</td>
-                {activeSection === "CIA-1" || activeSection === "CIA-2" ? (
-                    <>
-                        <td><input type="text" /></td>
-                        <td><input type="text" /></td>
-                        <td><input type="text" /></td>
-                        <td><input type="text" /></td>
-                    </>
-                ) : activeSection === "ESE" ? (
-                    <>
-                        <td><input type="text" /></td>
-                        <td><input type="text" /></td>
-                        <td><input type="text" /></td>
-                        <td><input type="text" /></td>
-                    </>
-                ) : (
-                    <td><input type="text" /></td>
-                )}
-            </tr>
-        )) : (
-            <tr>
-                <td colSpan={activeSection === "CIA-1" || activeSection === "CIA-2" ? 7 : (activeSection === "ESE" ? 5 : 4)}>
-                    No student data available.
-                </td>
-            </tr>
-        );
-    };
+    }
 
     return (
         <div className="mark-main">
@@ -142,41 +82,74 @@ function Stumark()
                         className="mark-dropdown"
                     >
                         <option value="">Select</option>
-                        <option value="CIA-1">CIA - 1</option>
-                        <option value="CIA-2">CIA - 2</option>
-                        <option value="ASS-1">ASS - 1</option>
-                        <option value="ASS-2">ASS - 2</option>
-                        <option value="ESE">ESE</option>
+                        <option value="1">CIA - 1</option>
+                        <option value="2">CIA - 2</option>
+                        <option value="3">ASS - 1</option>
+                        <option value="4">ASS - 2</option>
+                        <option value="5">ESE</option>
                     </select>
                 </div>
-                {activeSection && (
-                    <div className="student-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Regno</th>
-                                    <th>Name</th>
-                                    {renderTableHeaders()}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {renderTableData()}
-                            </tbody>
-                        </table>
-                        <div className="mark-button-head">
-                            <button type="submit" className="mark-button-save">
-                                SAVE
-                            </button>
-                            <button type="submit" className="mark-button-saveconfirm">
-                                SAVE & CONFIRM
-                            </button>
-                        </div>
+                <div>
+                    { activeSection && (
+                        <div>
+                            <table>
+                                <thead>
+                                    <th className="mark-sno">S. No.</th>
+                                    <th className="mark-reg">Reg. No.</th>
+                                    <th className="mark-name">Name</th>
+                                    <th className="mark-obe">LOT</th>
+                                    {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
+                                        <>
+                                            <th className="mark-obe">MOT</th>
+                                            <th className="mark-obe">HOT</th>
+                                            <th className="mark-obe">Total</th>
+                                        </>
+                                    )}
+                                </thead>
+                                <tbody>
+                                    { stuData.map((user,index) => (
+                                        <tr key={index}>
+                                            <td className="mark-sno">{index+1}</td>
+                                            <td className="mark-reg">{user.reg_no}</td>
+                                            <td>{user.stu_name}</td>
+                                            <td><input></input></td>
+                                            {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
+                                                <>
+                                                    <td>
+                                                        <input>
+                                                        </input>
+                                                        </td>
+                                                    <td>
+                                                        <input>
+                                                        </input>
+                                                        </td> 
+                                                    <td>
+                                                        <input>
+                                                        </input>
+                                                    </td>
+                                                </>
+                                            )}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="mark-button-head">
+                        <button type="submit" className="">
+                            SAVE
+                        </button>
+                        <button type="submit" className="">
+                            SAVE & CONFIRM
+                        </button>
                     </div>
-                )}
+                        </div>
+                        
+                    )}
+                    
+                </div>
+                
             </div>
         </div>
-    );
+    )
 }
 
 export default Stumark;

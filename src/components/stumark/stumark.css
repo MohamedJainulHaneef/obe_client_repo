@@ -100,100 +100,53 @@
     background-color: rgb(9, 61, 113);
 }
 
-.mark-button-group {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-.mark-button {
-    border-radius: 5px;
-    background-color: rgb(13, 124, 228);
-    color: white;
-    padding: 10px 40px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-}
-
-.mark-button-save {
-    border-radius: 5px;
-    background-color: rgb(13, 124, 228);
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    width: 200px;
-}
-.mark-button-save:hover {
-    background-color: rgb(9, 61, 113);
-}
-
-.mark-button-saveconfirm {
-    border-radius: 5px;
-    background-color: rgb(13, 124, 228);
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    width: 200px;
-}
-
-.mark-button-saveconfirm:hover {
-    background-color: rgb(222, 87, 87);
-}
-
-.mark-button.active {
-    background-color: rgb(9, 61, 113);
-}
-
-.mark-button:hover {
-    background-color: rgb(9, 61, 113);
-}
-
 table {
     width: 100%;
     margin-top: 20px;
+    margin-bottom: 15px;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 16px;
     text-align: left;
 }
  
 th {
     background-color: #057252;
     text-align: center;
-    padding: 10px;
-    font-size: 18px;
+    font-size: 20px;
     color: white;
 }
 
 td, th {
     border: 0.5px solid black;
     padding: 10px;
-    width: 50px;
+    height: 65px;
     font-weight: bold;
+} 
+
+tbody td input {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    background-color: rgba(185, 185, 185, 0.157);
+    border-radius: 7px;
+    padding-left: 10px;
+    border: 2px solid black;
+}
+
+.mark-sno {
+    width: 8%; 
     text-align: center;
 }
 
-table input[type="text"] {
-    background-color: white;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid gray;
-    padding: 10px;
-    font-size: 14px;
+.mark-reg {
+    width: 14%;
+    text-align: center;
 }
 
-.mark-button-head {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content:center; 
-    gap: 900px;
-    padding: 20px;
+.mark-name {
+    width:30%;
+}
+
+.mark-obe {
+    width: 12%;
 }
