@@ -3,13 +3,15 @@ import axios from "axios";
 import "./stumark.css";
 import { useLocation } from 'react-router-dom';
 
-function Stumark() {
+function Stumark() 
+{
     const location = useLocation();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState(null);
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         const stuDetails = async () => {
             try {
                 const response = await axios.post('http://localhost:5000/studentdetails', {
@@ -29,8 +31,57 @@ function Stumark() {
         stuDetails();
     }, [courseId, section, semester, category, courseCode]);
 
-    const handleSectionChange = (event) => {
+    const handleSectionChange = (event) => 
+    {
         setActiveSection(event.target.value);
+        setStuData(stuData.map(user => ({
+            ...user,
+            lot: '',
+            mot: '',
+            hot: '',
+            total: ''
+        })))
+    }
+
+    const handleInputChange = (registerNo, type, value) => 
+    {
+        setStuData(stuData.map(user =>
+            user.reg_no === registerNo ? { ...user, [type]: value } : user
+        ));
+        // console.log(registerNo, type, value, activeSection, courseCode);
+    };
+
+    const handleUpdateMark = async (e) =>
+    {
+        e.preventDefault();
+        const updates = {};
+        stuData.forEach( user => {
+            updates[user.reg_no] = {
+                lot: user.lot,
+                mot: user.mot,
+                hot: user.hot,
+                total: user.total
+            }
+        })
+
+        console.log('Sending Data:', { updates, activeSection, courseCode });
+
+        try {
+            const response = await axios.put('http://localhost:5000/updateMark', 
+            { 
+                updates, activeSection, courseCode
+            });
+            if (response.data.success) {
+                window.alert("Marks Submitted Successfully");
+            } 
+            else {
+                alert('Something went Wrong');
+            }
+        } 
+        catch (err) {
+            console.error('Error ', err);
+            window.alert("Something Went Wrong with the Server");
+        }
     }
 
     return (
@@ -90,41 +141,67 @@ function Stumark() {
                     </select>
                 </div>
                 <div>
-                    { activeSection && (
+                    {activeSection && (
                         <div>
                             <table>
                                 <thead>
-                                    <th className="mark-sno">S. No.</th>
-                                    <th className="mark-reg">Reg. No.</th>
-                                    <th className="mark-name">Name</th>
-                                    <th className="mark-obe">LOT</th>
-                                    {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
-                                        <>
-                                            <th className="mark-obe">MOT</th>
-                                            <th className="mark-obe">HOT</th>
-                                            <th className="mark-obe">Total</th>
-                                        </>
-                                    )}
+                                    <tr>
+                                        <th className="mark-sno">S. No.</th>
+                                        <th className="mark-reg">Reg. No.</th>
+                                        <th className="mark-name">Name</th>
+                                        <th className="mark-obe">LOT</th>
+                                        {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
+                                            <>
+                                                <th className="mark-obe">MOT</th>
+                                                <th className="mark-obe">HOT</th>
+                                                <th className="mark-obe">Total</th>
+                                            </>
+                                        )}
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    { stuData.map((user,index) => (
+                                    {stuData.map((user, index) => (
                                         <tr key={index}>
-                                            <td className="mark-sno">{index+1}</td>
+                                            <td className="mark-sno">{index + 1}</td>
                                             <td className="mark-reg">{user.reg_no}</td>
                                             <td>{user.stu_name}</td>
-                                            <td><input></input></td>
+                                            <td>
+                                                <input 
+                                                    type="number" 
+                                                    value={user.lot}
+                                                    name="lot"
+                                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
+                                                >
+
+                                                </input>
+                                            </td>
                                             {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
                                                 <>
                                                     <td>
-                                                        <input>
+                                                        <input 
+                                                            type="number" 
+                                                            name="mot"
+                                                            value={user.mot}
+                                                            onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
+                                                        >
                                                         </input>
-                                                        </td>
+                                                    </td>
                                                     <td>
-                                                        <input>
+                                                        <input 
+                                                            type="number" 
+                                                            name="hot"
+                                                            value={user.hot}
+                                                            onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
+                                                            >
                                                         </input>
-                                                        </td> 
+                                                    </td>
                                                     <td>
-                                                        <input>
+                                                        <input 
+                                                            type="number"
+                                                            name="total"
+                                                            value={user.total} 
+                                                            onChange={(e) => handleInputChange(user.reg_no, 'total', e.target.value)}
+                                                        >
                                                         </input>
                                                     </td>
                                                 </>
@@ -134,19 +211,16 @@ function Stumark() {
                                 </tbody>
                             </table>
                             <div className="mark-button-head">
-                        <button type="submit" className="">
-                            SAVE
-                        </button>
-                        <button type="submit" className="">
-                            SAVE & CONFIRM
-                        </button>
-                    </div>
+                                <button type="submit" className="" onClick={handleUpdateMark}>
+                                    SAVE
+                                </button>
+                                <button type="submit" className="">
+                                    SAVE & CONFIRM
+                                </button>
+                            </div>
                         </div>
-                        
                     )}
-                    
                 </div>
-                
             </div>
         </div>
     )
