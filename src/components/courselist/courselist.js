@@ -4,7 +4,7 @@ import axios from "axios";
 import './courselist.css';
 import { useParams } from 'react-router-dom';
 
-function CourseList ()
+function CourseList() 
 {
     const { staffId } = useParams();
     const navigate = useNavigate();
@@ -44,20 +44,22 @@ function CourseList ()
 
         <div className="course-main">
             <div className="course-layout-top-div">
-                <p className="course-layout-staff-id"> <span className="course-staff">Staff Id :</span> {staffId}</p>
+                <p className="course-layout-staff-id"><span className="course-staff">Staff Id :</span> {staffId}</p>
             </div>
             <div className="course-content-box">
-                {courseData.map((user, index) => (
-                    <button 
-                        key={index} 
-                        className="course-subject-box" 
-                        onClick={() => markpage(user)} >
-                        <div className="course-box-text-category">{user.category}</div>
-                        <div className="course-box-text">{user.branch}</div>
-                        <div className="course-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
-                        <div className="course-box-text">{user.course_code}</div>
-                    </button>
-                ))}
+                <div className='course-entire-box'>
+                    {courseData.map((user, index) => (
+                        <button 
+                            key={index} 
+                            className="course-subject-box" 
+                            onClick={() => markpage(user)} >
+                            <div className="course-box-text-category">{user.category}</div>
+                            <div className="course-box-text-dept">{user.branch}</div>
+                            <div className="course-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
+                            <div className="course-box-text">{user.course_code}</div>
+                        </button>
+                    ))}
+            </div>
             </div>
         </div>
         
