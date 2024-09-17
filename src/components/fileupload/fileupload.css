@@ -1,0 +1,52 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+.main-excelfile-container{
+    height: 100vh;
+    width: 100%;
+}
+.parent-excelfile-container{
+    /* background-color: greenyellow; */
+    border: 2px solid gray;
+    border-radius: 20px;
+    height: 500px;
+    margin: 50px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+h1{
+    text-align: center;
+}
+.excelfile-container{
+    width: 80%;
+    /* background-color: blue; */
+}
+input[type="file"] {
+    background-color:white;
+    width: 60%;
+    border-radius: 5px; 
+    border: 2px solid gray; 
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px;
+
+   
+  }
+.submit{
+    background-color: rgb(13, 124, 228);
+    width: 30%;
+    border-radius: 5px; 
+    border: 2px solid #ddd; 
+    padding: 8px;
+    color: white;
+    font-size: 16px;
+    padding: 16px;
+
+}
+.submit:hover {
+    background-color: rgb(9, 61, 113);
+    cursor: pointer;
+  }
