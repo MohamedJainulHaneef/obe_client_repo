@@ -3,8 +3,7 @@ import axios from "axios";
 import "./stumark.css";
 import { useLocation } from 'react-router-dom';
 
-function Stumark() 
-{
+function Stumark() {
     const location = useLocation();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState('1');
@@ -18,9 +17,10 @@ function Stumark()
                     stu_section: section,
                     stu_semester: semester,
                     stu_category: category,
-                    stu_course_code: courseCode
+                    stu_course_code: courseCode,
+                    activeSection
                 });
-                console.log(response.data.reg_no);
+                console.log(response.data);
                 setStuData(response.data);
             }
             catch (err) {
@@ -28,7 +28,8 @@ function Stumark()
             }
         };
         stuDetails();
-    }, [courseId, section, semester, category, courseCode]);
+    }, [courseId, section, semester, category, courseCode, activeSection]);
+
 
     const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
@@ -68,7 +69,6 @@ function Stumark()
         setStuData(updatedStuData);
     };
 
-
     const handleUpdateMark = async (e) => {
         e.preventDefault();
         const updates = {};
@@ -100,6 +100,13 @@ function Stumark()
             window.alert("Something Went Wrong with the Server");
         }
     }
+
+    // Prevent 'e', '-', '.' from being typed in the input fields
+    const handleKeyDown = (event) => {
+        if (['e', 'E', '-', '+', '.'].includes(event.key)) {
+            event.preventDefault();
+        }
+    };
 
     return (
         <div className="mark-main">
@@ -184,11 +191,11 @@ function Stumark()
                                                     type="number"
                                                     value={user.lot}
                                                     name="lot"
+                                                    min={0}
                                                     max={25}
+                                                    onKeyDown={handleKeyDown}
                                                     onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
-                                                >
-
-                                                </input>
+                                                />
                                             </td>
                                             {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
                                                 <>
@@ -196,20 +203,23 @@ function Stumark()
                                                         <input
                                                             type="number"
                                                             name="mot"
-                                                            max={40} value={user.mot}
+                                                            min={0}
+                                                            max={40}
+                                                            onKeyDown={handleKeyDown}
+                                                            value={user.mot}
                                                             onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
-                                                        >
-                                                        </input>
+                                                        />
                                                     </td>
                                                     <td>
                                                         <input
                                                             type="number"
                                                             name="hot"
+                                                            min={0}
                                                             max={10}
+                                                            onKeyDown={handleKeyDown}
                                                             value={user.hot}
                                                             onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
-                                                        >
-                                                        </input>
+                                                        />
                                                     </td>
                                                     <td>
                                                         <input
@@ -217,9 +227,10 @@ function Stumark()
                                                             name="total"
                                                             value={user.total}
                                                             readOnly
-                                                        >
-                                                        </input>
+                                                            tabIndex={-1}
+                                                        />
                                                     </td>
+
                                                 </>
                                             )}
                                         </tr>
