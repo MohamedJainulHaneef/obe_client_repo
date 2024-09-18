@@ -75,8 +75,7 @@
 
 .mark-dropdown {
     border-radius: 5px;
-    background-color: rgb(18, 73, 124);
-    background-color: #057252;
+    background-color: rgb(13, 124, 228);
     color: white;
     padding: 15px;
     width: 130px;
@@ -94,8 +93,6 @@
 
 .mark-dropdown:hover {
     background-color: rgb(9, 61, 113);
-    background-color: #1e5f4c;
-
 }
 
 table {
