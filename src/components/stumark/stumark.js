@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 function Stumark() {
     const location = useLocation();
+    const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState('1');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
@@ -12,6 +13,7 @@ function Stumark() {
     useEffect(() => {
         const stuDetails = async () => {
             try {
+
                 const response = await axios.post('http://localhost:5000/studentdetails', {
                     course_id: courseId,
                     stu_section: section,
@@ -22,13 +24,30 @@ function Stumark() {
                 });
                 console.log(response.data);
                 setStuData(response.data);
+
+                console.log(activeSection, courseCode, deptName, semester, section, category)
+
+                const disable = await axios.get('http://localhost:5000/getreport', {
+                    params: {
+                        activeSection,
+                        courseCode,
+                        deptName,
+                        semester,
+                        section,
+                        category
+                    }
+                });
+
+                setActive(disable.data);
+                console.log(disable.data);
+                console.log('CIA1', disable.data.cia_1);
             }
             catch (err) {
                 console.log('Error fetching data:', err);
             }
         };
         stuDetails();
-    }, [courseId, section, semester, category, courseCode, activeSection]);
+    }, [courseId, section, semester, category, courseCode, deptName, activeSection]);
 
 
     const handleSectionChange = (event) => {
@@ -69,7 +88,9 @@ function Stumark() {
         setStuData(updatedStuData);
     };
 
-    const handleUpdateMark = async (e) => {
+    const handleUpdateMark = async (e, isConfirm) => {
+        const button_value = isConfirm;
+
         e.preventDefault();
         const updates = {};
         stuData.forEach(user => {
@@ -78,18 +99,42 @@ function Stumark() {
                 mot: user.mot,
                 hot: user.hot,
                 total: user.total
-            }
-        })
+            };
+        });
 
-        console.log('Sending Data:', { updates, activeSection, courseCode });
+        console.log('Sending Data:', { updates, activeSection, courseCode, button_value });
 
         try {
-            const response = await axios.put('http://localhost:5000/updateMark',
-                {
-                    updates, activeSection, courseCode
-                });
+            const response = await axios.put('http://localhost:5000/updateMark', {
+                updates, activeSection, courseCode
+            });
+
             if (response.data.success) {
-                window.alert("Marks Submitted Successfully");
+                window.alert("mark submited");
+                if (button_value === "0") {
+                    try {
+                        const response = await axios.put('http://localhost:5000/report', {
+                            activeSection, courseCode, deptName, semester, section, category, button_value
+                        });
+                        console.log(response);
+                    }
+                    catch (err) {
+                        window.alert("err")
+                    }
+
+                }
+                else {
+                    try {
+                        const response = await axios.put('http://localhost:5000/report', {
+                            activeSection, courseCode, deptName, semester, section, category, button_value
+                        });
+                        console.log(response);
+                    }
+                    catch (err) {
+                        window.alert("err")
+                    }
+
+                }
             }
             else {
                 alert('Something went Wrong');
@@ -99,7 +144,10 @@ function Stumark() {
             console.error('Error ', err);
             window.alert("Something Went Wrong with the Server");
         }
-    }
+
+
+    };
+
 
     // Prevent 'e', '-', '.' from being typed in the input fields
     const handleKeyDown = (event) => {
@@ -107,6 +155,26 @@ function Stumark() {
             event.preventDefault();
         }
     };
+
+    const handleDisable = (inputType) => {
+        if (activeSection === '1') {
+            return active.cia_1 === 2; // Disable if CIA1 equals 2
+        }
+        else if (activeSection === '2') {
+            return active.cia_2 === 2;
+        }
+        else if (activeSection === '3') {
+            return active.ass_1 === 2;
+        }
+        else if (activeSection === '4') {
+            return active.ass_2 === 2;
+        }
+        else if (activeSection === '5') {
+            return active.ese === 2; 
+        }
+        return false;
+    };
+
 
     return (
         <div className="mark-main">
@@ -162,7 +230,7 @@ function Stumark() {
                     </select>
                 </div>
                 <div>
-                    {activeSection && (
+                    {activeSection && active && (
                         <div>
                             <table>
                                 <thead>
@@ -180,6 +248,7 @@ function Stumark() {
                                         )}
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     {stuData.map((user, index) => (
                                         <tr key={index}>
@@ -194,7 +263,9 @@ function Stumark() {
                                                     min={0}
                                                     max={25}
                                                     onKeyDown={handleKeyDown}
-                                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
+                                                    disabled={handleDisable()}
+                                                    // disabled={active.cia_1 === 1 || active.cia_2 || active.ass_1 === 2 || active.ass_2 === 2 || active.ese === 2}
+                                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value) }
                                                 />
                                             </td>
                                             {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
@@ -207,6 +278,8 @@ function Stumark() {
                                                             max={40}
                                                             onKeyDown={handleKeyDown}
                                                             value={user.mot}
+                                                            disabled={handleDisable()}
+                                                            // disabled={active.cia_1 === 1 || active.cia_2 || active.ass_1 === 2 || active.ass_2 === 2 || active.ese === 2}
                                                             onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
                                                         />
                                                     </td>
@@ -218,6 +291,8 @@ function Stumark() {
                                                             max={10}
                                                             onKeyDown={handleKeyDown}
                                                             value={user.hot}
+                                                            disabled={handleDisable()}
+                                                            // disabled={active.cia_1 === 1 || active.cia_2 || active.ass_1 === 2 || active.ass_2 === 2 || active.ese === 2}
                                                             onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
                                                         />
                                                     </td>
@@ -238,10 +313,16 @@ function Stumark() {
                                 </tbody>
                             </table>
                             <div className="mark-button-head">
-                                <button type="submit" className="mark-button-save" onClick={handleUpdateMark}>
+                                <button type="submit" className="mark-button-save"
+                                    disabled={handleDisable()}
+                                    // disabled={active.cia_1 === 2 || active.cia_2===2 || active.ass_1 === 2 || active.ass_2 === 2 || active.ese === 2}
+                                    onClick={(e) => handleUpdateMark(e, "0")}>
                                     SAVE
                                 </button>
-                                <button type="submit" className="mark-button-saveconfirm">
+                                <button type="submit" className="mark-button-saveconfirm"
+                                    disabled={handleDisable()}
+                                    // disabled={active.cia_1 === 2 || active.cia_2 || active.ass_1 === 2 || active.ass_2 === 2 || active.ese === 2}
+                                    onClick={(e) => handleUpdateMark(e, "1")}>
                                     SAVE & CONFIRM
                                 </button>
                             </div>
