@@ -11,43 +11,47 @@ function Stumark() {
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
 
     useEffect(() => {
-        const stuDetails = async () => {
-            try {
+    const stuDetails = async () => {
+        try {
+            // Fetch student details
+            const StuResponse = await axios.post('http://localhost:5000/studentdetails', {
+                course_id: courseId,
+                stu_section: section,
+                stu_semester: semester,
+                stu_category: category,
+                stu_course_code: courseCode,
+                activeSection
+            });
+            console.log(StuResponse.data);
+            setStuData(StuResponse.data);
 
-                const response = await axios.post('http://localhost:5000/studentdetails', {
-                    course_id: courseId,
-                    stu_section: section,
-                    stu_semester: semester,
-                    stu_category: category,
-                    stu_course_code: courseCode,
-                    activeSection
-                });
-                console.log(response.data);
-                setStuData(response.data);
+            // Fetch report data to determine active status
+            const disable = await axios.get('http://localhost:5000/getreport', {
+                params: {
+                    activeSection,
+                    courseCode,
+                    deptName,
+                    semester,
+                    section,
+                    category
+                }
+            });
 
-                console.log(activeSection, courseCode, deptName, semester, section, category)
-
-                const disable = await axios.get('http://localhost:5000/getreport', {
-                    params: {
-                        activeSection,
-                        courseCode,
-                        deptName,
-                        semester,
-                        section,
-                        category
-                    }
-                });
-
+            // Defensive check if disable.data is not null or undefined
+            if (disable.data) {
                 setActive(disable.data);
-                console.log(disable.data);
-                console.log('CIA1', disable.data.cia_1);
+                console.log('Disable data:', disable.data);
+                console.log('CIA1:', disable.data.cia_1);  // This line caused the error when disable.data was null
+            } else {
+                console.warn('Received null or undefined data from /getreport');
+                setActive({});  // Set to an empty object if no data is returned
             }
-            catch (err) {
-                console.log('Error fetching data:', err);
-            }
-        };
-        stuDetails();
-    }, [courseId, section, semester, category, courseCode, deptName, activeSection]);
+        } catch (err) {
+            console.log('Error fetching data:', err);
+        }
+    };
+    stuDetails();
+}, [courseId, section, semester, category, courseCode, deptName, activeSection]);
 
 
     const handleSectionChange = (event) => {
