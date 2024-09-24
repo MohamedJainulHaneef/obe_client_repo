@@ -114,13 +114,16 @@ function Stumark() {
             });
 
             if (response.data.success) {
-                window.alert("mark submited");
+                
                 if (button_value === "0") {
+                    window.alert("mark submited");
                     try {
                         const response = await axios.put('http://localhost:5000/report', {
                             activeSection, courseCode, deptName, semester, section, category, button_value
                         });
+                        
                         console.log(response);
+                        
                     }
                     catch (err) {
                         window.alert("err")
@@ -128,16 +131,31 @@ function Stumark() {
 
                 }
                 else {
-                    try {
-                        const response = await axios.put('http://localhost:5000/report', {
-                            activeSection, courseCode, deptName, semester, section, category, button_value
-                        });
-                        console.log(response);
-                    }
-                    catch (err) {
-                        window.alert("err")
-                    }
+                    const confirmAction = window.confirm("Are you sure you want to proceed?");
+                    if (confirmAction) {
+                        try {
+                            const reportResponse = await axios.put('http://localhost:5000/report', {
+                                activeSection, courseCode, deptName, semester, section, category, button_value
+                            });
+                            console.log(reportResponse);
+                            // setIsConfirmed(true);  // Set the input fields to be disabled
 
+                            // Add the section to the confirmed sections
+                            // setConfirmedSections(prev => ({ ...prev, [activeSection]: true }));
+
+                            // Fetch updated report status to disable inputs immediately
+                            const disableResponse = await axios.get('http://localhost:5000/getreport', {
+                                params: {
+                                    activeSection, courseCode, deptName, semester, section, category
+                                }
+                            });
+                            if (disableResponse.data) {
+                                setActive(disableResponse.data);  // Set the active state to reflect disabled inputs
+                            }
+                        } catch (err) {
+                            window.alert("Error submitting report");
+                        }
+                    }
                 }
             }
             else {
