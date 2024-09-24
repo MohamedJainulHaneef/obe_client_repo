@@ -2,27 +2,35 @@
     margin: 0px;
     padding: 0px;
 }
-.main-excelfile-container{
+
+.main-excelfile-container {
     height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.parent-excelfile-container{
-    /* background-color: greenyellow; */
+
+.parent-excelfile-container {
     border: 2px solid gray;
     border-radius: 20px;
     height: 500px;
     margin: 50px;
     display: flex;
+    flex-direction:column;
     justify-content:center;
     align-items: center;
 }
-h1{
+
+h1 {
     text-align: center;
 }
-.excelfile-container{
+
+.excelfile-container {
     width: 80%;
-    /* background-color: blue; */
 }
+
 input[type="file"] {
     background-color:white;
     width: 60%;
@@ -32,10 +40,9 @@ input[type="file"] {
     font-size: 16px;
     font-weight: bold;
     margin: 20px;
+}
 
-   
-  }
-.submit{
+.submit {
     background-color: rgb(13, 124, 228);
     width: 30%;
     border-radius: 5px; 
@@ -44,8 +51,8 @@ input[type="file"] {
     color: white;
     font-size: 16px;
     padding: 16px;
-
 }
+
 .submit:hover {
     background-color: rgb(9, 61, 113);
     cursor: pointer;
