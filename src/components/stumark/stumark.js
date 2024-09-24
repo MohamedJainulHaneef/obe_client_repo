@@ -3,55 +3,74 @@ import axios from "axios";
 import "./stumark.css";
 import { useLocation } from 'react-router-dom';
 
+
+// const Notification=({message})=>{
+//     if(!message) return null;
+//     return(
+//         <div className="notify" >
+//             {message}
+//         </div>
+//     );
+
+// }
 function Stumark() {
     const location = useLocation();
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState('1');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
+    // const [ notification,setNotification]=useState({message :''})
+  
+    // const ShowNotification =(message)=> {
+    //     setNotification({message});
+    //     setTimeout(()=>{
+    //         setNotification({message:''});
+        
+    //     },5000);
+    // }
 
     useEffect(() => {
-    const stuDetails = async () => {
-        try {
-            // Fetch student details
-            const StuResponse = await axios.post('http://localhost:5000/studentdetails', {
-                course_id: courseId,
-                stu_section: section,
-                stu_semester: semester,
-                stu_category: category,
-                stu_course_code: courseCode,
-                activeSection
-            });
-            console.log(StuResponse.data);
-            setStuData(StuResponse.data);
+        const stuDetails = async () => {
+            try {
+                // Fetch student details
+                const StuResponse = await axios.post('http://localhost:5000/studentdetails', {
+                    course_id: courseId,
+                    stu_section: section,
+                    stu_semester: semester,
+                    stu_category: category,
+                    stu_course_code: courseCode,
+                    activeSection
+                });
+                console.log(StuResponse.data);
+                setStuData(StuResponse.data);
 
-            // Fetch report data to determine active status
-            const disable = await axios.get('http://localhost:5000/getreport', {
-                params: {
-                    activeSection,
-                    courseCode,
-                    deptName,
-                    semester,
-                    section,
-                    category
+                // Fetch report data to determine active status
+                const disable = await axios.get('http://localhost:5000/getreport', {
+                    params: {
+                        activeSection,
+                        courseCode,
+                        deptName,
+                        semester,
+                        section,
+                        category
+                    }
+                });
+
+                // Defensive check if disable.data is not null or undefined
+                if (disable.data) {
+                    setActive(disable.data);
+                    console.log('Disable data:', disable.data);
+                    console.log('CIA1:', disable.data.cia_1);  // This line caused the error when disable.data was null
+                } else {
+                    console.warn('Received null or undefined data from /getreport');
+                    setActive({});  // Set to an empty object if no data is returned
                 }
-            });
-
-            // Defensive check if disable.data is not null or undefined
-            if (disable.data) {
-                setActive(disable.data);
-                console.log('Disable data:', disable.data);
-                console.log('CIA1:', disable.data.cia_1);  // This line caused the error when disable.data was null
-            } else {
-                console.warn('Received null or undefined data from /getreport');
-                setActive({});  // Set to an empty object if no data is returned
+            } catch (err) {
+                console.log('Error fetching data:', err);
             }
-        } catch (err) {
-            console.log('Error fetching data:', err);
-        }
-    };
-    stuDetails();
-}, [courseId, section, semester, category, courseCode, deptName, activeSection]);
+        };
+        stuDetails();
+    }, [courseId, section, semester, category, courseCode, deptName, activeSection]);
 
 
     const handleSectionChange = (event) => {
@@ -92,9 +111,26 @@ function Stumark() {
         setStuData(updatedStuData);
     };
 
+
+    const handleDisable = () => {
+        if (activeSection === '1') {
+            return active?.cia_1 === 2;
+        } else if (activeSection === '2') {
+            return active?.cia_2 === 2;
+        } else if (activeSection === '3') {
+            return active?.ass_1 === 2;
+        } else if (activeSection === '4') {
+            return active?.ass_2 === 2;
+        } else if (activeSection === '5') {
+            return active?.ese === 2;
+        }
+        return false;
+    };
+    
+
     const handleUpdateMark = async (e, isConfirm) => {
         const button_value = isConfirm;
-
+        
         e.preventDefault();
         const updates = {};
         stuData.forEach(user => {
@@ -114,29 +150,33 @@ function Stumark() {
             });
 
             if (response.data.success) {
-                
+
                 if (button_value === "0") {
                     window.alert("mark submited");
+                    // ShowNotification("mark submitted")
+                    
                     try {
                         const response = await axios.put('http://localhost:5000/report', {
                             activeSection, courseCode, deptName, semester, section, category, button_value
                         });
-                        
+
                         console.log(response);
-                        
+
                     }
                     catch (err) {
                         window.alert("err")
                     }
 
                 }
-                else {
+                else if (button_value === "1"){
                     const confirmAction = window.confirm("Are you sure you want to proceed?");
                     if (confirmAction) {
                         try {
+
                             const reportResponse = await axios.put('http://localhost:5000/report', {
                                 activeSection, courseCode, deptName, semester, section, category, button_value
                             });
+                            console.log("hello")
                             console.log(reportResponse);
                             // setIsConfirmed(true);  // Set the input fields to be disabled
 
@@ -149,13 +189,25 @@ function Stumark() {
                                     activeSection, courseCode, deptName, semester, section, category
                                 }
                             });
-                            if (disableResponse.data) {
-                                setActive(disableResponse.data);  // Set the active state to reflect disabled inputs
+
+                            if (disableResponse?.data) {
+                                // setActive(disableResponse.data);
+                                console.log('Disable data:', disableResponse.data);
+                            } else {
+                                console.warn('Received null or undefined data from /getreport');
+                                setActive({});
                             }
+
+
                         } catch (err) {
                             window.alert("Error submitting report");
                         }
+                        window.location.reload();
+
                     }
+                }
+                else {
+                    console.log("Not ")
                 }
             }
             else {
@@ -178,29 +230,30 @@ function Stumark() {
         }
     };
 
-    const handleDisable = (inputType) => {
-        if (activeSection === '1') {
-            return active.cia_1 === 2; // Disable if CIA1 equals 2
-        }
-        else if (activeSection === '2') {
-            return active.cia_2 === 2;
-        }
-        else if (activeSection === '3') {
-            return active.ass_1 === 2;
-        }
-        else if (activeSection === '4') {
-            return active.ass_2 === 2;
-        }
-        else if (activeSection === '5') {
-            return active.ese === 2; 
-        }
-        return false;
-    };
+    // const handleDisable = (inputType) => {
+    //     if (activeSection === '1') {
+    //         return active.cia_1 === 2; // Disable if CIA1 equals 2
+    //     }
+    //     else if (activeSection === '2') {
+    //         return active.cia_2 === 2;
+    //     }
+    //     else if (activeSection === '3') {
+    //         return active.ass_1 === 2;
+    //     }
+    //     else if (activeSection === '4') {
+    //         return active.ass_2 === 2;
+    //     }
+    //     else if (activeSection === '5') {
+    //         return active.ese === 2;
+    //     }
+    //     return false;
+    // };
 
 
     return (
         <div className="mark-main">
             <div className="mark-body">
+                {/* <Notification message={notification.message} />  */}
                 <div className="mark-header">
                     <div className="mark-header-title1">
                         <h1 className="mark-title">JAMAL MOHAMED COLLEGE (Autonomous)</h1>
@@ -287,7 +340,7 @@ function Stumark() {
                                                     onKeyDown={handleKeyDown}
                                                     disabled={handleDisable()}
                                                     // disabled={active.cia_1 === 1 || active.cia_2 || active.ass_1 === 2 || active.ass_2 === 2 || active.ese === 2}
-                                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value) }
+                                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
                                                 />
                                             </td>
                                             {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (

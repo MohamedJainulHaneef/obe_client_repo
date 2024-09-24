@@ -182,3 +182,16 @@ tbody td input {
 .mark-button-save:hover {
     background-color: rgb(9, 61, 113);
 }
+
+/*=------------------------------------*/
+
+
+.notify{
+    display: fle;
+    justify-content: center;
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    color: green;
+    text-align: center;
+}
