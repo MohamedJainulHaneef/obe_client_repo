@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./stumark.css";
 import { useLocation } from 'react-router-dom';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
-function Stumark() 
-{
+function Stumark() {
     const location = useLocation();
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState('1');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
-   
-    useEffect(() => 
-    {
+
+    useEffect(() => {
         const stuDetails = async () => {
             try {
                 const StuResponse = await axios.post('http://localhost:5000/studentdetails', {
@@ -40,12 +40,12 @@ function Stumark()
                 if (disable.data) {
                     setActive(disable.data);
                     // console.log('Disable data:', disable.data);
-                } 
+                }
                 else {
                     console.warn('Received null or undefined data from /getreport');
-                    setActive({}); 
+                    setActive({});
                 }
-            } 
+            }
             catch (err) {
                 console.log('Error fetching data:', err);
             }
@@ -54,8 +54,7 @@ function Stumark()
     }, [courseId, section, semester, category, courseCode, deptName, activeSection]);
 
 
-    const handleSectionChange = (event) => 
-    {
+    const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
         setStuData(stuData.map(user => ({
             ...user,
@@ -66,40 +65,38 @@ function Stumark()
         })))
     }
 
-    const handleInputChange = (registerNo, type, value) => 
-    {
+    const handleInputChange = (registerNo, type, value) => {
         let validatedValue = value;
-    
+
         if (type === 'lot') {
             if (activeSection === '3' || activeSection === '4') {
                 if (value > 3) {
                     alert("Value for LOT cannot exceed 3.");
                     return;
                 }
-            } 
+            }
             else {
                 if (value > 25) {
                     alert("Value for LOT cannot exceed 25.");
-                    return; 
+                    return;
                 }
             }
         }
         else if (type === 'mot') {
             if (value > 40) {
                 alert("Value for MOT cannot exceed 40.");
-                return; 
+                return;
             }
         }
         else if (type === 'hot') {
             if (value > 10) {
                 alert("Value for HOT cannot exceed 10.");
-                return; 
+                return;
             }
         }
-    
+
         // Update the student data if input is within the valid range
-        const updatedStuData = stuData.map(user => 
-        {
+        const updatedStuData = stuData.map(user => {
             if (user.reg_no === registerNo) {
                 const newLot = type === 'lot' ? validatedValue : user.lot;
                 const newMot = type === 'mot' ? validatedValue : user.mot;
@@ -109,33 +106,31 @@ function Stumark()
             }
             return user;
         });
-    
+
         setStuData(updatedStuData);
     };
-    
-    
-    const handleDisable = () => 
-    {
+
+
+    const handleDisable = () => {
         if (activeSection === '1') {
             return active?.cia_1 === 2;
-        } 
+        }
         else if (activeSection === '2') {
             return active?.cia_2 === 2;
-        } 
+        }
         else if (activeSection === '3') {
             return active?.ass_1 === 2;
         }
         else if (activeSection === '4') {
             return active?.ass_2 === 2;
-        } 
+        }
         else if (activeSection === '5') {
             return active?.ese === 2;
         }
         return false;
     };
 
-    const handleUpdateMark = async (e, isConfirm) => 
-    {
+    const handleUpdateMark = async (e, isConfirm) => {
         const button_value = isConfirm;
 
         e.preventDefault();
@@ -170,8 +165,7 @@ function Stumark()
                         window.alert("err")
                     }
                 }
-                else if (button_value === "1") 
-                {
+                else if (button_value === "1") {
                     const confirmAction = window.confirm("Are you sure you want to proceed ?");
                     if (confirmAction) {
                         try {
@@ -180,7 +174,7 @@ function Stumark()
                                 activeSection, courseCode, deptName, semester, section, category, button_value
                             });
                             console.log(reportResponse);
-                            
+
                             const disableResponse = await axios.get('http://localhost:5000/getreport', {
                                 params: {
                                     activeSection, courseCode, deptName, semester, section, category
@@ -189,12 +183,12 @@ function Stumark()
 
                             if (disableResponse?.data) {
                                 console.log('Disable data:', disableResponse.data);
-                            } 
+                            }
                             else {
                                 console.warn('Received null or undefined data from /getreport');
                                 setActive({});
                             }
-                        } 
+                        }
                         catch (err) {
                             window.alert("Error in submitting Report");
                         }
@@ -215,11 +209,43 @@ function Stumark()
         }
     };
 
-    const handleKeyDown = (event) => 
-    {
+    const handleKeyDown = (event) => {
         if (['e', 'E', '-', '+', '.'].includes(event.key)) {
             event.preventDefault();
         }
+    };
+
+    const handleDownload = () => {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const fileName = 'All_Report';
+
+        // Define headers for Excel
+        const headers = [
+            'registerNo',
+            'lot',
+            'mot',
+            'hot'
+        ];
+
+        // Add headers to the beginning of the data array
+        const dataWithHeaders = [headers, ...stuData.map(user => [
+            user.reg_no,
+            user.lot,
+            user.mot,
+            user.hot
+        ])];
+
+        // Convert data to sheet format
+        const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+
+        // Convert workbook to Excel buffer
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+        // Create Blob and trigger download
+        const data = new Blob([excelBuffer], { type: fileType });
+        saveAs(data, fileName + fileExtension);
     };
 
     return (
@@ -358,15 +384,23 @@ function Stumark()
                             <div className="mark-button-head">
                                 {!handleDisable() && (
                                     <>
-                                        <button 
-                                            type="submit" 
+                                        <button
+                                            type="submit"
                                             className="mark-button-save"
                                             onClick={(e) => handleUpdateMark(e, "0")}
                                         >
                                             SAVE
                                         </button>
-                                        <button 
-                                            type="submit" 
+
+                                        <button
+                                            type="button"
+                                            className="mark-download"
+                                            onClick={handleDownload}
+                                        >
+                                            Download Excel
+                                        </button>
+                                        <button
+                                            type="submit"
                                             className="mark-button-saveconfirm"
                                             onClick={(e) => handleUpdateMark(e, "1")}
                                         >

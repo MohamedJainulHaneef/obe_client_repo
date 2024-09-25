@@ -183,6 +183,21 @@ tbody td input {
     background-color: rgb(9, 61, 113);
 }
 
+.mark-download{
+    border-radius: 5px;
+    background-color: rgb(13, 124, 228);
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+}
+
+.mark-download:hover {
+    background-color: rgb(9, 61, 113);
+}
+
 /*=------------------------------------*/
 
 

@@ -15,7 +15,7 @@
 .parent-excelfile-container {
     border: 2px solid gray;
     border-radius: 20px;
-    height: 500px;
+    height: 600px;
     margin: 50px;
     display: flex;
     flex-direction:column;
