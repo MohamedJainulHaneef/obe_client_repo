@@ -223,10 +223,11 @@ function Stumark() {
 
         // Define headers for Excel
         const headers = [
-            'registerNo',
-            'lot',
-            'mot',
-            'hot'
+            'Register No',
+            'LOT',
+            'MOT',
+            'HOT',
+            'TOTAL'
         ];
 
         // Add headers to the beginning of the data array
@@ -234,7 +235,8 @@ function Stumark() {
             user.reg_no,
             user.lot,
             user.mot,
-            user.hot
+            user.hot,
+            user.total
         ])];
 
         // Convert data to sheet format
