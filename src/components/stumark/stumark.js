@@ -25,6 +25,7 @@ function Stumark() {
                 });
                 // console.log(StuResponse.data);
                 setStuData(StuResponse.data);
+                console.log(StuResponse.data);
 
                 const disable = await axios.get('http://localhost:5000/getreport', {
                     params: {
