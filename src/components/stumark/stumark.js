@@ -221,37 +221,42 @@ function Stumark() {
     const handleDownload = () => {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
-        const fileName = 'All_Report';
-
-        // Define headers for Excel
-        const headers = [
-            'Register No',
-            'LOT',
-            'MOT',
-            'HOT',
-            'TOTAL'
-        ];
-
-        // Add headers to the beginning of the data array
-        const dataWithHeaders = [headers, ...stuData.map(user => [
-            user.reg_no,
-            user.lot,
-            user.mot,
-            user.hot,
-            user.total
-        ])];
-
+        const fileName = `Report_Section_${activeSection}`;
+    
+        // Define dynamic headers and data based on activeSection
+        let headers = ['Register No', 'LOT'];
+        let dataWithHeaders = [];
+    
+        if (activeSection === '1' || activeSection === '2' || activeSection === '5') {
+            headers = ['Register No', 'LOT', 'MOT', 'HOT', 'TOTAL'];
+            dataWithHeaders = [headers, ...stuData.map(user => [
+                user.reg_no,
+                user.lot,
+                user.mot,
+                user.hot,
+                user.total
+            ])];
+        } else if (activeSection === '3' || activeSection === '4') {
+            headers = ['Register No', 'LOT', 'TOTAL'];
+            dataWithHeaders = [headers, ...stuData.map(user => [
+                user.reg_no,
+                user.lot,
+                user.total
+            ])];
+        }
+    
         // Convert data to sheet format
         const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-
+    
         // Convert workbook to Excel buffer
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-
+    
         // Create Blob and trigger download
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
     };
+    
 
     return (
         <div className="mark-main">
@@ -307,116 +312,121 @@ function Stumark() {
                     </select>
                 </div>
                 <div>
-                    {activeSection && active && (
-                        <div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th className="mark-sno">S. No.</th>
-                                        <th className="mark-reg">Reg. No.</th>
-                                        <th className="mark-name">Name</th>
-                                        <th className="mark-obe">LOT</th>
-                                        {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
-                                            <>
-                                                <th className="mark-obe">MOT</th>
-                                                <th className="mark-obe">HOT</th>
-                                                <th className="mark-obe">Total</th>
-                                            </>
-                                        )}
-                                    </tr>
-                                </thead>
+    {activeSection && active && (
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th className="mark-sno">S. No.</th>
+                        <th className="mark-reg">Reg. No.</th>
+                        <th className="mark-name">Name</th>
+                        <th className="mark-obe">LOT</th>
+                        {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
+                            <>
+                                <th className="mark-obe">MOT</th>
+                                <th className="mark-obe">HOT</th>
+                                <th className="mark-obe">Total</th>
+                            </>
+                        )}
+                    </tr>
+                </thead>
 
-                                <tbody>
-                                    {stuData.map((user, index) => (
-                                        <tr key={index}>
-                                            <td className="mark-sno">{index + 1}</td>
-                                            <td className="mark-reg">{user.reg_no}</td>
-                                            <td>{user.stu_name}</td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    value={user.lot}
-                                                    name="lot"
-                                                    min={0}
-                                                    max={25}
-                                                    onKeyDown={handleKeyDown}
-                                                    disabled={handleDisable()}
-                                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
-                                                />
-                                            </td>
-                                            {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
-                                                <>
-                                                    <td>
-                                                        <input
-                                                            type="number"
-                                                            name="mot"
-                                                            min={0}
-                                                            max={40}
-                                                            onKeyDown={handleKeyDown}
-                                                            value={user.mot}
-                                                            disabled={handleDisable()}
-                                                            onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input
-                                                            type="number"
-                                                            name="hot"
-                                                            min={0}
-                                                            max={10}
-                                                            onKeyDown={handleKeyDown}
-                                                            value={user.hot}
-                                                            disabled={handleDisable()}
-                                                            onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input
-                                                            type="number"
-                                                            name="total"
-                                                            value={user.total}
-                                                            readOnly
-                                                            disabled
-                                                        />
-                                                    </td>
+                <tbody>
+                    {stuData.map((user, index) => (
+                        <tr key={index}>
+                            <td className="mark-sno">{index + 1}</td>
+                            <td className="mark-reg">{user.reg_no}</td>
+                            <td>{user.stu_name}</td>
+                            <td>
+                                <input
+                                    type="number"
+                                    value={user.lot}
+                                    name="lot"
+                                    min={0}
+                                    max={25}
+                                    onKeyDown={handleKeyDown}
+                                    disabled={handleDisable()}
+                                    onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
+                                />
+                            </td>
+                            {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
+                                <>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            name="mot"
+                                            min={0}
+                                            max={40}
+                                            onKeyDown={handleKeyDown}
+                                            value={user.mot}
+                                            disabled={handleDisable()}
+                                            onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            name="hot"
+                                            min={0}
+                                            max={10}
+                                            onKeyDown={handleKeyDown}
+                                            value={user.hot}
+                                            disabled={handleDisable()}
+                                            onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            name="total"
+                                            value={user.total}
+                                            readOnly
+                                            disabled
+                                        />
+                                    </td>
+                                </>
+                            )}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
-                                                </>
-                                            )}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <div className="mark-button-head">
-                                {!handleDisable() && (
-                                    <>
-                                        <button
-                                            type="submit"
-                                            className="mark-button-save"
-                                            onClick={(e) => handleUpdateMark(e, "0")}
-                                        >
-                                            SAVE
-                                        </button>
+            <div className="mark-button-head">
+                {!handleDisable() && (
+                    <>
+                        <button
+                            type="submit"
+                            className="mark-button-save"
+                            onClick={(e) => handleUpdateMark(e, "0")}
+                        >
+                            SAVE
+                        </button>
 
-                                        <button
-                                            type="button"
-                                            className="mark-download"
-                                            onClick={handleDownload}
-                                        >
-                                            Download Excel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="mark-button-saveconfirm"
-                                            onClick={(e) => handleUpdateMark(e, "1")}
-                                        >
-                                            SAVE & CONFIRM
-                                        </button>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div>
+                        <button
+                            type="submit"
+                            className="mark-button-saveconfirm"
+                            onClick={(e) => handleUpdateMark(e, "1")}
+                        >
+                            SAVE & CONFIRM
+                        </button>
+                    </>
+                )}
+
+                {/* Show the Download button after Save & Confirm */}
+                {handleDisable() && (
+                    <button
+                        type="button"
+                        className="mark-download"
+                        onClick={handleDownload}
+                    >
+                        Download Excel
+                    </button>
+                )}
+            </div>
+        </div>
+    )}
+</div>
+
             </div>
         </div>
     )
