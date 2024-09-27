@@ -6,30 +6,26 @@ import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Login()
-{
+function Login() {
     const apiUrl = process.env.REACT_APP_API_URL;
-
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const handleLogin = async () => 
-    {
+    const handleLogin = async () => {
         try {
             const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
-            }); 
-
+            });
             if (response.data.success) {
                 navigate(`staff/${staffId}/dashboard`);
-            } 
+            }
             else {
                 alert(response.data.message);
             }
-        } 
+        }
         catch (error) {
-            alert('An error occurred. Please try again later.');
+            alert('An error occurred. Please try again Later.');
             console.error('Login Error: ', error);
         }
     };
@@ -50,21 +46,21 @@ function Login()
             </div>
             <div className='log-right-container'>
                 <span className="log-desc-para">LOGIN TO YOUR ACCOUNT</span>
-                <input 
-                    className="log-desc-input" 
-                    type="text" 
-                    placeholder="Enter Staff ID" 
-                    value={staffId} 
-                    onChange={(e) => setStaffId(e.target.value)} 
-                    required 
+                <input
+                    className="log-desc-input"
+                    type="text"
+                    placeholder="Enter Staff ID"
+                    value={staffId}
+                    onChange={(e) => setStaffId(e.target.value)}
+                    required
                 />
-                <input 
-                    className="log-desc-input"  
-                    type="password" 
-                    placeholder="Enter Password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    required 
+                <input
+                    className="log-desc-input"
+                    type="password"
+                    placeholder="Enter Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
                 <a href="www.google.com" className="log-desc-anchor">Forgot Password</a>
                 <button className="log-desc-btn" onClick={handleLogin}>

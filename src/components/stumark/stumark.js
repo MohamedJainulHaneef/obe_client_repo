@@ -27,7 +27,6 @@ function Stumark() {
                 });
                 // console.log(StuResponse.data);
                 setStuData(StuResponse.data);
-                console.log(StuResponse.data);
 
                 const disable = await axios.get(`${apiUrl}/getreport`, {
                     params: {
@@ -221,25 +220,28 @@ function Stumark() {
     const handleDownload = () => {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
-        const fileName = 'All_Report';
+        const fileName = `Report_Section_${activeSection}`;
 
-        // Define headers for Excel
-        const headers = [
-            'Register No',
-            'LOT',
-            'MOT',
-            'HOT',
-            'TOTAL'
-        ];
+        // Define dynamic headers and data based on activeSection
+        let headers = ['Register No', 'LOT'];
+        let dataWithHeaders = [];
 
-        // Add headers to the beginning of the data array
-        const dataWithHeaders = [headers, ...stuData.map(user => [
-            user.reg_no,
-            user.lot,
-            user.mot,
-            user.hot,
-            user.total
-        ])];
+        if (activeSection === '1' || activeSection === '2' || activeSection === '5') {
+            headers = ['Register No', 'LOT', 'MOT', 'HOT', 'TOTAL'];
+            dataWithHeaders = [headers, ...stuData.map(user => [
+                user.reg_no,
+                user.lot,
+                user.mot,
+                user.hot,
+                user.total
+            ])];
+        } else if (activeSection === '3' || activeSection === '4') {
+            headers = ['Register No', 'LOT'];
+            dataWithHeaders = [headers, ...stuData.map(user => [
+                user.reg_no,
+                user.lot,
+            ])];
+        }
 
         // Convert data to sheet format
         const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
@@ -295,7 +297,7 @@ function Stumark() {
                 </div>
                 <div className="mark-dropdown-group">
                     <select
-                        value={activeSection || ''}
+                        value={activeSection}
                         onChange={handleSectionChange}
                         className="mark-dropdown"
                     >
@@ -387,7 +389,7 @@ function Stumark() {
                                 </tbody>
                             </table>
                             <div className="mark-button-head">
-                                {!handleDisable() && (
+                                {!handleDisable() ? (
                                     <>
                                         <button
                                             type="submit"
@@ -398,13 +400,6 @@ function Stumark() {
                                         </button>
 
                                         <button
-                                            type="button"
-                                            className="mark-download"
-                                            onClick={handleDownload}
-                                        >
-                                            Download Excel
-                                        </button>
-                                        <button
                                             type="submit"
                                             className="mark-button-saveconfirm"
                                             onClick={(e) => handleUpdateMark(e, "1")}
@@ -412,8 +407,17 @@ function Stumark() {
                                             SAVE & CONFIRM
                                         </button>
                                     </>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        className="mark-download"
+                                        onClick={handleDownload}
+                                    >
+                                        Download Excel
+                                    </button>
                                 )}
                             </div>
+
                         </div>
                     )}
                 </div>

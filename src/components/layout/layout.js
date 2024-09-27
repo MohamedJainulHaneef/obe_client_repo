@@ -1,56 +1,60 @@
-import  {useEffect , React, useState} from 'react';
+import { useEffect, React, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { NavLink, Outlet, useParams  } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
 
-function Layout() 
-{
+function Layout() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const { staffId } = useParams();
-    const [ user, setUsers ] = useState([]);
-    useEffect(() => 
-    {
-        axios.get(`${apiUrl}/scope/${staffId}`)
-            .then(response => {
+    const [user, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/scope/${staffId}`);
                 setUsers(response.data);
-            })
-            .catch(err => console.log(err));
-    }, [ staffId, apiUrl ]);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [staffId, apiUrl]);
 
     const menus = [
         {
-            icon: faHome, 
+            icon: faHome,
             name: 'Dashboard',
             path: `/staff/${staffId}/dashboard`,
-            show: user && user.dashboard === 1,
+            show: user.dashboard === 1,
         },
         {
-            icon: faFileAlt, 
+            icon: faFileAlt,
             name: 'Course List',
             path: `/staff/${staffId}/courselist`,
-            show: user && user.course_list === 1,
+            show: user.course_list === 1,
         },
         {
-            icon: faExchangeAlt, 
+            icon: faExchangeAlt,
             name: 'Report',
             path: `/staff/${staffId}/report`,
-            show: user && user.report === 1,
+            show: user.report === 1,
         },
         {
-            icon: faKey, 
+            icon: faKey,
             name: 'Upload Files',
             path: `/staff/${staffId}/uploadfile`,
-            show: user && user.upload_files === 1,
+            show: user.upload_files === 1,
         },
         {
             icon: faSignOutAlt,
             name: 'Logout',
             path: '/',
-            show: user && user.logout === 1,
+            show: user.logout === 1,
         },
     ];
 
@@ -63,20 +67,20 @@ function Layout()
                         <span className="layout-college-name">JAMAL MOHAMED COLLEGE<br /></span>
                         <span className="layout-college-type">(Autonomous)<br /></span>
                         <span className="layout-college-location">TIRUCHIRAPPALLI - 620 020 .<br /></span>
-                    </div>  
+                    </div>
                 </div>
                 {menus
-                .filter(item => item.show)
-                .map((item, index) => (
-                    <NavLink
-                        key={index} 
-                        to={item.path}
-                        className={({ isActive }) => `layout-menu-item ${isActive ? 'layout-active' : ''}`}
-                    >
-                        <FontAwesomeIcon icon={item.icon} className="lay-fa-fa-icons"/>
-                        <label className="layout-menu-label">{item.name}</label>
-                    </NavLink>
-                ))}
+                    .filter(item => item.show)
+                    .map((item, index) => (
+                        <NavLink
+                            key={index}
+                            to={item.path}
+                            className={({ isActive }) => `layout-menu-item ${isActive ? 'layout-active' : ''}`}
+                        >
+                            <FontAwesomeIcon icon={item.icon} className="lay-fa-fa-icons" />
+                            <label className="layout-menu-label">{item.name}</label>
+                        </NavLink>
+                    ))}
             </div>
             <div className="layout-content">
                 <div className="layout-content-inner">
