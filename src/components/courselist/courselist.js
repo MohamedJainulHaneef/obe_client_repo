@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './courselist.css';
 import { useParams } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function CourseList() 
 {
+    console.log(`this is myling${apiUrl}`)
     const { staffId } = useParams();
     const navigate = useNavigate();
     const [courseData, setCourseData] = useState([]);
@@ -14,7 +16,7 @@ function CourseList()
     {
         const fetchCourseMapDetails = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/coursemap', {
+                const response = await axios.post(`${apiUrl}/coursemap`, {
                     staff_id: staffId
                 });
                 setCourseData(response.data);

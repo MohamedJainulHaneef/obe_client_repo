@@ -6,6 +6,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 function Stumark() {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const location = useLocation();
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
@@ -15,7 +17,7 @@ function Stumark() {
     useEffect(() => {
         const stuDetails = async () => {
             try {
-                const StuResponse = await axios.post('http://localhost:5000/studentdetails', {
+                const StuResponse = await axios.post(`${apiUrl}/studentdetails`, {
                     course_id: courseId,
                     stu_section: section,
                     stu_semester: semester,
@@ -27,7 +29,7 @@ function Stumark() {
                 setStuData(StuResponse.data);
                 console.log(StuResponse.data);
 
-                const disable = await axios.get('http://localhost:5000/getreport', {
+                const disable = await axios.get(`${apiUrl}/getreport`, {
                     params: {
                         activeSection,
                         courseCode,
@@ -52,7 +54,7 @@ function Stumark() {
             }
         };
         stuDetails();
-    }, [courseId, section, semester, category, courseCode, deptName, activeSection]);
+    }, [courseId, section, semester, category, courseCode, deptName, activeSection, apiUrl]);
 
 
     const handleSectionChange = (event) => {
@@ -148,7 +150,7 @@ function Stumark() {
         console.log('Sending Data:', { updates, activeSection, courseCode, button_value });
 
         try {
-            const response = await axios.put('http://localhost:5000/updateMark', {
+            const response = await axios.put(`${apiUrl}/updateMark`, {
                 updates, activeSection, courseCode
             });
 
@@ -157,7 +159,7 @@ function Stumark() {
                 if (button_value === "0") {
                     window.alert("Marks Submitted Successfully");
                     try {
-                        const response = await axios.put('http://localhost:5000/report', {
+                        const response = await axios.put(`${apiUrl}/report`, {
                             activeSection, courseCode, deptName, semester, section, category, button_value
                         });
                         console.log(response);
@@ -171,12 +173,12 @@ function Stumark() {
                     if (confirmAction) {
                         try {
 
-                            const reportResponse = await axios.put('http://localhost:5000/report', {
+                            const reportResponse = await axios.put(`${apiUrl}/report`, {
                                 activeSection, courseCode, deptName, semester, section, category, button_value
                             });
                             console.log(reportResponse);
 
-                            const disableResponse = await axios.get('http://localhost:5000/getreport', {
+                            const disableResponse = await axios.get(`${apiUrl}/getreport`, {
                                 params: {
                                     activeSection, courseCode, deptName, semester, section, category
                                 }

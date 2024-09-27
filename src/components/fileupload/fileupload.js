@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './fileupload.css';
 
+
 function FileUpload() {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
     const [file3, setFile3] = useState(null);
@@ -40,7 +43,7 @@ function FileUpload() {
         formData.append('file', file);
 
         try {
-            const res = await axios.post(`http://localhost:5000/${endpoint}`, formData, {
+            const res = await axios.post(`${apiUrl}/${endpoint}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

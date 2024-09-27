@@ -8,16 +8,18 @@ import './layout.css';
 
 function Layout() 
 {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const { staffId } = useParams();
     const [ user, setUsers ] = useState([]);
     useEffect(() => 
     {
-        axios.get(`http://localhost:5000/scope/${staffId}`)
+        axios.get(`${apiUrl}/scope/${staffId}`)
             .then(response => {
                 setUsers(response.data);
             })
             .catch(err => console.log(err));
-    }, [ staffId ]);
+    }, [ staffId, apiUrl ]);
 
     const menus = [
         {

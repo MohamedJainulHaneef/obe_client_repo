@@ -8,13 +8,15 @@ import { useNavigate } from 'react-router-dom';
 
 function Login()
 {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const handleLogin = async () => 
     {
         try {
-            const response = await axios.post('http://localhost:5000/login', {
+            const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
             }); 
