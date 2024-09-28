@@ -53,50 +53,49 @@ function Dash() {
     }, []);
 
     return (
-        <div className='obe-dashboard-main'>
-            <div className='obe-dashboard-header'>
-                <div className='dashboard-header-student'>
-                    <PiStudentFill className='student-icon' />
-                    <h2>Total Students</h2>
-                    <h1>{studentCount}</h1>
+        <div className='dash-main'>
+            <div className='dash-header'>
+                <div className='dash-header-content'>
+                    <PiStudentFill className='dash-student-icon' />
+                    <span className='dash-count-content'>Total Students</span>
+                    <span className='dash-count-number'>{studentCount}</span>
                 </div>
-                <div className='dashboard-header-staff'>
-                    <IoPersonSharp className='staff-icon' />
-                    <h2>Total Staff</h2>
-                    <h1>{staffCount}</h1>
+                <div className='dash-header-content'>
+                    <IoPersonSharp className='dash-staff-icon' />
+                    <span className='dash-count-content'>Total Staff</span>
+                    <span className='dash-count-number'>{staffCount}</span>
                 </div>
-                <div className='dashboard-header-course'>
-                    <FaBook className='course-icon' />
-                    <h2>Total Courses</h2>
-                    <h1>{courseCount}</h1>
+                <div className='dash-header-content'>
+                    <FaBook className='dash-course-icon' />
+                    <span className='dash-count-content'>Total Courses</span>
+                    <span className='dash-count-number'>{courseCount}</span>
                 </div>
-                <div className='dashboard-header-program'>
-                    <SiBookstack className='programme-icon' />
-                    <h2>Total Programme</h2>
-                    <h1>{programCount}</h1>
+                <div className='dash-header-content'>
+                    <SiBookstack className='dash-programme-icon' />
+                    <span className='dash-count-content'>Total Programme</span>
+                    <span className='dash-count-number'>{programCount}</span>
                 </div>
             </div>
-            <div className='obe-dashboard-content'>
-                <div className='dashboard-barchart'>
-                    <span className='barchart-heading'><h2>Programme Outcome</h2></span>
-                    <span className='barchart-subheading'><h4>UG - PG Arts and Science for attainment lever on a 3-point scale</h4></span>
-                    <Barchart />
+            <div className='dash-footer'>
+                <div className="dash-footer-content">
+                    <div className='dash-barchart'>
+                        <Barchart />
+                    </div>
+                    <div className='dash-linechart'>
+                        <Linechart />
+                    </div>
                 </div>
-                <div className='dashboard-linechart'>
-                    <h4><Linechart /></h4>
-
-                </div>
-                <div className='dashboard-piechart'>
-                    <Piechart />
-
-                </div>
-                <div className='dashboard-graphchart'>
-                    <h5><Graphchart /></h5>
-
+                <div className="dash-footer-content">
+                    <div className='dash-piechart'>
+                        <Piechart />
+                    </div>
+                    <div className='dash-graphchart'>
+                        <Graphchart />
+                    </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 export default Dash;
