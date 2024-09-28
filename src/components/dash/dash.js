@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
-// import Piechart from './Piechart';
+import Piechart from './Piechart';
 import Barchart from './Barchart';
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
@@ -74,10 +74,24 @@ function Dash() {
                     <h1>{programCount}</h1>
                 </div>
             </div>
-            <div className='dashboard-barchart'>
-                <span className='barchart-heading'><h2>Programme Outcome</h2></span>
-                <span className='barchart-subheading'><h4>UG - PG Arts and Science for attainment lever on a 3-point scale</h4></span>
-                <Barchart />
+            <div className='obe-dashboard-content'>
+                <div className='dashboard-barchart'>
+                    <span className='barchart-heading'><h2>Programme Outcome</h2></span>
+                    <span className='barchart-subheading'><h4>UG - PG Arts and Science for attainment lever on a 3-point scale</h4></span>
+                    <Barchart />
+                </div>
+                <div className='dashboard-linechart'>
+                    <h4>Line chart content goes here</h4>
+
+                </div>
+                <div className='dashboard-piechart'>
+                    <Piechart />
+
+                </div>
+                <div className='dashboard-graphchart'>
+                    <h5>Graph content goes here</h5>
+
+                </div>
             </div>
         </div>
     );
