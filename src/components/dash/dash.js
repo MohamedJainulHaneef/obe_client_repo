@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
-import Piechart from './Piechart';
-import Barchart from './Barchart';
+import Piechart from '../chart/piechart';
+import Barchart from '../chart/barchart';
+import Graphchart from '../chart/graph';
+import Linechart from '../chart/linechart'
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBook } from "react-icons/fa";
@@ -81,7 +83,7 @@ function Dash() {
                     <Barchart />
                 </div>
                 <div className='dashboard-linechart'>
-                    <h4>Line chart content goes here</h4>
+                    <h4><Linechart /></h4>
 
                 </div>
                 <div className='dashboard-piechart'>
@@ -89,7 +91,7 @@ function Dash() {
 
                 </div>
                 <div className='dashboard-graphchart'>
-                    <h5>Graph content goes here</h5>
+                    <h5><Graphchart /></h5>
 
                 </div>
             </div>
