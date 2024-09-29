@@ -16,6 +16,7 @@
     border: 2px solid gray;
     border-radius: 20px;
     height: 600px;
+    width: 1150px;
     margin: 50px;
     display: flex;
     flex-direction:column;
@@ -33,7 +34,7 @@ h1 {
 
 input[type="file"] {
     background-color:white;
-    width: 60%;
+    width: 40%;
     border-radius: 5px; 
     border: 2px solid gray; 
     padding: 12px;
@@ -41,19 +42,41 @@ input[type="file"] {
     font-weight: bold;
     margin: 20px;
 }
+  .file-container{
+    display: flex;
 
-.submit {
+  }
+  .upload{
     background-color: rgb(13, 124, 228);
+    height: 10%;
     width: 30%;
     border-radius: 5px; 
     border: 2px solid #ddd; 
     padding: 8px;
     color: white;
     font-size: 16px;
+    font-weight: bold;
     padding: 16px;
-}
-
-.submit:hover {
+    margin-top: 20px;
+  }
+  .download{
+    background-color:green;
+    height: 10%;
+    width: 25%;
+    border-radius: 5px; 
+    border: 2px solid #ddd; 
+    padding: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 16px;
+    margin-top: 20px;
+  }
+  .upload:hover {
     background-color: rgb(9, 61, 113);
+    cursor: pointer;
+  }
+  .download:hover {
+    background-color: rgb(3, 69, 3);
     cursor: pointer;
   }

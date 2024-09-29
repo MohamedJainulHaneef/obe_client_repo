@@ -15,6 +15,15 @@ function Layout() {
     const navigate = useNavigate(); // Hook for navigation
     const { logout } = useAuth(); // Get logout function from context
     const [user, setUsers] = useState([]);
+    const { isAuthenticated } = useAuth(); // Add this line
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/', { replace: true }); // Redirect if not authenticated
+        }
+    }, [isAuthenticated, navigate]); // Add isAuthenticated to the dependency array
+
+    // Rest of your Layout component...
 
     useEffect(() => {
         axios.get(`${apiUrl}/scope/${staffId}`)

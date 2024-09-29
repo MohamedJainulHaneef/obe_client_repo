@@ -25,8 +25,8 @@ function Login() {
             });
 
             if (response.data.success) {
-                login(staffId); // Set user in AuthContext
-                navigate(`staff/${staffId}/dashboard`);
+                login(staffId);
+                navigate(`staff/${staffId}/dashboard`, { replace: true }); // Use replace here
             }
             else {
                 alert(response.data.message);
@@ -39,8 +39,8 @@ function Login() {
     };
 
     const handleLogout = () => {
-        logout(); // Call the logout function from context
-        navigate('/', { replace: true }); // Use replace to clear history
+        logout();
+        navigate('/', { replace: true }); // Use replace here
     };
 
 
