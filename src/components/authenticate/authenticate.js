@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext(); // Define AuthContext
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setIsAuthenticated(false);
         setStaffId(null);
+        // Optionally, clear local storage or cookies if used for authentication
     };
 
     return (

@@ -4,63 +4,61 @@ import axios from 'axios';
 import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams, useNavigate } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
-import { useAuth } from '../authenticate/authenticate' // Import useAuth
+import { useAuth } from '../authenticate/authenticate'; // Import useAuth
 
 import './layout.css';
 
 function Layout() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    const { staffId } = useParams();
+    const { staffId: urlStaffId } = useParams(); // Get the staffId from the URL
     const navigate = useNavigate(); // Hook for navigation
-    const { logout } = useAuth(); // Get logout function from context
+    const { logout, isAuthenticated, staffId: contextStaffId } = useAuth(); // Get logout function and staffId from context
     const [user, setUsers] = useState([]);
-    const { isAuthenticated } = useAuth(); // Add this line
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/', { replace: true }); // Redirect if not authenticated
+        if (!isAuthenticated || urlStaffId !== contextStaffId) {
+            navigate('/', { replace: true }); // Redirect if not authenticated or staff ID does not match
         }
-    }, [isAuthenticated, navigate]); // Add isAuthenticated to the dependency array
-
-    // Rest of your Layout component...
+    }, [isAuthenticated, urlStaffId, contextStaffId, navigate]);
 
     useEffect(() => {
-        axios.get(`${apiUrl}/scope/${staffId}`)
+        axios.get(`${apiUrl}/scope/${urlStaffId}`)
             .then(response => {
                 setUsers(response.data);
             })
             .catch(err => console.log(err));
-    }, [staffId, apiUrl]);
+    }, [urlStaffId, apiUrl]);
 
     const handleLogout = () => {
         logout(); // Call logout function
         navigate('/', { replace: true }); // Redirect to login page
+        window.location.reload(); // Reload to clear the history
     };
 
     const menus = [
         {
             icon: faHome,
             name: 'Dashboard',
-            path: `/staff/${staffId}/dashboard`,
+            path: `/staff/${urlStaffId}/dashboard`,
             show: user && user.dashboard === 1,
         },
         {
             icon: faFileAlt,
             name: 'Course List',
-            path: `/staff/${staffId}/courselist`,
+            path: `/staff/${urlStaffId}/courselist`,
             show: user && user.course_list === 1,
         },
         {
             icon: faExchangeAlt,
             name: 'Report',
-            path: `/staff/${staffId}/report`,
+            path: `/staff/${urlStaffId}/report`,
             show: user && user.report === 1,
         },
         {
             icon: faKey,
             name: 'Upload Files',
-            path: `/staff/${staffId}/uploadfile`,
+            path: `/staff/${urlStaffId}/uploadfile`,
             show: user && user.upload_files === 1,
         }
     ];

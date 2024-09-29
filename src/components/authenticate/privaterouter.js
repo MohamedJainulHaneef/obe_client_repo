@@ -1,11 +1,14 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useAuth } from './authenticate';
 
 const PrivateRoute = ({ element }) => {
-    const { isAuthenticated } = useAuth(); // Use the context to check authentication
+    const { isAuthenticated, staffId } = useAuth();
+    const { staffId: currentStaffId } = useParams();
 
-    return isAuthenticated ? element : <Navigate to="/" />;
+    return (isAuthenticated && currentStaffId === staffId)
+        ? element
+        : <Navigate to="/" replace />;
 };
 
 export default PrivateRoute;
