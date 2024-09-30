@@ -27,6 +27,7 @@ function Stumark() {
                 });
                 // console.log(StuResponse.data);
                 setStuData(StuResponse.data);
+                console.log(StuResponse.data);
 
                 const disable = await axios.get(`${apiUrl}/getreport`, {
                     params: {
@@ -236,10 +237,11 @@ function Stumark() {
                 user.total
             ])];
         } else if (activeSection === '3' || activeSection === '4') {
-            headers = ['Register No', 'LOT'];
+            headers = ['Register No', 'LOT', 'TOTAL'];
             dataWithHeaders = [headers, ...stuData.map(user => [
                 user.reg_no,
                 user.lot,
+                user.total
             ])];
         }
 
@@ -254,6 +256,7 @@ function Stumark() {
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
     };
+
 
     return (
         <div className="mark-main">
@@ -297,7 +300,7 @@ function Stumark() {
                 </div>
                 <div className="mark-dropdown-group">
                     <select
-                        value={activeSection}
+                        value={activeSection || ''}
                         onChange={handleSectionChange}
                         className="mark-dropdown"
                     >
@@ -381,20 +384,22 @@ function Stumark() {
                                                             disabled
                                                         />
                                                     </td>
-
                                                 </>
                                             )}
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+
                             <div className="mark-button-head">
-                                {!handleDisable() ? (
+                                {!handleDisable() && (
                                     <>
                                         <button
                                             type="submit"
                                             className="mark-button-save"
                                             onClick={(e) => handleUpdateMark(e, "0")}
+
+
                                         >
                                             SAVE
                                         </button>
@@ -407,7 +412,10 @@ function Stumark() {
                                             SAVE & CONFIRM
                                         </button>
                                     </>
-                                ) : (
+                                )}
+
+                                {/* Show the Download button after Save & Confirm */}
+                                {handleDisable() && (
                                     <button
                                         type="button"
                                         className="mark-download"
@@ -417,10 +425,10 @@ function Stumark() {
                                     </button>
                                 )}
                             </div>
-
                         </div>
                     )}
                 </div>
+
             </div>
         </div>
     )

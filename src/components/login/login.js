@@ -5,30 +5,44 @@ import './login.css';
 import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../authenticate/authenticate'; // Import AuthContext
+
 
 function Login() {
     const apiUrl = process.env.REACT_APP_API_URL;
+
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth(); // Get login function from context
+    const { logout } = useAuth(); // Get logout function from context
+
     const handleLogin = async () => {
         try {
             const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
             });
+
             if (response.data.success) {
-                navigate(`staff/${staffId}/dashboard`);
+                login(staffId);
+                navigate(`staff/${staffId}/dashboard`, { replace: true }); // Use replace here
             }
             else {
                 alert(response.data.message);
             }
         }
         catch (error) {
-            alert('An error occurred. Please try again Later.');
+            alert('An error occurred. Please try again later.');
             console.error('Login Error: ', error);
         }
     };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/', { replace: true }); // Use replace here
+    };
+
 
     return (
         <div className='log-parent'>
@@ -65,7 +79,7 @@ function Login() {
                 <a href="www.google.com" className="log-desc-anchor">Forgot Password</a>
                 <button className="log-desc-btn" onClick={handleLogin}>
                     <FontAwesomeIcon icon={faLock} className='log-fa-fa-icons' />
-                    <div className='log-login-desc'>LOGIN</div>
+                    <div className='log-login-desc' onClick={handleLogout}>LOGIN</div>
                 </button>
             </div>
         </div>

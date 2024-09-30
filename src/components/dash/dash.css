@@ -1,0 +1,93 @@
+.dash-main {
+    width: 100%;
+    display: flex;
+    padding: 30px;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dash-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dash-header-content {
+    width: 23%;
+    gap: 7px;
+    border: 2px solid black;
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dash-count-content {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.dash-count-number {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.dash-student-icon {
+    color: blue;
+    font-size: 35px;
+}
+
+.dash-staff-icon {
+    color: green;
+    font-size: 35px;
+}
+
+.dash-course-icon {
+    color: orange;
+    font-size: 35px;
+}
+
+.dash-programme-icon {
+    color: yellowgreen;
+    font-size: 35px;
+}
+
+.dash-footer {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+}
+
+.dash-footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dash-barchart {
+    width: 48.5%;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.dash-linechart {
+    width: 48.5%;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.dash-piechart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48.5%;
+    border: 2px solid black;
+}
+
+.dash-graphchart {
+    width: 48.5%;
+    border: 2px solid black;
+}
