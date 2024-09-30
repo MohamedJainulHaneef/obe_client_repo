@@ -59,7 +59,7 @@ function Layout() {
         {
             icon: faKey,
             name: 'Upload Files',
-            path: `/staff/${staffId}/uploadfile`,
+            path: `/staff/${urlStaffId}/uploadfile`,
             show: user.upload_files === 1,
         },
         {
@@ -71,7 +71,7 @@ function Layout() {
         {
             icon: faGear ,
             name: 'Setting',
-            path: `/staff/${staffId}/setting`,
+            path: `/staff/${urlStaffId}/setting`,
             show: user.logout === 1,
         },
     ];
