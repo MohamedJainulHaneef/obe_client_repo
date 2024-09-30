@@ -1,7 +1,7 @@
 import { useEffect, React, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt , faGear} from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import './layout.css';
@@ -54,6 +54,12 @@ function Layout() {
             icon: faSignOutAlt,
             name: 'Logout',
             path: '/',
+            show: user.logout === 1,
+        },
+        {
+            icon: faGear ,
+            name: 'Setting',
+            path: `/staff/${staffId}/setting`,
             show: user.logout === 1,
         },
     ];
