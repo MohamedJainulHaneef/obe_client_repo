@@ -5,7 +5,7 @@ import './login.css';
 import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../authenticate/authenticate'; // Import AuthContext
+import { useAuth } from './authenticate/authenticate'; // Import AuthContext
 
 
 function Login() {

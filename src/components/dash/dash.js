@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
-import Piechart from '../chart/piechart';
-import Barchart from '../chart/barchart';
-import Graphchart from '../chart/graph';
-import Linechart from '../chart/linechart'
+import Piechart from './chart/piechart';
+import Barchart from './chart/barchart';
+import Graphchart from './chart/graph';
+import Linechart from './chart/linechart'
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBook } from "react-icons/fa";

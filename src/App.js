@@ -1,16 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './components/authenticate/authenticate'; // Import AuthProvider
-
+import { AuthProvider } from './components/login/authenticate/authenticate';
 import Login from './components/login/login';
 import Layout from './components/layout/layout';
 import Dash from './components/dash/dash';
 import CourseList from './components/courselist/courselist';
-import Stumark from './components/stumark/stumark';
+import Stumark from './components/courselist/stumark/stumark';
 import UploadFile from './components/fileupload/fileupload';
 import Report from './components/report/report';
 import Setting from './components/settings/setting';
 import StaffManage from './components/staff_manage/staffmanage';
-import PrivateRoute from './components/authenticate/privaterouter';
+import PrivateRoute from './components/login/authenticate/privaterouter';
 
 
 function App() {

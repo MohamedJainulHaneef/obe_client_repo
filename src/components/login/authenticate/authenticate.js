@@ -2,19 +2,21 @@ import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(); // Define AuthContext
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => 
+{
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [staffId, setStaffId] = useState(null);
 
-    const login = (id) => {
+    const login = (id) => 
+    {
         setIsAuthenticated(true);
         setStaffId(id);
     };
 
-    const logout = () => {
+    const logout = () => 
+    {
         setIsAuthenticated(false);
         setStaffId(null);
-        // Optionally, clear local storage or cookies if used for authentication
     };
 
     return (
