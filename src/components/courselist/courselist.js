@@ -7,7 +7,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 function CourseList() 
 {
-    console.log(`this is myling${apiUrl}`)
     const { staffId } = useParams();
     const navigate = useNavigate();
     const [courseData, setCourseData] = useState([]);

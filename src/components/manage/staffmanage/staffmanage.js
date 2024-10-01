@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import '../staff_manage/staff_manage.css';
+import './staffmanage.css';
 import axios from "axios";
 // import { useLocation } from "react-router-dom";
 
