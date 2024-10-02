@@ -10,8 +10,8 @@
     background-color: #057252;
     width: 20rem;
     padding: 0.layout-75rem;
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    box-sizing: border-box; /* Ensure padding is included in the sidebar width */
+    overflow-y: auto;
+    box-sizing: border-box; 
     display: flex;
     flex-direction: column;
     color: #000000;
@@ -69,7 +69,7 @@
     display: flex;
     align-items: center;
     width:280px;
-    font-size: 16px; /* Standard font size */
+    font-size: 16px;
     margin:0 auto;
     margin-bottom: 10px;
     height: 45px;
@@ -81,7 +81,6 @@
     color: #ffffff;
     transition: 0.3s;
     flex-shrink: 0; 
-    /* Ensure menu items take full width of the sidebar */
 }
 
 .layout-menu-item:hover {
@@ -123,25 +122,26 @@
     margin-left: 15px;
     width: 20px;
 }
+
 .layout-logout-btn {
     display: flex;
     align-items: center;
     width: 280px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     height: 45px;
-    padding-left: 5px;
-    font-size: 1.25rem; /* Change to the correct font size */
+    /* padding-left: 5px; */
+    font-size: 1.25rem; 
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
     color: #ffffff;
-    margin-left: 32px;
-    background-color: transparent; /* No background color */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor */
+    /* margin-left: 32px; */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .layout-logout-btn:hover {
-    background-color: rgba(0, 0, 0, 0.5); /* Hover effect */
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
 }

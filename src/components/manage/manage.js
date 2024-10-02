@@ -1,76 +1,66 @@
-import React, { useState } from "react";  // Import useParams here
-import { useNavigate, useParams } from "react-router-dom";  // Ensure useParams is imported at the top
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import './manage.css';
 import axios from "axios";
 
-function Manage() {
-    const { staffId } = useParams();  // Move useParams to the top level
+function Manage() 
+{
+    const { staffId } = useParams();
     const apiUrl = process.env.REACT_APP_API_URL;
-
     const [academic, setAcademic] = useState(false);
     const [academicsem, setAcademicSem] = useState('');
     const navigate = useNavigate();
 
-    const handleAcademic = () => {
+    const handleAcademic = () => 
+    {
         setAcademic(true);
     }
 
-    const handleAcademicSem = async () => {
+    const handleAcademicSem = async () => 
+    {
         try {
             const response = await axios.put(`${apiUrl}/academic`, {
                 academicsem
             });
-
             window.alert("Academic year ", response.data);
-        } catch (err) {
+        } 
+        catch (err) {
             console.error('Error ', err);
             window.alert("Something Went Wrong with the Server");
         }
     }
 
-    const handleStaffManage = () => {
-        // Properly navigate without returning anything
+    const handleStaffManage = () => 
+    {
         navigate(`/staff/${staffId}/staffmanage`);
     };
 
-    const handleScopeManage = () => {
-        // Properly navigate without returning anything
+    const handleScopeManage = () => 
+    {
         navigate(`/staff/${staffId}/scopemanage`);
     };
 
-    const handleRelease = () => {
-        // Properly navigate without returning anything
+    const handleRelease = () => 
+    {
         navigate(`/staff/${staffId}/reportrelease`);
     };
 
     return (
-        <div className="setting-body">
-            <div className="setting-container">
-                <button className="setting-item">
-                    <h2 className="setting-btn" onClick={handleAcademic}>Academic Year</h2>
-                </button>
-                <button className="setting-item">
-                    <h2 className="setting-btn">Student Manage</h2>
-                </button>
-                <button className="setting-item">
-                    <h2 className="setting-btn">Course Manage</h2>
-                </button>
-                <button className="setting-item" onClick={handleStaffManage}>
-                    <h2 className="setting-btn">Staff Manage</h2>
-                </button>
-                <button className="setting-item">
-                    <h2 className="setting-btn">Mark Manage</h2>
-                </button>
-                <button className="setting-item" onClick={handleScopeManage}>
-                    <h2 className="setting-btn">Scope Manage</h2>
-                </button>
-                <button className="setting-item">
-                    <h2 className="setting-btn" onClick={handleRelease}>Release</h2>
-                </button>
-            </div>
 
+        <div className="manage-body">
+            <div className="manage-container">
+                <button className="manage-btn" onClick={handleAcademic}>Academic Year                </button>
+                <button className="manage-btn">Student Manage</button>
+                <button className="manage-btn">Course Manage</button>
+                <button className="manage-btn" onClick={handleStaffManage}>Staff Manage</button>
+                <button className="manage-btn">Mark Manage</button>
+                <button  className="manage-btn" onClick={handleScopeManage}>Scope Manage</button>
+                <button className="manage-btn" onClick={handleRelease}>Release</button>
+            </div>
+            
+            <div className="pop-up-container">
             {academic && (
-                <div className="pop-up-container">
+               
                     <div className="pop-up">
                         <div>
                             <select
@@ -95,9 +85,10 @@ function Manage() {
                             <button onClick={handleAcademicSem}>Submit</button>
                         </div> 
                     </div>
-                </div>
             )}
         </div>
+        </div>
+
     );
 }
 

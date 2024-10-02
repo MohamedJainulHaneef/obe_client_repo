@@ -4,26 +4,27 @@ import axios from 'axios';
 import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt , faGear} from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
-import { useAuth } from '../login/authenticate/authenticate'; // Import useAuth
+import { useAuth } from '../login/authenticate/authenticate';
 import { useNavigate } from 'react-router-dom';
-
 import './layout.css';
 
-function Layout() {
+function Layout() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
-
     const { staffId: urlStaffId } = useParams();
     const navigate = useNavigate();
     const { logout, isAuthenticated, staffId: contextStaffId } = useAuth(); 
     const [user, setUsers] = useState([]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         if (!isAuthenticated || urlStaffId !== contextStaffId) {
-            navigate('/', { replace: true }); // Redirect if not authenticated or staff ID does not match
+            navigate('/', { replace: true });
         }
     }, [isAuthenticated, urlStaffId, contextStaffId, navigate]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         axios.get(`${apiUrl}/scope/${urlStaffId}`)
             .then(response => {
                 setUsers(response.data);
@@ -31,10 +32,11 @@ function Layout() {
             .catch(err => console.log(err));
     }, [urlStaffId, apiUrl]);
 
-    const handleLogout = () => {
-        logout(); // Call logout function
-        navigate('/', { replace: true }); // Redirect to login page
-        window.location.reload(); // Reload to clear the history
+    const handleLogout = () => 
+    {
+        logout();
+        navigate('/', { replace: true });
+        window.location.reload();
     };
 
     const menus = [
@@ -51,13 +53,13 @@ function Layout() {
             show: user && user.course_list === 1,
         },
         {
-            icon: faFileAlt,
+            icon: faGear,
             name: 'Course Outcome',
             path: `/staff/${urlStaffId}/courseoutcome`,
             show: true,
         },
         {
-            icon: faFileAlt,
+            icon: faKey,
             name: 'Student Outcome',
             path: `/staff/${urlStaffId}/studentoutcome`,
             show: true,
@@ -69,7 +71,7 @@ function Layout() {
             show: true,
         },
         {
-            icon: faFileAlt,
+            icon: faExchangeAlt,
             name: 'Program Outcome',
             path: `/staff/${urlStaffId}/programoutcome`,
             show: true,
@@ -81,7 +83,7 @@ function Layout() {
             show: true,
         },
         {
-            icon: faFileAlt,
+            icon: faGear,
             name: 'HOD Report',
             path: `/staff/${urlStaffId}/hodreport`,
             show: true,
@@ -107,7 +109,7 @@ function Layout() {
         {
             icon: faFileAlt,
             name: 'Relationship Matrix',
-            path: `/staff/${urlStaffId}/relationship Matrix`,
+            path: `/staff/${urlStaffId}/relationshipmatrix`,
             show: true,
         },
         {
