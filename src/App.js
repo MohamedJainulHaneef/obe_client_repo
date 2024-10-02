@@ -11,6 +11,7 @@ import Manage from './components/manage/manage';
 import ScopeManage from './components/manage/scope/scope';
 import StaffManage from './components/manage/staffmanage/staffmanage';
 import PrivateRoute from './components/login/authenticate/privaterouter';
+import ReportRelease from './components/manage/reportrelease/reportrelease';
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                         <Route path="manage" element={<Manage />}/>
                         <Route path="staffmanage" element={<StaffManage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
+                        <Route path="reportrelease" element={<ReportRelease />} />
                     </Route>
                 </Routes>
             </Router>

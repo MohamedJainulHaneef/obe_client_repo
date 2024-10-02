@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import './scope.css';
 
 function Scope() {
     const [scopeData, setScopeData] = useState([]);
@@ -35,19 +36,22 @@ function Scope() {
         );
     };
 
-    // Function to handle save
+    // Function to handle save, send data to backend similar to the examType example you provided
     const handleSave = async () => {
-        const updatedData = scopeData.map(item => ({
-            staff_id: item.staff_id,
-            dashboard: item.dashboard,
-            course_list: item.course_list,
-            report: item.report,
-            upload_files: item.upload_files,
-            logout: item.logout,
-        }));
+        // Create an object to send updates
+        const updates = {};
+        scopeData.forEach(item => {
+            updates[item.staff_id] = {
+                dashboard: item.dashboard,
+                course_list: item.course_list,
+                report: item.report,
+                upload_files: item.upload_files,
+                logout: item.logout,
+            };
+        });
 
         try {
-            await axios.put(`${apiUrl}/scopeset`, updatedData);
+            await axios.put(`${apiUrl}/updateScope`, { updates });
             alert("Data saved successfully!");
         } catch (error) {
             console.error("Error saving data:", error.response?.data || error.message);
@@ -67,7 +71,7 @@ function Scope() {
                 </button>
             </h1>
             <div style={{ maxHeight: '900px', overflowY: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table className="scope-table">
                     <thead>
                         <tr>
                             <th style={{ position: 'sticky', top: 0 }}>Staff ID</th>
