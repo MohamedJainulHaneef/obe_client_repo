@@ -18,12 +18,100 @@ function Scope() {
         scopeDetailsFetch();
     }, []);
 
+    // Function to handle the change in individual checkboxes
+    const handleCheckboxChange = (staffId, field, checked) => {
+        setScopeData(prevData =>
+            prevData.map(item => 
+                item.staff_id === staffId ? { ...item, [field]: checked ? 1 : 0 } : item
+            )
+        );
+    };
+
+    // Function to handle the "All" checkbox toggle
+    const handleAllCheckboxChange = (field) => {
+        const allChecked = scopeData.every(item => item[field] === 1);
+        setScopeData(prevData =>
+            prevData.map(item => ({ ...item, [field]: allChecked ? 0 : 1 }))
+        );
+    };
+
+    // Function to handle save
+    const handleSave = async () => {
+        const updatedData = scopeData.map(item => ({
+            staff_id: item.staff_id,
+            dashboard: item.dashboard,
+            course_list: item.course_list,
+            report: item.report,
+            upload_files: item.upload_files,
+            logout: item.logout,
+        }));
+
+        try {
+            await axios.put(`${apiUrl}/scopeset`, updatedData);
+            alert("Data saved successfully!");
+        } catch (error) {
+            console.error("Error saving data:", error.response?.data || error.message);
+            alert("Failed to save data. " + (error.response?.data.message || error.message));
+        }
+    };
+
     return (
         <div>
-            <h1>Scope Data</h1>
-            <div style={{ maxHeight: '900px', overflowY: 'auto' }}> {/* Make the table scrollable */}
+            <h1>
+                Scope Data 
+                <button 
+                    onClick={handleSave} 
+                    style={{ marginLeft: '10px', padding: '10px', fontSize: '16px' }} // Same styling as title
+                >
+                    SAVE
+                </button>
+            </h1>
+            <div style={{ maxHeight: '900px', overflowY: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
+                        <tr>
+                            <th style={{ position: 'sticky', top: 0 }}>Staff ID</th>
+                            <th style={{ position: 'sticky', top: 0 }}>
+                                <input 
+                                    type="checkbox" 
+                                    onChange={() => handleAllCheckboxChange('dashboard')}
+                                    checked={scopeData.every(item => item.dashboard === 1)}
+                                />
+                                ALL
+                            </th>
+                            <th style={{ position: 'sticky', top: 0 }}>
+                                <input 
+                                    type="checkbox" 
+                                    onChange={() => handleAllCheckboxChange('course_list')}
+                                    checked={scopeData.every(item => item.course_list === 1)}
+                                />
+                                ALL
+                            </th>
+                            <th style={{ position: 'sticky', top: 0 }}>
+                                <input 
+                                    type="checkbox" 
+                                    onChange={() => handleAllCheckboxChange('report')}
+                                    checked={scopeData.every(item => item.report === 1)}
+                                />
+                                ALL
+                            </th>
+                            <th style={{ position: 'sticky', top: 0 }}>
+                                <input 
+                                    type="checkbox" 
+                                    onChange={() => handleAllCheckboxChange('upload_files')}
+                                    checked={scopeData.every(item => item.upload_files === 1)}
+                                />
+                                ALL
+                            </th>
+                            <th style={{ position: 'sticky', top: 0 }}>
+                                <input 
+                                    type="checkbox" 
+                                    onChange={() => handleAllCheckboxChange('logout')}
+                                    checked={scopeData.every(item => item.logout === 1)}
+                                />
+                                ALL
+                            </th>
+                        </tr>
                         <tr>
                             <th style={{ position: 'sticky', top: 0 }}>Staff ID</th>
                             <th style={{ position: 'sticky', top: 0 }}>Dashboard</th>
@@ -40,31 +128,36 @@ function Scope() {
                                 <td>
                                     <input 
                                         type="checkbox"
-                                        defaultChecked={scopeItem.dashboard === 1}
+                                        checked={scopeItem.dashboard === 1}
+                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'dashboard', e.target.checked)}
                                     />
                                 </td>
                                 <td>
                                     <input 
                                         type="checkbox"
-                                        defaultChecked={scopeItem.course_list === 1}
+                                        checked={scopeItem.course_list === 1}
+                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_list', e.target.checked)}
                                     />
                                 </td>
                                 <td>
                                     <input 
                                         type="checkbox"
-                                        defaultChecked={scopeItem.report === 1}
+                                        checked={scopeItem.report === 1}
+                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'report', e.target.checked)}
                                     />
                                 </td>
                                 <td>
                                     <input 
                                         type="checkbox"
-                                        defaultChecked={scopeItem.upload_files === 1}
+                                        checked={scopeItem.upload_files === 1}
+                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'upload_files', e.target.checked)}
                                     />
                                 </td>
                                 <td>
                                     <input 
                                         type="checkbox"
-                                        defaultChecked={scopeItem.logout === 1}
+                                        checked={scopeItem.logout === 1}
+                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'logout', e.target.checked)}
                                     />
                                 </td>
                             </tr>

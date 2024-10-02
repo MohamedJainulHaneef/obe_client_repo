@@ -38,6 +38,11 @@ function Manage() {
         navigate(`/staff/${staffId}/scopemanage`);
     };
 
+    const handleRelease = () => {
+        // Properly navigate without returning anything
+        navigate(`/staff/${staffId}/reportrelease`);
+    };
+
     return (
         <div className="setting-body">
             <div className="setting-container">
@@ -58,6 +63,9 @@ function Manage() {
                 </button>
                 <button className="setting-item" onClick={handleScopeManage}>
                     <h2 className="setting-btn">Scope Manage</h2>
+                </button>
+                <button className="setting-item">
+                    <h2 className="setting-btn" onClick={handleRelease}>Release</h2>
                 </button>
             </div>
 

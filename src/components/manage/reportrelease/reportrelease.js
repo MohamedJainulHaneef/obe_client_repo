@@ -1,6 +1,6 @@
 import React from "react";
 
-function Report()
+function ReportRelease()
 {
     return(
         <div>
@@ -9,4 +9,4 @@ function Report()
         )
 }
 
-export default Report;
+export default ReportRelease;
