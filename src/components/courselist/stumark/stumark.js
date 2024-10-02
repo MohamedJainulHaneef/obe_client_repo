@@ -5,19 +5,22 @@ import { useLocation } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-function Stumark() {
+function Stumark() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
-
     const location = useLocation();
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState('1');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
 
-    useEffect(() => {
-        const stuDetails = async () => {
+    useEffect(() => 
+    {
+        const stuDetails = async () => 
+        {
             try {
-                const StuResponse = await axios.post(`${apiUrl}/studentdetails`, {
+                const StuResponse = await axios.post(`${apiUrl}/studentdetails`, 
+                {
                     course_id: courseId,
                     stu_section: section,
                     stu_semester: semester,
@@ -25,24 +28,19 @@ function Stumark() {
                     stu_course_code: courseCode,
                     activeSection
                 });
-                // console.log(StuResponse.data);
-                setStuData(StuResponse.data);
-                console.log(StuResponse.data);
 
-                const disable = await axios.get(`${apiUrl}/getreport`, {
-                    params: {
-                        activeSection,
-                        courseCode,
-                        deptName,
-                        semester,
-                        section,
-                        category
+                setStuData(StuResponse.data);
+
+                const disable = await axios.get(`${apiUrl}/getreport`, 
+                {
+                    params: 
+                    {
+                        activeSection, courseCode, deptName, semester, section, category
                     }
                 });
 
                 if (disable.data) {
                     setActive(disable.data);
-                    // console.log('Disable data:', disable.data);
                 }
                 else {
                     console.warn('Received null or undefined data from /getreport');
@@ -54,10 +52,12 @@ function Stumark() {
             }
         };
         stuDetails();
+        
     }, [courseId, section, semester, category, courseCode, deptName, activeSection, apiUrl]);
 
 
-    const handleSectionChange = (event) => {
+    const handleSectionChange = (event) => 
+    {
         setActiveSection(event.target.value);
         setStuData(stuData.map(user => ({
             ...user,
@@ -68,78 +68,94 @@ function Stumark() {
         })))
     }
 
-    const handleInputChange = (registerNo, type, value) => {
+    const handleInputChange = (registerNo, type, value) => 
+    {
         let validatedValue = value;
 
-        if (type === 'lot') {
-            if (activeSection === '3' || activeSection === '4') {
+        if (type === 'lot') 
+        {
+            if (activeSection === '3' || activeSection === '4') 
+            {
                 if (value > 3) {
                     alert("Value for LOT cannot exceed 3.");
                     return;
                 }
             }
-            else {
+            else 
+            {
                 if (value > 25) {
                     alert("Value for LOT cannot exceed 25.");
                     return;
                 }
             }
         }
-        else if (type === 'mot') {
+        else if (type === 'mot') 
+        {
             if (value > 40) {
                 alert("Value for MOT cannot exceed 40.");
                 return;
             }
         }
-        else if (type === 'hot') {
+        else if (type === 'hot') 
+        {
             if (value > 10) {
                 alert("Value for HOT cannot exceed 10.");
                 return;
             }
         }
 
-        // Update the student data if input is within the valid range
-        const updatedStuData = stuData.map(user => {
-            if (user.reg_no === registerNo) {
+        const updatedStuData = stuData.map(user => 
+        {
+            if (user.reg_no === registerNo) 
+            {
                 const newLot = type === 'lot' ? validatedValue : user.lot;
                 const newMot = type === 'mot' ? validatedValue : user.mot;
                 const newHot = type === 'hot' ? validatedValue : user.hot;
-                const newTotal = parseFloat(newLot || 0) + parseFloat(newMot || 0) + parseFloat(newHot || 0);
+                const newTotal = parseFloat (newLot || 0) + parseFloat (newMot || 0) + parseFloat (newHot || 0);
                 return { ...user, [type]: validatedValue, total: newTotal };
             }
             return user;
         });
-
         setStuData(updatedStuData);
+
     };
 
 
-    const handleDisable = () => {
-        if (activeSection === '1') {
+    const handleDisable = () => 
+    {
+        if (activeSection === '1') 
+        {
             return active?.cia_1 === 2;
         }
-        else if (activeSection === '2') {
+        else if (activeSection === '2')
+        {
             return active?.cia_2 === 2;
         }
-        else if (activeSection === '3') {
+        else if (activeSection === '3')
+        {
             return active?.ass_1 === 2;
         }
-        else if (activeSection === '4') {
+        else if (activeSection === '4') 
+        {
             return active?.ass_2 === 2;
         }
-        else if (activeSection === '5') {
+        else if (activeSection === '5') 
+        {
             return active?.ese === 2;
         }
         return false;
     };
 
-    const handleUpdateMark = async (e, isConfirm) => {
+    const handleUpdateMark = async (e, isConfirm) => 
+    {
         const button_value = isConfirm;
 
         e.preventDefault();
         const updates = {};
-        stuData.forEach(user => {
-            updates[user.reg_no] = {
+        stuData.forEach(user => 
+        {
+            updates[user.reg_no] = 
+            {
                 lot: user.lot,
                 mot: user.mot,
                 hot: user.hot,
@@ -147,45 +163,46 @@ function Stumark() {
             };
         });
 
-        console.log('Sending Data:', { updates, activeSection, courseCode, button_value });
-
-        try {
+        try 
+        {
             const response = await axios.put(`${apiUrl}/updateMark`, {
                 updates, activeSection, courseCode
             });
 
-            if (response.data.success) {
-
-                if (button_value === "0") {
+            if (response.data.success) 
+            {
+                if (button_value === "0") 
+                {
                     window.alert("Marks Submitted Successfully");
                     try {
                         const response = await axios.put(`${apiUrl}/report`, {
                             activeSection, courseCode, deptName, semester, section, category, button_value
                         });
-                        console.log(response);
                     }
                     catch (err) {
                         window.alert("err")
                     }
                 }
-                else if (button_value === "1") {
+                else if (button_value === "1") 
+                {
                     const confirmAction = window.confirm("Are you sure you want to proceed ?");
-                    if (confirmAction) {
+                    if (confirmAction) 
+                    {
                         try {
-
                             const reportResponse = await axios.put(`${apiUrl}/report`, {
                                 activeSection, courseCode, deptName, semester, section, category, button_value
                             });
-                            console.log(reportResponse);
 
-                            const disableResponse = await axios.get(`${apiUrl}/getreport`, {
+                            const disableResponse = await axios.get(`${apiUrl}/getreport`, 
+                            {
                                 params: {
                                     activeSection, courseCode, deptName, semester, section, category
                                 }
                             });
 
-                            if (disableResponse?.data) {
-                                console.log('Disable data:', disableResponse.data);
+                            if (disableResponse?.data) 
+                            {
+                                console.log('Disable D0ata:', disableResponse.data);
                             }
                             else {
                                 console.warn('Received null or undefined data from /getreport');
@@ -199,10 +216,11 @@ function Stumark() {
                     }
                 }
                 else {
-                    console.log("Not")
+                    console.log("Not a Valid Value")
                 }
             }
-            else {
+            else 
+            {
                 alert('Something went Wrong');
             }
         }
@@ -212,51 +230,53 @@ function Stumark() {
         }
     };
 
-    const handleKeyDown = (event) => {
-        if (['e', 'E', '-', '+', '.'].includes(event.key)) {
+    const handleKeyDown = (event) => 
+    {
+        if (['e', 'E', '-', '+', '.'].includes(event.key)) 
+        {
             event.preventDefault();
         }
     };
 
-    const handleDownload = () => {
+    const handleDownload = () => 
+    {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
         const fileName = `Report_Section_${activeSection}`;
 
-        // Define dynamic headers and data based on activeSection
         let headers = ['Register No', 'LOT'];
         let dataWithHeaders = [];
 
-        if (activeSection === '1' || activeSection === '2' || activeSection === '5') {
+        if (activeSection === '1' || activeSection === '2' || activeSection === '5') 
+        {
             headers = ['Register No', 'LOT', 'MOT', 'HOT', 'TOTAL'];
-            dataWithHeaders = [headers, ...stuData.map(user => [
+            dataWithHeaders = [headers, ...stuData.map(user => 
+            [
                 user.reg_no,
                 user.lot,
                 user.mot,
                 user.hot,
                 user.total
             ])];
-        } else if (activeSection === '3' || activeSection === '4') {
-            headers = ['Register No', 'LOT', 'TOTAL'];
-            dataWithHeaders = [headers, ...stuData.map(user => [
+        } 
+        else if (activeSection === '3' || activeSection === '4') 
+        {
+            headers = ['Register No', 'LOT'];
+            dataWithHeaders = [headers, ...stuData.map(user => 
+            [
                 user.reg_no,
-                user.lot,
-                user.total
+                user.lot
             ])];
         }
 
-        // Convert data to sheet format
         const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
 
-        // Convert workbook to Excel buffer
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
 
-        // Create Blob and trigger download
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
     };
-
 
     return (
         <div className="mark-main">
@@ -330,7 +350,6 @@ function Stumark() {
                                         )}
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     {stuData.map((user, index) => (
                                         <tr key={index}>
@@ -390,7 +409,6 @@ function Stumark() {
                                     ))}
                                 </tbody>
                             </table>
-
                             <div className="mark-button-head">
                                 {!handleDisable() && (
                                     <>
@@ -398,12 +416,9 @@ function Stumark() {
                                             type="submit"
                                             className="mark-button-save"
                                             onClick={(e) => handleUpdateMark(e, "0")}
-
-
                                         >
                                             SAVE
                                         </button>
-
                                         <button
                                             type="submit"
                                             className="mark-button-saveconfirm"
@@ -413,8 +428,6 @@ function Stumark() {
                                         </button>
                                     </>
                                 )}
-
-                                {/* Show the Download button after Save & Confirm */}
                                 {handleDisable() && (
                                     <button
                                         type="button"
@@ -428,7 +441,6 @@ function Stumark() {
                         </div>
                     )}
                 </div>
-
             </div>
         </div>
     )

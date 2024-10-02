@@ -13,7 +13,8 @@ function CourseList()
 
     useEffect(() => 
     {
-        const fetchCourseMapDetails = async () => {
+        const fetchCourseMapDetails = async () => 
+        {
             try {
                 const response = await axios.post(`${apiUrl}/coursemap`, {
                     staff_id: staffId
@@ -25,11 +26,13 @@ function CourseList()
             }
         };
         fetchCourseMapDetails();
+        
     }, [staffId] );
 
     const markpage = (user) => 
     {
-        navigate(`/staff/${staffId}/studentmark`, { state: { 
+        navigate(`/staff/${staffId}/studentmark`, { state: 
+        { 
             deptName: user.branch, 
             section: user.section, 
             semester: user.semester,
@@ -42,7 +45,6 @@ function CourseList()
     }
     
     return (
-
         <div className="course-main">
             <div className="course-layout-top-div">
                 <p className="course-layout-staff-id"><span className="course-staff">Staff Id :</span> {staffId}</p>
@@ -60,10 +62,9 @@ function CourseList()
                             <div className="course-box-text">{user.course_code}</div>
                         </button>
                     ))}
-            </div>
+                </div>
             </div>
         </div>
-        
     )
 }
 
