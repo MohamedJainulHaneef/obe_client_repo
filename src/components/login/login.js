@@ -26,18 +26,17 @@ function Login() {
 
             if (response.data.success) {
                 login(staffId);
-                navigate(`staff/${staffId}/dashboard`, { replace: true }); // Use replace here
-            }
-            else {
+                navigate(`staff/${staffId}/dashboard`, { replace: true });
+            } else {
                 alert(response.data.message);
-                console.log("errppr")
+                console.log("error");
             }
-        }
-        catch (error) {
+        } catch (error) {
             alert('An error occurred. Please try again later.');
             console.error('Login Error: ', error);
         }
     };
+
 
     const handleLogout = () => {
         logout();
