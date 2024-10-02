@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
-import Piechart from './chart/piechart';
-import Barchart from './chart/barchart';
-import Graphchart from './chart/graph';
-import Linechart from './chart/linechart'
+import Barchart from '../dash/Barchart/barchart';
+import Piechart from '../dash/Piechart/piechart';
+// import Graphchart from './chart/graph';
+// import Linechart from './chart/linechart'
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBook } from "react-icons/fa";
@@ -76,24 +76,14 @@ function Dash() {
                     <span className='dash-count-number'>{programCount}</span>
                 </div>
             </div>
-            <div className='dash-footer'>
-                <div className="dash-footer-content">
-                    <div className='dash-barchart'>
-                        <Barchart />
-                    </div>
-                    <div className='dash-linechart'>
-                        <Linechart />
-                    </div>
-                </div>
-                <div className="dash-footer-content">
-                    <div className='dash-piechart'>
-                        <Piechart />
-                    </div>
-                    <div className='dash-graphchart'>
-                        <Graphchart />
-                    </div>
-                </div>
+            <div className='dash-linechart'>
+                <Barchart />
             </div>
+            <div className='dash-piechart-main'>
+                <Piechart />
+            </div>
+
+
         </div>
     )
 }

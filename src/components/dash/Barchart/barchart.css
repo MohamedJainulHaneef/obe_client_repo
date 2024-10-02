@@ -1,0 +1,29 @@
+.dash-barchart-main {
+    padding: 50px;
+}
+
+.dash-barchart-heading {
+    border: 2px solid black;
+    font-size: 30px;
+    font-weight: bolder;
+
+}
+
+.dash-progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    height: 30px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.dash-progress-bar {
+    height: 100%;
+    background-color: #76c7c0;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 25px 0 0 25px;
+    transition: width 0.3s ease;
+}
