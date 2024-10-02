@@ -331,21 +331,21 @@ function Stumark()
                         <option value="5">ESE</option>
                     </select>
                 </div>
-                <div>
+                <div> 
                     {activeSection && active && (
                         <div>
-                            <table>
+                            <table className="mark-table">
                                 <thead>
                                     <tr>
-                                        <th className="mark-sno">S. No.</th>
-                                        <th className="mark-reg">Reg. No.</th>
-                                        <th className="mark-name">Name</th>
-                                        <th className="mark-obe">LOT</th>
+                                        <th className="mark-th-sno">S. No.</th>
+                                        <th className="mark-th-reg">Reg. No.</th>
+                                        <th className="mark-th-name">Name</th>
+                                        <th className="mark-th-obe">LOT</th>
                                         {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
                                             <>
-                                                <th className="mark-obe">MOT</th>
-                                                <th className="mark-obe">HOT</th>
-                                                <th className="mark-obe">Total</th>
+                                                <th className="mark-th-obe">MOT</th>
+                                                <th className="mark-th-obe">HOT</th>
+                                                <th className="mark-th-obe">Total</th>
                                             </>
                                         )}
                                     </tr>
@@ -353,12 +353,13 @@ function Stumark()
                                 <tbody>
                                     {stuData.map((user, index) => (
                                         <tr key={index}>
-                                            <td className="mark-sno">{index + 1}</td>
-                                            <td className="mark-reg">{user.reg_no}</td>
-                                            <td>{user.stu_name}</td>
-                                            <td>
+                                            <td className="mark-td-sno">{index + 1}</td>
+                                            <td className="mark-td-reg">{user.reg_no}</td>
+                                            <td className="mark-td-name">{user.stu_name}</td>
+                                            <td className="mark-td-obe">
                                                 <input
                                                     type="number"
+                                                    className="mark-input"
                                                     value={user.lot}
                                                     name="lot"
                                                     min={0}
@@ -370,9 +371,10 @@ function Stumark()
                                             </td>
                                             {(activeSection === "1" || activeSection === "2" || activeSection === "5") && (
                                                 <>
-                                                    <td>
+                                                    <td className="mark-td-obe">
                                                         <input
                                                             type="number"
+                                                            className="mark-input"
                                                             name="mot"
                                                             min={0}
                                                             max={40}
@@ -382,9 +384,10 @@ function Stumark()
                                                             onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
                                                         />
                                                     </td>
-                                                    <td>
+                                                    <td className="mark-td-obe">
                                                         <input
                                                             type="number"
+                                                            className="mark-input"
                                                             name="hot"
                                                             min={0}
                                                             max={10}
@@ -394,9 +397,10 @@ function Stumark()
                                                             onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
                                                         />
                                                     </td>
-                                                    <td>
+                                                    <td className="mark-td-obe">
                                                         <input
                                                             type="number"
+                                                            className="mark-input"
                                                             name="total"
                                                             value={user.total}
                                                             readOnly

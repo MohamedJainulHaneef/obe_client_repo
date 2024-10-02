@@ -89,13 +89,13 @@
     background-color: white;
     color: black;
     font-weight: bold;
-}
+} 
 
 .mark-dropdown:hover {
     background-color: rgb(9, 61, 113);
 }
 
-table {
+.mark-table {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 15px;
@@ -104,21 +104,24 @@ table {
     text-align: left;
 }
  
-th {
+.mark-th-sno, .mark-th-name, .mark-th-reg, .mark-th-obe {
     background-color: #057252;
     text-align: center;
     font-size: 20px;
     color: white;
+    border: 0.5px solid black;
+    padding: 10px;
+    height: 65px;
+    font-weight: bold;
 }
 
-td, th {
+.mark-td-sno, .mark-td-reg, .mark-td-name, .mark-td-obe {
     border: 0.5px solid black;
     padding: 10px;
     height: 65px;
     font-weight: bold;
 } 
-
-tbody td input {
+.mark-input {
     width: 100%;
     height: 100%;
     font-size: 20px;
@@ -128,22 +131,26 @@ tbody td input {
     border: 2px solid black;
 }
 
-.mark-sno {
+.mark-th-sno {
     width: 8%; 
     text-align: center;
 }
 
-.mark-reg {
+.mark-th-reg {
     width: 14%;
     text-align: center;
 }
 
-.mark-name {
+.mark-th-name {
     width:30%;
 }
 
-.mark-obe {
+.mark-th-obe {
     width: 12%;
+}
+
+.mark-td-sno, .mark-td-reg {
+    text-align: center;
 }
 
 .mark-button-head {
@@ -196,17 +203,4 @@ tbody td input {
 
 .mark-download:hover {
     background-color: rgb(9, 61, 113);
-}
-
-/*=------------------------------------*/
-
-
-.notify{
-    display: fle;
-    justify-content: center;
-    width: 500px;
-    height: 500px;
-    background-color: white;
-    color: green;
-    text-align: center;
 }
