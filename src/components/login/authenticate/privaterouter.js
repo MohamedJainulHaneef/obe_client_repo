@@ -1,14 +1,22 @@
 import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { useAuth } from './authenticate';
+import { Route, Redirect } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
-const PrivateRoute = ({ element }) => {
-    const { isAuthenticated, staffId } = useAuth();
-    const { staffId: currentStaffId } = useParams();
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { isAuthenticated } = useAuth();
 
-    return (isAuthenticated && currentStaffId === staffId)
-        ? element
-        : <Navigate to="/" replace />;
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
 };
 
-export default PrivateRoute;
+export default PrivateRoute;
