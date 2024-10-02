@@ -5,7 +5,7 @@ import Layout from './components/layout/layout';
 import Dash from './components/dash/dash';
 import CourseList from './components/courselist/courselist';
 import Stumark from './components/courselist/stumark/stumark';
-import UploadFile from './components/fileupload/fileupload';
+import InputFile from './components/fileupload/fileupload';
 import Report from './components/report/report';
 import Manage from './components/manage/manage';
 import ScopeManage from './components/manage/scope/scope';
@@ -23,7 +23,7 @@ function App() {
                         <Route path="dashboard" element={<Dash />} />
                         <Route path="courselist" element={<CourseList />} />
                         <Route path="studentmark" element={<Stumark />} />
-                        <Route path="uploadfile" element={<UploadFile />} />
+                        <Route path="inputfiles" element={<InputFile />} />
                         <Route path="report" element={<Report />} />
                         <Route path="manage" element={<Manage />}/>
                         <Route path="staffmanage" element={<StaffManage />} />

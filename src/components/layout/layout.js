@@ -12,9 +12,9 @@ import './layout.css';
 function Layout() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    const { staffId: urlStaffId } = useParams(); // Get the staffId from the URL
-    const navigate = useNavigate(); // Hook for navigation
-    const { logout, isAuthenticated, staffId: contextStaffId } = useAuth(); // Get logout function and staffId from context
+    const { staffId: urlStaffId } = useParams();
+    const navigate = useNavigate();
+    const { logout, isAuthenticated, staffId: contextStaffId } = useAuth(); 
     const [user, setUsers] = useState([]);
 
     useEffect(() => {
@@ -51,6 +51,42 @@ function Layout() {
             show: user && user.course_list === 1,
         },
         {
+            icon: faFileAlt,
+            name: 'Course Outcome',
+            path: `/staff/${urlStaffId}/courseoutcome`,
+            show: true,
+        },
+        {
+            icon: faFileAlt,
+            name: 'Student Outcome',
+            path: `/staff/${urlStaffId}/studentoutcome`,
+            show: true,
+        },
+        {
+            icon: faFileAlt,
+            name: 'Program Specific Outcome',
+            path: `/staff/${urlStaffId}/programspecificoutcome`,
+            show: true,
+        },
+        {
+            icon: faFileAlt,
+            name: 'Program Outcome',
+            path: `/staff/${urlStaffId}/programoutcome`,
+            show: true,
+        },
+        {
+            icon: faFileAlt,
+            name: 'Mentor Report',
+            path: `/staff/${urlStaffId}/mentorreport`,
+            show: true,
+        },
+        {
+            icon: faFileAlt,
+            name: 'HOD Report',
+            path: `/staff/${urlStaffId}/hodreport`,
+            show: true,
+        },
+        {
             icon: faExchangeAlt,
             name: 'Report',
             path: `/staff/${urlStaffId}/report`,
@@ -58,14 +94,20 @@ function Layout() {
         },
         {
             icon: faKey,
-            name: 'Upload Files',
-            path: `/staff/${urlStaffId}/uploadfile`,
+            name: 'Input Files',
+            path: `/staff/${urlStaffId}/inputfiles`,
             show: user.upload_files === 1,
         },
         {
             icon: faSignOutAlt,
             name: 'Manage',
             path: `/staff/${urlStaffId}/manage`,
+            show: true,
+        },
+        {
+            icon: faFileAlt,
+            name: 'Relationship Matrix',
+            path: `/staff/${urlStaffId}/relationship Matrix`,
             show: true,
         },
         {
@@ -95,12 +137,12 @@ function Layout() {
                             to={item.path}
                             className={({ isActive }) => `layout-menu-item ${isActive ? 'layout-active' : ''}`}
                         >
-                            <FontAwesomeIcon icon={item.icon} className="lay-fa-fa-icons" />
+                            <FontAwesomeIcon icon={item.icon} className="layout-fa-icons" />
                             <label className="layout-menu-label">{item.name}</label>
                         </NavLink>
                     ))}
                 <button onClick={handleLogout} className="layout-menu-item layout-logout-btn">
-                    <FontAwesomeIcon icon={faSignOutAlt} className="lay-fa-fa-icons" />
+                    <FontAwesomeIcon icon={faSignOutAlt} className="layout-fa-icons" />
                     <label className="layout-menu-label">Logout</label>
                 </button>
             </div>

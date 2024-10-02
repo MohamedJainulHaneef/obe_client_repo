@@ -10,11 +10,21 @@
     background-color: #057252;
     width: 20rem;
     padding: 0.layout-75rem;
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    box-sizing: border-box; /* Ensure padding is included in the sidebar width */
     display: flex;
     flex-direction: column;
     color: #000000;
 }
-    
+
+.layout-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.layout-sidebar::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+}
+
 .layout-header {
     display: flex;
     flex-direction: column;
@@ -59,16 +69,19 @@
     display: flex;
     align-items: center;
     width:280px;
+    font-size: 16px; /* Standard font size */
     margin:0 auto;
     margin-bottom: 10px;
     height: 45px;
-    padding-left: 5px;
+    padding-left: 20px;
     font-size: 1.layout-25rem;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.layout-8s ease;
     color: #ffffff;
     transition: 0.3s;
+    flex-shrink: 0; 
+    /* Ensure menu items take full width of the sidebar */
 }
 
 .layout-menu-item:hover {
@@ -114,7 +127,6 @@
     display: flex;
     align-items: center;
     width: 280px;
-    margin: 0 auto;
     margin-bottom: 10px;
     height: 45px;
     padding-left: 5px;
@@ -123,6 +135,7 @@
     font-weight: bold;
     transition: all 0.3s ease;
     color: #ffffff;
+    margin-left: 32px;
     background-color: transparent; /* No background color */
     border: none; /* No border */
     cursor: pointer; /* Pointer cursor */

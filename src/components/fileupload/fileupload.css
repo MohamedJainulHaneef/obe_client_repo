@@ -1,81 +1,81 @@
 * {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .main-excelfile-container {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .parent-excelfile-container {
-    border: 2px solid gray;
-    border-radius: 20px;
-    height: 650px;
-    width: 1150px;
-    display: flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items: center;
+  border: 2px solid gray;
+  border-radius: 20px;
+  height: 650px;
+  width: 1150px;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items: center;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 .excelfile-container {
-    width: 80%;
+  width: 80%;
 }
 
 input[type="file"] {
-    background-color:white;
-    width: 40%;
-    border-radius: 5px; 
-    border: 2px solid gray; 
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 20px;
+  background-color:white;
+  width: 40%;
+  border-radius: 5px; 
+  border: 2px solid gray; 
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px;
 }
-  .file-container{
-    display: flex;
+.file-container{
+  display: flex;
 
-  }
-  .upload{
-    background-color: rgb(13, 124, 228);
-    height: 10%;
-    width: 30%;
-    border-radius: 5px; 
-    border: 2px solid #ddd; 
-    padding: 8px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 16px;
-    margin-top: 20px;
-  }
-  .download{
-    background-color:green;
-    height: 10%;
-    width: 25%;
-    border-radius: 5px; 
-    border: 2px solid #ddd; 
-    padding: 8px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 16px;
-    margin-top: 20px;
-  }
-  .upload:hover {
-    background-color: rgb(9, 61, 113);
-    cursor: pointer;
-  }
-  .download:hover {
-    background-color: rgb(3, 69, 3);
-    cursor: pointer;
-  }
+}
+.upload{
+  background-color: rgb(13, 124, 228);
+  height: 10%;
+  width: 30%;
+  border-radius: 5px; 
+  border: 2px solid #ddd; 
+  padding: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 16px;
+  margin-top: 20px;
+}
+.download{
+  background-color:green;
+  height: 10%;
+  width: 25%;
+  border-radius: 5px; 
+  border: 2px solid #ddd; 
+  padding: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 16px;
+  margin-top: 20px;
+}
+.upload:hover {
+  background-color: rgb(9, 61, 113);
+  cursor: pointer;
+}
+.download:hover {
+  background-color: rgb(3, 69, 3);
+  cursor: pointer;
+}
