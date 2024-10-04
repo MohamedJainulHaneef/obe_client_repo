@@ -1,13 +1,15 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
-   }
-   .staff-manage {
+}
+   
+.staff-manage {
     width: 100%;
     height: 100%;
     padding: 20px;
 }
-.searct-text{
+ 
+.staff-search {
     width: 25%;
     border-radius: 2px solid black;
     color: black;
@@ -15,16 +17,18 @@
     padding:8px;
     text-transform: uppercase;
 }
-   .header-field{
+   
+.staff-header {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 15px;
     border-collapse: collapse;
     font-size: 16px;
     text-align: left;
-   }
-.staff-th-sno,.staff-th-id,.staff-th-name,.staff-th-edit,.staff-th-delete{
-   background-color:bisque;
+}
+
+.staff-th-sno, .staff-th-id, .staff-th-name, .staff-th-edit, .staff-th-delete {
+    background-color:bisque;
     text-align: left;
     font-size: 20px;
     color:black;
@@ -33,22 +37,22 @@
     height: 65px;
     font-weight: bold;
 }
-.staff-td-sno,.staff-td-id,.staff-td-name,.staff-td-edit,.staff-td-delete{
+
+.staff-td-sno, .staff-td-id, .staff-td-name, .staff-td-edit, .staff-td-delete {
     text-align: left;
     font-size: 16px;
     border:1px solid gray;
     padding: 10px;
     font-weight: bold;
-
 }
 
 .staff-td-edit button,.staff-td-delete button {
     background: none;
     border: none;
     cursor: pointer;
-    color: #007BFF; /* Bootstrap primary color */
+    color: #007BFF;
 }
 
 .staff-td-edit button:hover,.staff-td-delete button:hover {
-    color: #0056b3; /* Darker color on hover */
+    color: #0056b3;
 }

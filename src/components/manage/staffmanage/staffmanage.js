@@ -4,56 +4,64 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-function StaffManage() {
+function StaffManage() 
+{
     const [staffData, setStaffData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]); // State for filtered data
+    const [filteredData, setFilteredData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    useEffect(() => {
-        const staffDetails = async () => {
-            try {
+    useEffect(() => 
+    {
+        const staffDetails = async () => 
+        {
+            try 
+            {
                 const StaffResponse = await axios.get(`${apiUrl}/staffdetails`);
                 if (StaffResponse.data) {
                     console.log(StaffResponse.data);
                     setStaffData(StaffResponse.data);
-                    setFilteredData(StaffResponse.data); // Set initial filtered data
+                    setFilteredData(StaffResponse.data);
                 }
-            } catch (err) {
+            } 
+            catch (err) {
                 console.log('Error fetching data:', err);
             }
         };
+
         staffDetails();
+
     }, [apiUrl]);
 
-    const handleSearch = (e) => {
+    const handleSearch = (e) => 
+    {
         const searchText = e.target.value.toLowerCase();
         const filterList = staffData.filter((staff) =>
             staff.staff_id.toLowerCase().includes(searchText) ||
             staff.staff_name.toLowerCase().includes(searchText)
         );
-        setFilteredData(filterList); // Update filtered data
+        setFilteredData(filterList);
     };
 
-    const handleEdit = (staffId) => {
-        // Logic for editing staff
+    const handleEdit = (staffId) => 
+    {
         console.log("Edit staff with ID:", staffId);
     };
 
-    const handleDelete = (staffId) => {
-        // Logic for deleting staff
+    const handleDelete = (staffId) =>
+    {
         console.log("Delete staff with ID:", staffId);
     };
 
     return (
         <div className="staff-manage">
             <h2>Search by ID or Name</h2>
-            <input className="searct-text"
+            <input className="staff-search"
                 type="text"
                 placeholder="Search"
                 onChange={handleSearch}
             />
             <div>
-                <table className="header-field">
+                <table className="staff-header">
                     <thead>
                         <tr>
                             <th className="staff-th-sno">S. No.</th>

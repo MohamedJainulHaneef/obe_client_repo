@@ -18,7 +18,8 @@ function Manage()
 
     const handleAcademicSem = async () => 
     {
-        try {
+        try 
+        {
             const response = await axios.put(`${apiUrl}/academic`, {
                 academicsem
             });
@@ -58,10 +59,9 @@ function Manage()
                 <button className="manage-btn" onClick={handleRelease}>Release</button>
             </div>
             
-            <div className="pop-up-container">
-            {academic && (
-               
-                    <div className="pop-up">
+            <div className="manage-popup-container">
+                { academic && (
+                    <div className="manage-popup">
                         <div>
                             <select
                                 value={academicsem}
@@ -85,11 +85,10 @@ function Manage()
                             <button onClick={handleAcademicSem}>Submit</button>
                         </div> 
                     </div>
-            )}
+                ) }
+            </div>
         </div>
-        </div>
-
-    );
+    )
 }
 
 export default Manage;

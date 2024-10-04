@@ -13,7 +13,8 @@ import StaffManage from './components/manage/staffmanage/staffmanage';
 import PrivateRoute from './components/login/authenticate/privaterouter';
 import ReportRelease from './components/manage/reportrelease/reportrelease';
 
-function App() {
+function App() 
+{
     return (
         <AuthProvider>
             <Router>
@@ -33,7 +34,7 @@ function App() {
                 </Routes>
             </Router>
         </AuthProvider>
-    );
+    )
 }
 
 export default App;

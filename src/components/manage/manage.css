@@ -38,16 +38,14 @@
     background-color: rgb(61, 58, 151);
 }
 
-/*----------------- pop up ----------------------*/
-
-
-.pop-up-container{
+.manage-popup-container {
     display: flex;
     justify-content: center;
     align-items: center;
     align-items: center;
 }
-.pop-up{
+
+.manage-popup {
     margin: 10px 10px 10px 10px ;
     background:rgb(228, 226, 226);
     height: 300px;
@@ -58,5 +56,3 @@
     border: 2px solid black;
     border-radius: 20px;
 }
-
-

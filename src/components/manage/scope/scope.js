@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './scope.css';
 
-function Scope() {
+function Scope() 
+{
     const [scopeData, setScopeData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         const scopeDetailsFetch = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/scopeset`);
@@ -19,8 +21,8 @@ function Scope() {
         scopeDetailsFetch();
     }, []);
 
-    // Function to handle the change in individual checkboxes
-    const handleCheckboxChange = (staffId, field, checked) => {
+    const handleCheckboxChange = (staffId, field, checked) => 
+    {
         setScopeData(prevData =>
             prevData.map(item => 
                 item.staff_id === staffId ? { ...item, [field]: checked ? 1 : 0 } : item
@@ -28,36 +30,39 @@ function Scope() {
         );
     };
 
-    // Function to handle the "All" checkbox toggle
-    const handleAllCheckboxChange = (field) => {
+    const handleAllCheckboxChange = (field) => 
+    {
         const allChecked = scopeData.every(item => item[field] === 1);
         setScopeData(prevData =>
             prevData.map(item => ({ ...item, [field]: allChecked ? 0 : 1 }))
         );
     };
 
-    // Function to handle save, send data to backend similar to the examType example you provided
-    const handleSave = async () => {
-        // Create an object to send updates
+    const handleSave = async () => 
+    {
         const updates = {};
-        scopeData.forEach(item => {
-            updates[item.staff_id] = {
+        scopeData.forEach(item => 
+        {
+            updates[item.staff_id] = 
+            {
                 dashboard: item.dashboard,
                 course_list: item.course_list,
                 report: item.report,
                 upload_files: item.upload_files,
                 logout: item.logout,
-            };
-        });
+            }
+        })
 
-        try {
+        try 
+        {
             await axios.put(`${apiUrl}/updateScope`, { updates });
             alert("Data saved successfully!");
-        } catch (error) {
-            console.error("Error saving data:", error.response?.data || error.message);
-            alert("Failed to save data. " + (error.response?.data.message || error.message));
+        } 
+        catch (error) 
+        {
+            alert("Failed to Save Data. " + (error.response?.data.message || error.message));
         }
-    };
+    }
 
     return (
         <div>
@@ -65,7 +70,7 @@ function Scope() {
                 Scope Data 
                 <button 
                     onClick={handleSave} 
-                    style={{ marginLeft: '10px', padding: '10px', fontSize: '16px' }} // Same styling as title
+                    style={{ marginLeft: '10px', padding: '10px', fontSize: '16px' }}
                 >
                     SAVE
                 </button>

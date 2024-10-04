@@ -1,48 +1,51 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import './login.css';
 import jmclogo from '../../assets/jmclogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './authenticate/authenticate'; // Import AuthContext
+import { useAuth } from './authenticate/authenticate';
+import './login.css';
 
-
-function Login() {
+function Login() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
-
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth(); // Get login function from context
-    const { logout } = useAuth(); // Get logout function from context
+    const { login } = useAuth(); 
+    const { logout } = useAuth();
 
-    const handleLogin = async () => {
+    const handleLogin = async () => 
+    {
         try {
             const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
             });
 
-            if (response.data.success) {
+            if (response.data.success) 
+            {
                 login(staffId);
                 navigate(`staff/${staffId}/dashboard`, { replace: true });
-            } else {
+            } 
+            else 
+            {
                 alert(response.data.message);
                 console.log("error");
             }
-        } catch (error) {
+        } 
+        catch (error) {
             alert('An error occurred. Please try again later.');
             console.error('Login Error: ', error);
         }
     };
 
-
-    const handleLogout = () => {
+    const handleLogout = () => 
+    {
         logout();
-        navigate('/', { replace: true }); // Use replace here
+        navigate('/', { replace: true });
     };
-
 
     return (
         <div className='log-parent'>
