@@ -3,7 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import './manage.css';
 import axios from "axios";
 
-function Manage() {
+function Manage() 
+{
     const { staffId } = useParams();
     const apiUrl = process.env.REACT_APP_API_URL;
     const [academic, setAcademic] = useState(false);
@@ -40,7 +41,6 @@ function Manage() {
     };
 
     return (
-
         <div className="manage-body">
             <div className="manage-container">
                 <button className="manage-btn" onClick={handleAcademic}>Academic Year</button>

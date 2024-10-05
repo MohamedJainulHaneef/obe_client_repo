@@ -73,20 +73,21 @@ function Scope()
     }
 
     return (
-        <div>
+        <div className="scope-main">
             <h1>
                 Scope Data 
-                <button 
-                    onClick={handleSave} 
-                >
-                    SAVE
-                </button>
             </h1>
+            <button 
+                onClick={handleSave} 
+            >
+                SAVE
+            </button>
+            
             <div>
                 <table className="scope-table">
                     <thead>
-                        <tr>
-                            <th >Staff ID</th>
+                        <tr className="scope-tbl-header">
+                            <th>Staff ID</th>
                             <th className="">
                                 Dashboard
                                 <input 

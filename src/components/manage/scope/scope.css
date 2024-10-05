@@ -1,9 +1,26 @@
-* {
+/* * {
     margin:0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
-.scope-table {
-    background-color: greenyellow;
+.scope-main {
+    padding: 15px;
 }
+
+.scope-table {
+}
+
+.scope-tbl-header {
+    background-color: darkorange;
+    border: 2px solid black;
+}
+
+table tr {
+    border: 2px solid black;
+}
+
+td {
+    background-color: hotpink;
+    border: 2px sold black;
+} */
