@@ -23,7 +23,7 @@ function Manage()
             const response = await axios.put(`${apiUrl}/academic`, {
                 academicsem
             });
-            window.alert("Academic year ", response.data);
+            window.alert("Academic Year Set Successfully", response.data);
         } 
         catch (err) {
             console.error('Error ', err);
@@ -69,18 +69,6 @@ function Manage()
                             >
                                 <option value="Apr-2024">Apr-2024</option>
                                 <option value="Nov-2024">Nov-2024</option>
-                                <option value="Apr-2025">Apr-2025</option>
-                                <option value="Nov-2025">Nov-2025</option>
-                                <option value="Apr-2026">Apr-2026</option>
-                                <option value="Nov-2026">Nov-2026</option>
-                                <option value="Apr-2027">Apr-2027</option>
-                                <option value="Nov-2027">Nov-2027</option>
-                                <option value="Apr-2028">Apr-2028</option>
-                                <option value="Nov-2028">Nov-2028</option>
-                                <option value="Apr-2029">Apr-2029</option>
-                                <option value="Nov-2029">Nov-2029</option>
-                                <option value="Apr-2030">Apr-2030</option>
-                                <option value="Nov-2030">Nov-2030</option>
                             </select>
                             <button onClick={handleAcademicSem}>Submit</button>
                         </div> 
