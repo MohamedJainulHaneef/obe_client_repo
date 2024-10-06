@@ -78,20 +78,20 @@ function Manage()
                                 value={academicsem}
                                 onChange={(e) => setAcademicSem(e.target.value)}
                             >
-                                <option value="Apr - 2024">Apr - 2024</option>
-                                <option value="Nov - 2024">Nov - 2024</option>
-                                <option value="Apr - 2025">Apr - 2025</option>
-                                <option value="Nov - 2025">Nov - 2025</option>
-                                <option value="Apr - 2026">Apr - 2026</option>
-                                <option value="Nov - 2026">Nov - 2026</option>
-                                <option value="Apr - 2027">Apr - 2027</option>
-                                <option value="Nov - 2027">Nov - 2027</option>
-                                <option value="Apr - 2028">Apr - 2028</option>
-                                <option value="Nov - 2028">Nov - 2028</option>
-                                <option value="Apr - 2029">Apr - 2029</option>
-                                <option value="Nov - 2029">Nov - 2029</option>
-                                <option value="Apr - 2030">Apr - 2030</option>
-                                <option value="Nov - 2030">Nov - 2030</option>
+                                <option value="APR - 2024">APR - 2024</option>
+                                <option value="NOV - 2024">NOV - 2024</option>
+                                <option value="APR - 2025">APR - 2025</option>
+                                <option value="NOV - 2025">NOV - 2025</option>
+                                <option value="APR - 2026">APR - 2026</option>
+                                <option value="NOV - 2026">NOV - 2026</option>
+                                <option value="APR - 2027">APR - 2027</option>
+                                <option value="NOV - 2027">NOV - 2027</option>
+                                <option value="APR - 2028">APR - 2028</option>
+                                <option value="NOV - 2028">NOV - 2028</option>
+                                <option value="APR - 2029">APR - 2029</option>
+                                <option value="NOV - 2029">NOV - 2029</option>
+                                <option value="APR - 2030">APR - 2030</option>
+                                <option value="NOV - 2030">NOV - 2030</option>
                             </select>
                             <button onClick={handleAcademicSem}>Submit</button>
                         </div>
