@@ -5,7 +5,8 @@ import './fileupload.css';
 
 function FileUpload() {
     const apiUrl = process.env.REACT_APP_API_URL;
-
+    
+    const [loading, setLoading] = useState(false);
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
     const [file3, setFile3] = useState(null);
@@ -13,6 +14,7 @@ function FileUpload() {
     const [file5, setFile5] = useState(null);
     const [file6, setFile6] = useState(null);
     const [file7, setFile7] = useState(null);
+
 
 
 
@@ -43,6 +45,7 @@ function FileUpload() {
             return;
         }
 
+        setLoading(true); // Start loading
         const formData = new FormData();
         formData.append('file', file);
 
@@ -56,8 +59,24 @@ function FileUpload() {
         } catch (error) {
             console.log(error);
             alert('FILE UPLOAD FAILED');
+        }finally {
+            setLoading(false); // Stop loading
         }
     };
+
+    const LoadingModal = ({ loading }) => {
+        if (!loading) return null;
+    
+        return (
+            <div className="loading-modal">
+                <div className="loading-content">
+                    <h2>Loading...</h2>
+                    <div className="loader"></div> {/* Loader div */}
+                </div>
+            </div>
+        );
+    };
+
 
 
 
@@ -120,6 +139,8 @@ function FileUpload() {
             <div><h1>FILE UPLOADES</h1></div>
 
             <div className='parent-excelfile-container'>
+            <LoadingModal loading={loading} />
+
                 <div className='excelfile-container'>
 
                     <div className='file-container'>

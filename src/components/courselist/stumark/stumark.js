@@ -11,6 +11,7 @@ function Stumark()
     const location = useLocation();
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [activeSection, setActiveSection] = useState('1');
     const [academicYear, setAcademicYear] = useState('');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
@@ -160,74 +161,93 @@ function Stumark()
         return false;
     };
 
-    const handleUpdateMark = async (e, isConfirm) => 
-    {
-        const button_value = isConfirm;
 
+    const handleUpdateMark = async (e, isConfirm) => {
+        const button_value = isConfirm;
+    
         e.preventDefault();
+        setLoading(true); // Start loading
+    
         const updates = {};
-        stuData.forEach(user => 
-        {
-            updates[user.reg_no] = 
-            {
+        stuData.forEach(user => {
+            updates[user.reg_no] = {
                 lot: user.lot,
                 mot: user.mot,
                 hot: user.hot,
                 total: user.total
             };
         });
-
-        try 
-        {
+    
+        try {
             const response = await axios.put(`${apiUrl}/updateMark`, {
                 updates, activeSection, courseCode, academicYear
             });
-
-            if (response.data.success) 
-            {
-                if (button_value === "0") 
-                {
-                    window.alert("Marks Submitted Successfully");
+    
+            if (response.data.success) {
+                if (button_value === "0") {
+                    alert("Marks Submitted Successfully");
                     try {
-                        const response = await axios.put(`${apiUrl}/report`, {
+                        const reportResponse = await axios.put(`${apiUrl}/report`, {
                             activeSection, courseCode, deptName, section, category, button_value, academicYear
                         });
+                    } catch (err) {
+                        alert("Error in submitting report");
+                    } finally {
+                        setLoading(false); // Stop loading
                     }
-                    catch (err) {
-                        window.alert("err")
-                    }
-                }
-                else if (button_value === "1") 
-                {
-                    const confirmAction = window.confirm("Are you sure you want to proceed ?");
-                    if (confirmAction) 
-                    {
-                        try 
-                        {
+                } else if (button_value === "1") {
+                    const confirmAction = window.confirm("Are you sure you want to proceed?");
+                    if (confirmAction) {
+                        try {
+                            // Start loading immediately after confirmation
+                            setLoading(true);
+    
                             const reportResponse = await axios.put(`${apiUrl}/report`, {
                                 activeSection, courseCode, deptName, section, category, button_value, academicYear
                             });
+    
+                            // Optionally handle response
+                            alert("Report Submitted Successfully");
+                        } catch (err) {
+                            alert("Error in submitting Report");
+                        } finally {
+                            setLoading(false); // Stop loading
+                            window.location.reload(); // Reload after loading is stopped
                         }
-                        catch (err) {
-                            window.alert("Error in submitting Report");
-                        }
-                        window.location.reload();
+                    } else {
+                        setLoading(false); // Stop loading if user cancels
                     }
+                } else {
+                    console.log("Not a Valid Value");
                 }
-                else {
-                    console.log("Not a Valid Value")
-                }
-            }
-            else 
-            {
+            } else {
                 alert('Something went Wrong');
             }
-        }
-        catch (err) {
+        } catch (err) {
             console.error('Error ', err);
-            window.alert("Something Went Wrong with the Server");
+            alert("Something Went Wrong with the Server");
+        } finally {
+            // Make sure loading is stopped if it hasn't already
+            if (loading) {
+                setLoading(false);
+            }
         }
     };
+    
+    const LoadingModal = ({ loading }) => {
+        if (!loading) return null;
+    
+        return (
+            <div className="loading-modal">
+                <div className="loading-content">
+                    <h2>Loading...</h2>
+                    <div className="loader"></div> {/* Loader div */}
+                </div>
+            </div>
+        );
+    };
+
+   
 
     const handleKeyDown = (event) => 
     {
@@ -279,6 +299,7 @@ function Stumark()
 
     return (
         <div className="mark-main">
+              <LoadingModal loading={loading} />
             <div className="mark-body">
                 <div className="mark-header">
                     <div className="mark-header-title1">
@@ -419,15 +440,18 @@ function Stumark()
                                             type="submit"
                                             className="mark-button-save"
                                             onClick={(e) => handleUpdateMark(e, "0")}
+                                            disabled={loading}
                                         >
-                                            SAVE
+                                             {loading ? 'Saving...' : 'SAVE'}
                                         </button>
                                         <button
                                             type="submit"
                                             className="mark-button-saveconfirm"
                                             onClick={(e) => handleUpdateMark(e, "1")}
+                                            disabled={loading}
+
                                         >
-                                            SAVE & CONFIRM
+                                        {loading ? 'Saving...' : 'SAVE & CONFIRM'}
                                         </button>
                                     </>
                                 )}
