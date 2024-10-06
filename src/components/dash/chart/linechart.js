@@ -5,9 +5,10 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const Linechart = () => {
-    // Data for the line chart (same data as the bar chart)
-    const data = {
+const Linechart = () => 
+{
+    const data = 
+    {
         labels: ['UG Arts', 'UG Science', 'PG Arts', 'PG Science', 'Overall'],
         datasets: [
             {
@@ -15,14 +16,15 @@ const Linechart = () => {
                 data: [25, 19, 3, 5, 20], 
                 fill: true, 
                 backgroundColor: 'rgba(75, 192, 192, 0.2)', 
-                borderColor: 'rgba(75, 192, 192, 1)', // Line color
-                borderWidth: 3, // Width of the line
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 3,
                 tension: 0.4, 
             },
         ],
     };
 
-    const options = {
+    const options = 
+    {
         responsive: true,
         plugins: {
             legend: {
@@ -53,7 +55,7 @@ const Linechart = () => {
 
     return (
         <div>
-            <Line data={data} options={options} height={200} width={400} /> {/* Adjust height and width as needed */}
+            <Line data={data} options={options} height={200} width={400} />
         </div>
     );
 };

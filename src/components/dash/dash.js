@@ -87,8 +87,6 @@ function Dash() {
                 <Piechart2 />
                 <Piechart3 />
             </div>
-
-
         </div>
     )
 }

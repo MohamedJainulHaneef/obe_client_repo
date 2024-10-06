@@ -1,12 +1,15 @@
 .dash-barchart-main {
-    padding: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .dash-barchart-heading {
     font-size: 18px;
     font-weight: bold;
     display: flex;
-    justify-content: space-between; /* Aligns the label to the right */
+    justify-content: space-between; 
     align-items: center;
 }
 
@@ -19,7 +22,7 @@
     width: 100%;
     background-color: #e0e0e0;
     border-radius: 15px;
-    height: 20px;
+    height: 25px;
     margin: 15px 0;
     overflow: hidden;
 }

@@ -56,13 +56,13 @@ function Layout()
             icon: faGear,
             name: 'Course Outcome',
             path: `/staff/${urlStaffId}/courseoutcome`,
-            show: user && user.course_list === 1,
+            show: user && user.course_outcome === 1,
         },
         {
             icon: faKey,
             name: 'Student Outcome',
             path: `/staff/${urlStaffId}/studentoutcome`,
-            show: user && user.course_list === 1,
+            show: user && user.studentoutcome === 1,
         },
         {
             icon: faExchangeAlt,

@@ -1,26 +1,100 @@
-/* * {
-    margin:0px;
+* {
+    margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
 .scope-main {
-    padding: 15px;
+    padding: 9px;
+    width: 100%;
+    text-align: center;
 }
+
+.scope-top-heading {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.scope-table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.scope-table input[type="checkbox"] {
+    transform: scale(1.5); 
+    margin: 0 5px; 
+} 
 
 .scope-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.scope-tbl-header {
-    background-color: darkorange;
-    border: 2px solid black;
+.scope-table-header {
+    background-color: rgb(253, 195, 86);
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-table tr {
-    border: 2px solid black;
+.scope-table-header-checkbox {
+    width: 40px;
+    height: 20px;
 }
 
-td {
-    background-color: hotpink;
-    border: 2px sold black;
-} */
+.scope-table td, .scope-table th {
+    border: 1px solid black;
+    padding: 15px 8px;
+    text-align: center;
+    width: 55px;
+}
+
+.scope-header-inputbox {
+    margin: 0;
+    height: 15px;
+}
+
+.scope-staffid {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.scope-header-span {
+    display: block;
+    text-align: center;
+}
+
+.scope-dark {
+    background-color: rgb(230, 226, 220);
+}
+
+.scope-light {
+    background-color: white;
+}
+
+.scope-table td {
+    padding: 18px;
+    border: 1px solid #ddd;
+}
+
+.scope-save-btn {
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background-color: rgb(13, 124, 228);
+    color: white;
+}
+
+.scope-btn {
+    display: flex;
+    justify-content: end;
+}

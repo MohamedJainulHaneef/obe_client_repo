@@ -3,7 +3,8 @@ import axios from 'axios';
 import './fileupload.css';
 
 
-function FileUpload() {
+function FileUpload() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
     
     const [loading, setLoading] = useState(false);
@@ -41,7 +42,7 @@ function FileUpload() {
     const handleUpload = async (e, file, endpoint) => {
         e.preventDefault();
         if (!file) {
-            alert('PLEASE SELECT A FILE');
+            alert('Please Select a File');
             return;
         }
 

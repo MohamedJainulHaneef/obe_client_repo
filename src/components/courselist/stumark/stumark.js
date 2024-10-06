@@ -162,14 +162,14 @@ function Stumark()
     };
 
 
-    const handleUpdateMark = async (e, isConfirm) => {
+    const handleUpdateMark = async (e, isConfirm) => 
+    {
         const button_value = isConfirm;
-    
         e.preventDefault();
-        setLoading(true); // Start loading
-    
+        setLoading(true);
         const updates = {};
-        stuData.forEach(user => {
+        stuData.forEach(user => 
+        {
             updates[user.reg_no] = {
                 lot: user.lot,
                 mot: user.mot,
@@ -178,76 +178,86 @@ function Stumark()
             };
         });
     
-        try {
+        try 
+        {
             const response = await axios.put(`${apiUrl}/updateMark`, {
                 updates, activeSection, courseCode, academicYear
             });
     
-            if (response.data.success) {
+            if (response.data.success) 
+            {
                 if (button_value === "0") {
+                
                     alert("Marks Submitted Successfully");
                     try {
                         const reportResponse = await axios.put(`${apiUrl}/report`, {
                             activeSection, courseCode, deptName, section, category, button_value, academicYear
                         });
-                    } catch (err) {
+                    } 
+                    catch (err) {
                         alert("Error in submitting report");
-                    } finally {
-                        setLoading(false); // Stop loading
+                    } 
+                    finally {
+                        setLoading(false);
                     }
-                } else if (button_value === "1") {
+                } 
+                else if (button_value === "1") 
+                {
                     const confirmAction = window.confirm("Are you sure you want to proceed?");
-                    if (confirmAction) {
-                        try {
-                            // Start loading immediately after confirmation
+                    if (confirmAction) 
+                    {
+                        try 
+                        {
                             setLoading(true);
-    
                             const reportResponse = await axios.put(`${apiUrl}/report`, {
                                 activeSection, courseCode, deptName, section, category, button_value, academicYear
                             });
-    
-                            // Optionally handle response
-                            alert("Report Submitted Successfully");
-                        } catch (err) {
+                            alert("Marks Submitted Successfully");
+                        } 
+                        catch (err) {
                             alert("Error in submitting Report");
-                        } finally {
-                            setLoading(false); // Stop loading
-                            window.location.reload(); // Reload after loading is stopped
+                        } 
+                        finally {
+                            setLoading(false); 
+                            window.location.reload();
                         }
-                    } else {
-                        setLoading(false); // Stop loading if user cancels
+                    } 
+                    else {
+                        setLoading(false);
                     }
-                } else {
+                } 
+                else {
                     console.log("Not a Valid Value");
                 }
-            } else {
+            } 
+            else {
                 alert('Something went Wrong');
             }
-        } catch (err) {
+        } 
+        catch (err) {
             console.error('Error ', err);
             alert("Something Went Wrong with the Server");
-        } finally {
-            // Make sure loading is stopped if it hasn't already
+        } 
+        finally 
+        {
             if (loading) {
                 setLoading(false);
             }
         }
     };
     
-    const LoadingModal = ({ loading }) => {
+    const LoadingModal = ({ loading }) => 
+    {
         if (!loading) return null;
-    
         return (
             <div className="loading-modal">
                 <div className="loading-content">
-                    <h2>Loading...</h2>
-                    <div className="loader"></div> {/* Loader div */}
+                    <h2>Loading ... </h2>
+                    <div className="loader"></div>
                 </div>
             </div>
         );
     };
-
-   
 
     const handleKeyDown = (event) => 
     {
@@ -461,7 +471,7 @@ function Stumark()
                                         className="mark-download"
                                         onClick={handleDownload}
                                     >
-                                        Download
+                                        Download Excelss
                                     </button>
                                 )}
                             </div>

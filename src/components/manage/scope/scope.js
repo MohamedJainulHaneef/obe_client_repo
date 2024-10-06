@@ -13,8 +13,7 @@ function Scope()
             try {
                 const response = await axios.get(`${apiUrl}/scopeset`);
                 setScopeData(response.data);
-            } 
-            catch (err) {
+            } catch (err) {
                 console.log('Error fetching data:', err);
             }
         };
@@ -58,231 +57,242 @@ function Scope()
                 manage: item.manage,
                 relationship_matrix: item.relationship_matrix,
                 settings: item.settings,
-            }
-        })
+            };
+        });
 
-        try 
-        {
+        try {
             await axios.put(`${apiUrl}/updateScope`, { updates });
-            alert("Data saved successfully!");
+            alert("Data Saved Successfully!");
         } 
-        catch (error) 
-        {
+        catch (error) {
             alert("Failed to Save Data. " + (error.response?.data.message || error.message));
         }
-    }
+    };
 
     return (
         <div className="scope-main">
-            <h1>
-                Scope Data 
-            </h1>
-            <button 
-                onClick={handleSave} 
-            >
-                SAVE
-            </button>
-            
-            <div>
+            <span className="scope-top-heading">SCOPE DATA</span>
+            <div className="scope-btn">
+                <button onClick={handleSave} className="scope-save-btn">SAVE</button>
+            </div>
+            <div className="scope-table-wrapper">
                 <table className="scope-table">
-                    <thead>
-                        <tr className="scope-tbl-header">
-                            <th>Staff ID</th>
-                            <th className="">
-                                Dashboard
-                                <input 
-                                    type="checkbox" 
+                    <thead className="scope-table-head">
+                        <tr>
+                            <th className="scope-table-header-checkbox">Options</th>
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('dashboard')}
                                     checked={scopeData.every(item => item.dashboard === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Course List
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('course_list')}
                                     checked={scopeData.every(item => item.course_list === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Course Outcome
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('course_outcome')}
                                     checked={scopeData.every(item => item.course_outcome === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Student Outcome
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('student_outcome')}
                                     checked={scopeData.every(item => item.student_outcome === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Program Outcome
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('program_outcome')}
                                     checked={scopeData.every(item => item.program_outcome === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Program Specific Outcome
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('program_specific_outcome')}
                                     checked={scopeData.every(item => item.program_specific_outcome === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Mentor Report
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('mentor_report')}
                                     checked={scopeData.every(item => item.mentor_report === 1)}
                                 />
                             </th>
-                            <th className="">
-                                HOD Report
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('hod_report')}
                                     checked={scopeData.every(item => item.hod_report === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Report
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('report')}
                                     checked={scopeData.every(item => item.report === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Input Files
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('input_files')}
                                     checked={scopeData.every(item => item.input_files === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Manage
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('manage')}
                                     checked={scopeData.every(item => item.manage === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Relationship Matrix
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('relationship_matrix')}
                                     checked={scopeData.every(item => item.relationship_matrix === 1)}
                                 />
                             </th>
-                            <th className="">
-                                Settings
-                                <input 
-                                    type="checkbox" 
+                            <th className="scope-table-header-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('settings')}
                                     checked={scopeData.every(item => item.settings === 1)}
                                 />
                             </th>
                         </tr>
+                        <tr>
+                            <th className="scope-table-header">STAFF ID</th>
+                            <th className="scope-table-header">Dashboard</th>
+                            <th className="scope-table-header">CL</th>
+                            <th className="scope-table-header">CO</th>
+                            <th className="scope-table-header">SO</th>
+                            <th className="scope-table-header">PO</th>
+                            <th className="scope-table-header">PSO</th>
+                            <th className="scope-table-header">MR</th>
+                            <th className="scope-table-header">HR</th>
+                            <th className="scope-table-header">Report</th>
+                            <th className="scope-table-header">IF</th>
+                            <th className="scope-table-header">Manage</th>
+                            <th className="scope-table-header">RSM</th>
+                            <th className="scope-table-header">Settings</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        {scopeData.map((scopeItem) => (
-                            <tr key={scopeItem.staff_id}>
-                                <td>{scopeItem.staff_id}</td>
-                                <td>
+                        {scopeData.map((scopeItem, rowIndex) => (
+                            <tr key={scopeItem.staff_id} className="scope-staffid">
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                    {scopeItem.staff_id}
+                                </td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.dashboard === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'dashboard', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.course_list === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_list', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.course_outcome === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_outcome', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.student_outcome === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'student_outcome', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.program_outcome === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'program_outcome', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.program_specific_outcome === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'program_specific_outcome', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.mentor_report === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'mentor_report', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.hod_report === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'hod_report', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.report === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'report', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.input_files === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'input_files', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.manage === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'manage', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.relationship_matrix === 1}
                                         onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'relationship_matrix', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input 
                                         type="checkbox"
                                         checked={scopeItem.settings === 1}
