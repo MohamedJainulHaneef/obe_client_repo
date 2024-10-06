@@ -12,21 +12,35 @@ function Stumark()
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
     const [activeSection, setActiveSection] = useState('1');
+    const [academicYear, setAcademicYear] = useState('');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
 
     useEffect(() => 
     {
-        const stuDetails = async () => 
+        const academicYearSet = async () => 
         {
             try {
+                const response = await axios.post(`${apiUrl}/activesem`, {});
+                setAcademicYear(response.data.academic_year);
+            } 
+            catch (err) {
+                console.log('Error fetching data:', err);
+            }
+        };
+        academicYearSet();
+
+        const stuDetails = async () => 
+        {
+            try 
+            {
                 const StuResponse = await axios.post(`${apiUrl}/studentdetails`, 
                 {
                     course_id: courseId,
                     stu_section: section,
-                    stu_semester: semester,
                     stu_category: category,
                     stu_course_code: courseCode,
-                    activeSection
+                    activeSection,
+                    academic_year: academicYear
                 });
 
                 setStuData(StuResponse.data);
@@ -35,7 +49,7 @@ function Stumark()
                 {
                     params: 
                     {
-                        activeSection, courseCode, deptName, semester, section, category
+                        activeSection, courseCode, deptName, section, category, academicYear
                     }
                 });
 
@@ -53,7 +67,7 @@ function Stumark()
         };
         stuDetails();
         
-    }, [courseId, section, semester, category, courseCode, deptName, activeSection, apiUrl]);
+    }, [courseId, section, category, courseCode, deptName, activeSection, apiUrl, academicYear]);
 
 
     const handleSectionChange = (event) => 
@@ -166,7 +180,7 @@ function Stumark()
         try 
         {
             const response = await axios.put(`${apiUrl}/updateMark`, {
-                updates, activeSection, courseCode
+                updates, activeSection, courseCode, academicYear
             });
 
             if (response.data.success) 
@@ -176,7 +190,7 @@ function Stumark()
                     window.alert("Marks Submitted Successfully");
                     try {
                         const response = await axios.put(`${apiUrl}/report`, {
-                            activeSection, courseCode, deptName, semester, section, category, button_value
+                            activeSection, courseCode, deptName, section, category, button_value, academicYear
                         });
                     }
                     catch (err) {
@@ -188,26 +202,11 @@ function Stumark()
                     const confirmAction = window.confirm("Are you sure you want to proceed ?");
                     if (confirmAction) 
                     {
-                        try {
+                        try 
+                        {
                             const reportResponse = await axios.put(`${apiUrl}/report`, {
-                                activeSection, courseCode, deptName, semester, section, category, button_value
+                                activeSection, courseCode, deptName, section, category, button_value, academicYear
                             });
-
-                            const disableResponse = await axios.get(`${apiUrl}/getreport`, 
-                            {
-                                params: {
-                                    activeSection, courseCode, deptName, semester, section, category
-                                }
-                            });
-
-                            if (disableResponse?.data) 
-                            {
-                                console.log('Disable D0ata:', disableResponse.data);
-                            }
-                            else {
-                                console.warn('Received null or undefined data from /getreport');
-                                setActive({});
-                            }
                         }
                         catch (err) {
                             window.alert("Error in submitting Report");
@@ -293,7 +292,7 @@ function Stumark()
                     </div>
                 </div>
                 <div className="mark-header-title2">
-                    <h3>OUTCOME BASED EDUCATION - NOVEMBER 2024</h3>
+                    <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
                     <h3>{deptName}</h3>
                 </div>
                 <div className="mark-title-content">
@@ -438,7 +437,7 @@ function Stumark()
                                         className="mark-download"
                                         onClick={handleDownload}
                                     >
-                                        Download Excel
+                                        Download
                                     </button>
                                 )}
                             </div>

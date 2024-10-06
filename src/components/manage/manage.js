@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './manage.css';
 import axios from "axios";
@@ -11,16 +11,34 @@ function Manage()
     const [academicsem, setAcademicSem] = useState('');
     const navigate = useNavigate();
 
-    const handleAcademic = () => {
+    useEffect(() => 
+    {
+        const fetchActiveSem = async () => 
+        {
+            try {
+                const response = await axios.post(`${apiUrl}/activesem`, {});
+                setAcademicSem(response.data.academic_year); 
+            } 
+            catch (err) {
+                console.error('Error fetching data:', err);
+            }
+        };
+        fetchActiveSem();
+    }, [apiUrl]);
+
+    const handleAcademic = () => 
+    {
         setAcademic(true);
     }
 
-    const handleAcademicSem = async () => {
+    const handleAcademicSem = async () => 
+    {
         try {
             const response = await axios.put(`${apiUrl}/academic`, {
                 academicsem
             });
             window.alert("Academic Year Set Successfully", response.data);
+            window.location.reload();
         }
         catch (err) {
             console.error('Error ', err);
@@ -60,8 +78,20 @@ function Manage()
                                 value={academicsem}
                                 onChange={(e) => setAcademicSem(e.target.value)}
                             >
-                                <option value="Apr-2024">Apr-2024</option>
-                                <option value="Nov-2024">Nov-2024</option>
+                                <option value="Apr - 2024">Apr - 2024</option>
+                                <option value="Nov - 2024">Nov - 2024</option>
+                                <option value="Apr - 2025">Apr - 2025</option>
+                                <option value="Nov - 2025">Nov - 2025</option>
+                                <option value="Apr - 2026">Apr - 2026</option>
+                                <option value="Nov - 2026">Nov - 2026</option>
+                                <option value="Apr - 2027">Apr - 2027</option>
+                                <option value="Nov - 2027">Nov - 2027</option>
+                                <option value="Apr - 2028">Apr - 2028</option>
+                                <option value="Nov - 2028">Nov - 2028</option>
+                                <option value="Apr - 2029">Apr - 2029</option>
+                                <option value="Nov - 2029">Nov - 2029</option>
+                                <option value="Apr - 2030">Apr - 2030</option>
+                                <option value="Nov - 2030">Nov - 2030</option>
                             </select>
                             <button onClick={handleAcademicSem}>Submit</button>
                         </div>
