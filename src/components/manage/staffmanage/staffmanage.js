@@ -78,13 +78,15 @@ function StaffManage()
                                 <td className="staff-td-id">{staff.staff_id}</td>
                                 <td className="staff-td-name">{staff.staff_name}</td>
                                 <td className="staff-td-edit">
-                                    <button onClick={() => handleEdit(staff.staff_id)}>
-                                        <FontAwesomeIcon icon={faEdit} /> Edit
+                                    <button onClick={() => handleEdit(staff.staff_id)} className="staff-btns">
+                                        <FontAwesomeIcon icon={faEdit} className="staff-icon" /> 
+                                        <span className="staff-span">Edit</span>
                                     </button>
                                 </td>
                                 <td className="staff-td-delete">
-                                    <button onClick={() => handleDelete(staff.staff_id)}>
-                                        <FontAwesomeIcon icon={faTrash} /> Delete
+                                    <button onClick={() => handleDelete(staff.staff_id)} className="staff-btns">
+                                        <FontAwesomeIcon icon={faTrash} className="staff-icon" /> 
+                                        <span className="staff-span">Delete</span>
                                     </button>
                                 </td>
                             </tr>

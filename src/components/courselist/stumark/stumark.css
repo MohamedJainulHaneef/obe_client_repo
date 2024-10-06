@@ -204,7 +204,8 @@
 .mark-download:hover {
     background-color: rgb(9, 61, 113);
 }
-.loading-modal {
+
+.mark-loading-model {
     position: fixed;
     top: 0;
     left: 0;
@@ -214,24 +215,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Higher than other elements */
+    z-index: 1000;
 }
 
-.loading-content {
+.mark-loading-content {
     background: white;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     display: flex;
+    gap: 5px;
 }
 
-.loader {
-    border: 8px solid #f3f3f3; /* Light grey border */
-    border-top: 8px solid #3498db; /* Blue top border */
+.mark-loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
     border-radius: 50%;
-    width: 40px; /* Width of the loader */
-    height: 40px; /* Height of the loader */
-    animation: spin 1s linear infinite; /* Spin animation */
+    width: 30px;
+    height: 30px; 
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {

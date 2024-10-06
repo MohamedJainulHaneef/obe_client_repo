@@ -25,50 +25,51 @@ function Stumark()
                 setAcademicYear(response.data.academic_year);
             } 
             catch (err) {
-                console.log('Error fetching data:', err);
+                console.log('Error fetching academic year:', err);
             }
         };
         academicYearSet();
+    }, [apiUrl]);
 
-        const stuDetails = async () => 
-        {
-            try 
+    useEffect(() => 
+    {
+        if (academicYear) 
+        {  
+            const stuDetails = async () => 
             {
-                const StuResponse = await axios.post(`${apiUrl}/studentdetails`, 
+                try 
                 {
-                    course_id: courseId,
-                    stu_section: section,
-                    stu_category: category,
-                    stu_course_code: courseCode,
-                    activeSection,
-                    academic_year: academicYear
-                });
+                    const StuResponse = await axios.post(`${apiUrl}/studentdetails`, {
+                        course_id: courseId,
+                        stu_section: section,
+                        stu_category: category,
+                        stu_course_code: courseCode,
+                        activeSection,
+                        academic_year: academicYear
+                    });
 
-                setStuData(StuResponse.data);
-
-                const disable = await axios.get(`${apiUrl}/getreport`, 
-                {
-                    params: 
+                    setStuData(StuResponse.data);
+    
+                    const disable = await axios.get(`${apiUrl}/getreport`, 
                     {
-                        activeSection, courseCode, deptName, section, category, academicYear
+                        params: { activeSection, courseCode, deptName, section, category, academicYear }
+                    });
+    
+                    if (disable.data) {
+                        setActive(disable.data);
+                    } 
+                    else {
+                        console.warn('Received null or undefined data from /getreport');
+                        setActive({});
                     }
-                });
-
-                if (disable.data) {
-                    setActive(disable.data);
+                } 
+                catch (err) {
+                    console.log('Error fetching student details:', err);
                 }
-                else {
-                    console.warn('Received null or undefined data from /getreport');
-                    setActive({});
-                }
-            }
-            catch (err) {
-                console.log('Error fetching data:', err);
-            }
-        };
-        stuDetails();
-        
-    }, [courseId, section, category, courseCode, deptName, activeSection, apiUrl, academicYear]);
+            };
+            stuDetails();
+        }
+    }, [academicYear, courseId, section, category, courseCode, deptName, activeSection, apiUrl]);
 
 
     const handleSectionChange = (event) => 
@@ -250,10 +251,10 @@ function Stumark()
     {
         if (!loading) return null;
         return (
-            <div className="loading-modal">
-                <div className="loading-content">
-                    <h2>Loading ... </h2>
-                    <div className="loader"></div>
+            <div className="mark-loading-model">
+                <div className="mark-loading-content">
+                    <h3>Loading ... </h3>
+                    <div className="mark-loader"></div>
                 </div>
             </div>
         );
@@ -394,6 +395,7 @@ function Stumark()
                                                     name="lot"
                                                     min={0}
                                                     max={25}
+                                                    onWheel={(e) => e.target.blur()}
                                                     onKeyDown={handleKeyDown}
                                                     disabled={handleDisable()}
                                                     onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
@@ -408,6 +410,7 @@ function Stumark()
                                                             name="mot"
                                                             min={0}
                                                             max={40}
+                                                            onWheel={(e) => e.target.blur()}
                                                             onKeyDown={handleKeyDown}
                                                             value={user.mot}
                                                             disabled={handleDisable()}
@@ -421,6 +424,7 @@ function Stumark()
                                                             name="hot"
                                                             min={0}
                                                             max={10}
+                                                            onWheel={(e) => e.target.blur()}
                                                             onKeyDown={handleKeyDown}
                                                             value={user.hot}
                                                             disabled={handleDisable()}
@@ -471,7 +475,7 @@ function Stumark()
                                         className="mark-download"
                                         onClick={handleDownload}
                                     >
-                                        Download Excelss
+                                        Download Excel
                                     </button>
                                 )}
                             </div>
