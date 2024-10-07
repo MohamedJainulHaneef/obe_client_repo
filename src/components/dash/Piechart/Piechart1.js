@@ -52,40 +52,37 @@ const Piechart1 = () => {
     }, [apiUrl]);
 
     const options = {
-    layout: {
-        margin: {
-            bottom: 70,
-        },
-    },
-    plugins: {
-        legend: {
-            display: true,
-            position: 'bottom',
-            align: 'start', // Align the legend items to start (left)
-            labels: {
-                color: '#333',
-                font: {
-                    size: 17,
-                },
-                padding: 10, // Adjust padding between the legend items
-                boxWidth: 20, // Increase this value for a wider box
-                boxHeight: 20, // Increase this value for a taller box
+        layout: {
+            margin: {
+                bottom: 70,
             },
         },
-        tooltip: {
-            callbacks: {
-                label: function (tooltipItem) {
-                    return `${tooltipItem.label}: ${tooltipItem.raw}`; // Show count
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom',
+                align: 'start', // Align the legend items to start (left)
+                labels: {
+                    color: '#333',
+                    font: {
+                        size: 17,
+                    },
+                    padding: 10, // Adjust padding between the legend items
+                    boxWidth: 20, // Increase this value for a wider box
+                    boxHeight: 20, // Increase this value for a taller box
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return tooltipItem.label; // Show only the label
+                    },
                 },
             },
         },
-    },
-    responsive: true,
-    maintainAspectRatio: true,
-};
-
-    
-    
+        responsive: true,
+        maintainAspectRatio: true,
+    };
 
     return (
         <div style={{ width: '300px', height: '300px', margin: '20px' }}>
