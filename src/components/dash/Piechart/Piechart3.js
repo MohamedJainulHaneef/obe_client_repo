@@ -7,21 +7,19 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Piechart3 = () => {
     const data = {
-        labels: ['UG-ARTS', 'UG-SCIENCE', 'PG-ARTS', 'PG-SCIENCE'],
+        labels: ['SFM', 'SFW', 'AIDED'], // Three labels
         datasets: [
             {
-                data: [30, 20, 25, 25],
+                data: [30, 40, 30], // Adjust data to match three labels
                 backgroundColor: [
-                    'rgba(56, 173, 169, 0.8)',    // Soft red gradient
-                    'rgba(255, 127, 80, 0.8)',    // Sky blue gradient
-                    'rgba(106, 90, 205, 0.8)',    // Lime green gradient
-                    'rgba(218, 165, 32, 0.8)',    // Golden yellow gradient
+                    'rgba(56, 173, 169, 0.8)',    // Soft teal
+                    'rgba(255, 127, 80, 0.8)',    // Soft coral
+                    'rgba(106, 90, 205, 0.8)',    // Soft slate blue
                 ],
                 hoverBackgroundColor: [
-                    'rgba(56, 173, 169, 2)',     // Hover brighter red
-                    'rgba(255, 127, 80, 2)',     // Hover brighter blue
-                    'rgba(106, 90, 205, 2)',     // Hover brighter green
-                    'rgba(218, 165, 32, 2)',     // Hover brighter yellow
+                    'rgba(56, 173, 169, 1)',     // Hover brighter teal
+                    'rgba(255, 127, 80, 1)',     // Hover brighter coral
+                    'rgba(106, 90, 205, 1)',     // Hover brighter slate blue
                 ],
                 borderColor: 'rgba(255, 255, 255, 1)', // White border for contrast
                 borderWidth: 2,
@@ -55,7 +53,7 @@ const Piechart3 = () => {
 
     return (
         <div style={{ width: '300px', height: '300px', margin: '20px' }}>
-            <h3 className='pie-heading'>Programme Pie Chart</h3>
+            <h3 className='pie-heading'>Staff Pie Chart</h3>
             <Pie data={data} options={options} />
         </div>
     );

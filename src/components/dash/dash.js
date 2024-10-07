@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
 import Barchart from '../dash/Barchart/barchart';
-// import Piechart from '../dash/Piechart/piechart';
-// import Graphchart from './chart/graph';
-// import Linechart from './chart/linechart'
 import Piechart1 from '../dash/Piechart/Piechart1';
 import Piechart2 from '../dash/Piechart/Piechart2';
 import Piechart3 from '../dash/Piechart/Piechart3';
@@ -11,12 +8,30 @@ import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBook } from "react-icons/fa";
 import { SiBookstack } from "react-icons/si";
+import axios from 'axios';
 
 function Dash() {
     const [studentCount, setStudentCount] = useState(0);
     const [staffCount, setStaffCount] = useState(0);
-    const [courseCount, setCourseCount] = useState(0);
+    const [courseCount, setCourseCount] = useState(0); // Initialize to 0
     const [programCount, setProgramCount] = useState(0);
+
+    // Fetch counts from the backend
+    const fetchCounts = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/counts`);
+            const { studentCount, staffCount } = response.data;
+
+            // Animate the counts after fetching
+            animateCount(setStudentCount, studentCount);
+            animateCount(setStaffCount, staffCount);
+            // Animate course count from 0 to 52
+            animateCount(setCourseCount, 52); // Animate course count to 52
+            animateCount(setProgramCount, 40); // Animate course count to 52
+        } catch (error) {
+            console.error('Error fetching counts:', error);
+        }
+    };
 
     // A reusable function to animate any count
     const animateCount = (setCount, targetCount, initialCount = 0, duration = 1000) => {
@@ -40,19 +55,7 @@ function Dash() {
     };
 
     useEffect(() => {
-        // Animate all counts
-        const cleanupStudent = animateCount(setStudentCount, 10450);
-        const cleanupStaff = animateCount(setStaffCount, 483);
-        const cleanupCourse = animateCount(setCourseCount, 58, 12); // Starts and ends at 58
-        const cleanupProgram = animateCount(setProgramCount, 98, 1); // Starts at 1, ends at 35
-
-        // Cleanup intervals on component unmount
-        return () => {
-            cleanupStudent();
-            cleanupStaff();
-            cleanupCourse();
-            cleanupProgram();
-        };
+        fetchCounts(); // Fetch counts on component mount
     }, []);
 
     return (
@@ -71,7 +74,7 @@ function Dash() {
                 <div className='dash-header-content'>
                     <FaBook className='dash-course-icon' />
                     <span className='dash-count-content'>Total Courses</span>
-                    <span className='dash-count-number'>{courseCount}</span>
+                    <span className='dash-count-number'>{courseCount}</span> {/* Animated from 0 to 52 */}
                 </div>
                 <div className='dash-header-content'>
                     <SiBookstack className='dash-programme-icon' />
@@ -88,7 +91,7 @@ function Dash() {
                 <Piechart3 />
             </div>
         </div>
-    )
+    );
 }
 
 export default Dash;
