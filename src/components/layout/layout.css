@@ -76,11 +76,12 @@
     padding-left: 20px;
     font-size: 1.layout-25rem;
     text-decoration: none;
-    font-weight: bold;
     transition: all 0.layout-8s ease;
     color: #ffffff;
     transition: 0.3s;
     flex-shrink: 0; 
+    border: none;
+    background-color: transparent;
 }
 
 .layout-menu-item:hover {
@@ -117,22 +118,11 @@
     width: 20px;
 }
 
-.layout-logout-btn {
-    display: flex;
-    align-items: center;
-    width: 280px;
-    height: 45px;
-    font-size: 1.25rem; 
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    color: #ffffff;
-    background-color: transparent;
-    border: none;
+.layout-menu-logout-label {
     cursor: pointer;
-}
-
-.layout-logout-btn:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+    font-size: 0.93rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    margin-left: 10px;
 }

@@ -84,6 +84,9 @@
 
 .log-desc-anchor {
     font-size: 15px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .log-desc-btn {

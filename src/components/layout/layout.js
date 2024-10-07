@@ -1,7 +1,8 @@
 import { useEffect, React, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt , faGear} from '@fortawesome/free-solid-svg-icons';
+import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt , faGear} 
+from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
 import { useAuth } from '../login/authenticate/authenticate';
@@ -144,9 +145,9 @@ function Layout()
                             <label className="layout-menu-label">{item.name}</label>
                         </NavLink>
                     ))}
-                <button onClick={handleLogout} className="layout-menu-item layout-logout-btn">
+                <button onClick={handleLogout} className="layout-menu-item">
                     <FontAwesomeIcon icon={faSignOutAlt} className="layout-fa-icons" />
-                    <label className="layout-menu-label">Logout</label>
+                    <label className="layout-menu-logout-label"><b>Logout</b></label>
                 </button>
             </div>
             <div className="layout-content">

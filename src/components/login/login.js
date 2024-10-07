@@ -79,7 +79,8 @@ function Login()
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <a href="#" className="log-desc-anchor">Forgot Password</a>
+                {/* <a href="www.obe.com" className="log-desc-anchor">Forgot Password</a> */}
+                <span className='log-desc-anchor'>Forgot Password</span>
                 <button className="log-desc-btn" onClick={handleLogin}>
                     <FontAwesomeIcon icon={faLock} className='log-fa-fa-icons' />
                     <div className='log-login-desc' onClick={handleLogout}>LOGIN</div>

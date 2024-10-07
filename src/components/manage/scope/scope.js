@@ -9,11 +9,13 @@ function Scope()
 
     useEffect(() => 
     {
-        const scopeDetailsFetch = async () => {
+        const scopeDetailsFetch = async () => 
+        {
             try {
                 const response = await axios.get(`${apiUrl}/scopeset`);
                 setScopeData(response.data);
-            } catch (err) {
+            } 
+            catch (err) {
                 console.log('Error fetching data:', err);
             }
         };
