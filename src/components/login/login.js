@@ -79,7 +79,7 @@ function Login()
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <a href="www.google.com" className="log-desc-anchor">Forgot Password</a>
+                <a href="#" className="log-desc-anchor">Forgot Password</a>
                 <button className="log-desc-btn" onClick={handleLogin}>
                     <FontAwesomeIcon icon={faLock} className='log-fa-fa-icons' />
                     <div className='log-login-desc' onClick={handleLogout}>LOGIN</div>
