@@ -1,0 +1,80 @@
+.dash-main {
+    width: 100%;
+    display: flex;
+    padding: 30px;
+    flex-direction: column;
+    gap: 30px;
+    /* border: 2px solid black; */
+}
+
+.dash-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 2px solid black; */
+
+}
+
+.dash-header-content {
+    width: 23%;
+    gap: 7px;
+    border: 2px solid black;
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dash-count-content {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.dash-count-number {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.dash-student-icon {
+    color: blue;
+    font-size: 35px;
+}
+
+.dash-staff-icon {
+    color: green;
+    font-size: 35px;
+}
+
+.dash-course-icon {
+    color: orange;
+    font-size: 35px;
+}
+
+.dash-programme-icon {
+    color: yellowgreen;
+    font-size: 35px;
+}
+
+.dash-linechart {
+    width: 100%;
+    height: fit-content;
+    border: 2px solid black;
+}
+
+.dash-piechart-main {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid black;
+    display:flex;
+    justify-content: space-around;
+    padding-bottom: 35px;
+}
+
+.dash-piechart1 {
+    width: 25%;
+    height: 100%;
+    border: 2px solid black;
+}
