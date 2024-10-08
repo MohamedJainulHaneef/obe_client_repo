@@ -13,21 +13,20 @@ import axios from 'axios';
 function Dash() {
     const [studentCount, setStudentCount] = useState(0);
     const [staffCount, setStaffCount] = useState(0);
-    const [courseCount, setCourseCount] = useState(0); // Initialize to 0
-    const [programCount, setProgramCount] = useState(0);
+    const [courseCount, setCourseCount] = useState(0); // Unique course count
+    const [programCount, setProgramCount] = useState(0); // Unique program count
 
     // Fetch counts from the backend
     const fetchCounts = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/counts`);
-            const { studentCount, staffCount } = response.data;
+            const { studentCount, staffCount, courseCount, programCount } = response.data;
 
             // Animate the counts after fetching
             animateCount(setStudentCount, studentCount);
             animateCount(setStaffCount, staffCount);
-            // Animate course count from 0 to 52
-            animateCount(setCourseCount, 52); // Animate course count to 52
-            animateCount(setProgramCount, 40); // Animate course count to 52
+            animateCount(setCourseCount, courseCount); // Total unique courses
+            animateCount(setProgramCount, programCount); // Total unique programs
         } catch (error) {
             console.error('Error fetching counts:', error);
         }
@@ -74,12 +73,12 @@ function Dash() {
                 <div className='dash-header-content'>
                     <FaBook className='dash-course-icon' />
                     <span className='dash-count-content'>Total Courses</span>
-                    <span className='dash-count-number'>{courseCount}</span> {/* Animated from 0 to 52 */}
+                    <span className='dash-count-number'>{courseCount}</span> {/* Unique course count */}
                 </div>
                 <div className='dash-header-content'>
                     <SiBookstack className='dash-programme-icon' />
-                    <span className='dash-count-content'>Total Programme</span>
-                    <span className='dash-count-number'>{programCount}</span>
+                    <span className='dash-count-content'>Total Programs</span>
+                    <span className='dash-count-number'>{programCount}</span> {/* Unique program count */}
                 </div>
             </div>
             <div className='dash-linechart'>
