@@ -53,7 +53,7 @@ function CourseList()
     {
         navigate(`/staff/${staffId}/studentmark`, { state: 
         { 
-            deptName: user.branch, 
+            deptName: user.dept_name, 
             section: user.section, 
             semester: user.semester,
             classDetails: user.degree,
@@ -77,7 +77,7 @@ function CourseList()
                             className="course-subject-box" 
                             onClick={() => markpage(user)} >
                             <div className="course-box-text-category">{user.category}</div>
-                            <div className="course-box-text-dept">{user.branch}</div>
+                            <div className="course-box-text-dept">{user.dept_name}</div>
                             <div className="course-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
                             <div className="course-box-text">{user.course_code}</div>
                         </button>
