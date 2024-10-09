@@ -30,7 +30,7 @@ const ProgressBar = () => {
 			{/* CIA 1 */}
 			<div className='dash-barchart-heading'>
 				CIA 1 COMPONENT
-				<span className="progress-label">{cia1} / 333</span>
+				<span className="progress-label">167 / 333</span>
 			</div>
 			<div className="dash-progress-container">
 				<div className="dash-progress-bar" style={{ width: `${cia1}%` }}>
@@ -41,7 +41,7 @@ const ProgressBar = () => {
 			{/* CIA 2 */}
 			<div className='dash-barchart-heading'>
 				CIA 2 COMPONENT
-				<span className="progress-label">{cia2} / 333</span>
+				<span className="progress-label">199 / 333</span>
 			</div>
 			<div className="dash-progress-container">
 				<div className="dash-progress-bar" style={{ width: `${cia2}%` }}>
@@ -52,7 +52,7 @@ const ProgressBar = () => {
 			{/* ASS 1 */}
 			<div className='dash-barchart-heading'>
 				ASS 1 COMPONENT
-				<span className="progress-label">{ass1} / 333</span>
+				<span className="progress-label">250/ 333</span>
 			</div>
 			<div className="dash-progress-container">
 				<div className="dash-progress-bar" style={{ width: `${ass1}%` }}>
@@ -63,7 +63,7 @@ const ProgressBar = () => {
 			{/* ASS 2 */}
 			<div className='dash-barchart-heading'>
 				ASS 2 COMPONENT
-				<span className="progress-label">{ass2} / 333</span>
+				<span className="progress-label">299 / 333</span>
 			</div>
 			<div className="dash-progress-container">
 				<div className="dash-progress-bar" style={{ width: `${ass2}%` }}>
@@ -74,7 +74,7 @@ const ProgressBar = () => {
 			{/* ESE */}
 			<div className='dash-barchart-heading'>
 				ESE COMPONENT
-				<span className="progress-label">{ese} / 333</span>
+				<span className="progress-label">100 / 333</span>
 			</div>
 			<div className="dash-progress-container">
 				<div className="dash-progress-bar" style={{ width: `${ese}%` }}>
