@@ -5,6 +5,7 @@ import './scope.css';
 function Scope() 
 {
     const [scopeData, setScopeData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => 
@@ -14,6 +15,7 @@ function Scope()
             try {
                 const response = await axios.get(`${apiUrl}/scopeset`);
                 setScopeData(response.data);
+                setFilteredData(response.data);
             } 
             catch (err) {
                 console.log('Error fetching data:', err);
@@ -71,10 +73,24 @@ function Scope()
         }
     };
 
+    const handleSearch = (e) => 
+    {
+        const searchText = e.target.value.toLowerCase();
+        const filterList = scopeData.filter((scope) =>
+            scope.staff_id.toLowerCase().includes(searchText)
+        );
+        setFilteredData(filterList);
+    };
+
     return (
         <div className="scope-main">
             <span className="scope-top-heading">SCOPE DATA</span>
-            <div className="scope-btn">
+            <div className="scope-input-btn">
+                <input className="scope-search"
+                    type="text"
+                    placeholder="Search..."
+                    onChange={handleSearch}
+                />
                 <button onClick={handleSave} className="scope-save-btn">SAVE</button>
             </div>
             <div className="scope-table-wrapper">
@@ -190,22 +206,22 @@ function Scope()
                         <tr>
                             <th className="scope-table-header">STAFF ID</th>
                             <th className="scope-table-header">Dashboard</th>
-                            <th className="scope-table-header">CL</th>
+                            <th className="scope-table-header">Course</th>
                             <th className="scope-table-header">CO</th>
                             <th className="scope-table-header">SO</th>
                             <th className="scope-table-header">PO</th>
                             <th className="scope-table-header">PSO</th>
-                            <th className="scope-table-header">MR</th>
-                            <th className="scope-table-header">HR</th>
+                            <th className="scope-table-header">Tutor</th>
+                            <th className="scope-table-header">HOD</th>
                             <th className="scope-table-header">Report</th>
-                            <th className="scope-table-header">IF</th>
+                            <th className="scope-table-header">Input</th>
                             <th className="scope-table-header">Manage</th>
                             <th className="scope-table-header">RSM</th>
                             <th className="scope-table-header">Settings</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {scopeData.map((scopeItem, rowIndex) => (
+                        {filteredData.map((scopeItem, rowIndex) => (
                             <tr key={scopeItem.staff_id} className="scope-staffid">
                                 <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {scopeItem.staff_id}

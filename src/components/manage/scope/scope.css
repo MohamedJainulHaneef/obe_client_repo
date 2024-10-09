@@ -33,14 +33,7 @@
 .scope-table {
     width: 100%;
     border-collapse: collapse;
-}
-
-.scope-table-header {
-    background-color: rgb(253, 195, 86);
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    border: 2px solid black;
 }
 
 .scope-table-header-checkbox {
@@ -81,6 +74,7 @@
 .scope-table td {
     padding: 18px;
     border: 1px solid #ddd;
+    font-weight: 500;
 }
 
 .scope-save-btn {
@@ -89,12 +83,40 @@
     width: 120px;
     font-size: 18px;
     font-weight: 700;
-    margin-bottom: 20px;
     background-color: rgb(13, 124, 228);
     color: white;
 }
 
-.scope-btn {
+.scope-input-btn {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.scope-search {
+    width: 250px;
+    height: 45px;
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: rgb(245, 241, 241);
+    border: 2px solid black;
+}
+
+.scope-search::placeholder {
+    padding: -5px;
+    font-size: 17px;
+}
+
+.scope-table-header {
+    background-color: rgb(253, 195, 86);
+    background-color: rgb(160, 32, 240);
+    text-align: center;
+    position: sticky;
+    color: white;
+    top: 0;
+    z-index: 10;
 }

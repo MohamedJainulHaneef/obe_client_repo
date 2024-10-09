@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 40px;
 }
 
 .manage-container {
@@ -24,7 +25,7 @@
 }
 
 .manage-btn {
-    background-color: rgb(59, 57, 129);
+    background-color: rgb(61, 58, 151);
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -35,24 +36,47 @@
 }
 
 .manage-btn:hover {
-    background-color: rgb(61, 58, 151);
+    background-color: rgb(59, 57, 129);
 }
 
 .manage-popup-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    align-items: center;
 }
 
 .manage-popup {
     margin: 10px 10px 10px 10px ;
     background:rgb(228, 226, 226);
-    height: 300px;
-    width: 500px;
+    height: 250px;
+    width: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid black;
     border-radius: 20px;
+}
+
+.manage-academic-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.scope-dropdown {
+    height: 40px;
+    padding: 10px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    border-radius: 7px;
+}
+
+.scope-submit-btn {
+    background-color: navy;
+    height: 40px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 7px;
+    color: white;
 }

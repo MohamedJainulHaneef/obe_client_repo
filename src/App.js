@@ -25,7 +25,7 @@ function App()
                         <Route path="courselist" element={<CourseList />} />
                         <Route path="studentmark" element={<Stumark />} />
                         <Route path="inputfiles" element={<InputFile />} />
-                        <Route path="report" element={<Report />} />
+                        <Route path="statusreport" element={<Report />} />
                         <Route path="manage" element={<Manage />}/>
                         <Route path="staffmanage" element={<StaffManage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />

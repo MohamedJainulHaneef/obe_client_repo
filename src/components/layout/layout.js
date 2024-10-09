@@ -1,7 +1,8 @@
 import { useEffect, React, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { faHome, faFileAlt, faExchangeAlt, faKey, faSignOutAlt , faGear} 
+import { faHome, faFileAlt, faTachometerAlt, faKey, faSignOutAlt , faGear, faGraduationCap, faCog, faProjectDiagram, 
+faBookOpen, faUserGraduate, faClipboardCheck, faUserFriends, faChalkboardTeacher, faClipboard } 
 from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import Jmclogo from '../../assets/jmclogo.png';
@@ -48,52 +49,52 @@ function Layout()
             show: user && user.dashboard === 1,
         },
         {
-            icon: faFileAlt,
+            icon: faBookOpen,
             name: 'Course List',
             path: `/staff/${urlStaffId}/courselist`,
             show: user && user.course_list === 1,
         },
         {
-            icon: faGear,
+            icon: faFileAlt,
             name: 'Course Outcome',
             path: `/staff/${urlStaffId}/courseoutcome`,
             show: user && user.course_outcome === 1,
         },
         {
-            icon: faKey,
+            icon: faUserGraduate,
             name: 'Student Outcome',
             path: `/staff/${urlStaffId}/studentoutcome`,
-            show: user && user.studentoutcome === 1,
+            show: user && user.student_outcome === 1,
         },
         {
-            icon: faExchangeAlt,
+            icon: faGraduationCap,
             name: 'Program Outcome',
             path: `/staff/${urlStaffId}/programoutcome`,
             show: user && user.program_outcome === 1,
         },
         {
-            icon: faFileAlt,
+            icon: faClipboardCheck,
             name: 'Program Specific Outcome',
             path: `/staff/${urlStaffId}/programspecificoutcome`,
             show: user && user.program_specific_outcome === 1,
         },
         
         {
-            icon: faFileAlt,
-            name: 'Mentor Report',
-            path: `/staff/${urlStaffId}/mentorreport`,
+            icon: faUserFriends,
+            name: 'Class Teacher Report',
+            path: `/staff/${urlStaffId}/classteacherreport`,
             show: user && user.mentor_report === 1,
         },
         {
-            icon: faGear,
+            icon: faChalkboardTeacher,
             name: 'HOD Report',
             path: `/staff/${urlStaffId}/hodreport`,
             show: user && user.hod_report === 1,
         },
         {
-            icon: faExchangeAlt,
-            name: 'Report',
-            path: `/staff/${urlStaffId}/report`,
+            icon: faClipboard,
+            name: 'Status Report',
+            path: `/staff/${urlStaffId}/statusreport`,
             show: user && user.report === 1,
         },
         {
@@ -103,13 +104,13 @@ function Layout()
             show: user.input_files === 1,
         },
         {
-            icon: faSignOutAlt,
+            icon: faTachometerAlt,
             name: 'Manage',
             path: `/staff/${urlStaffId}/manage`,
             show: user && user.manage === 1,
         },
         {
-            icon: faFileAlt,
+            icon: faProjectDiagram,
             name: 'Relationship Matrix',
             path: `/staff/${urlStaffId}/relationshipmatrix`,
             show: user && user.relationship_matrix === 1,

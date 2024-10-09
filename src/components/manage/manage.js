@@ -69,14 +69,14 @@ function Manage()
                 <button className="manage-btn" onClick={handleScopeManage}>Scope Manage</button>
                 <button className="manage-btn" onClick={handleRelease}>Release</button>
             </div>
-
             <div className="manage-popup-container">
                 {academic && (
                     <div className="manage-popup">
-                        <div>
+                        <div className="manage-academic-wrapper">
                             <select
                                 value={academicsem}
                                 onChange={(e) => setAcademicSem(e.target.value)}
+                                className="scope-dropdown"
                             >
                                 <option value="APR - 2024">APR - 2024</option>
                                 <option value="NOV - 2024">NOV - 2024</option>
@@ -93,7 +93,7 @@ function Manage()
                                 <option value="APR - 2030">APR - 2030</option>
                                 <option value="NOV - 2030">NOV - 2030</option>
                             </select>
-                            <button onClick={handleAcademicSem}>Submit</button>
+                            <button onClick={handleAcademicSem} className="scope-submit-btn">Submit</button>
                         </div>
                     </div>
                 )}
@@ -101,5 +101,5 @@ function Manage()
         </div>
     )
 }
-
+ 
 export default Manage;
