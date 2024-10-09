@@ -31,12 +31,20 @@ function Scope()
                 item.staff_id === staffId ? { ...item, [field]: checked ? 1 : 0 } : item
             )
         );
+        setFilteredData(prevData =>
+            prevData.map(item => 
+                item.staff_id === staffId ? { ...item, [field]: checked ? 1 : 0 } : item
+            )
+        );
     };
 
     const handleAllCheckboxChange = (field) => 
     {
         const allChecked = scopeData.every(item => item[field] === 1);
         setScopeData(prevData =>
+            prevData.map(item => ({ ...item, [field]: allChecked ? 0 : 1 }))
+        );
+        setFilteredData(prevData =>
             prevData.map(item => ({ ...item, [field]: allChecked ? 0 : 1 }))
         );
     };
@@ -73,22 +81,20 @@ function Scope()
         }
     };
 
-    const handleSearch = (e) => 
-    {
-        const searchText = e.target.value.toLowerCase();
-        const filterList = scopeData.filter((scope) =>
-            scope.staff_id.toLowerCase().includes(searchText)
+     const handleSearch = (e) => {
+        const searchText = e.target.value.toLowerCase(); // Convert input to lowercase
+        const filterList = scopeData.filter(scope =>
+            scope.staff_id.toLowerCase().includes(searchText) // Filter based on staff ID
         );
-        setFilteredData(filterList);
+        setFilteredData(filterList); // Update filteredData with search results
     };
-
     return (
         <div className="scope-main">
             <span className="scope-top-heading">SCOPE DATA</span>
             <div className="scope-input-btn">
                 <input className="scope-search"
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Search by Staff ID..."
                     onChange={handleSearch}
                 />
                 <button onClick={handleSave} className="scope-save-btn">SAVE</button>

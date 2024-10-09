@@ -35,7 +35,7 @@
 }
 
 .course-subject-box {
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -45,6 +45,7 @@
     cursor: pointer;
     transition: 0.course-3s;
     background-color: white;
+    letter-spacing: 0.3px;
 }
 
 .course-subject-box:hover {

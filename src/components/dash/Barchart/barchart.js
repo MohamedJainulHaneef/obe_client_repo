@@ -74,7 +74,7 @@ const ProgressBar = () => {
 			{/* ESE */}
 			<div className='dash-barchart-heading'>
 				ESE COMPONENT
-				<span className="progress-label">100 / 333</span>
+				<span className="progress-label">300 / 333</span>
 			</div>
 			<div className="dash-progress-container">
 				<div className="dash-progress-bar" style={{ width: `${ese}%` }}>

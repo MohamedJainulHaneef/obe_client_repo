@@ -59,7 +59,7 @@ input[type="file"] {
   margin-top: 20px;
 }
 .download{
-  background-color:green;
+  background-color: #057252;
   height: 10%;
   width: 25%;
   border-radius: 5px; 
@@ -75,7 +75,7 @@ input[type="file"] {
   cursor: pointer;
 }
 .download:hover {
-  background-color: rgb(3, 69, 3);
+  background-color: #03573e;
   cursor: pointer;
 }
 
