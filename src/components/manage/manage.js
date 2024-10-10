@@ -55,7 +55,7 @@ function Manage()
     };
 
     const handleRelease = () => {
-        navigate(`/staff/${staffId}/reportrelease`);
+        navigate(`/staff/${staffId}/markrelease`);
     };
 
     return (

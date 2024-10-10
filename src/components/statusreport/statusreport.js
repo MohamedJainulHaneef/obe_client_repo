@@ -1,12 +1,12 @@
 import React from "react";
 
-function ReportRelease()
+function CourseList() 
 {
     return (
         <div>
-            
+            Hello
         </div>
     )
 }
 
-export default ReportRelease;
+export default CourseList;

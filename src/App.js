@@ -6,12 +6,12 @@ import Dash from './components/dash/dash';
 import CourseList from './components/courselist/courselist';
 import Stumark from './components/courselist/stumark/stumark';
 import InputFile from './components/fileupload/fileupload';
-import Report from './components/report/report';
+import StatusReport from './components/statusreport/statusreport';
 import Manage from './components/manage/manage';
-import ScopeManage from './components/manage/scope/scope';
+import ScopeManage from './components/manage/scopemanage/scopemanage';
 import StaffManage from './components/manage/staffmanage/staffmanage';
 import PrivateRoute from './components/login/authenticate/privaterouter';
-import ReportRelease from './components/manage/reportrelease/reportrelease';
+import MarkRelease from './components/manage/markrelease/markrelease';
 
 function App() 
 {
@@ -25,11 +25,11 @@ function App()
                         <Route path="courselist" element={<CourseList />} />
                         <Route path="studentmark" element={<Stumark />} />
                         <Route path="inputfiles" element={<InputFile />} />
-                        <Route path="statusreport" element={<Report />} />
+                        <Route path="statusreport" element={<StatusReport />} />
                         <Route path="manage" element={<Manage />}/>
                         <Route path="staffmanage" element={<StaffManage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
-                        <Route path="reportrelease" element={<ReportRelease />} />
+                        <Route path="markrelease" element={<MarkRelease />} />
                     </Route>
                 </Routes>
             </Router>

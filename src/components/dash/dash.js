@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
-import Barchart from '../dash/Barchart/Barchart';
+import Barchart from '../dash/Barchart/barchart';
 import Piechart1 from '../dash/Piechart/Piechart1';
 import Piechart2 from '../dash/Piechart/Piechart2';
 import Piechart3 from '../dash/Piechart/Piechart3';
