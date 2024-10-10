@@ -62,7 +62,7 @@ const Piechart2 = () => {
                     font: {
                         size: 14,
                     },
-                    padding: 10, // Adjust padding between the legend items
+                    padding: 20, // Adjust padding between the legend items
                     boxWidth: 20, // Increase this value for a wider box
                     boxHeight: 20, // Increase this value for a taller box
                 },

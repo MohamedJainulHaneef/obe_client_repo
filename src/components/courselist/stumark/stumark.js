@@ -11,7 +11,8 @@ function Stumark()
     const location = useLocation();
     const [active, setActive] = useState();
     const [stuData, setStuData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [isSaveLoading, setIsSaveLoading] = useState(false);
+    const [isSaveConfirmLoading, setIsSaveConfirmLoading] = useState(false);
     const [activeSection, setActiveSection] = useState('1');
     const [academicYear, setAcademicYear] = useState('');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
@@ -50,8 +51,7 @@ function Stumark()
 
                     setStuData(StuResponse.data);
     
-                    const disable = await axios.get(`${apiUrl}/getreport`, 
-                    {
+                    const disable = await axios.get(`${apiUrl}/getreport`, {
                         params: { activeSection, courseCode, deptName, section, category, academicYear }
                     });
     
@@ -136,7 +136,6 @@ function Stumark()
 
     };
 
-
     const handleDisable = () => 
     {
         if (activeSection === '1') 
@@ -162,12 +161,16 @@ function Stumark()
         return false;
     };
 
-
     const handleUpdateMark = async (e, isConfirm) => 
     {
         const button_value = isConfirm;
         e.preventDefault();
-        setLoading(true);
+        if (isConfirm === "1") {
+            setIsSaveConfirmLoading(true);
+        } 
+        else {
+            setIsSaveLoading(true);
+        }
         const updates = {};
         stuData.forEach(user => 
         {
@@ -179,86 +182,99 @@ function Stumark()
             };
         });
     
-        try 
+        if( button_value === "1" )
         {
-            const response = await axios.put(`${apiUrl}/updateMark`, {
-                updates, activeSection, courseCode, academicYear
-            });
-    
-            if (response.data.success) 
+            const confirmAction = window.confirm("You can't able to Edit it Later. Are you sure you want to proceed ?");
+            if (confirmAction) 
             {
-                if (button_value === "0") {
-                
-                    alert("Marks Submitted Successfully");
-                    try {
+                try {
+                    const response = await axios.put(`${apiUrl}/updateMark`, {
+                        updates, activeSection, courseCode, academicYear
+                    });
+                    if(response.data.success) 
+                    {
+                        setIsSaveConfirmLoading(false);
+                        setTimeout(() => 
+                        {
+                            alert("Marks Submited Successfully");                   
+                        }, 0);
+                        window.location.reload();
+                        try {
+                            const reportResponse = await axios.put(`${apiUrl}/report`, {
+                                activeSection, courseCode, deptName, section, category, button_value, academicYear
+                            });
+                        } 
+                        catch (err) {
+                            console.log("Error in Submitting Report");
+                        } 
+                    }
+                }
+                catch (err)
+                {
+                    alert("Error in Mark Submitting");
+                }
+                finally 
+                {
+                    setIsSaveConfirmLoading(false);
+                }
+            }
+            else 
+            {
+                setIsSaveConfirmLoading(false);
+            }
+        }
+        else 
+        {
+            try {
+                const response = await axios.put(`${apiUrl}/updateMark`, {
+                    updates, activeSection, courseCode, academicYear
+                });
+                if(response.data.success)
+                {
+                    setIsSaveLoading(false);
+                    setTimeout(() => {
+                        alert("Marks Saved Successfully");
+                    }, 0);
+                    try 
+                    {
                         const reportResponse = await axios.put(`${apiUrl}/report`, {
                             activeSection, courseCode, deptName, section, category, button_value, academicYear
                         });
                     } 
-                    catch (err) {
-                        alert("Error in submitting report");
-                    } 
-                    finally {
-                        setLoading(false);
-                    }
-                } 
-                else if (button_value === "1") 
-                {
-                    const confirmAction = window.confirm("Are you sure you want to proceed?");
-                    if (confirmAction) 
+                    catch (err) 
                     {
-                        try 
-                        {
-                            setLoading(true);
-                            const reportResponse = await axios.put(`${apiUrl}/report`, {
-                                activeSection, courseCode, deptName, section, category, button_value, academicYear
-                            });
-                            alert("Marks Submitted Successfully");
-                        } 
-                        catch (err) {
-                            alert("Error in submitting Report");
-                        } 
-                        finally {
-                            setLoading(false); 
-                            window.location.reload();
-                        }
-                    } 
-                    else {
-                        setLoading(false);
+                        console.log("Error in Submitting Report");
                     }
-                } 
-                else {
-                    console.log("Not a Valid Value");
+                    finally 
+                    {
+                        setIsSaveLoading(false);
+                    }
                 }
-            } 
-            else {
-                alert('Something went Wrong');
+                else 
+                {
+                    setIsSaveLoading(false);
+                    return;
+                }
             }
-        } 
-        catch (err) {
-            console.error('Error ', err);
-            alert("Something Went Wrong with the Server");
-        } 
-        finally 
-        {
-            if (loading) {
-                setLoading(false);
+            catch (err) {
+                setIsSaveLoading(false);
+                alert("Error in Mark Saving");
             }
         }
-    };
-    
-    const LoadingModal = ({ loading }) => 
+    }
+
+    const LoadingModal = ({ isSaveLoading, isSaveConfirmLoading }) => 
     {
-        if (!loading) return null;
+        if (!isSaveLoading && !isSaveConfirmLoading) return null;
         return (
-            <div className="mark-loading-model">
+            <div className="mark-loading-modal">
                 <div className="mark-loading-content">
-                    <h3>Loading ... </h3>
+                    <h3>{isSaveLoading ? "Saving ..." : "Submitting ..."}</h3>
                     <div className="mark-loader"></div>
                 </div>
             </div>
-        );
-    };
+        )
+    }
 
     const handleKeyDown = (event) => 
     {
@@ -266,15 +282,14 @@ function Stumark()
         {
             event.preventDefault();
         }
-    };
+    }
 
     const handleDownload = () => 
     {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
         const fileName = `Report_Section_${activeSection}`;
-
-        let headers = ['Register No', 'LOT'];
+        let headers = [];
         let dataWithHeaders = [];
 
         if (activeSection === '1' || activeSection === '2' || activeSection === '5') 
@@ -289,7 +304,7 @@ function Stumark()
                 user.total
             ])];
         } 
-        else if (activeSection === '3' || activeSection === '4') 
+        else
         {
             headers = ['Register No', 'LOT'];
             dataWithHeaders = [headers, ...stuData.map(user => 
@@ -301,16 +316,14 @@ function Stumark()
 
         const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
-    };
+    }
 
     return (
         <div className="mark-main">
-              <LoadingModal loading={loading} />
+            <LoadingModal isSaveLoading={isSaveLoading} isSaveConfirmLoading={isSaveConfirmLoading} />
             <div className="mark-body">
                 <div className="mark-header">
                     <div className="mark-header-title1">
@@ -453,19 +466,18 @@ function Stumark()
                                         <button
                                             type="submit"
                                             className="mark-button-save"
-                                            onClick={(e) => handleUpdateMark(e, "0")}
-                                            disabled={loading}
-                                        >
-                                             {loading ? 'Saving...' : 'SAVE'}
+                                            onClick={(e) => handleUpdateMark(e, "0")} 
+                                            disabled={isSaveLoading}
+                                            >
+                                                {isSaveLoading ? "Saving..." : "SAVE"}
                                         </button>
                                         <button
                                             type="submit"
                                             className="mark-button-saveconfirm"
                                             onClick={(e) => handleUpdateMark(e, "1")}
-                                            disabled={loading}
-
-                                        >
-                                        {loading ? 'Saving...' : 'SAVE & CONFIRM'}
+                                            disabled={isSaveConfirmLoading}
+                                            >
+                                                {isSaveConfirmLoading ? "Confirming..." : "SAVE AND CONFIRM"}
                                         </button>
                                     </>
                                 )}

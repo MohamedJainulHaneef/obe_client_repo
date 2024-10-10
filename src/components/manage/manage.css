@@ -25,7 +25,7 @@
 }
 
 .manage-btn {
-    background-color: rgb(61, 58, 151);
+    background-color: rgb(59, 57, 129);
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -36,7 +36,7 @@
 }
 
 .manage-btn:hover {
-    background-color: rgb(59, 57, 129);
+    background-color: rgb(61, 58, 151);
 }
 
 .manage-popup-container {
@@ -63,7 +63,7 @@
     gap: 30px;
 }
 
-.scope-dropdown {
+.manage-dropdown {
     height: 40px;
     padding: 10px;
     font-size: 18px;
@@ -72,7 +72,7 @@
     border-radius: 7px;
 }
 
-.scope-submit-btn {
+.manage-submit-btn {
     background-color: navy;
     height: 40px;
     padding: 10px;

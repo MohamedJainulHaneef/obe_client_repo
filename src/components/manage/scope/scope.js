@@ -81,13 +81,14 @@ function Scope()
         }
     };
 
-     const handleSearch = (e) => {
-        const searchText = e.target.value.toLowerCase(); // Convert input to lowercase
+    const handleSearch = (e) => {
+        const searchText = e.target.value.toLowerCase();
         const filterList = scopeData.filter(scope =>
-            scope.staff_id.toLowerCase().includes(searchText) // Filter based on staff ID
+            scope.staff_id.toLowerCase().includes(searchText)
         );
-        setFilteredData(filterList); // Update filteredData with search results
-    };
+        setFilteredData(filterList);
+    }
+    
     return (
         <div className="scope-main">
             <span className="scope-top-heading">SCOPE DATA</span>

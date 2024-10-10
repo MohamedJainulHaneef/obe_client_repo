@@ -54,12 +54,18 @@ function StaffManage()
 
     return (
         <div className="staff-manage">
-            <h2>Search by ID or Name</h2>
-            <input className="staff-search"
-                type="text"
-                placeholder="Search"
-                onChange={handleSearch}
-            />
+            <span className="staff-top-heading">STAFF DATA</span>
+            <div className="staff-input-btn">
+                <input className="staff-search"
+                    type="text"
+                    placeholder="Search by ID or NAME ..."
+                    onChange={handleSearch}
+                />
+                <div>
+                    <button className="staff-save-btn">ADD</button>
+                    <button className="staff-save-btn">SAVE</button>
+                </div>
+            </div>
             <div>
                 <table className="staff-header">
                     <thead>

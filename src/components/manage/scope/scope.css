@@ -85,13 +85,18 @@
     font-weight: 700;
     background-color: rgb(13, 124, 228);
     color: white;
+    cursor: pointer;
+}
+
+.scope-save-btn:hover {
+    background-color: rgb(29, 87, 145);
 }
 
 .scope-input-btn {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     margin-top: 15px;
 }
 

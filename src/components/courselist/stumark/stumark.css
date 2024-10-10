@@ -92,7 +92,7 @@
 } 
 
 .mark-dropdown:hover {
-    background-color: rgb(9, 61, 113);
+    background-color: rgb(29, 87, 145);
 }
 
 .mark-table {
@@ -187,10 +187,10 @@
 }
 
 .mark-button-save:hover {
-    background-color: rgb(9, 61, 113);
+    background-color: rgb(29, 87, 145);
 }
 
-.mark-download{
+.mark-download {
     border-radius: 5px;
     background-color: rgb(13, 124, 228);
     color: white;
@@ -202,38 +202,39 @@
 }
 
 .mark-download:hover {
-    background-color: rgb(9, 61, 113);
+    background-color: rgb(29, 87, 145);
 }
 
-.mark-loading-model {
+.mark-loading-modal {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .mark-loading-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
     display: flex;
-    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .mark-loader {
     border: 8px solid #f3f3f3;
     border-top: 8px solid #3498db;
     border-radius: 50%;
-    width: 30px;
-    height: 30px; 
-    animation: spin 1s linear infinite;
+    width: 35px;
+    height: 35px;
+    animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
