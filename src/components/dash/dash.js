@@ -10,51 +10,53 @@ import { FaBook } from "react-icons/fa";
 import { SiBookstack } from "react-icons/si";
 import axios from 'axios';
 
-function Dash() {
+function Dash() 
+{
     const [studentCount, setStudentCount] = useState(0);
     const [staffCount, setStaffCount] = useState(0);
-    const [courseCount, setCourseCount] = useState(0); // Unique course count
-    const [programCount, setProgramCount] = useState(0); // Unique program count
+    const [courseCount, setCourseCount] = useState(0);
+    const [programCount, setProgramCount] = useState(0);
 
-    // Fetch counts from the backend
-    const fetchCounts = async () => {
-        try {
+    const fetchCounts = async () => 
+    {
+        try 
+        {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/counts`);
             const { studentCount, staffCount, courseCount, programCount } = response.data;
-
-            // Animate the counts after fetching
             animateCount(setStudentCount, studentCount);
             animateCount(setStaffCount, staffCount);
-            animateCount(setCourseCount, courseCount); // Total unique courses
-            animateCount(setProgramCount, programCount); // Total unique programs
-        } catch (error) {
+            animateCount(setCourseCount, courseCount); 
+            animateCount(setProgramCount, programCount); 
+        } 
+        catch (error) {
             console.error('Error fetching counts:', error);
         }
     };
 
-    // A reusable function to animate any count
-    const animateCount = (setCount, targetCount, initialCount = 0, duration = 1000) => {
+    const animateCount = (setCount, targetCount, initialCount = 0, duration = 1000) => 
+    {
         let currentCount = initialCount;
-        const increment = Math.ceil(targetCount / 100); // 100 steps
-        const intervalTime = duration / 100; // Duration divided by 100 steps
+        const increment = Math.ceil(targetCount / 100);
+        const intervalTime = duration / 100;
 
-        const timer = setInterval(() => {
+        const timer = setInterval(() => 
+        {
             currentCount += increment;
             if (currentCount > targetCount) {
                 currentCount = targetCount;
             }
             setCount(currentCount);
-
             if (currentCount === targetCount) {
-                clearInterval(timer); // Stop the timer when the target is reached
+                clearInterval(timer); 
             }
         }, intervalTime);
 
-        return () => clearInterval(timer); // Cleanup function
+        return () => clearInterval(timer);
     };
 
-    useEffect(() => {
-        fetchCounts(); // Fetch counts on component mount
+    useEffect(() => 
+    {
+        fetchCounts(); 
     }, []);
 
     return (
@@ -73,12 +75,12 @@ function Dash() {
                 <div className='dash-header-content'>
                     <FaBook className='dash-course-icon' />
                     <span className='dash-count-content'>Total Courses</span>
-                    <span className='dash-count-number'>{courseCount}</span> {/* Unique course count */}
+                    <span className='dash-count-number'>{courseCount}</span>
                 </div>
                 <div className='dash-header-content'>
                     <SiBookstack className='dash-programme-icon' />
                     <span className='dash-count-content'>Total Programs</span>
-                    <span className='dash-count-number'>{programCount}</span> {/* Unique program count */}
+                    <span className='dash-count-number'>{programCount}</span>
                 </div>
             </div>
             <div className='dash-linechart'>
