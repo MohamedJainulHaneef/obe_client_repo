@@ -157,38 +157,38 @@ function StaffManage() {
                             <h2>ADD STAFF</h2>
                             <input
                                 type="text"
-                                value={staffId}                 // Value bound to the state for staff ID
-                                onChange={(e) => setStaffId(e.target.value)}  // Update the staff ID state
+                                value={staffId}                
+                                onChange={(e) => setStaffId(e.target.value)} 
                                 className="staff"
                                 placeholder="STAFF ID"
                                 required
                             />
                             <input
                                 type="text"
-                                value={staffName}               // Value bound to the state for staff name
-                                onChange={(e) => setStaffName(e.target.value)}  // Update the staff name state
+                                value={staffName}             
+                                onChange={(e) => setStaffName(e.target.value)}  
                                 className="staff"
                                 placeholder="STAFF NAME"
                                 required
                             />
                             <input
                                 type="text"
-                                value={staffDept}               // Value bound to the state for staff department
-                                onChange={(e) => setStaffDept(e.target.value)}  // Update the staff department state
+                                value={staffDept}               
+                                onChange={(e) => setStaffDept(e.target.value)}  
                                 className="staff"
                                 placeholder="STAFF DEPARTMENT"
                             />
                             <input
                                 type="text"
-                                value={staffcategory}               // Value bound to the state for staff department
-                                onChange={(e) => setStaffcategory(e.target.value)}  // Update the staff department state
+                                value={staffcategory}              
+                                onChange={(e) => setStaffcategory(e.target.value)}  
                                 className="staff"
                                 placeholder="CATEGORY"
                             />
                             <input
                                 type="text"
-                                value={staffpassword}               // Value bound to the state for staff department
-                                onChange={(e) => setStaffpassword(e.target.value)}  // Update the staff department state
+                                value={staffpassword}              
+                                onChange={(e) => setStaffpassword(e.target.value)}  
                                 className="staff"
                                 placeholder="PASSWORD"
                             />
