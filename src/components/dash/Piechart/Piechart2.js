@@ -15,7 +15,7 @@ const Piechart2 = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${apiUrl}/staffpiechart`);
+                const response = await axios.get(`${apiUrl}/api/staffpiechart`);
                 const result = response.data;
 
                 // Transform the data into the format required by the chart

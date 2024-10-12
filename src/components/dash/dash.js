@@ -21,8 +21,9 @@ function Dash()
     {
         try 
         {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/counts`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/counts`);
             const { studentCount, staffCount, courseCount, programCount } = response.data;
+            console.log(response);
             animateCount(setStudentCount, studentCount);
             animateCount(setStaffCount, staffCount);
             animateCount(setCourseCount, courseCount); 

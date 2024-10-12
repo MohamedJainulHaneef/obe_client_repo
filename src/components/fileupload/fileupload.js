@@ -55,7 +55,7 @@ function FileUpload()
 
         try 
         {
-            const res = await axios.post(`${apiUrl}/${endpoint}`, formData, {
+            const res = await axios.post(`${apiUrl}/api/${endpoint}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -94,49 +94,49 @@ function FileUpload()
             switch (fileType) 
             {
                 case 'coursemap':
-                    response = await axios.get(`${apiUrl}/download/coursemap`, {
+                    response = await axios.get(`${apiUrl}/api/download/coursemap`, {
                         responseType: 'blob', 
                     });
                     fileName = 'Course Mapping Data.xlsx';
                     break;
 
                 case 'staff':
-                    response = await axios.get(`${apiUrl}/download/staff`, {
+                    response = await axios.get(`${apiUrl}/api/download/staff`, {
                         responseType: 'blob',
                     });
                     fileName = 'Staff Master Data.xlsx';
                     break;
 
                 case 'studentmaster':
-                    response = await axios.get(`${apiUrl}/download/studentmaster`, {
+                    response = await axios.get(`${apiUrl}/api/download/studentmaster`, {
                         responseType: 'blob',
                     });
                     fileName = 'Student Master Data.xlsx';
                     break;
 
                 case 'scope':
-                    response = await axios.get(`${apiUrl}/download/scope`, {
+                    response = await axios.get(`${apiUrl}/api/download/scope`, {
                         responseType: 'blob',
                     });
                     fileName = 'Scope Data.xlsx';
                     break;
 
                 case 'mark':
-                    response = await axios.get(`${apiUrl}/download/mark`, {
+                    response = await axios.get(`${apiUrl}/api/download/mark`, {
                         responseType: 'blob',
                     });
                     fileName = 'Mark Entry Data.xlsx';
                     break;
 
                 case 'deptmarkentry':
-                    response = await axios.get(`${apiUrl}/download/deptmarkentry`, {
+                    response = await axios.get(`${apiUrl}/api/download/deptmarkentry`, {
                         responseType: 'blob',
                     });
                     fileName = 'Dept Mark Entry Data.xlsx';
                     break;
 
                 case 'report':
-                    response = await axios.get(`${apiUrl}/download/report`, {
+                    response = await axios.get(`${apiUrl}/api/download/report`, {
                         responseType: 'blob',
                     });
                     fileName = 'Status Report.xlsx';

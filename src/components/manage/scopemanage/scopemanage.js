@@ -13,7 +13,7 @@ function Scope()
         const scopeDetailsFetch = async () => 
         {
             try {
-                const response = await axios.get(`${apiUrl}/scopeset`);
+                const response = await axios.get(`${apiUrl}/api/scopeset`);
                 setScopeData(response.data);
                 setFilteredData(response.data);
             } 

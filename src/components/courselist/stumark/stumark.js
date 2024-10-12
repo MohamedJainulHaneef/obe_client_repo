@@ -40,7 +40,7 @@ function Stumark()
             {
                 try 
                 {
-                    const StuResponse = await axios.post(`${apiUrl}/studentdetails`, {
+                    const StuResponse = await axios.post(`${apiUrl}/api/studentdetails`, {
                         course_id: courseId,
                         stu_section: section,
                         stu_category: category,
@@ -51,7 +51,7 @@ function Stumark()
 
                     setStuData(StuResponse.data);
     
-                    const disable = await axios.get(`${apiUrl}/getreport`, {
+                    const disable = await axios.get(`${apiUrl}/api/getreport`, {
                         params: { activeSection, courseCode, deptName, section, category, academicYear }
                     });
     
@@ -188,7 +188,7 @@ function Stumark()
             if (confirmAction) 
             {
                 try {
-                    const response = await axios.put(`${apiUrl}/updateMark`, {
+                    const response = await axios.put(`${apiUrl}/api/updateMark`, {
                         updates, activeSection, courseCode, academicYear
                     });
                     if(response.data.success) 
@@ -200,7 +200,7 @@ function Stumark()
                         }, 0);
                         window.location.reload();
                         try {
-                            const reportResponse = await axios.put(`${apiUrl}/report`, {
+                            const reportResponse = await axios.put(`${apiUrl}/api/report`, {
                                 activeSection, courseCode, deptName, section, category, button_value, academicYear
                             });
                         } 
@@ -226,7 +226,7 @@ function Stumark()
         else 
         {
             try {
-                const response = await axios.put(`${apiUrl}/updateMark`, {
+                const response = await axios.put(`${apiUrl}/api/updateMark`, {
                     updates, activeSection, courseCode, academicYear
                 });
                 if(response.data.success)
@@ -237,7 +237,7 @@ function Stumark()
                     }, 0);
                     try 
                     {
-                        const reportResponse = await axios.put(`${apiUrl}/report`, {
+                        const reportResponse = await axios.put(`${apiUrl}/api/report`, {
                             activeSection, courseCode, deptName, section, category, button_value, academicYear
                         });
                     } 

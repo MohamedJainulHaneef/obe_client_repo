@@ -34,7 +34,7 @@ function CourseList()
             if (academicYear) 
             {
                 try {
-                    const response = await axios.post(`${apiUrl}/coursemap`, {
+                    const response = await axios.post(`${apiUrl}/api/coursemap`, {
                         staff_id: staffId,
                         academic_year: academicYear
                     });

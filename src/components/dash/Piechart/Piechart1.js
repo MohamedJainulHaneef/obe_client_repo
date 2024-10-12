@@ -15,7 +15,7 @@ const Piechart1 = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${apiUrl}/studentpiechart`);
+                const response = await axios.get(`${apiUrl}/api/studentpiechart`);
                 const result = response.data;
 
                 const labels = result.data.map(item => item.type);
