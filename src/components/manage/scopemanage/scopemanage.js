@@ -73,7 +73,7 @@ function Scope()
         });
 
         try {
-            await axios.put(`${apiUrl}/updateScope`, { updates });
+            await axios.put(`${apiUrl}/api/updateScope`, { updates });
             alert("Data Saved Successfully!");
         } 
         catch (error) {

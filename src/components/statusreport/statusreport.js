@@ -1,50 +1,61 @@
-// import React, { useEffect } from "react";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-// function StatusReport() 
-// {
-//     const [academicYear, setAcademicYear] = useState('');
-//     const [reportDeptName, setReportDeptName] = useState('');
-//     useEffect(() => 
-//     {
-//         const academicYearSet = async () => 
-//         {
-//             try {
-//                 const response = await axios.post(`${apiUrl}/activesem`, {});
-//                 setAcademicYear(response.data.academic_year);
-//                 console.log(response.data.academic_year);
-//             } 
-//             catch (err) {
-//                 console.log('Error fetching data:', err);
+function StatusReport() 
+{
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const [academicYear, setAcademicYear] = useState('');
+    const [reportDeptName, setReportDeptName] = useState([]);
+   
+    useEffect(() => 
+    {
+        const academicYearSet = async () => 
+        {
+            try {
+                const response = await axios.post(`${apiUrl}/activesem`, {});
+                setAcademicYear(response.data.academic_year);
+            } 
+            catch (err) {
+                alert('Error fetching Academic Year.');
+            } 
+        }
+        academicYearSet();
 
-//             }
-//         };
-//         academicYearSet();
+    }, [])
 
-//         const fetchStatusReport = async () => 
-//         {
-//             if (academicYear) 
-//             {
-//                 try {
-//                     const response = await axios.post(`${apiUrl}/coursemap`, {
-//                         staff_id: staffId,
-//                         academic_year: academicYear
-//                     });
-//                     setCourseData(response.data);
-//                 } 
-//                 catch (err) {
-//                     console.log('Error fetching data:', err);
-//                 }
-//             }
-//         };
-//         fetchStatusReport();
-        
-//     }, [staffId, academicYear]);
+    useEffect(() => 
+    {
+        const fetchStatusReport = async () => 
+        {
+            if (academicYear) 
+            {
+                try {
+                    const response = await axios.post(`${apiUrl}/api/statusDeptName`, {
+                        academicYear,
+                    });
+                    setReportDeptName(response.data);
+                } 
+                catch (err) {
+                    alert('Error fetching status report.');
+                    console.log('Error fetching data:', err);
+                }
+            }
+        }
+        fetchStatusReport();
+    }, [academicYear]);
 
-//     return (
-//         <div>
-           
-//         </div>
-//     )
-// }
+    return (
+        <div>
+            <div>
+                <span>Status Report</span>
+                <div>
+                    {reportDeptName.map((dept, index) => (
+                        <button key={index}>{dept.dept_name}</button>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
 
-// export default StatusReport;
+export default StatusReport;
