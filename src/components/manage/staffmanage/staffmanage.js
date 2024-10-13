@@ -38,13 +38,16 @@ function StaffManage() {
         setting: false
     });
 
+const showPopup = () => {
+    setPopup(true);
+    document.body.classList.add('blur');
+};
 
-    const popupfuc = () => {
-        setPopup(true);
-    }
-    const hidepopup = () => {
-        setPopup(false);
-    }
+const hidepopup = () => {
+    setPopup(false);
+    document.body.classList.remove('blur');
+};
+
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
@@ -144,141 +147,145 @@ function StaffManage() {
                     onChange={handleSearch}
                 />
                 <div>
-                    <button className="staff-save-btn" onClick={popupfuc}>ADD</button>
+                    <button className="staff-save-btn" onClick={showPopup}>ADD</button>
                     <button className="staff-save-btn">SAVE</button>
                 </div>
 
                 {popup && (
-                    <div className="addstaff">
-                        <div className="close-class">
-                            <div><button onClick={hidepopup} className="close">✖</button></div>
-                        </div>
-                        <div className="addpopup">
-                            <h2>ADD STAFF</h2>
-                            <input
-                                type="text"
-                                value={staffId}                
-                                onChange={(e) => setStaffId(e.target.value)} 
-                                className="staff"
-                                placeholder="STAFF ID"
-                                required
-                            />
-                            <input
-                                type="text"
-                                value={staffName}             
-                                onChange={(e) => setStaffName(e.target.value)}  
-                                className="staff"
-                                placeholder="STAFF NAME"
-                                required
-                            />
-                            <input
-                                type="text"
-                                value={staffDept}               
-                                onChange={(e) => setStaffDept(e.target.value)}  
-                                className="staff"
-                                placeholder="STAFF DEPARTMENT"
-                            />
-                            <input
-                                type="text"
-                                value={staffcategory}              
-                                onChange={(e) => setStaffcategory(e.target.value)}  
-                                className="staff"
-                                placeholder="CATEGORY"
-                            />
-                            <input
-                                type="text"
-                                value={staffpassword}              
-                                onChange={(e) => setStaffpassword(e.target.value)}  
-                                className="staff"
-                                placeholder="PASSWORD"
-                            />
-                            <div className="check-boxes">
-                                <div><input
-                                    type="checkbox"
-                                    name="dashboard"
-                                    checked={checkboxValues.dashboard}
-                                    onChange={handleCheckboxChange}
-                                /> Dashboard</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="course"
-                                    checked={checkboxValues.course}
-                                    onChange={handleCheckboxChange}
-                                /> Course</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="co"
-                                    checked={checkboxValues.co}
-                                    onChange={handleCheckboxChange}
-                                /> Co</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="so"
-                                    checked={checkboxValues.so}
-                                    onChange={handleCheckboxChange}
-                                /> So</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="po"
-                                    checked={checkboxValues.po}
-                                    onChange={handleCheckboxChange}
-                                /> Po</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="pso"
-                                    checked={checkboxValues.pso}
-                                    onChange={handleCheckboxChange}
-                                /> Pso</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="tutor"
-                                    checked={checkboxValues.tutor}
-                                    onChange={handleCheckboxChange}
-                                /> Tutor</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="hod"
-                                    checked={checkboxValues.hod}
-                                    onChange={handleCheckboxChange}
-                                /> HOD</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="report"
-                                    checked={checkboxValues.report}
-                                    onChange={handleCheckboxChange}
-                                /> Report</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="input"
-                                    checked={checkboxValues.input}
-                                    onChange={handleCheckboxChange}
-                                /> Input</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="manage"
-                                    checked={checkboxValues.manage}
-                                    onChange={handleCheckboxChange}
-                                /> Manage</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="rsm"
-                                    checked={checkboxValues.rsm}
-                                    onChange={handleCheckboxChange}
-                                /> RSM</div>
-                                <div><input
-                                    type="checkbox"
-                                    name="setting"
-                                    checked={checkboxValues.setting}
-                                    onChange={handleCheckboxChange}
-                                /> Setting</div>
+                    <>
+                        <div className="overlay" />
+                        <div className="addstaff">
+                            <div className="close-class">
+                                <button onClick={hidepopup} className="close">✖</button>
                             </div>
+                            <div className="addpopup">
+                                <h2>ADD STAFF</h2>
+                                <input
+                                    type="text"
+                                    value={staffId}
+                                    onChange={(e) => setStaffId(e.target.value)}
+                                    className="staff"
+                                    placeholder="STAFF ID"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    value={staffName}
+                                    onChange={(e) => setStaffName(e.target.value)}
+                                    className="staff"
+                                    placeholder="STAFF NAME"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    value={staffDept}
+                                    onChange={(e) => setStaffDept(e.target.value)}
+                                    className="staff"
+                                    placeholder="STAFF DEPARTMENT"
+                                />
+                                <input
+                                    type="text"
+                                    value={staffcategory}
+                                    onChange={(e) => setStaffcategory(e.target.value)}
+                                    className="staff"
+                                    placeholder="CATEGORY"
+                                />
+                                <input
+                                    type="text"
+                                    value={staffpassword}
+                                    onChange={(e) => setStaffpassword(e.target.value)}
+                                    className="staff"
+                                    placeholder="PASSWORD"
+                                />
+                                <div className="check-boxes">
+                                    <div><input
+                                        type="checkbox"
+                                        name="dashboard"
+                                        checked={checkboxValues.dashboard}
+                                        onChange={handleCheckboxChange}
+                                    /> Dashboard</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="course"
+                                        checked={checkboxValues.course}
+                                        onChange={handleCheckboxChange}
+                                    /> Course</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="co"
+                                        checked={checkboxValues.co}
+                                        onChange={handleCheckboxChange}
+                                    /> Co</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="so"
+                                        checked={checkboxValues.so}
+                                        onChange={handleCheckboxChange}
+                                    /> So</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="po"
+                                        checked={checkboxValues.po}
+                                        onChange={handleCheckboxChange}
+                                    /> Po</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="pso"
+                                        checked={checkboxValues.pso}
+                                        onChange={handleCheckboxChange}
+                                    /> Pso</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="tutor"
+                                        checked={checkboxValues.tutor}
+                                        onChange={handleCheckboxChange}
+                                    /> Tutor</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="hod"
+                                        checked={checkboxValues.hod}
+                                        onChange={handleCheckboxChange}
+                                    /> HOD</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="report"
+                                        checked={checkboxValues.report}
+                                        onChange={handleCheckboxChange}
+                                    /> Report</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="input"
+                                        checked={checkboxValues.input}
+                                        onChange={handleCheckboxChange}
+                                    /> Input</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="manage"
+                                        checked={checkboxValues.manage}
+                                        onChange={handleCheckboxChange}
+                                    /> Manage</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="rsm"
+                                        checked={checkboxValues.rsm}
+                                        onChange={handleCheckboxChange}
+                                    /> RSM</div>
+                                    <div><input
+                                        type="checkbox"
+                                        name="setting"
+                                        checked={checkboxValues.setting}
+                                        onChange={handleCheckboxChange}
+                                    /> Setting</div>
+                                </div>
 
 
 
-                            <button onClick={savenewstaff} className="staff">save</button>
+                                <button onClick={savenewstaff} className="save-btn">SAVE</button>
+                            </div>
                         </div>
-                    </div>
+                        </>
                 )}
+                    
 
                 {edit && (
                     <div className="edit">

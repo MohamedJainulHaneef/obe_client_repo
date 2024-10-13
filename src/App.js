@@ -12,7 +12,8 @@ import ScopeManage from './components/manage/scopemanage/scopemanage';
 import StaffManage from './components/manage/staffmanage/staffmanage';
 import PrivateRoute from './components/login/authenticate/privaterouter';
 import MarkRelease from './components/manage/markrelease/markrelease';
-
+import DeptReport from './components/statusreport/deptreport/deptreport';
+ 
 function App() 
 {
     return (
@@ -30,6 +31,7 @@ function App()
                         <Route path="staffmanage" element={<StaffManage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
                         <Route path="markrelease" element={<MarkRelease />} />
+                        <Route path=":dept/departmentreport" element={<DeptReport />} />
                     </Route>
                 </Routes>
             </Router>

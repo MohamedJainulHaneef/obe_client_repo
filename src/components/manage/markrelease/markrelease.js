@@ -80,87 +80,87 @@ function MarkRelease() {
     };
 
     return (
-        <div className="report-main">
-            <span className="report-top-heading">REPORT DATA</span>
-            <div className="report-input-btn">
-                <input className="report-search"
+        <div className="release-main">
+            <span className="release-top-heading">REPORT DATA</span>
+            <div className="release-input-btn">
+                <input className="release-search"
                     type="text"
                     placeholder="Search by Staff ID..."
                     onChange={handleSearch}
                 />
-                <button onClick={handleSave} className="report-save-btn">SAVE</button> {/* Global save button */}
+                <button onClick={handleSave} className="release-save-btn">SAVE</button> {/* Global save button */}
             </div>
-            <div className="report-table-wrapper">
-                <table className="report-table">
-                    <thead className="report-table-head">
+            <div className="release-table-wrapper">
+                <table className="release-table">
+                    <thead className="release-table-head">
                         <tr>
-                            <th className="report-table-header">S. No</th>
-                            <th className="report-table-header">Staff ID</th>
-                            <th className="report-table-header">Category</th>
-                            <th className="report-table-header">Section</th>
-                            <th className="report-table-header">Department</th>
-                            <th className="report-table-header">CIA 1</th>
-                            <th className="report-table-header">CIA 2</th>
-                            <th className="report-table-header">Ass 1</th>
-                            <th className="report-table-header">Ass 2</th>
-                            <th className="report-table-header">ESE</th>
-                            <th className="report-table-header">Action</th> {/* New header for SAVE button */}
+                            <th className="release-table-header">S. No</th>
+                            <th className="release-table-header">Staff ID</th>
+                            <th className="release-table-header">Category</th>
+                            <th className="release-table-header">Section</th>
+                            <th className="release-table-header">Department</th>
+                            <th className="release-table-header">CIA 1</th>
+                            <th className="release-table-header">CIA 2</th>
+                            <th className="release-table-header">Ass 1</th>
+                            <th className="release-table-header">Ass 2</th>
+                            <th className="release-table-header">ESE</th>
+                            <th className="release-table-header">Action</th> {/* New header for SAVE button */}
                         </tr>
                     </thead>
                     <tbody>
                         {filteredData.map((reportItem, index) => (
-                            <tr key={reportItem.staff_id} className="report-row">
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                            <tr key={reportItem.staff_id} className="release-row">
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     {index + 1}
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     {reportItem.staff_id}
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     {reportItem.category}
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     {reportItem.section}
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     {reportItem.dept_name}
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     <input 
                                         type="checkbox" 
                                         checked={checkboxState[reportItem.staff_id]?.cia_1 || false}
                                         onChange={(e) => handleCheckboxChange(reportItem.staff_id, 'cia_1', e.target.checked)} 
                                     />
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     <input 
                                         type="checkbox" 
                                         checked={checkboxState[reportItem.staff_id]?.cia_2 || false}
                                         onChange={(e) => handleCheckboxChange(reportItem.staff_id, 'cia_2', e.target.checked)} 
                                     />
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     <input 
                                         type="checkbox" 
                                         checked={checkboxState[reportItem.staff_id]?.ass_1 || false}
                                         onChange={(e) => handleCheckboxChange(reportItem.staff_id, 'ass_1', e.target.checked)} 
                                     />
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     <input 
                                         type="checkbox" 
                                         checked={checkboxState[reportItem.staff_id]?.ass_2 || false}
                                         onChange={(e) => handleCheckboxChange(reportItem.staff_id, 'ass_2', e.target.checked)} 
                                     />
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     <input 
                                         type="checkbox" 
                                         checked={checkboxState[reportItem.staff_id]?.ese || false}
                                         onChange={(e) => handleCheckboxChange(reportItem.staff_id, 'ese', e.target.checked)} 
                                     />
                                 </td>
-                                <td className={index % 2 === 0 ? 'report-dark' : 'report-light'}>
+                                <td className={index % 2 === 0 ? 'release-dark' : 'release-light'}>
                                     <button 
                                         onClick={() => console.log(`Save button clicked for staff_id: ${reportItem.staff_id}`)} 
                                         className="row-save-btn">

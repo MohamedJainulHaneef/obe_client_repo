@@ -2,13 +2,12 @@
     margin: 0px;
     padding: 0px;
 }
-   
 .staff-manage {
-    padding: 9px;
+    padding: 10px;
     width: 100%;
     text-align: center;
 }
- 
+
 .staff-search {
     width: 25%;
     border-radius: 2px solid black;
@@ -17,7 +16,6 @@
     padding:8px;
     text-transform: uppercase;
 }
-   
 .staff-header {
     width: 100%;
     border-collapse: collapse;
@@ -25,7 +23,6 @@
     font-size: 16px;
     text-align: left;
 }
-
 .staff-top-heading {
     text-align: center;
     margin-top: 5px;
@@ -35,9 +32,9 @@
     word-spacing: 2px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
-
 .staff-th-sno, .staff-th-id, .staff-th-name, .staff-th-edit, .staff-th-delete {
-    background-color: #1c8163;    text-align: center;
+    background-color: #1c8163;    
+    text-align: center;
     font-size: 20px;
     color:white;
     border:1px solid gray;
@@ -46,7 +43,6 @@
     font-weight: bold;
     border-color: black;
 }
-
 .staff-td-sno, .staff-td-id, .staff-td-edit, .staff-td-delete {
     text-align: center;
     font-size: 16px;
@@ -54,7 +50,6 @@
     padding: 13px;
     font-weight: bold;
 }
-
 .staff-td-name {
     font-size: 16px;
     border: 1px solid gray;
@@ -62,7 +57,6 @@
     font-weight: bold;
     padding-left: 30px;
 }
-
 .staff-td-edit button,.staff-td-delete button {
     background: none;
     border: none;
@@ -70,24 +64,19 @@
     color: #007BFF;
     margin: 0 auto;
 }
-
 .staff-td-edit button:hover,.staff-td-delete button:hover {
     color: #0056b3;
 }
-
 .staff-btns {
     display: flex;
     gap: 5px;
 }
-
 .staff-icon {
     font-size: 18px;
 }
-
 .staff-span {
     font-size: 16px;
 }
-
 .staff-save-btn {
     padding: 12px;
     border-radius: 10px;
@@ -99,14 +88,12 @@
     margin-left: 10px;
     cursor: pointer;
 }
-
 .staff-input-btn {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
 }
-
 .staff-search {
     width: 270px;
     height: 45px;
@@ -117,67 +104,84 @@
     background-color: rgb(250, 250, 254);
     border: 2px solid black;
 }
-
 .staff-save-btn:hover {
     background-color: rgb(29, 87, 145);
 }
-
-
-.addstaff{
+.addstaff, .edit {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000; 
     width: 500px;
-    height: 500px;
-    position: absolute;
-    top: 25%;
-    left: 44%;
-    background-color: #0056b3;
-    border-radius: 20px;
+    height: 600px;
+}
+.close-class {
     display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    box-shadow: #202123 8px 10px 70px 10px;
-
-
-}
-.addpopup{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: center;
-    padding: 50px;
-}
-.staff::placeholder{
-    padding-left: 20px;
-}
-.staff{
-    width: 100%;
-    height: 30px;
-    border-radius: 20px;
-}
-.close-class{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
     justify-content: flex-end;
-    margin-right: 30px;
 }
-/*-------------------------------------------------------------*/
-
-.edit{
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background-color: blue;
-    border: solid black 2px;
-    border-radius: 20px;
-    top: 30%;
-    left: 45%;
+.close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
-.check-boxes{
+.addpopup h2 {
+    margin-bottom: 15px;
+}
+.staff {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+input::placeholder {
+    color: rgb(145, 141, 141);
+}
+.check-boxes {
+    margin: 10px;
     display: flex;
-    flex-direction: row;
-    gap: 30px;
     flex-wrap: wrap;
+    gap: 20px;
+    font-weight:500;
+}
+.check-boxes div {
+    margin-bottom: 20px;
+}
+.check-boxes input[type="checkbox"] {
+    width: 15px;  
+    height: 15px;
+    margin-right: 10px;
+    cursor: pointer; 
+}
+button.save-btn {
+    background-color: rgb(13, 124, 228);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
+button.save-btn:hover {
+    background-color: rgb(29, 87, 145);
+}
+body.blur {
+    transition: filter 0.3s ease;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }

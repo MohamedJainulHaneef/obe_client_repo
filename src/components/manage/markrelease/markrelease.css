@@ -1,11 +1,11 @@
-.report-main {
+.release-main {
     width: 100%;
     margin: 20px auto;
     padding: 20px;
     font-family: Arial, sans-serif;
 }
 
-.report-top-heading {
+.release-top-heading {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -13,13 +13,13 @@
     text-align: center;
 }
 
-.report-input-btn {
+.release-input-btn {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.report-search {
+.release-search {
     width: 250px;
     padding: 8px;
     font-size: 16px;
@@ -27,7 +27,7 @@
     border: 1px solid #ccc;
 }
 
-.report-save-btn {
+.release-save-btn {
     padding: 8px 16px;
     font-size: 16px;
     background-color: #28a745;
@@ -38,41 +38,41 @@
     font-weight: bold;
 }
 
-.report-save-btn:hover {
+.release-save-btn:hover {
     background-color: #218838;
 }
 
-.report-table-wrapper {
+.release-table-wrapper {
     width: 100%;
     overflow-x: auto;
 }
 
-.report-table {
+.release-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
 }
 
-.report-table th, .report-table td {
+.release-table th, .release-table td {
     padding: 10px;
     border: 1px solid #ddd;
 }
 
-.report-table-head th {
+.release-table-head th {
     background-color: #f4f4f4;
     font-weight: bold;
     text-align: center;
 }
 
-.report-row td {
+.release-row td {
     text-align: center;
 }
 
-.report-dark {
+.release-dark {
     background-color: #f9f9f9;
 }
 
-.report-light {
+.release-light {
     background-color: #fff;
 }
 

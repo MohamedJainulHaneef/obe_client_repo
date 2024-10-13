@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
+import './statusreport.css'
 
 function StatusReport() 
 {
     const apiUrl = process.env.REACT_APP_API_URL;
+    const { staffId } = useParams();
+    const navigate = useNavigate();
     const [academicYear, setAcademicYear] = useState('');
     const [reportDeptName, setReportDeptName] = useState([]);
    
@@ -32,8 +36,9 @@ function StatusReport()
                 try {
                     const response = await axios.post(`${apiUrl}/api/statusDeptName`, {
                         academicYear,
-                    });
-                    setReportDeptName(response.data);
+                    })
+                    const sortedDepartments = response.data.sort((a, b) => a.localeCompare(b))
+                    setReportDeptName(sortedDepartments);
                 } 
                 catch (err) {
                     alert('Error fetching status report.');
@@ -44,13 +49,16 @@ function StatusReport()
         fetchStatusReport();
     }, [academicYear]);
 
+    const handleDeptReport = (dept) => {
+        navigate(`/staff/${staffId}/${dept}/departmentreport`);
+    }
+
     return (
-        <div>
-            <div>
-                <span>Status Report</span>
-                <div>
+        <div className='report-main'>
+            <div className='report-entire-wrapper'>
+                <div className='report-entire-content'>
                     {reportDeptName.map((dept, index) => (
-                        <button key={index}>{dept.dept_name}</button>
+                        <button key={index} className='report-btn' onClick={() => handleDeptReport(dept)}>{dept}</button>
                     ))}
                 </div>
             </div>
