@@ -215,25 +215,25 @@ const hidepopup = () => {
                                         name="co"
                                         checked={checkboxValues.co}
                                         onChange={handleCheckboxChange}
-                                    /> Co</div>
+                                    /> CO</div>
                                     <div><input
                                         type="checkbox"
                                         name="so"
                                         checked={checkboxValues.so}
                                         onChange={handleCheckboxChange}
-                                    /> So</div>
+                                    /> SO</div>
                                     <div><input
                                         type="checkbox"
                                         name="po"
                                         checked={checkboxValues.po}
                                         onChange={handleCheckboxChange}
-                                    /> Po</div>
+                                    /> PO</div>
                                     <div><input
                                         type="checkbox"
                                         name="pso"
                                         checked={checkboxValues.pso}
                                         onChange={handleCheckboxChange}
-                                    /> Pso</div>
+                                    />PSO</div>
                                     <div><input
                                         type="checkbox"
                                         name="tutor"
@@ -275,7 +275,7 @@ const hidepopup = () => {
                                         name="setting"
                                         checked={checkboxValues.setting}
                                         onChange={handleCheckboxChange}
-                                    /> Setting</div>
+                                    /> Settings</div>
                                 </div>
 
 
