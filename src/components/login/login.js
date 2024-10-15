@@ -19,6 +19,7 @@ function Login()
     const handleLogin = async () => 
     {
         try {
+            console.log(apiUrl)
             const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
