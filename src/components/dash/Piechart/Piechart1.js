@@ -16,25 +16,28 @@ const Piechart1 = () => {
             setLoading(true);
             try {
                 const response = await axios.get(`${apiUrl}/api/studentpiechart`);
+                console.log(response)
                 const result = response.data;
-
-                const labels = result.data.map(item => item.type);
+                console.log(result)
+                // const labels = result.data.map(item => item.type);
                 const data = result.data.map(item => item.count);
 
                 setChartData({
-                    labels,
+                    labels:[`AIDED - ${result.aided}`, `SFM - ${result.sfm}`, `SFW - ${result.sfw}`, ],
                     datasets: [
                         {
                             data,
                             backgroundColor: [
+                                'rgb(5, 114, 82)',
                                 'rgb(190, 0, 0)',
                                 'rgb(160, 32, 240)',
-                                'rgb(5, 114, 82)',
+                                
                             ],
                             hoverBackgroundColor: [
+                                'rgb(50, 100, 82)',
                                 'rgb(130, 0, 0)',
                                 'rgb(150, 52, 240)',
-                                'rgb(50, 100, 82)',
+                                
                             ],
                             borderColor: 'rgba(255, 255, 255, 1)',
                             borderWidth: 2,

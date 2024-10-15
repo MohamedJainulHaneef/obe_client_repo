@@ -19,11 +19,11 @@ const Piechart2 = () => {
                 const result = response.data;
 
                 // Transform the data into the format required by the chart
-                const labels = result.data.map(item => item.type);
+                // const labels = result.data.map(item => item.type);
                 const data = result.data.map(item => item.count);
 
                 setChartData({
-                    labels,
+                    labels:[`AIDED - ${result.aided}`,`SFM - ${result.sfm}`, `SFW - ${result.sfw}`],
                     datasets: [
                         {
                             data,
@@ -60,7 +60,7 @@ const Piechart2 = () => {
                 labels: {
                     color: '#333',
                     font: {
-                        size: 14,
+                        size: 17,
                     },
                     padding: 20, // Adjust padding between the legend items
                     boxWidth: 20, // Increase this value for a wider box

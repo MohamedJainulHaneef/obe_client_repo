@@ -3,7 +3,7 @@ import './dash.css';
 import Barchart from '../dash/Barchart/barchart';
 import Piechart1 from '../dash/Piechart/Piechart1';
 import Piechart2 from '../dash/Piechart/Piechart2';
-import Piechart3 from '../dash/Piechart/Piechart3';
+// import Piechart3 from '../dash/Piechart/Piechart3';
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBook } from "react-icons/fa";
@@ -90,7 +90,7 @@ function Dash()
             <div className='dash-piechart-main'>
                 <Piechart1 />
                 <Piechart2 />
-                <Piechart3 />
+                {/* <Piechart3 /> */}
             </div>
         </div>
     );

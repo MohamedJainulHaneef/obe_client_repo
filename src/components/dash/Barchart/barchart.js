@@ -18,30 +18,26 @@ const ProgressBar = () =>
 		{
 			try {
 				const response = await axios.post(`${apiUrl}/api/componentreport`, {});
-				console.log(response)
-				setComponentReport(response.data);
-				console.log('CIA1',componentReport)
+				
+				const responseDate = response.data
+				setComponentReport(responseDate);
+				const cia1 = parseInt((responseDate.cia_1/333)*100);
+				const cia2 = parseInt((responseDate.cia_2/333)*100);
+				const ass1 = parseInt((responseDate.ass_1/333)*100);
+				const ass2 = parseInt((responseDate.ass_2/333)*100);
+				const ese = parseInt((responseDate.ese/333)*100);
+				// console.log('cia1',cia1,'cia2',cia2,'ass1',ass1,'ass2',ass2,)
+				setCia1(cia1)
+				setCia2(cia2)
+				setAss1(ass1)
+				setAss2(ass2)
+				setEse(ese)
+				// console.log('CIA1',componentReport)
 			} 
 			catch (err) {
 				alert('Error fetching status report.');
 				console.log('Error fetching data:', err);
 			}
-			setTimeout(() => 
-			{
-				const cia1 = (componentReport.cia_1/333)*100;
-				const cia2 = (componentReport.cia_2/333)*100;
-				const ass1 = (componentReport.ass_1/333)*100;
-				const ass2 = (componentReport.ass_2/333)*100;
-				const ese = (componentReport.ese/333)*100;
-				// console.log(`"check",${componentReport.cia_1}`)
-				// console.log(parseInt(cia1))
-
-				setCia1(parseInt(cia1));
-				setCia2(parseInt(cia2));
-				setAss1(parseInt(ass1));
-				setAss2(parseInt(ass2));
-				setEse(parseInt(ese));
-			}, 500); 
 		}
 		fetchProgress();
 	}, [])
