@@ -31,6 +31,10 @@ function Manage()
         setAcademic(true);
     }
 
+    const hidepopup = () => {
+        setAcademic(false);
+    }
+
     const handleAcademicSem = async () => 
     {
         try {
@@ -58,12 +62,16 @@ function Manage()
         navigate(`/staff/${staffId}/markrelease`);
     };
 
+    const handleCourseMapManage = () => {
+        navigate(`/staff/${staffId}/coursemappingmanage`);
+    };
+
     return (
         <div className="manage-body">
             <div className="manage-container">
                 <button className="manage-btn" onClick={handleAcademic}>Academic Year</button>
                 <button className="manage-btn">Student Manage</button>
-                <button className="manage-btn">Course Manage</button>
+                <button className="manage-btn"  onClick={handleCourseMapManage}>Staff Cour Manage</button>
                 <button className="manage-btn" onClick={handleStaffManage}>Staff Manage</button>
                 <button className="manage-btn">Mark Manage</button>
                 <button className="manage-btn" onClick={handleScopeManage}>Scope Manage</button>
@@ -73,6 +81,9 @@ function Manage()
                 {academic && (
                     <div className="manage-popup">
                         <div className="manage-academic-wrapper">
+                            <div className="manage-close-div">
+                                    <button onClick={hidepopup} className="manage-close">✖</button>
+                            </div>
                             <select
                                 value={academicsem}
                                 onChange={(e) => setAcademicSem(e.target.value)}
@@ -93,7 +104,7 @@ function Manage()
                                 <option value="APR - 2030">APR - 2030</option>
                                 <option value="NOV - 2030">NOV - 2030</option>
                             </select>
-                            <button onClick={handleAcademicSem} className="manage-submit-btn">Submit</button>
+                            <button onClick={handleAcademicSem} className="manage-submit-btn">SAVE</button>
                         </div>
                     </div>
                 )}

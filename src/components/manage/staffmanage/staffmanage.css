@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
 }
+
 .staff-manage {
     padding: 10px;
     width: 100%;
@@ -16,13 +17,15 @@
     padding:8px;
     text-transform: uppercase;
 }
+
 .staff-header {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin-top: 12px;
     font-size: 16px;
     text-align: left;
 }
+
 .staff-top-heading {
     text-align: center;
     margin-top: 5px;
@@ -32,6 +35,7 @@
     word-spacing: 2px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
+
 .staff-th-sno, .staff-th-id, .staff-th-name, .staff-th-edit, .staff-th-delete {
     background-color: #1c8163;    
     text-align: center;
@@ -43,6 +47,7 @@
     font-weight: bold;
     border-color: black;
 }
+
 .staff-td-sno, .staff-td-id, .staff-td-edit, .staff-td-delete {
     text-align: center;
     font-size: 16px;
@@ -50,6 +55,7 @@
     padding: 13px;
     font-weight: bold;
 }
+
 .staff-td-name {
     font-size: 16px;
     border: 1px solid gray;
@@ -57,6 +63,7 @@
     font-weight: bold;
     padding-left: 30px;
 }
+
 .staff-td-edit button,.staff-td-delete button {
     background: none;
     border: none;
@@ -64,19 +71,25 @@
     color: #007BFF;
     margin: 0 auto;
 }
+
 .staff-td-edit button:hover,.staff-td-delete button:hover {
     color: #0056b3;
 }
+
 .staff-btns {
     display: flex;
     gap: 5px;
 }
 .staff-icon {
     font-size: 18px;
+    color: rgb(15, 114, 207);
 }
+
 .staff-span {
     font-size: 16px;
+    color: rgb(15, 114, 207);
 }
+
 .staff-save-btn {
     padding: 12px;
     border-radius: 10px;
@@ -88,12 +101,14 @@
     margin-left: 10px;
     cursor: pointer;
 }
+
 .staff-input-btn {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
 }
+
 .staff-search {
     width: 270px;
     height: 45px;
@@ -104,10 +119,12 @@
     background-color: rgb(250, 250, 254);
     border: 2px solid black;
 }
+
 .staff-save-btn:hover {
     background-color: rgb(29, 87, 145);
 }
-.addstaff, .edit {
+
+.staff-addstaff, .staff-edit {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -117,48 +134,66 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     padding: 20px;
     z-index: 1000; 
-    width: 500px;
-    height: 600px;
+    width: 550px;
+    height: 630px;
 }
-.close-class {
+
+.staff-close-class {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 20px;
 }
-.close {
+
+.staff-close-header {
+    width: 90%;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.staff-close {
     background: none;
     border: none;
     font-size: 20px;
     cursor: pointer;
+    padding: 5px 8px;
 }
-.addpopup h2 {
-    margin-bottom: 15px;
-}
-.staff {
+
+.staff-inputs {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid black;
+    height: 43px;
+    margin-bottom: 17px;
+    border: .5px solid rgb(48, 47, 47);
     border-radius: 4px;
+    font-size: 17px;
 }
-input::placeholder {
-    color: rgb(145, 141, 141);
+
+.staff-addpopup input::placeholder {
+    color: rgb(59, 58, 58);
+    font-size: 13px;
 }
-.check-boxes {
-    margin: 10px;
+
+.staff-check-boxes {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     font-weight:500;
 }
-.check-boxes div {
-    margin-bottom: 20px;
+
+.staff-individual-check {
+    width: 25%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 5px;
+    padding-bottom: 15px;
 }
-.check-boxes input[type="checkbox"] {
+
+.staff-check-boxes input[type="checkbox"] {
     width: 15px;  
     height: 15px;
     margin-right: 10px;
     cursor: pointer; 
 }
+
 button.save-btn {
     background-color: rgb(13, 124, 228);
     color: white;
@@ -170,13 +205,28 @@ button.save-btn {
     font-size: 16px;
     font-weight: bold;
 }
-button.save-btn:hover {
+
+.staff-add-save-btn {
+    width: 100%;
+    height: 45px;
+    margin-top: 15px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(13, 124, 228);
+    border-radius: 8px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+button.save-btn:hover, .staff-add-save-btn:hover {
     background-color: rgb(29, 87, 145);
 }
+
 body.blur {
     transition: filter 0.3s ease;
 }
-.overlay {
+
+.staff-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -184,4 +234,9 @@ body.blur {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+}
+
+.staff-close:hover {
+    background-color: red;
+    color: white;
 }

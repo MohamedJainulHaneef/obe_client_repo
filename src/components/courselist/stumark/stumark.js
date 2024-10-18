@@ -87,21 +87,21 @@ function Stumark()
     const handleInputChange = (registerNo, type, value) => 
     {
         let validatedValue = value;
-
+    
         if (type === 'lot') 
         {
             if (activeSection === '3' || activeSection === '4') 
             {
                 if (value > 3) {
                     alert("Value for LOT cannot exceed 3.");
-                    return;
+                    validatedValue = '';
                 }
             }
             else 
             {
                 if (value > 25) {
                     alert("Value for LOT cannot exceed 25.");
-                    return;
+                    validatedValue = ''; 
                 }
             }
         }
@@ -109,17 +109,17 @@ function Stumark()
         {
             if (value > 40) {
                 alert("Value for MOT cannot exceed 40.");
-                return;
+                validatedValue = '';
             }
         }
         else if (type === 'hot') 
         {
             if (value > 10) {
                 alert("Value for HOT cannot exceed 10.");
-                return;
+                validatedValue = ''; 
             }
         }
-
+    
         const updatedStuData = stuData.map(user => 
         {
             if (user.reg_no === registerNo) 
@@ -131,11 +131,11 @@ function Stumark()
                 return { ...user, [type]: validatedValue, total: newTotal };
             }
             return user;
-        });
+        })
+    
         setStuData(updatedStuData);
-
-    };
-
+    }
+        
     const handleDisable = () => 
     {
         if (activeSection === '1') 

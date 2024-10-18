@@ -13,6 +13,7 @@ import StaffManage from './components/manage/staffmanage/staffmanage';
 import PrivateRoute from './components/login/authenticate/privaterouter';
 import MarkRelease from './components/manage/markrelease/markrelease';
 import DeptReport from './components/statusreport/deptreport/deptreport';
+import CourMapManage from './components/manage/coursemapmanage/coursemapmanage'
  
 function App() 
 {
@@ -31,6 +32,7 @@ function App()
                         <Route path="staffmanage" element={<StaffManage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
                         <Route path="markrelease" element={<MarkRelease />} />
+                        <Route path="coursemappingmanage" element={<CourMapManage />} />
                         <Route path=":dept/departmentreport" element={<DeptReport />} />
                     </Route>
                 </Routes>

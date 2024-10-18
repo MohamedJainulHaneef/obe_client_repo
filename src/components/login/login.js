@@ -40,6 +40,13 @@ function Login()
             alert('An error occurred. Please try again later.');
             console.error('Login Error: ', error);
         }
+    }
+
+    const handleKeyPress = (e) => 
+    {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
     };
 
     const handleLogout = () => 
@@ -70,6 +77,7 @@ function Login()
                     placeholder="Enter Staff ID"
                     value={staffId}
                     onChange={(e) => setStaffId(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     required
                 />
                 <input
@@ -78,6 +86,7 @@ function Login()
                     placeholder="Enter Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     required
                 />
                 {/* <a href="www.obe.com" className="log-desc-anchor">Forgot Password</a> */}
