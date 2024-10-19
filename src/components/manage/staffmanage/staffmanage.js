@@ -243,6 +243,36 @@ function StaffManage() {
                                 <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
+                                        name="course"
+                                        checked={checkboxValues.course}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Course
+                                </div>
+                                <div className="staff-individual-check">
+                                    <input
+                                        type="checkbox"
+                                        name="rsm"
+                                        checked={checkboxValues.rsm}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    RSM
+                                </div>
+                                <div className="staff-individual-check">
+                                    <input
+                                        type="checkbox"
+                                        name="setting"
+                                        checked={checkboxValues.setting}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Settings
+                                </div>
+
+                            </div>
+                            <div className="staff-check-boxes">
+                            <div className="staff-individual-check">
+                                    <input
+                                        type="checkbox"
                                         name="po"
                                         checked={checkboxValues.po}
                                         onChange={handleCheckboxChange}
@@ -267,17 +297,6 @@ function StaffManage() {
                                     />
                                     SO
                                 </div>
-                            </div>
-                            <div className="staff-check-boxes">
-                                <div className="staff-individual-check">
-                                    <input
-                                        type="checkbox"
-                                        name="course"
-                                        checked={checkboxValues.course}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    Course
-                                </div>
                                 <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
@@ -287,7 +306,9 @@ function StaffManage() {
                                     />
                                     PSO
                                 </div>
-                                <div className="staff-individual-check">
+                            </div>
+                            <div className="staff-check-boxes">
+                            <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
                                         name="tutor"
@@ -305,8 +326,6 @@ function StaffManage() {
                                     />
                                     HOD
                                 </div>
-                            </div>
-                            <div className="staff-check-boxes">
                                 <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
@@ -325,6 +344,8 @@ function StaffManage() {
                                     />
                                     Input
                                 </div>
+                            </div>
+                            <div className="staff-check-boxes">
                                 <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
@@ -333,26 +354,6 @@ function StaffManage() {
                                         onChange={handleCheckboxChange}
                                     />
                                     Manage
-                                </div>
-                                <div className="staff-individual-check">
-                                    <input
-                                        type="checkbox"
-                                        name="rsm"
-                                        checked={checkboxValues.rsm}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    RSM
-                                </div>
-                            </div>
-                            <div className="staff-check-boxes">
-                                <div className="staff-individual-check">
-                                    <input
-                                        type="checkbox"
-                                        name="setting"
-                                        checked={checkboxValues.setting}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    Settings
                                 </div>
                             </div>
                             <button onClick={savenewstaff} className="staff-add-save-btn">SAVE</button>
