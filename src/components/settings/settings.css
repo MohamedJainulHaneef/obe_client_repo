@@ -81,7 +81,7 @@
     width: 77%;
     height: 50px;
     background-color: #09694d;
-    background-color: rgba(51, 51, 184, 0.925);
+    background-color: rgb(13, 124, 228);
     font-weight: 600;
     color: white;
     border-radius: 5px;
@@ -95,5 +95,5 @@
 
 .settings-desc-btn:hover {
     background-color: #0d5a44;
-    background-color: rgb(51, 51, 194);
+    background-color: rgb(29, 87, 145);
 }
