@@ -18,8 +18,8 @@ function Login()
 
     const handleLogin = async () => 
     {
-        try {
-            console.log(apiUrl)
+        try 
+        {
             const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
@@ -47,7 +47,7 @@ function Login()
         if (e.key === 'Enter') {
             handleLogin();
         }
-    };
+    }
 
     const handleLogout = () => 
     {

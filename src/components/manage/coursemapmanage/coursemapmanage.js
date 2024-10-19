@@ -5,7 +5,7 @@ function CourMapManage()
 {
     return (
         <div className="">
-            Course Mapping Manage
+            
         </div>
     )
 }

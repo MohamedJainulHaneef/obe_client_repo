@@ -36,7 +36,7 @@
 }
 
 .manage-btn:hover {
-    background-color: rgb(61, 58, 151);
+    background-color: rgb(40, 37, 110);
 }
 
 .manage-popup-container {
@@ -76,7 +76,7 @@
 }
 
 .manage-submit-btn {
-    background-color: rgb(13, 124, 228);
+    background-color: rgb(59, 57, 129);    
     height: 40px;
     padding: 10px;
     font-size: 18px;
@@ -87,7 +87,7 @@
 }
 
 .manage-submit-btn:hover {
-    background-color: rgb(29, 87, 145);
+    background-color: rgb(40, 37, 110);
 }
 
 .manage-close-div {

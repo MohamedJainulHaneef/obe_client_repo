@@ -16,12 +16,8 @@ const Piechart1 = () => {
             setLoading(true);
             try {
                 const response = await axios.get(`${apiUrl}/api/studentpiechart`);
-                console.log(response)
                 const result = response.data;
-                console.log(result)
-                // const labels = result.data.map(item => item.type);
                 const data = result.data.map(item => item.count);
-
                 setChartData({
                     labels:[`AIDED - ${result.aided}`, `SFM - ${result.sfm}`, `SFW - ${result.sfw}`, ],
                     datasets: [
