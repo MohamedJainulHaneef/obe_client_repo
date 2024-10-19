@@ -240,3 +240,6 @@ body.blur {
     background-color: red;
     color: white;
 }
+.edit_close{
+    cursor: pointer;
+}
