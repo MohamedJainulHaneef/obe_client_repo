@@ -49,14 +49,21 @@ function StatusReport()
         fetchStatusReport();
     }, [academicYear]);
 
-    const handleDeptReport = (dept) => {
-        navigate(`/staff/${staffId}/${dept}/departmentreport`);
+    const handleDeptReport = (dept) => 
+    {
+        if (dept === "ALL") {
+            navigate(`/staff/${staffId}/alldepartments/departmentreport`);
+        } 
+        else {
+            navigate(`/staff/${staffId}/${dept}/departmentreport`);
+        }
     }
 
     return (
         <div className='report-main'>
             <div className='report-entire-wrapper'>
                 <div className='report-entire-content'>
+                    <button className='report-btn' onClick={() => handleDeptReport("ALL")}>ALL</button>
                     {reportDeptName.map((dept, index) => (
                         <button key={index} className='report-btn' onClick={() => handleDeptReport(dept)}>{dept}</button>
                     ))}

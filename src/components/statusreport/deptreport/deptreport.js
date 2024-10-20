@@ -43,8 +43,8 @@ function DeptReport()
                 try {
                     const response = await axios.post(`${apiUrl}/api/deptstatusreport`, {
                         academic_year : academicYear,
-                        dept_name : dept
-                    });
+                        dept_name : dept === "alldepartments" ? "ALL" : dept
+                    })
                     setDeptStatusReport(response.data);
                 } 
                 catch (err) {
@@ -54,8 +54,8 @@ function DeptReport()
             }
         }
         fetchDeptStatusReport();
-    }, [academicYear]);
-
+    }, [academicYear, dept]);
+        
     const handleSectionChange = (event) => 
     {
         setActiveSection(event.target.value);
