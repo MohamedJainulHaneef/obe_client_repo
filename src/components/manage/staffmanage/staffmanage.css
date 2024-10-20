@@ -1,3 +1,5 @@
+
+
 * {
     margin: 0px;
     padding: 0px;
@@ -72,8 +74,8 @@
     margin: 0 auto;
 }
 
-.staff-td-edit button:hover,.staff-td-delete button:hover {
-    color: #0056b3;
+.staff-edit-btn:hover,.staff-delete-btn:hover,.staff-save-edit-btn {
+    background-color: rgb(29, 87, 145);
 }
 
 .staff-btns {
@@ -81,8 +83,8 @@
     gap: 5px;
 }
 .staff-icon {
-    font-size: 18px;
-    color: rgb(15, 114, 207);
+    font-size: 16px;
+    color: white;
 }
 
 .staff-span {
@@ -124,7 +126,7 @@
     background-color: rgb(29, 87, 145);
 }
 
-.staff-addstaff, .staff-edit {
+.staff-addstaff {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -137,7 +139,38 @@
     width: 550px;
     height: 630px;
 }
-
+.staff-edit {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000; 
+    width: 550px;
+    height: 520px;
+}
+.staff-delete{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000; 
+    width: 400px;
+    height: 250px;
+}
+.staff-delete-btn-container{
+    display: flex;
+    justify-content:center;
+    padding: 30px;
+    gap: 30px;
+}
 .staff-close-class {
     display: flex;
     justify-content: flex-end;
@@ -240,6 +273,66 @@ body.blur {
     background-color: red;
     color: white;
 }
-.edit_close{
+.edit-close{
     cursor: pointer;
+    display:flex ;
+    justify-content: end;
+}
+.delete-close{
+    cursor: pointer;
+    display:flex ;
+    justify-content: end;
+}
+.staff-edit-btn{
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: rgb(13, 124, 228);
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.staff-save-edit-btn{
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: rgb(13, 124, 228);
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.staff-save-edit-btn:hover{
+    background-color: rgb(29, 87, 145);
+}
+
+
+.staff-delete-btn{
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: rgb(13, 124, 228);
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.edit-inputbox{
+    width: 80%;
+    padding: 10px;
+    height: 43px;
+    margin-bottom: 17px;
+    border: .5px solid rgb(48, 47, 47);
+    border-radius: 4px;
+    font-size: 17px;
+}
+.edit-password{
+    font-weight: bold;
+    display: flex;
+    justify-content:start;
+    padding: 0px 50px;
 }

@@ -361,14 +361,14 @@ function StaffManage() {
                     </>
                 )}
                 {edit && (
-
+                    <div className="staff-overlay">
                     <div className="staff-edit">
-                        <span onClick={editclose} className="edit_close">✖</span>
+                        <span onClick={editclose} className="edit-close">✖</span>
                         <input
                             type="text"
                             value={newstaffid}
                             onChange={(e) => setNewstaffid(e.target.value)}
-                            className=""
+                            className="edit-inputbox"
                             placeholder={""}
                             disabled
                         />  <br />
@@ -376,7 +376,7 @@ function StaffManage() {
                             type="text"
                             value={newstaffname}
                             onChange={(e) => setNewstaffname(e.target.value)}
-                            className=""
+                            className="edit-inputbox"
                             placeholder={""}
                         />  <br />
 
@@ -384,46 +384,51 @@ function StaffManage() {
                             type="text"
                             value={newdept}
                             onChange={(e) => setNewdept(e.target.value)}
-                            className=""
+                            className="edit-inputbox"
                             placeholder={""}
                         />  <br />
                         <input
                             type="text"
                             value={newcategory}
                             onChange={(e) => setNewcategory(e.target.value)}
-                            className=""
+                            className="edit-inputbox"
                             placeholder={""}
                         />  <br />
-                        <label>Old Password</label>
+                        <label className="edit-password">Old Password</label>
 
                         <input
                             type="text"
                             value={oldpassword}
                             onChange={(e) => setOldpassword(e.target.value)}
-                            className=""
+                            className="edit-inputbox"
                             placeholder={""}
                             disabled
                         />  <br />
-                        <label>New Password</label>
+                        <label className="edit-password">New Password</label>
                         <input
                             type="text"
                             value={newpassword}
                             onChange={(e) => setNewpassword(e.target.value)}
-                            className=""
+                            className="edit-inputbox"
                             defaultValue={""}
                             placeholder={"New"}
                         /><br />
-                        <button onClick={updatestaff}>Save</button>
+                        <button onClick={updatestaff} className="staff-save-edit-btn">Save</button>
+                    </div>
                     </div>
                 )}
             </div>
             { deletestaff && (
-                <div className="staff-edit">
-                    <span onClick={staffDeleteClose} className="edit_close">✖</span>
+                <div className="staff-overlay">
+                <div className="staff-delete">
+                    <span onClick={staffDeleteClose} className="delete-close">✖</span>
                     <h4>STAFF ID : {deletestaffid}</h4>
                     <h4>STAFF NAME : {deletestaffname}</h4>
-                    <button onClick={staffDeleteClose}>Cancel</button>
-                    <button onClick={Confirmdelete}>Confirm</button>
+                    <div className="staff-delete-btn-container">
+                    <button onClick={staffDeleteClose}className="staff-save-btn">Cancel</button>
+                    <button onClick={Confirmdelete}className="staff-save-btn">Confirm</button>
+                    </div>
+                </div>
                 </div>
             )}
             <div>
@@ -445,14 +450,13 @@ function StaffManage() {
                                 <td className="staff-td-name">{staff.staff_name}</td>
                                 <td className="staff-td-edit">
                                     <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="staff-btns">
-                                        <FontAwesomeIcon icon={faEdit} className="staff-icon" />
-                                        <span className="staff-span">Edit</span>
+                                        <span className="staff-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="staff-icon" /></span>
                                     </button>
                                 </td>
                                 <td className="staff-td-delete">
                                     <button onClick={() => handleDelete(staff.staff_id,staff.staff_name)} className="staff-btns">
-                                        <FontAwesomeIcon icon={faTrash} className="staff-icon" />
-                                        <span className="staff-span">Delete</span>
+                                       
+                                        <span className="staff-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="staff-icon" /></span>
                                     </button>
                                 </td>
                             </tr>
