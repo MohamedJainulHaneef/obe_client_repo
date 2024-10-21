@@ -4,50 +4,42 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import './deptreport.css'
 
-function DeptReport()
-{
+function DeptReport() {
     const apiUrl = process.env.REACT_APP_API_URL;
     const { dept } = useParams();
     const [activeSection, setActiveSection] = useState('1');
     const [academicYear, setAcademicYear] = useState('');
-    const [ deptStatusReport, setDeptStatusReport ] = useState([]);
+    const [deptStatusReport, setDeptStatusReport] = useState([]);
     const [filter, setFilter] = useState({
         all: true, 
         incomplete: true,
         processing: true,
         completed: true
     });
-    
-    useEffect(() => 
-    {
-        const academicYearSet = async () => 
-        {
+    const [searchTerm, setSearchTerm] = useState(''); // Added state for search input
+
+    useEffect(() => {
+        const academicYearSet = async () => {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
                 setAcademicYear(response.data.academic_year);
-            } 
-            catch (err) {
+            } catch (err) {
                 alert('Error fetching Academic Year.');
-            } 
+            }
         }
         academicYearSet();
+    }, []);
 
-    }, [])
-
-    useEffect(() => 
-    {
-        const fetchDeptStatusReport = async () => 
-        {
-            if (academicYear) 
-            {
+    useEffect(() => {
+        const fetchDeptStatusReport = async () => {
+            if (academicYear) {
                 try {
                     const response = await axios.post(`${apiUrl}/api/deptstatusreport`, {
-                        academic_year : academicYear,
-                        dept_name : dept === "alldepartments" ? "ALL" : dept
-                    })
+                        academic_year: academicYear,
+                        dept_name: dept === "alldepartments" ? "ALL" : dept
+                    });
                     setDeptStatusReport(response.data);
-                } 
-                catch (err) {
+                } catch (err) {
                     alert('Error fetching status report.');
                     console.log('Error fetching data:', err);
                 }
@@ -55,16 +47,13 @@ function DeptReport()
         }
         fetchDeptStatusReport();
     }, [academicYear, dept]);
-        
-    const handleSectionChange = (event) => 
-    {
+
+    const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
     }
 
-    const getActiveField = (dept) =>
-    {
-        switch (activeSection) 
-        {
+    const getActiveField = (dept) => {
+        switch (activeSection) {
             case '1':
                 return dept.cia_1;
             case '2':
@@ -80,37 +69,31 @@ function DeptReport()
         }
     }
 
-    const getStatus = (value) => 
-    {
+    const getStatus = (value) => {
         if (value === 0) return 'Incomplete';
         if (value === 1) return 'Processing';
         if (value === 2) return 'Completed';
         return '';
     }
 
-    const getStatusColor = (value) =>
-    {
-        if (value === 0) return { color: 'red' };       
-        if (value === 1) return { color: 'black' };  
-        if (value === 2) return { color: 'green' };     
+    const getStatusColor = (value) => {
+        if (value === 0) return { color: 'red' };
+        if (value === 1) return { color: 'black' };
+        if (value === 2) return { color: 'green' };
         return {};
     }
 
-    const handleFilterChange = (event) => 
-    {
+    const handleFilterChange = (event) => {
         const { name, checked } = event.target;
 
         if (name === 'all') {
-        
             setFilter({
                 all: checked,
                 incomplete: checked,
                 processing: checked,
                 completed: checked
             });
-        } 
-        else 
-        {
+        } else {
             setFilter((prevFilter) => ({
                 ...prevFilter,
                 [name]: checked,
@@ -119,18 +102,36 @@ function DeptReport()
         }
     }
 
-    const filteredReport = deptStatusReport.filter((dept) => 
-    {
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value); // Handle search input change
+    }
+
+    // Filter logic to check staff_id, course_code, and category
+    const filteredReport = deptStatusReport.filter((dept) => {
         const status = getActiveField(dept);
+        const matchesSearch = 
+            dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            dept.category.toLowerCase().includes(searchTerm.toLowerCase()); // Added logic for course_code and category
+        
+        if (!matchesSearch) return false;
+
         if (filter.all) return true;
         if (status === 0 && filter.incomplete) return true;
         if (status === 1 && filter.processing) return true;
         if (status === 2 && filter.completed) return true;
         return false;
-    })
+    });
 
     return (
         <div className='dept-repo-main'>
+            <input 
+                type="text" 
+                placeholder="Search by Staff ID, Course Code, or Category" 
+                value={searchTerm} 
+                onChange={handleSearchChange} // Added search input field
+                className="search-input"
+            />
             <select
                 value={activeSection || ''}
                 onChange={handleSectionChange}
