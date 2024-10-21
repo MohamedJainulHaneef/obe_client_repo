@@ -193,11 +193,11 @@ function FileUpload()
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file4, 'scope')}>Upload to Scope</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'scope')}>Download Scope</button>
                     </div>
-                    <div className='file-container'>
+                    {/* <div className='file-container'>
                         <input type='file' name='file6' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file6, 'deptmarkentry')}>Upload to Dept Mark</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'deptmarkentry')}>Download Dept Mark </button>
-                    </div>
+                    </div> */}
                     <div className='file-container'>
                         <input type='file' name='file7' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file7, 'report')}>Upload to Report</button>

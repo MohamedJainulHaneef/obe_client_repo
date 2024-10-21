@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import jmclogo from '../../assets/jmclogo.png';
@@ -12,6 +12,7 @@ function Login()
     const apiUrl = process.env.REACT_APP_API_URL;
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
+    const passwordInputRef = useRef(null);
     const navigate = useNavigate();
     const { login } = useAuth(); 
     const { logout } = useAuth();
@@ -42,10 +43,16 @@ function Login()
         }
     }
 
-    const handleKeyPress = (e) => 
+    const handleKeyPress = (e, field) => 
     {
-        if (e.key === 'Enter') {
-            handleLogin();
+        if (e.key === 'Enter') 
+        {
+            if (field === 'staffId') {
+                passwordInputRef.current.focus(); 
+            } 
+            else if (field === 'password') {
+                handleLogin();
+            }
         }
     }
 
@@ -53,7 +60,7 @@ function Login()
     {
         logout();
         navigate('/', { replace: true });
-    };
+    }
 
     return (
         <div className='log-parent'>
@@ -77,7 +84,7 @@ function Login()
                     placeholder="Enter Staff ID"
                     value={staffId}
                     onChange={(e) => setStaffId(e.target.value)}
-                    onKeyPress={handleKeyPress}
+                    onKeyPress={(e) => handleKeyPress(e, 'staffId')}                    
                     required
                 />
                 <input
@@ -86,7 +93,8 @@ function Login()
                     placeholder="Enter Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    onKeyPress={handleKeyPress}
+                    onKeyPress={(e) => handleKeyPress(e, 'password')}
+                    ref={passwordInputRef} 
                     required
                 />
                 {/* <a href="www.obe.com" className="log-desc-anchor">Forgot Password</a> */}
@@ -97,7 +105,7 @@ function Login()
                 </button>
             </div>
         </div>
-    );
+    )
 }
 
 export default Login;

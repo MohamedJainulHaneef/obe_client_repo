@@ -59,7 +59,7 @@ function Settings()
                     <img src={passbg} alt="LOGO" className="settings-passbg" />
                 </div>
                 <div className="settings-right-wrapper">
-                    <span className="settings-rgt-header">Change your password</span>
+                    <span className="settings-rgt-header">Change Your Password</span>
                     <input
                         className="settings-desc-input"
                         type="password"

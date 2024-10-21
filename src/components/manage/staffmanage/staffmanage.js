@@ -4,7 +4,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-function StaffManage() {
+function StaffManage() 
+{
     const [staffData, setStaffData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -25,7 +26,8 @@ function StaffManage() {
     const [deletestaffid, setDeletestaffid]=useState("");
     const [deletestaffname, setDeletestaffname]=useState("")
 
-    const [checkboxValues, setCheckboxValues] = useState({
+    const [checkboxValues, setCheckboxValues] = useState(
+    {
         dashboard: true,
         course: true,
         co: false,
@@ -59,15 +61,17 @@ function StaffManage() {
         }))
     }
 
-    const savenewstaff = async (e) => {
-
+    const savenewstaff = async (e) => 
+    {
         e.preventDefault();
-        if (!staffId || !staffName || !staffDept || !staffcategory || !staffpassword) {
-            window.alert("All fields are Required");
+        if (!staffId || !staffName || !staffDept || !staffcategory || !staffpassword) 
+        {
+            window.alert("All Fields are Required");
             return;
         }
-        window.alert("New staff Added");
-        const newStaffData = {
+        window.alert("New Staff Added");
+        const newStaffData = 
+        {
             staff_id: staffId,
             staff_name: staffName,
             staff_dept: staffDept,
@@ -76,9 +80,11 @@ function StaffManage() {
             permissions: checkboxValues
         }
 
-        try {
+        try 
+        {
             const newStaffResponce = await axios.post(`${apiUrl}/newstaff`, newStaffData);
-            if (newStaffResponce.data) {
+            if (newStaffResponce.data) 
+            {
                 console.log(newStaffResponce.data);
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
@@ -87,7 +93,7 @@ function StaffManage() {
             setPopup(false);
         }
         catch (err) {
-            console.log("Fetching error", err);
+            console.log("Fetching Error", err);
         }
         setStaffId("");
         setStaffName("");
@@ -95,9 +101,12 @@ function StaffManage() {
         setPopup(false);
     }
 
-    useEffect(() => {
-        const staffDetails = async () => {
-            try {
+    useEffect(() => 
+   {
+        const staffDetails = async () => 
+        {
+            try 
+            {
                 const StaffResponse = await axios.get(`${apiUrl}/staffdetails`);
                 if (StaffResponse.data) {
                     console.log(StaffResponse.data);
@@ -106,13 +115,14 @@ function StaffManage() {
                 }
             }
             catch (err) {
-                console.log('Error fetching data:', err);
+                console.log('Error Fetching Data:', err);
             }
         }
         staffDetails();
     }, [apiUrl]);
 
-    const handleSearch = (e) => {
+    const handleSearch = (e) => 
+    {
         const searchText = e.target.value.toLowerCase();
         const filterList = staffData.filter((staff) =>
             staff.staff_id.toLowerCase().includes(searchText) ||
@@ -122,7 +132,8 @@ function StaffManage() {
     }
 
 
-    const handleEdit = (id, name, pass, dept, category) => {
+    const handleEdit = (id, name, pass, dept, category) => 
+    {
         console.log("Edit staff with ID:", staffId);
         setNewstaffid(id);
         setNewstaffname(name);
@@ -132,36 +143,45 @@ function StaffManage() {
         setNewpassword("")
         setEdit(true);
     }
-    const editclose = () => {
+
+    const staffEditClose = () => 
+    {
         setEdit(false);
     }
 
-    const updatestaff = async () => {
-
-        try {
+    const updatestaff = async () => 
+    {
+        try 
+        {
             const updateresponse = await axios.put(`${apiUrl}/staffupdate`, { newstaffid, newstaffname, newpassword, newdept, newcategory });
             if (updateresponse.data) {
-                window.alert("Staff Data modified")
+                window.alert("Staff Data Modified")
             }
             setEdit(false);
         }
         catch (err) {
-            console.log("ERRO UPDATE STAFF", err)
+            console.log("ERR UPDATE STAFF", err)
         }
     }
-    const handleDelete = (dstaffid,dstaffname) => {
+
+    const handleDelete = (dstaffid,dstaffname) => 
+    {
         setDeletestaffid(dstaffid);
         setDeletestaffname(dstaffname);
         setDeletestaff(true);
     }
-    const staffDeleteClose =()=>{
+
+    const staffDeleteClose = () =>
+    {
         setDeletestaff(false);
     }
-    const Confirmdelete = async ()=>{
+
+    const Confirmdelete = async () =>
+    {
         try {
             const DeleteResponse = await axios.post(`${apiUrl}/staffdelete`,{deletestaffid});
             if(DeleteResponse.data){
-                window.alert("Staff Delete")
+                window.alert("Staff Deleted")
                 setDeletestaff(false);
             }
         }
@@ -176,7 +196,7 @@ function StaffManage() {
             <div className="staff-input-btn">
                 <input className="staff-search"
                     type="text"
-                    placeholder="Search by ID or NAME ..."
+                    placeholder="Search by ID or Name ..."
                     onChange={handleSearch}
                 />
                 <div>
@@ -267,7 +287,6 @@ function StaffManage() {
                                     />
                                     Settings
                                 </div>
-
                             </div>
                             <div className="staff-check-boxes">
                             <div className="staff-individual-check">
@@ -362,73 +381,75 @@ function StaffManage() {
                 )}
                 {edit && (
                     <div className="staff-overlay">
-                    <div className="staff-edit">
-                        <span onClick={editclose} className="edit-close">✖</span>
-                        <input
-                            type="text"
-                            value={newstaffid}
-                            onChange={(e) => setNewstaffid(e.target.value)}
-                            className="edit-inputbox"
-                            placeholder={""}
-                            disabled
-                        />  <br />
-                        <input
-                            type="text"
-                            value={newstaffname}
-                            onChange={(e) => setNewstaffname(e.target.value)}
-                            className="edit-inputbox"
-                            placeholder={""}
-                        />  <br />
-
-                        <input
-                            type="text"
-                            value={newdept}
-                            onChange={(e) => setNewdept(e.target.value)}
-                            className="edit-inputbox"
-                            placeholder={""}
-                        />  <br />
-                        <input
-                            type="text"
-                            value={newcategory}
-                            onChange={(e) => setNewcategory(e.target.value)}
-                            className="edit-inputbox"
-                            placeholder={""}
-                        />  <br />
-                        <label className="edit-password">Old Password</label>
-
-                        <input
-                            type="text"
-                            value={oldpassword}
-                            onChange={(e) => setOldpassword(e.target.value)}
-                            className="edit-inputbox"
-                            placeholder={""}
-                            disabled
-                        />  <br />
-                        <label className="edit-password">New Password</label>
-                        <input
-                            type="text"
-                            value={newpassword}
-                            onChange={(e) => setNewpassword(e.target.value)}
-                            className="edit-inputbox"
-                            defaultValue={""}
-                            placeholder={"New"}
-                        /><br />
-                        <button onClick={updatestaff} className="staff-save-edit-btn">Save</button>
-                    </div>
+                        <div className="staff-edit">
+                            <div className="staff-close-class">
+                                <span onClick={staffEditClose} className="staff-close">✖</span>
+                            </div>
+                            <input
+                                type="text"
+                                value={newstaffid}
+                                onChange={(e) => setNewstaffid(e.target.value)}
+                                className="edit-inputbox"
+                                placeholder={""}
+                                disabled
+                            />
+                            <input
+                                type="text"
+                                value={newstaffname}
+                                onChange={(e) => setNewstaffname(e.target.value)}
+                                className="edit-inputbox"
+                                placeholder={""}
+                            />
+                            <input
+                                type="text"
+                                value={newdept}
+                                onChange={(e) => setNewdept(e.target.value)}
+                                className="edit-inputbox"
+                                placeholder={""}
+                            />
+                            <input
+                                type="text"
+                                value={newcategory}
+                                onChange={(e) => setNewcategory(e.target.value)}
+                                className="edit-inputbox"
+                                placeholder={""}
+                            />
+                            <label className="edit-password">Old Password</label>
+                            <input
+                                type="text"
+                                value={oldpassword}
+                                onChange={(e) => setOldpassword(e.target.value)}
+                                className="edit-inputbox"
+                                placeholder={""}
+                                disabled
+                            />
+                            <label className="edit-password">New Password</label>
+                            <input
+                                type="text"
+                                value={newpassword}
+                                onChange={(e) => setNewpassword(e.target.value)}
+                                className="edit-inputbox"
+                                defaultValue={""}
+                                placeholder={"New"}
+                            />
+                            <button onClick={updatestaff} className="staff-save-edit-btn">SAVE</button>
+                        </div>
                     </div>
                 )}
             </div>
-            { deletestaff && (
+            {deletestaff && (
                 <div className="staff-overlay">
-                <div className="staff-delete">
-                    <span onClick={staffDeleteClose} className="delete-close">✖</span>
-                    <h4>STAFF ID : {deletestaffid}</h4>
-                    <h4>STAFF NAME : {deletestaffname}</h4>
-                    <div className="staff-delete-btn-container">
-                    <button onClick={staffDeleteClose}className="staff-save-btn">Cancel</button>
-                    <button onClick={Confirmdelete}className="staff-save-btn">Confirm</button>
+                    <div className="staff-delete">
+                        <div className="staff-close-class">
+                            <span onClick={staffDeleteClose} className="staff-close">✖</span>
+                        </div>
+                        <h4>STAFF ID : {deletestaffid}</h4>
+                        <h4>STAFF NAME : {deletestaffname}</h4>
+                        <div className="staff-delete-btn-container">
+                            <button onClick={staffDeleteClose}className="staff-save-btn">Cancel</button>
+                            <button onClick={Confirmdelete}className="staff-save-btn">Confirm</button>
+                        </div>
                     </div>
-                </div>
                 </div>
             )}
             <div>
@@ -449,14 +470,13 @@ function StaffManage() {
                                 <td className="staff-td-id">{staff.staff_id}</td>
                                 <td className="staff-td-name">{staff.staff_name}</td>
                                 <td className="staff-td-edit">
-                                    <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="staff-btns">
+                                    <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="staff-edit-btn">
                                         <span className="staff-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="staff-icon" /></span>
                                     </button>
                                 </td>
                                 <td className="staff-td-delete">
-                                    <button onClick={() => handleDelete(staff.staff_id,staff.staff_name)} className="staff-btns">
-                                       
-                                        <span className="staff-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="staff-icon" /></span>
+                                    <button onClick={() => handleDelete(staff.staff_id,staff.staff_name)} className="staff-del-btn">
+                                       <span className="staff-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="staff-icon" /></span>
                                     </button>
                                 </td>
                             </tr>
