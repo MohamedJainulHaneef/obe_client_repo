@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import './Piechart.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import axios from 'axios';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const Piechart2 = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -18,9 +19,8 @@ const Piechart2 = () => {
                 const response = await axios.get(`${apiUrl}/api/staffpiechart`);
                 const result = response.data;
 
-                // Transform the data into the format required by the chart
-                // const labels = result.data.map(item => item.type);
                 const data = result.data.map(item => item.count);
+                const total = data.reduce((acc, curr) => acc + curr, 0); // Total for percentage calculation
 
                 setChartData({
                     labels:[`AIDED - ${result.aided}`,`SFM - ${result.sfm}`, `SFW - ${result.sfw}`],
@@ -28,14 +28,14 @@ const Piechart2 = () => {
                         {
                             data,
                             backgroundColor: [
-                                'rgb(5, 114, 82)',    // Soft teal
-                                'rgb(190, 0, 0)',    // Soft coral
-                                'rgb(160, 32, 240)',    // Soft slate blue
+                                'rgb(10, 161, 116)',    // Soft teal
+                                'rgb(224, 5, 5)',    // Soft coral
+                                'rgb(146, 0, 236)',    // Soft slate blue
                             ],
                             hoverBackgroundColor: [
-                                'rgb(50, 100, 82)',     // Hover brighter teal
-                                'rgb(130, 0, 0)',     // Hover brighter coral
-                                'rgb(150, 52, 240)',     // Hover brighter slate blue
+                                'rgb(11, 110, 81)',     // Hover brighter teal
+                                'rgb(202, 7, 7)',     // Hover brighter coral
+                                'rgb(108, 7, 172)',     // Hover brighter slate blue
                             ],
                             borderColor: 'rgba(255, 255, 255, 1)',
                             borderWidth: 2,
@@ -62,9 +62,9 @@ const Piechart2 = () => {
                     font: {
                         size: 17,
                     },
-                    padding: 20, // Adjust padding between the legend items
-                    boxWidth: 20, // Increase this value for a wider box
-                    boxHeight: 20, // Increase this value for a taller box
+                    padding: 20,
+                    boxWidth: 20,
+                    boxHeight: 20,
                 },
             },
             tooltip: {
@@ -72,6 +72,18 @@ const Piechart2 = () => {
                     label: function (tooltipItem) {
                         return `${tooltipItem.label}: ${tooltipItem.raw}`; // Show count
                     },
+                },
+            },
+            datalabels: {
+                color: '#fff',
+                font: {
+                    size: 15,
+                    weight: 'bold',
+                },
+                formatter: (value, context) => {
+                    const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return `${percentage}%`;
                 },
             },
         },
