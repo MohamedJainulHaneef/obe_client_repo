@@ -69,7 +69,7 @@ function StaffManage()
             window.alert("All Fields are Required");
             return;
         }
-        window.alert("New Staff Added");
+        // window.alert("New Staff Added");
         const newStaffData = 
         {
             staff_id: staffId,
@@ -88,7 +88,9 @@ function StaffManage()
                 console.log(newStaffResponce.data);
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
-                console.log(newStaffData);
+                // console.log(newStaffData);
+                        window.alert("New Staff Added");
+
             }
             setPopup(false);
         }

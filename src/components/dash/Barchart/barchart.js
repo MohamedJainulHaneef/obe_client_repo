@@ -21,11 +21,11 @@ const ProgressBar = () =>
 				const response = await axios.post(`${apiUrl}/api/componentreport`, {});
 				const responseDate = response.data
 				setComponentReport(responseDate);
-				const cia1 = parseInt((responseDate.cia_1/333)*100);
-				const cia2 = parseInt((responseDate.cia_2/333)*100);
-				const ass1 = parseInt((responseDate.ass_1/333)*100);
-				const ass2 = parseInt((responseDate.ass_2/333)*100);
-				const ese  = parseInt((responseDate.ese/333)*100);
+				const cia1 = parseInt((responseDate.cia_1/componentReport.totalCount)*100);
+				const cia2 = parseInt((responseDate.cia_2/componentReport.totalCount)*100);
+				const ass1 = parseInt((responseDate.ass_1/componentReport.totalCount)*100);
+				const ass2 = parseInt((responseDate.ass_2/componentReport.totalCount)*100);
+				const ese  = parseInt((responseDate.ese/componentReport.totalCount)*100);
 				setCia1(cia1);
 				setCia2(cia2);
 				setAss1(ass1);

@@ -92,8 +92,8 @@ const Piechart2 = () => {
     };
 
     return (
-        <div style={{ width: '300px', height: '300px', margin: '20px' }}>
-            <h3 className='pie-heading'>Staff Pie Chart</h3>
+        <div style={{ width: '350px', height: '350px', margin: '20px' }}>
+            <h3 className='pie-heading'>STAFF</h3>
             {loading ? <p>Loading...</p> : <Pie data={chartData} options={options} />}
         </div>
     );
