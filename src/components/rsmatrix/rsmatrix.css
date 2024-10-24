@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.rsmatrix-main {
+    background-color:white;
+    border:1px solid black;
+    border-radius: 10px;
+    margin: 50px;
+}
+
+.rsmatrix-parent {
+    width: 85%;
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; 
+    font-weight: 500;
+}
+
+.rsmatrix-label {
+    font-weight: 500; 
+    margin-right: 10px;
+    text-align: end;
+    font-size: 16px; 
+    color: black;
+}
+
+.rsmatrix-top-div {
+    display: flex;
+    justify-content:end;
+    margin-bottom: 30px; 
+}
+
+.rsmatrix-container {
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px; 
+    margin-top: 20px; 
+}
+
+.rsmatrix-box{
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    text-align: center;
+    padding: 55px 0px; 
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer; 
+}
+
+.rsmatrix-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.no-course-codes {
+    font-size: 16px; 
+    color: #888;
+    margin-top: 10px;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    height: 600px;
+    max-width: 1500px; 
+    position: relative; 
+    overflow-y: auto; 
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 20px; 
+}
+
+th, td {
+    padding: 10px; 
+    border: 0.5px solid #ccc; 
+    text-align: center; 
+}
+
+.rs-table th {
+    background-color: #057252;
+    color: white;
+    font-weight: bold; 
+}
+
+.rsmatrix-input {
+    width: 100%; 
+    height: 40px; 
+    font-size: 18px; 
+    padding: 5px 10px; 
+    border: 2px solid #c2c1c1; 
+    background-color:#fcf7f7 ;
+    border-radius: 5px; 
+    transition: border 0.3s; 
+}
+
+.rsmatrix-input:focus {
+    border-color: #007bff; 
+    outline: none;
+}
+.close-modal {
+    background-color: rgb(253, 53, 53);
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: center;
+    transition: background 0.3s;
+}
+.save-modal {
+    background: #007bff;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: center;
+    transition: background 0.3s;
+}
+.save-modal:hover {
+    background-color: #076ad4;
+}
+
+.close-modal:hover {
+    background-color: rgb(211, 3, 3);
+}
+.rsmatrix-btn{
+    display: flex;
+    justify-content: end;
+    gap: 20px;   
+    padding: 10px;
+}

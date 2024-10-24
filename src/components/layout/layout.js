@@ -112,7 +112,7 @@ function Layout()
         {
             icon: faProjectDiagram,
             name: 'Relationship Matrix',
-            path: `/staff/${urlStaffId}/relationshipmatrix`,
+            path: `/staff/${urlStaffId}/rsmatrix`,
             show: user && user.relationship_matrix === 1,
         },
         {

@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     gap: 30px;
+    margin: 4px;
 }
 
 .search-container {
@@ -22,12 +23,17 @@
     align-items: flex-start;
 }
 
+.dept-repo-search {
+    text-align: left;
+    margin-top: 20px;
+}
+
 .search-input {
-    padding: 10px;
-    width: 250px;
-    border-radius: 8px;
+    padding: 13px;
+    width: 280px;
+    border-radius: 7px;
     border: 2px solid #1c8163;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .cia-filter {
@@ -44,6 +50,13 @@
     margin-top: 10px;
 }
 
+.dept-repo-search-counts {
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+    margin-top: 22px;
+}
+
 .search-btn:hover {
     background-color: rgb(29, 87, 145);
 }
@@ -55,13 +68,13 @@
     height: 60px;
     font-size: 18px;
     font-weight: 700;
-    background-color: rgb(13, 124, 228);
+	background-color: #007BFF;
     color: white;
     cursor: pointer;
 }
 
 .dept-repo-btn:hover {
-    background-color: rgb(29, 87, 145);
+    background-color: #076ad4;
 }
 
 .dept-repo-header {
@@ -94,7 +107,7 @@
 
 .dept-repo-label {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     font-size: 20px;
 }
 

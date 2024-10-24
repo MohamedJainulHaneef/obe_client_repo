@@ -10,11 +10,14 @@
 }
 
 .staff-search {
-    width: 25%;
-    border-radius: 2px solid black;
-    color: black;
-    font-weight: bold;
-    padding: 8px;
+    width: 270px;
+    height: 45px;
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: rgb(250, 250, 254);
+    border: 2px solid black;
 }
 
 .staff-header {
@@ -32,7 +35,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     word-spacing: 2px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .staff-th-sno,
@@ -69,32 +72,6 @@
     font-weight: bold;
     padding-left: 30px;
 }
-/* 
-.staff-td-edit button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: black;
-    margin: 0 auto;
-}
-
-.staff-td-delete button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #007BFF;
-    margin: 0 auto;
-} */
-
-/* .staff-edit-btn:hover,
-.staff-save-edit-btn {
-    background-color: rgb(29, 87, 145);
-} */
-
-/* .staff-btns {
-    display: flex;
-    gap: 5px;
-} */
 
 .staff-icon {
     font-size: 16px;
@@ -103,7 +80,6 @@
 
 .staff-span {
     font-size: 16px;
-    /* color: rgb(15, 114, 207); */
 }
 
 .staff-save-btn {
@@ -112,7 +88,7 @@
     width: 120px;
     font-size: 18px;
     font-weight: 700;
-	background-color: #007BFF;
+    background-color: #007BFF;
     color: white;
     margin-left: 10px;
     cursor: pointer;
@@ -125,49 +101,8 @@
     margin-top: 15px;
 }
 
-.staff-search {
-    width: 270px;
-    height: 45px;
-    padding: 15px;
-    border-radius: 7px;
-    font-size: 17px;
-    font-weight: 500;
-    background-color: rgb(250, 250, 254);
-    border: 2px solid black;
-}
-
-.staff-save-btn:hover {
-    background-color: #076ad4;
-}
-
-.staff-addstaff {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: azure;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1000;
-    width: 550px;
-    height: 630px;
-}
-
-.staff-edit {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: azure;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    z-index: 1000;
-    width: 550px;
-    height: 580px;
-}
-
+.staff-addstaff,
+.staff-edit,
 .staff-delete {
     position: fixed;
     top: 50%;
@@ -176,8 +111,36 @@
     background-color: azure;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
     z-index: 1000;
+}
+
+.staff-addstaff {
+    padding: 20px;
+    width: 550px;
+    height: 630px;
+}
+
+.staff-edit {
+    padding: 25px;
+    width: 500px;
+    height: 510px;
+}
+
+.staff-edit input {
+    width: 100%;
+}
+
+.staff-edit-psw {
+    display: flex;
+    gap: 20px;
+}
+
+.staff-edit-span {
+    text-align: left;
+}
+
+.staff-delete {
+    padding: 20px;
     width: 400px;
     height: 280px;
     display: flex;
@@ -212,8 +175,19 @@
     padding: 5px 8px;
 }
 
-.staff-inputs {
+.staff-inputs,
+.edit-inputbox {
     width: 100%;
+    padding: 10px;
+    height: 43px;
+    margin-bottom: 17px;
+    border: .5px solid rgb(48, 47, 47);
+    border-radius: 4px;
+    font-size: 17px;
+}
+
+.edit-inputbox-psw {
+    width: 30px;
     padding: 10px;
     height: 43px;
     margin-bottom: 17px;
@@ -248,25 +222,13 @@
     cursor: pointer;
 }
 
-/* button.save-btn {
-    background-color: rgb(13, 124, 228);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-} */
-
 .staff-add-save-btn {
     width: 100%;
     height: 45px;
     margin-top: 15px;
     cursor: pointer;
     color: white;
-	background-color: #007BFF;
+    background-color: #007BFF;
     border-radius: 8px;
     font-size: 19px;
     font-weight: bold;
@@ -295,35 +257,25 @@ body.blur {
     color: white;
 }
 
-/* .staff-btns {
-    padding: 12px;
-    border-radius: 10px;
-    width: 120px;
-    font-size: 18px;
-    font-weight: 700;
-    background-color: rgb(13, 124, 228);
-    color: white;
-    margin-left: 10px;
-    cursor: pointer;
-} */
-
 .staff-save-edit-btn {
-    padding: 12px;
-    border-radius: 10px;
-    width: 81%;
+    padding: 13px;
+    border-radius: 8px;
+    width: 100%;
     font-size: 18px;
     font-weight: 700;
-	background-color: #007BFF;
+    background-color: #007BFF;
     color: white;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 10px;
+    border: none;
 }
 
 .staff-save-edit-btn:hover {
     background-color: #076ad4;
 }
 
-.staff-edit-btn, .staff-del-btn {
+.staff-edit-btn,
+.staff-del-btn {
     border-radius: 10px;
     width: 120px;
     padding: 10px 0px;
@@ -337,22 +289,12 @@ body.blur {
 }
 
 .staff-del-btn {
-    background-color: rgb(253, 53, 53);}
-
-.edit-inputbox {
-    width: 80%;
-    padding: 10px;
-    height: 43px;
-    margin-bottom: 17px;
-    border: .5px solid rgb(48, 47, 47);
-    border-radius: 4px;
-    font-size: 17px;
+    background-color: rgb(253, 53, 53);
 }
 
 .edit-password {
     font-weight: bold;
     display: flex;
-    justify-content: start;
-    padding: 0px 50px;
-    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 15px;
 }

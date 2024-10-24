@@ -79,3 +79,9 @@
 input[type="checkbox"] {
     transform: scale(1.2);
 }
+
+.img{
+    width: 180px;
+    height: 180px;
+    margin: auto;
+}

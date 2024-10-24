@@ -69,7 +69,6 @@ function StaffManage()
             window.alert("All Fields are Required");
             return;
         }
-        // window.alert("New Staff Added");
         const newStaffData = 
         {
             staff_id: staffId,
@@ -88,9 +87,8 @@ function StaffManage()
                 console.log(newStaffResponce.data);
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
-                // console.log(newStaffData);
-                        window.alert("New Staff Added");
-
+                window.alert("New Staff Added");
+                window.location.reload();
             }
             setPopup(false);
         }
@@ -180,10 +178,13 @@ function StaffManage()
 
     const Confirmdelete = async () =>
     {
-        try {
+        try 
+        {
             const DeleteResponse = await axios.post(`${apiUrl}/staffdelete`,{deletestaffid});
-            if(DeleteResponse.data){
-                window.alert("Staff Deleted")
+            if(DeleteResponse.data) 
+                {
+                window.alert("Staff Deleted");
+                window.location.reload();
                 setDeletestaff(false);
             }
         }
@@ -198,12 +199,11 @@ function StaffManage()
             <div className="staff-input-btn">
                 <input className="staff-search"
                     type="text"
-                    placeholder="Search by ID or Name ..."
+                    placeholder="Search by Id or Name ..."
                     onChange={handleSearch}
                 />
                 <div>
                     <button className="staff-save-btn" onClick={showPopup}>ADD</button>
-                    <button className="staff-save-btn">SAVE</button>
                 </div>
                 {popup && (
                     <>
@@ -291,7 +291,7 @@ function StaffManage()
                                 </div>
                             </div>
                             <div className="staff-check-boxes">
-                            <div className="staff-individual-check">
+                                <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
                                         name="po"
@@ -329,7 +329,7 @@ function StaffManage()
                                 </div>
                             </div>
                             <div className="staff-check-boxes">
-                            <div className="staff-individual-check">
+                                <div className="staff-individual-check">
                                     <input
                                         type="checkbox"
                                         name="tutor"
@@ -416,24 +416,30 @@ function StaffManage()
                                 className="edit-inputbox"
                                 placeholder={""}
                             />
-                            <label className="edit-password">Old Password</label>
-                            <input
-                                type="text"
-                                value={oldpassword}
-                                onChange={(e) => setOldpassword(e.target.value)}
-                                className="edit-inputbox"
-                                placeholder={""}
-                                disabled
-                            />
-                            <label className="edit-password">New Password</label>
-                            <input
-                                type="text"
-                                value={newpassword}
-                                onChange={(e) => setNewpassword(e.target.value)}
-                                className="edit-inputbox"
-                                defaultValue={""}
-                                placeholder={"New"}
-                            />
+                            <div className="staff-edit-psw">
+                                <label className="edit-password">
+                                    <span className="staff-edit-span"> Old Password :</span>
+                                    <input
+                                        type="text"
+                                        value={oldpassword}
+                                        onChange={(e) => setOldpassword(e.target.value)}
+                                        className="edit-inputbox-psw"
+                                        placeholder={""}
+                                        disabled
+                                    />
+                                </label>
+                                <label className="edit-password">
+                                    <span className="staff-edit-span">New Password :</span>
+                                    <input
+                                        type="text"
+                                        value={newpassword}
+                                        onChange={(e) => setNewpassword(e.target.value)}
+                                        className="edit-inputbox-psw"
+                                        defaultValue={""}
+                                        placeholder={"New Password"}
+                                    />
+                                </label>
+                            </div>
                             <button onClick={updatestaff} className="staff-save-edit-btn">SAVE</button>
                         </div>
                     </div>
