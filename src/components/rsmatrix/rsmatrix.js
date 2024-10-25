@@ -190,10 +190,11 @@ function Rsmatrix() {
     return (
         <div className="rsmatrix-main">
             {/* <h2>RELATIONSHIP MATRIX</h2> */}
+            <div className="rsmatrix-layout-top-div">
+                <p className="course-layout-staff-id"><span className="course-staff">Staff Id :</span> {staffId}</p>
+            </div>
             <div className="rsmatrix-parent">
-                <div className="rsmatrix-top-div">
-                    <span className="rsmatrix-label">Staff Id:</span> {staffId}
-                </div>
+                
                 <div className="rsmatrix-container">
                     {courseDetails.length > 0 ? (
                         courseDetails.map((item, index) => (
@@ -202,7 +203,8 @@ function Rsmatrix() {
                                 key={index}
                                 onClick={() => handleCourseClick(item)}
                             >
-                                <strong>Course Code:</strong> {item.course_code}
+                               <p><strong>COURSE CODE :</strong></p>
+                               <p>{item.course_code}</p> 
                             </div>
                         ))
                     ) : (
