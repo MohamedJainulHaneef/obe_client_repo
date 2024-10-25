@@ -2,7 +2,7 @@
     width: 100%;
     /* margin: 20px auto; */
     padding: 10px;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
 }
 
 .release-top-heading {
@@ -90,7 +90,7 @@
 
 }
 .release-table input[type="checkbox"] {
-    transform: scale(1.7); 
+    transform: scale(1.6); 
     margin: 0 5px; 
 } 
 
