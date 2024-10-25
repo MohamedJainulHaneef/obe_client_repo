@@ -66,7 +66,7 @@ function MarkRelease() {
         console.log(data)
         try {
             const res = await axios.put(`${apiUrl}/reportrelease`,data);
-            if (res) {
+            if (res.status === 200) {
                 alert('Release Update Successfully....')
             }
 
