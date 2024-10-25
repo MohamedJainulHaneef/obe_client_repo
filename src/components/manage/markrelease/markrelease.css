@@ -1,30 +1,36 @@
 .release-main {
     width: 100%;
-    margin: 20px auto;
-    padding: 20px;
+    /* margin: 20px auto; */
+    padding: 10px;
     font-family: Arial, sans-serif;
 }
 
 .release-top-heading {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    display: block;
     text-align: center;
+    margin-top: 5px;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0px auto;
 }
 
 .release-input-btn {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .release-search {
-    width: 250px;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    width: 270px;
+    height: 45px;
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: rgb(250, 250, 254);
+    border: 2px solid black;
 }
 
 .release-save-btn {
@@ -53,8 +59,22 @@
     text-align: left;
 }
 
-.release-table th, .release-table td {
-    padding: 10px;
+.row-save-btn {
+    width: 100%;
+    height:30px;
+    background-color: #007BFF;
+    border-radius: 6px;
+    border: none;
+    color: white;
+}
+
+.row-save-btn:hover {
+    background-color: #076ad4;
+}
+
+.release-table th,
+.release-table td {
+    /* padding: 10px; */
     border: 1px solid #ddd;
 }
 
@@ -66,7 +86,13 @@
 
 .release-row td {
     text-align: center;
+    /* padding: 15px; */
+
 }
+.release-table input[type="checkbox"] {
+    transform: scale(1.7); 
+    margin: 0 5px; 
+} 
 
 .release-dark {
     background-color: #f9f9f9;
@@ -80,8 +106,27 @@ input[type="checkbox"] {
     transform: scale(1.2);
 }
 
-.img{
+.img {
     width: 180px;
     height: 180px;
     margin: auto;
+}
+
+.release-table-head tr th {
+    background-color: #057252;
+    text-align: center;
+    /* position: sticky; */
+    color: white;
+    top: 0;
+    z-index: 10;
+    padding: 10px 8px;
+
+    /* padding: 10px; */
+}
+
+.release-row td {
+   
+    padding: 13px 8px;
+
+    /* padding: 10px; */
 }

@@ -4,8 +4,8 @@ import './markrelease.css';
 import Loading from '../../../assets/load.svg'
 
 function MarkRelease() {
-    const [filteredData, setFilteredData] = useState([]);
-    const [l_cia1, setL_cia1] = useState();
+    const [originalData, setOriginalData] = useState();
+    const [filteredData, setFilteredData] = useState();    const [l_cia1, setL_cia1] = useState();
     const [l_cia2, setL_cia2] = useState();
     const [l_a1, setL_a1] = useState();
     const [l_a2, setL_a2] = useState();
@@ -29,6 +29,8 @@ function MarkRelease() {
                     setL_ese(response.data[0].l_ese);
                 }
                 setFilteredData(data);
+                setOriginalData(data); // Store original data
+
 
             } catch (err) {
                 console.log('Error fetching data:', err);
@@ -39,8 +41,10 @@ function MarkRelease() {
 
     const handleSearch = (e) => {
         const searchText = e.target.value.toLowerCase();
-        const filteredList = filteredData.filter(item =>
-            item.staff_id.toLowerCase().includes(searchText)
+        const filteredList = originalData.filter(item => 
+            item.staff_id.toLowerCase().includes(searchText) ||
+            item.staff_name.toLowerCase().includes(searchText) ||
+            item.course_code.toLowerCase().includes(searchText)
         );
         setFilteredData(filteredList);
     };
@@ -66,7 +70,7 @@ function MarkRelease() {
         console.log(data)
         try {
             const res = await axios.put(`${apiUrl}/reportrelease`,data);
-            if (res.status === 200) {
+            if (res) {
                 alert('Release Update Successfully....')
             }
 
@@ -124,11 +128,11 @@ function MarkRelease() {
     // console.log(Loading)
     return (
         <div className="release-main">
-            <span className="release-top-heading">REPORT DATA</span>
+            <div className="release-top-heading">REPORT DATA</div>
             <div className="release-input-btn">
                 <input className="release-search"
                     type="text"
-                    placeholder="Search by Staff ID..."
+                    placeholder="Search....."
                     onChange={handleSearch}
                 />
                 {/* <button onClick={handleSave} className="release-save-btn">SAVE</button> Global save button */}
@@ -136,7 +140,7 @@ function MarkRelease() {
             <div className="release-table-wrapper">
                 <table className="release-table">
                     <thead className="release-table-head">
-                        <tr className="release-row">
+                        {/* <tr className="release-row">
                             <th className="release-table-header"></th>
                             <th className="release-table-header"></th>
                             <th className="release-table-header"></th>
@@ -188,7 +192,7 @@ function MarkRelease() {
                                 className="row-save-btn">
                                 SAVE
                             </button></th>
-                        </tr>
+                        </tr> */}
                         <tr>
                             <th className="release-table-header">S. No</th>
                             <th className="release-table-header">Staff ID</th>
@@ -204,63 +208,63 @@ function MarkRelease() {
                             <th className="release-table-header">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="">
                         {filteredData.map((reportItem, index) => (
                             <tr key={reportItem.index} className="release-row">
-                                <td >
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {index + 1}
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.staff_id}
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.staff_name}
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.course_id}
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.course_code}
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.section}
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.cia_1 === 2}
                                         onChange={(e) => handleCheckbox(index, 'cia_1', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.cia_2 === 2}
                                         onChange={(e) => handleCheckbox(index, 'cia_2', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ass_1 === 2}
                                         onChange={(e) => handleCheckbox(index, 'ass_1', e.target.checked)}
-                                    />
+                                     />
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ass_2 === 2}
                                         onChange={(e) => handleCheckbox(index, 'ass_2', e.target.checked)}
                                     />
                                 </td>
-                                <td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}> 
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ese === 2}
                                         onChange={(e) => handleCheckbox(index, 'ese', e.target.checked)}
                                     />
                                 </td>
-                                <td >
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <button
                                         onClick={() => handleUpdate(index)}
                                         className="row-save-btn">
