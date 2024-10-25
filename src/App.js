@@ -16,6 +16,7 @@ import MarkRelease from './components/manage/markrelease/markrelease';
 import DeptReport from './components/statusreport/deptreport/deptreport';
 import CourMapManage from './components/manage/coursemapmanage/coursemapmanage';
 import Rsmatrix from './components/rsmatrix/rsmatrix';
+import Rsmatrixreport from './components/statusreport/rsmatrixreport/rsmatrixreport';
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                         <Route path="studentmark" element={<Stumark />} />
                         <Route path="inputfiles" element={<InputFile />} />
                         <Route path="statusreport" element={<StatusReport />} />
+                        <Route path="matrixreport" element={<Rsmatrixreport />} />
                         <Route path="manage" element={<Manage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
                         <Route path="staffmanage" element={<StaffManage />} />
