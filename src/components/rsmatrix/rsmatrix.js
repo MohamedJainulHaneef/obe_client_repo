@@ -293,7 +293,7 @@ function Rsmatrix() {
                 alert('Data Saved Successfully!');
             }
             else if (save.status === 201) {
-                alert('Data Updated successfully!');
+                alert('Data Updated Successfully!');
                 
             }
             window.location.reload();
