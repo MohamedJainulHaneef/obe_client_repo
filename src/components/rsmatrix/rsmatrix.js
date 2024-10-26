@@ -212,24 +212,36 @@ function Rsmatrix() {
 
     const closeModal = () => {
         setShowModal(false);
+        window.location.reload();
         setSelectedCourse(null);
     };
 
     const handleInputChange = (co, index, value) => {
-        setInputValues((prev) => ({
-            ...prev,
-            [`${co}_${index}`]: value,
-        }));
-        calculateMeanAndCorrelation({
+        // Parse value as a number and check the range
+        const numericValue = parseFloat(value);
+        if (numericValue > 3 || numericValue < 0) {
+            alert('Value must be between 0 and 3');
+
+            // Immediately update the input field to be empty after the alert
+            setInputValues((prev) => ({
+                ...prev,
+                [`${co}_${index}`]: '',
+            }));
+            return; // Stop further execution
+        }
+
+        // Update input values if within range and proceed with calculations
+        const updatedInputValues = {
             ...inputValues,
             [`${co}_${index}`]: value,
-        });
+        };
+        setInputValues(updatedInputValues);
+        calculateMeanAndCorrelation(updatedInputValues);
     };
-
     const calculateMeanAndCorrelation = (inputData) => {
         let overallTotal = 0;
         let overallCount = 0;
-        const newInputValues = { ...inputData }; 
+        const newInputValues = { ...inputData };
 
         ['CO1', 'CO2', 'CO3', 'CO4', 'CO5'].forEach((co) => {
             let total = 0;
@@ -278,15 +290,18 @@ function Rsmatrix() {
             const save = await axios.post(`${apiUrl}/api/rsmatrix`, saveData);
             console.log('save', save);
             if (save.status === 200) {
-                alert('Data saved successfully!');
+                alert('Data Saved Successfully!');
             }
             else if (save.status === 201) {
                 alert('Data Updated successfully!');
+                
             }
+            window.location.reload();
         } catch (err) {
             console.error('Error saving data:', err);
             alert('Failed to save data.');
         }
+
     };
 
     return (
@@ -336,18 +351,16 @@ function Rsmatrix() {
                                     <th>Mean Score</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 {['CO1', 'CO2', 'CO3', 'CO4', 'CO5'].map((co, idx) => (
                                     <tr key={idx}>
-                                        <td>{co}</td>
+                                        <td className='rsm-course-no'>{co}</td>
                                         {Array.from({ length: 10 }).map((_, index) => (
                                             <td key={index} className="input-container">
                                                 <input
                                                     type="number"
                                                     className="rsmatrix-input"
-                                                    min="0"
-                                                    max="5"
-                                                    Value={inputValues[`${co}_${index}`] || ''}
+                                                    value={inputValues[`${co}_${index}`] || ''}
                                                     onChange={(e) => handleInputChange(co, index, e.target.value)}
                                                 />
                                             </td>
@@ -358,13 +371,13 @@ function Rsmatrix() {
                                     </tr>
                                 ))}
                                 <tr>
-                                    <td colSpan={11}>Mean Overall Score</td>
+                                    <td colSpan={11} className='rsm-course-colspan'>Mean Overall Score</td>
                                     <td>
                                         <input type="number" className="rsmatrix-input" readOnly value={meanOverallScore} />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={11}>
+                                    <td colSpan={11} className='rsm-course-colspan'>
                                         Correlation
                                     </td>
                                     <td>
