@@ -391,7 +391,7 @@ function StaffManage()
                                 type="text"
                                 value={newstaffid}
                                 onChange={(e) => setNewstaffid(e.target.value)}
-                                className="edit-inputbox"
+                                className="staff-edit-inputbox"
                                 placeholder={""}
                                 disabled
                             />
@@ -399,42 +399,42 @@ function StaffManage()
                                 type="text"
                                 value={newstaffname}
                                 onChange={(e) => setNewstaffname(e.target.value)}
-                                className="edit-inputbox"
+                                className="staff-edit-inputbox"
                                 placeholder={""}
                             />
                             <input
                                 type="text"
                                 value={newdept}
                                 onChange={(e) => setNewdept(e.target.value)}
-                                className="edit-inputbox"
+                                className="staff-edit-inputbox"
                                 placeholder={""}
                             />
                             <input
                                 type="text"
                                 value={newcategory}
                                 onChange={(e) => setNewcategory(e.target.value)}
-                                className="edit-inputbox"
+                                className="staff-edit-inputbox"
                                 placeholder={""}
                             />
                             <div className="staff-edit-psw">
-                                <label className="edit-password">
+                                <label className="staff-edit-password">
                                     <span className="staff-edit-span"> Old Password :</span>
                                     <input
                                         type="text"
                                         value={oldpassword}
                                         onChange={(e) => setOldpassword(e.target.value)}
-                                        className="edit-inputbox-psw"
+                                        className="staff-edit-inputbox-psw"
                                         placeholder={""}
                                         disabled
                                     />
                                 </label>
-                                <label className="edit-password">
+                                <label className="staff-edit-password">
                                     <span className="staff-edit-span">New Password :</span>
                                     <input
                                         type="text"
                                         value={newpassword}
                                         onChange={(e) => setNewpassword(e.target.value)}
-                                        className="edit-inputbox-psw"
+                                        className="staff-edit-inputbox-psw"
                                         defaultValue={""}
                                         placeholder={"New Password"}
                                     />

@@ -32,6 +32,14 @@ function Stumark()
         academicYearSet();
     }, [apiUrl]);
 
+    useEffect(() => {
+        const storedSection = localStorage.getItem("activeSection");
+        if (storedSection) {
+            setActiveSection(storedSection);
+            localStorage.removeItem("activeSection");
+        }
+    }, []);
+
     useEffect(() => 
     {
         if (academicYear) 
@@ -165,10 +173,13 @@ function Stumark()
     {
         const button_value = isConfirm;
         e.preventDefault();
-        if (isConfirm === "1") {
+        localStorage.setItem("activeSection", activeSection);
+        if (isConfirm === "1") 
+        {
             setIsSaveConfirmLoading(true);
         } 
-        else {
+        else 
+        {
             setIsSaveLoading(true);
         }
         const updates = {};

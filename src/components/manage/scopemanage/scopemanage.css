@@ -17,80 +17,12 @@
     font-weight: 700;
     letter-spacing: 1px;
     word-spacing: 2px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-}
-
-.scope-table-wrapper {
-    overflow-x: auto;
-    overflow-y: auto;
-}
-
-.scope-table input[type="checkbox"] {
-    transform: scale(1.5); 
-    margin: 0 5px; 
-} 
-
-.scope-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px solid black;
-}
-
-.scope-table-header-checkbox {
-    width: 40px;
-    height: 20px;
-}
-
-.scope-table td, .scope-table th {
-    border: 1px solid black;
-    padding: 15px 8px;
-    text-align: center;
-    width: 55px;
-}
-
-.scope-header-inputbox {
-    margin: 0;
-    height: 15px;
-}
-
-.scope-staffid {
-    font-size: 17px;
-    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .scope-header-span {
     display: block;
     text-align: center;
-}
-
-.scope-dark {
-    background-color: rgb(250, 250, 254);
-}
-
-.scope-light {
-    background-color: white;
-}
-
-.scope-table td {
-    padding: 18px;
-    border: 1px solid #ddd;
-    font-weight: 500;
-}
-
-.scope-save-btn {
-    padding: 12px;
-    border-radius: 10px;
-    width: 120px;
-    font-size: 18px;
-    font-weight: 700;
-    background-color: #007BFF;
-    color: white;
-    cursor: pointer;
-    border: none;
-}
-
-.scope-save-btn:hover {
-    background-color: #076ad4;
 }
 
 .scope-input-btn {
@@ -117,11 +49,78 @@
     font-size: 17px;
 }
 
+.scope-save-btn {
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.scope-save-btn:hover {
+    background-color: #076ad4;
+}
+
+.scope-table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.scope-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
 .scope-table-header {
     background-color: #057252;
     text-align: center;
-    position: sticky;
     color: white;
     top: 0;
     z-index: 10;
+}
+
+.scope-table input[type="checkbox"] {
+    transform: scale(1.5); 
+    margin: 0 5px; 
+} 
+
+.scope-table-header-checkbox {
+    width: 40px;
+    height: 20px;
+}
+
+.scope-table td, .scope-table th {
+    border: 1px solid black;
+    padding: 15px 8px;
+    text-align: center;
+    width: 55px;
+}
+
+.scope-table td {
+    padding: 18px;
+    border: 1px solid #ddd;
+    font-weight: 500;
+}
+
+.scope-header-inputbox {
+    margin: 0;
+    height: 15px;
+}
+
+.scope-staffid {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.scope-dark {
+    background-color: rgb(250, 250, 254);
+}
+
+.scope-light {
+    background-color: white;
 }

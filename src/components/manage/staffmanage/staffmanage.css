@@ -176,7 +176,7 @@
 }
 
 .staff-inputs,
-.edit-inputbox {
+.staff-edit-inputbox {
     width: 100%;
     padding: 10px;
     height: 43px;
@@ -186,7 +186,7 @@
     font-size: 17px;
 }
 
-.edit-inputbox-psw {
+.staff-edit-inputbox-psw {
     width: 30px;
     padding: 10px;
     height: 43px;
@@ -213,6 +213,7 @@
     align-items: center;
     padding: 5px;
     padding-bottom: 15px;
+    
 }
 
 .staff-check-boxes input[type="checkbox"] {
@@ -292,7 +293,7 @@ body.blur {
     background-color: rgb(253, 53, 53);
 }
 
-.edit-password {
+.staff-edit-password {
     font-weight: bold;
     display: flex;
     flex-direction: column;

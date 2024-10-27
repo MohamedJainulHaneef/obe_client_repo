@@ -25,7 +25,7 @@ function CourseList()
             }
         };
         academicYearSet();
-    }, []); 
+    }, []);
 
     useEffect(() => 
     {
@@ -37,14 +37,35 @@ function CourseList()
                     const response = await axios.post(`${apiUrl}/api/coursemap`, {
                         staff_id: staffId,
                         academic_year: academicYear
-                    });
-                    setCourseData(response.data);
+                    })
+                    const courseMappings = response.data;
+
+                    const courseMappingsWithStatus = await Promise.all(
+                        courseMappings.map(async (course) => {
+                            try {
+                                const statusResponse = await axios.post(`${apiUrl}/api/report/status`, {
+                                    category: course.category,
+                                    dept_name: course.dept_name,
+                                    section: course.section,
+                                    semester: course.semester,
+                                    course_code: course.course_code,
+                                })
+                                // console(statusResponse.data);
+                                return { ...course, status: statusResponse.data.status };
+                            } 
+                            catch (err) {
+                                console.log('Error Fetching Course Status:', err);
+                                return { ...course, status: 'Error' };
+                            }
+                        })
+                    )
+                    setCourseData(courseMappingsWithStatus);
                 } 
                 catch (err) {
                     console.log('Error fetching data:', err);
                 }
             }
-        };
+        }
         fetchCourseMapDetails();
         
     }, [staffId, academicYear]);
@@ -76,6 +97,12 @@ function CourseList()
                             key={index} 
                             className="course-subject-box" 
                             onClick={() => markpage(user)} >
+                            <div 
+                                className="course-box-status"
+                                style={{ color: user.status === "Completed" ? "green" : "red" }}
+                            >
+                                {user.status}
+                            </div>
                             <div className="course-box-text-category">{user.category}</div>
                             <div className="course-box-text-dept">{user.dept_name}</div>
                             <div className="course-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>

@@ -41,7 +41,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 150px;
+    height: 160px;
     cursor: pointer;
     transition: 0.course-3s;
     background-color: white;
@@ -60,6 +60,12 @@
     text-transform: uppercase;
     font-weight:700;
     padding: 5px 10px;
+}
+
+.course-box-status {
+    font-weight: 700;
+    padding: 5px 10px;
+    color: green;
 }
 
 .course-box-text-category {
