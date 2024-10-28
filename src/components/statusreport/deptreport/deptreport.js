@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import './deptreport.css'
 
-function DeptReport() {
+function DeptReport() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
     const { dept } = useParams();
     const [activeSection, setActiveSection] = useState('1');
     const [academicYear, setAcademicYear] = useState('');
     const [deptStatusReport, setDeptStatusReport] = useState([]);
-    const [filter, setFilter] = useState({
+    const [filter, setFilter] = useState(
+    {
         all: true, 
         incomplete: true,
         processing: true,
@@ -18,28 +20,36 @@ function DeptReport() {
     });
     const [searchTerm, setSearchTerm] = useState('');
 
-    useEffect(() => {
-        const academicYearSet = async () => {
+    useEffect(() => 
+    {
+        const academicYearSet = async () => 
+        {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
                 setAcademicYear(response.data.academic_year);
-            } catch (err) {
+            } 
+            catch (err) {
                 alert('Error fetching Academic Year.');
             }
         }
         academicYearSet();
     }, []);
 
-    useEffect(() => {
-        const fetchDeptStatusReport = async () => {
-            if (academicYear) {
-                try {
+    useEffect(() => 
+    {
+        const fetchDeptStatusReport = async () => 
+        {
+            if (academicYear) 
+            {
+                try 
+                {
                     const response = await axios.post(`${apiUrl}/api/deptstatusreport`, {
                         academic_year: academicYear,
                         dept_name: dept === "alldepartments" ? "ALL" : dept
-                    });
+                    })
                     setDeptStatusReport(response.data);
-                } catch (err) {
+                } 
+                catch (err) {
                     alert('Error fetching status report.');
                     console.log('Error fetching data:', err);
                 }
@@ -48,12 +58,15 @@ function DeptReport() {
         fetchDeptStatusReport();
     }, [academicYear, dept]);
 
-    const handleSectionChange = (event) => {
+    const handleSectionChange = (event) => 
+    {
         setActiveSection(event.target.value);
     }
 
-    const getActiveField = (dept) => {
-        switch (activeSection) {
+    const getActiveField = (dept) => 
+    {
+        switch (activeSection) 
+        {
             case '1':
                 return dept.cia_1;
             case '2':
@@ -69,36 +82,42 @@ function DeptReport() {
         }
     }
 
-    const getStatus = (value) => {
+    const getStatus = (value) => 
+    {
         if (value === 0) return 'Incomplete';
         if (value === 1) return 'Processing';
         if (value === 2) return 'Completed';
         return '';
     }
 
-    const getStatusColor = (value) => {
+    const getStatusColor = (value) => 
+    {
         if (value === 0) return { color: 'red' };
         if (value === 1) return { color: 'black' };
         if (value === 2) return { color: 'green' };
         return {};
     }
 
-    const handleFilterChange = (event) => {
+    const handleFilterChange = (event) => 
+    {
         const { name, checked } = event.target;
 
-        if (name === 'all') {
+        if (name === 'all') 
+        {
             setFilter({
                 all: checked,
                 incomplete: checked,
                 processing: checked,
                 completed: checked
-            });
-        } else {
-            setFilter((prevFilter) => ({
+            })
+        } 
+        else {
+            setFilter((prevFilter) => (
+            {
                 ...prevFilter,
                 [name]: checked,
                 all: checked && prevFilter.incomplete && prevFilter.processing && prevFilter.completed
-            }));
+            }))
         }
     }
 
@@ -106,8 +125,8 @@ function DeptReport() {
         setSearchTerm(event.target.value);
     }
 
-    // Filter logic to check staff_id, course_code, and category
-    const filteredReport = deptStatusReport.filter((dept) => {
+    const filteredReport = deptStatusReport.filter((dept) => 
+    {
         const status = getActiveField(dept);
         const matchesSearch = 
             dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -121,15 +140,13 @@ function DeptReport() {
         if (status === 1 && filter.processing) return true;
         if (status === 2 && filter.completed) return true;
         return false;
-    });
+    })
 
-    // Calculate counts for each filter type
     const totalCount = deptStatusReport.length;
     const incompleteCount = deptStatusReport.filter(dept => getActiveField(dept) === 0).length;
     const processingCount = deptStatusReport.filter(dept => getActiveField(dept) === 1).length;
     const completedCount = deptStatusReport.filter(dept => getActiveField(dept) === 2).length;
 
-    // Calculate search-specific counts
     const searchTotal = filteredReport.length;
     const searchIncompletedCount = filteredReport.filter(dept => getActiveField(dept) === 0).length;
     const searchProcessedCount = filteredReport.filter(dept => getActiveField(dept) === 1).length;
@@ -137,11 +154,7 @@ function DeptReport() {
 
     return (
         <div className='dept-repo-main'>
-            {/* <h2>Department Report (Total: {totalCount})</h2> */}
-
-            
-
-            <select
+             <select
                 value={activeSection || ''}
                 onChange={handleSectionChange}
                 className="mark-dropdown"
@@ -160,19 +173,8 @@ function DeptReport() {
                     onChange={handleSearchChange}
                     className="search-input"
                 />
-            
-            {/* Display search-specific counts under the search box */}
-            {/* {searchTerm && (
-                <div className="dept-repo-search-counts">
-                    <p><b>Total : </b>{searchTotal}</p>
-                    <p><b>Incomplete :</b> {searchIncompletedCount}</p>
-                    <p><b>Processed :</b> {searchProcessedCount}</p>
-                    <p><b>Completed :</b> {searchCompletedCount}</p>
-                </div>
-            )} */}
-                </div>
+            </div>
             <div className='dept-repo-btn-content'>
-                    
                 <div className="dept-repo-filter">
                     <label className='dept-repo-label'>
                         <input
@@ -181,7 +183,7 @@ function DeptReport() {
                             checked={filter.all}
                             onChange={handleFilterChange}
                         />
-                        <b>All</b> ( {searchTotal} ) {/* Display total count here */}
+                        <b>All</b> ( {searchTotal} ) 
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -190,7 +192,7 @@ function DeptReport() {
                             checked={filter.incomplete}
                             onChange={handleFilterChange}
                         />
-                        <b>Incomplete</b> ( {searchIncompletedCount} ) {/* Display incomplete count here */}
+                        <b>Incomplete</b> ( {searchIncompletedCount} ) 
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -199,7 +201,7 @@ function DeptReport() {
                             checked={filter.processing}
                             onChange={handleFilterChange}
                         />
-                        <b>Processing</b> ( {searchProcessedCount} ) {/* Display processing count here */}
+                        <b>Processing</b> ( {searchProcessedCount} ) 
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -208,12 +210,11 @@ function DeptReport() {
                             checked={filter.completed}
                             onChange={handleFilterChange}
                         />
-                        <b>Completed</b> ( {searchCompletedCount} ) {/* Display completed count here */}
+                        <b>Completed</b> ( {searchCompletedCount} ) 
                     </label>
                 </div>
                 <button className='dept-repo-btn'>Download Excel</button>
             </div>
-            
             <table className="dept-repo-header">
                 <thead>
                     <tr>

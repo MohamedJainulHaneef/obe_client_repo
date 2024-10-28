@@ -130,7 +130,7 @@ function Rsmatrix()
         setShowModal(false);
         window.location.reload();
         setSelectedCourse(null);
-    };
+    }
 
     const handleInputChange = (co, index, value) => 
     {
@@ -201,17 +201,33 @@ function Rsmatrix()
 
     const handleSave = async () => 
     {
-        try {
+        for (const key in inputValues) 
+        {
+            if (inputValues[key] === '' || inputValues[key] === undefined) 
+            {
+                alert('All fields must be filled out.');
+                return; 
+            }
+        }
+    
+        if (meanOverallScore === '' || correlation === '') 
+        {
+            alert('Mean Overall Score and Correlation must be Calculated before Saving.');
+            return; 
+        }
+    
+        try 
+        {
             const saveData = {
                 course_code: selectedCourse.course_code,
                 scores: inputValues,
                 meanOverallScore,
                 correlation,
-            }
+            };
             const save = await axios.post(`${apiUrl}/api/rsmatrix`, saveData);
             if (save.status === 200) {
                 alert('Data Saved Successfully!');
-            }
+            } 
             else if (save.status === 201) {
                 alert('Data Updated Successfully!');
             }
@@ -222,7 +238,7 @@ function Rsmatrix()
             alert('Failed to save data.');
         }
     }
-
+    
     return (
         <div className="rsmatrix-main">
             <div className="rsmatrix-layout-top-div">
@@ -303,8 +319,8 @@ function Rsmatrix()
                             </tbody>
                         </table>
                         <div className='rsmatrix-btn'>
-                            <button className="rsmatrix-save-btn" onClick={handleSave}>Save</button>
-                            <button className="rsmatrix-close-btn" onClick={closeModal}>Close</button>
+                            <button className="rsmatrix-save-btn" onClick={handleSave}>SAVE</button>
+                            <button className="rsmatrix-close-btn" onClick={closeModal}>CLOSE</button>
                         </div>
                     </div>
                 </div>
