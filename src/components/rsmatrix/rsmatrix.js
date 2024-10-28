@@ -205,17 +205,11 @@ function Rsmatrix()
         {
             if (inputValues[key] === '' || inputValues[key] === undefined) 
             {
-                alert('All fields must be filled out.');
+                alert('All Fields are Required');
                 return; 
             }
         }
-    
-        if (meanOverallScore === '' || correlation === '') 
-        {
-            alert('Mean Overall Score and Correlation must be Calculated before Saving.');
-            return; 
-        }
-    
+
         try 
         {
             const saveData = {
@@ -226,16 +220,16 @@ function Rsmatrix()
             };
             const save = await axios.post(`${apiUrl}/api/rsmatrix`, saveData);
             if (save.status === 200) {
-                alert('Data Saved Successfully!');
+                alert('Data Updated Successfully!');
             } 
             else if (save.status === 201) {
-                alert('Data Updated Successfully!');
+                alert('Data Saved Successfully!');
             }
             window.location.reload();
         } 
         catch (err) {
             console.error('Error saving data:', err);
-            alert('Failed to save data.');
+            alert('All Fields are Required');
         }
     }
     
