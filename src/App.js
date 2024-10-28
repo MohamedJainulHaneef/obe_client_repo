@@ -18,6 +18,7 @@ import CourMapManage from './components/manage/coursemapmanage/coursemapmanage';
 import Rsmatrix from './components/rsmatrix/rsmatrix';
 import Rsmatrixreport from './components/statusreport/rsmatrixreport/rsmatrixreport';
 import StudentManage from './components/manage/studentmanage/studentmanage';
+import Studentoutcome from './components/studentoutcome/studentoutcome';
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
                         <Route path="settings" element={<Settings />} />
                         <Route path="coursemappingmanage" element={<CourMapManage />} />
                         <Route path=":dept/departmentreport" element={<DeptReport />} />
+                        <Route path='studentoutcome' element={<Studentoutcome />} />
                     </Route>
                 </Routes>
             </Router>
