@@ -30,7 +30,8 @@ function Studentoutcome() {
                 <thead>
                     <tr>
                         <th>Reg No</th>
-                        <th>Course ID</th>
+                        <th>Dept ID</th>
+                        <th>Course Code</th>
                         <th>Semester</th>
                         <th>LOT Percentage</th>
                         <th>MOT Percentage</th>
@@ -44,6 +45,7 @@ function Studentoutcome() {
                         <tr key={index}>
                             <td>{studentdata.reg_no}</td>
                             <td>{studentdata.course_id}</td>
+                            <td>{studentdata.course_code}</td>
                             <td>{studentdata.semester}</td>
                             <td>{studentdata.lot_percentage}</td>
                             <td>{studentdata.mot_percentage}</td>
