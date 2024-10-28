@@ -65,12 +65,15 @@ function Manage()
     const handleCourseMapManage = () => {
         navigate(`/staff/${staffId}/coursemappingmanage`);
     };
+    const handleStudentManage = () => {
+        navigate(`/staff/${staffId}/studentmanage`);
+    };
 
     return (
         <div className="manage-body">
             <div className="manage-container">
                 <button className="manage-btn" onClick={handleAcademic}>Academic Year</button>
-                <button className="manage-btn">Student Manage</button>
+                <button className="manage-btn" onClick={handleStudentManage}>Student Manage</button>
                 <button className="manage-btn"  onClick={handleCourseMapManage}>Staff Course Manage</button>
                 <button className="manage-btn" onClick={handleStaffManage}>Staff Manage</button>
                 <button className="manage-btn">Mark Manage</button>

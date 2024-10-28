@@ -17,6 +17,7 @@ import DeptReport from './components/statusreport/deptreport/deptreport';
 import CourMapManage from './components/manage/coursemapmanage/coursemapmanage';
 import Rsmatrix from './components/rsmatrix/rsmatrix';
 import Rsmatrixreport from './components/statusreport/rsmatrixreport/rsmatrixreport';
+import StudentManage from './components/manage/studentmanage/studentmanage';
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                         <Route path="manage" element={<Manage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
                         <Route path="staffmanage" element={<StaffManage />} />
+                        <Route path="studentmanage" element={<StudentManage />} />
                         <Route path="markrelease" element={<MarkRelease />} />
                         <Route path="rsmatrix" element={<Rsmatrix />} />
                         <Route path="settings" element={<Settings />} />
