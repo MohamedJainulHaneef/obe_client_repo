@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './fileupload.css';
 
-function FileUpload() 
-{
+function FileUpload() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const [loading, setLoading] = useState(false);
@@ -14,35 +13,37 @@ function FileUpload()
     const [file5, setFile5] = useState(null);
     const [file6, setFile6] = useState(null);
     const [file7, setFile7] = useState(null);
+    const [file8, setFile8] = useState(null);
 
-    const handleFileChange = (e) => 
-    {
+    const handleFileChange = (e) => {
         const { name, files } = e.target;
         if (name === 'file1') {
             setFile1(files[0]);
-        } 
+        }
         else if (name === 'file2') {
             setFile2(files[0]);
-        } 
+        }
         else if (name === 'file3') {
             setFile3(files[0]);
-        } 
+        }
         else if (name === 'file4') {
             setFile4(files[0]);
-        } 
+        }
         else if (name === 'file5') {
             setFile5(files[0]);
-        } 
+        }
         else if (name === 'file6') {
             setFile6(files[0]);
-        } 
+        }
         else if (name === 'file7') {
             setFile7(files[0]);
         }
+        else if (name === 'file8') {
+            setFile8(files[0]);
+        }
     };
 
-    const handleUpload = async (e, file, endpoint) => 
-    {
+    const handleUpload = async (e, file, endpoint) => {
         e.preventDefault();
         if (!file) {
             alert('Please Select a File');
@@ -53,26 +54,24 @@ function FileUpload()
         const formData = new FormData();
         formData.append('file', file);
 
-        try 
-        {
+        try {
             const res = await axios.post(`${apiUrl}/api/${endpoint}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             alert(res.data);
-        } 
+        }
         catch (error) {
             console.log(error);
             alert('File Upload Failed');
-        } 
+        }
         finally {
             setLoading(false);
         }
     }
 
-    const LoadingModal = ({ loading }) => 
-    {
+    const LoadingModal = ({ loading }) => {
         if (!loading) return null;
         return (
             <div className="file-loading-modal">
@@ -84,18 +83,15 @@ function FileUpload()
         );
     };
 
-    const handleDownload = async (e, fileType) => 
-    {
+    const handleDownload = async (e, fileType) => {
         e.preventDefault();
-        try 
-        {
+        try {
             let response;
             let fileName;
-            switch (fileType) 
-            {
+            switch (fileType) {
                 case 'coursemap':
                     response = await axios.get(`${apiUrl}/api/download/coursemap`, {
-                        responseType: 'blob', 
+                        responseType: 'blob',
                     });
                     fileName = 'Course Mapping Data.xlsx';
                     break;
@@ -142,6 +138,13 @@ function FileUpload()
                     fileName = 'Status Report.xlsx';
                     break;
 
+                case 'mentor':
+                    response = await axios.get(`${apiUrl}/api/download/mentor`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Mentor Report.xlsx';
+                    break;
+
                 default:
                     throw new Error('Invalid file type');
             }
@@ -153,7 +156,7 @@ function FileUpload()
             document.body.appendChild(link);
             link.click();
             link.remove();
-        } 
+        }
         catch (error) {
             console.error('Download Failed:', error);
             alert('Failed to Download the File.');
@@ -202,6 +205,11 @@ function FileUpload()
                         <input type='file' name='file7' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file7, 'report')}>Upload to Report</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'report')}>Download Report</button>
+                    </div>
+                    <div className='file-container'>
+                        <input type='file' name='file8' onChange={handleFileChange} />
+                        <button className='file-upload-btn' onClick={(e) => handleUpload(e, file8, 'mentor')}>Upload to Mentor</button>
+                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'mentor')}>Download Mentor</button>
                     </div>
                 </div>
             </div>
