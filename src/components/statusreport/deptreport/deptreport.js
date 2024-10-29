@@ -1,8 +1,7 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import './deptreport.css'
+import './deptreport.css';
 
 function DeptReport() 
 {
@@ -11,8 +10,7 @@ function DeptReport()
     const [activeSection, setActiveSection] = useState('1');
     const [academicYear, setAcademicYear] = useState('');
     const [deptStatusReport, setDeptStatusReport] = useState([]);
-    const [filter, setFilter] = useState(
-    {
+    const [filter, setFilter] = useState({
         all: true, 
         incomplete: true,
         processing: true,
@@ -46,7 +44,7 @@ function DeptReport()
                     const response = await axios.post(`${apiUrl}/api/deptstatusreport`, {
                         academic_year: academicYear,
                         dept_name: dept === "alldepartments" ? "ALL" : dept
-                    })
+                    });
                     setDeptStatusReport(response.data);
                 } 
                 catch (err) {
@@ -61,7 +59,7 @@ function DeptReport()
     const handleSectionChange = (event) => 
     {
         setActiveSection(event.target.value);
-    }
+    };
 
     const getActiveField = (dept) => 
     {
@@ -80,7 +78,7 @@ function DeptReport()
             default:
                 return '';
         }
-    }
+    };
 
     const getStatus = (value) => 
     {
@@ -88,7 +86,7 @@ function DeptReport()
         if (value === 1) return 'Processing';
         if (value === 2) return 'Completed';
         return '';
-    }
+    };
 
     const getStatusColor = (value) => 
     {
@@ -96,7 +94,7 @@ function DeptReport()
         if (value === 1) return { color: 'black' };
         if (value === 2) return { color: 'green' };
         return {};
-    }
+    };
 
     const handleFilterChange = (event) => 
     {
@@ -109,21 +107,20 @@ function DeptReport()
                 incomplete: checked,
                 processing: checked,
                 completed: checked
-            })
+            });
         } 
         else {
-            setFilter((prevFilter) => (
-            {
+            setFilter((prevFilter) => ({
                 ...prevFilter,
                 [name]: checked,
                 all: checked && prevFilter.incomplete && prevFilter.processing && prevFilter.completed
-            }))
+            }));
         }
-    }
+    };
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
-    }
+    };
 
     const filteredReport = deptStatusReport.filter((dept) => 
     {
@@ -132,7 +129,7 @@ function DeptReport()
             dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
             dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
             dept.category.toLowerCase().includes(searchTerm.toLowerCase());
-        
+
         if (!matchesSearch) return false;
 
         if (filter.all) return true;
@@ -140,17 +137,14 @@ function DeptReport()
         if (status === 1 && filter.processing) return true;
         if (status === 2 && filter.completed) return true;
         return false;
-    })
+    });
 
-    const totalCount = deptStatusReport.length;
-    const incompleteCount = deptStatusReport.filter(dept => getActiveField(dept) === 0).length;
-    const processingCount = deptStatusReport.filter(dept => getActiveField(dept) === 1).length;
-    const completedCount = deptStatusReport.filter(dept => getActiveField(dept) === 2).length;
+    const sortedReport = [...filteredReport].sort((a, b) => {
+        const statusOrder = getActiveField(a) - getActiveField(b);
+        if (statusOrder !== 0) return statusOrder;
 
-    const searchTotal = filteredReport.length;
-    const searchIncompletedCount = filteredReport.filter(dept => getActiveField(dept) === 0).length;
-    const searchProcessedCount = filteredReport.filter(dept => getActiveField(dept) === 1).length;
-    const searchCompletedCount = filteredReport.filter(dept => getActiveField(dept) === 2).length;
+        return a.staff_id.localeCompare(b.staff_id);
+    });
 
     return (
         <div className='dept-repo-main'>
@@ -166,7 +160,7 @@ function DeptReport()
                 <option value="5">ESE</option>
             </select>
             <div className='dept-repo-search'>
-                    <input 
+                <input 
                     type="text" 
                     placeholder="Search...." 
                     value={searchTerm} 
@@ -183,7 +177,7 @@ function DeptReport()
                             checked={filter.all}
                             onChange={handleFilterChange}
                         />
-                        <b>All</b> ( {searchTotal} ) 
+                        <b>All</b> ( {sortedReport.length} ) 
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -192,7 +186,7 @@ function DeptReport()
                             checked={filter.incomplete}
                             onChange={handleFilterChange}
                         />
-                        <b>Incomplete</b> ( {searchIncompletedCount} ) 
+                        <b>Incomplete</b>
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -201,7 +195,7 @@ function DeptReport()
                             checked={filter.processing}
                             onChange={handleFilterChange}
                         />
-                        <b>Processing</b> ( {searchProcessedCount} ) 
+                        <b>Processing</b>
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -210,7 +204,7 @@ function DeptReport()
                             checked={filter.completed}
                             onChange={handleFilterChange}
                         />
-                        <b>Completed</b> ( {searchCompletedCount} ) 
+                        <b>Completed</b>
                     </label>
                 </div>
                 <button className='dept-repo-btn'>Download Excel</button>
@@ -220,6 +214,7 @@ function DeptReport()
                     <tr>
                         <th className="dept-repo-heading">S. No.</th>
                         <th className="dept-repo-heading">Staff Id</th>
+                        <th className="dept-repo-heading">Staff Name</th>
                         <th className="dept-repo-heading">Course Code</th>
                         <th className="dept-repo-heading">Category</th>
                         <th className="dept-repo-heading">Section</th>
@@ -227,10 +222,11 @@ function DeptReport()
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredReport.map((dept, index) => (
+                    {sortedReport.map((dept, index) => (
                         <tr key={index} className="staff-map-row">
                             <td className="dept-repo-content">{index + 1}</td>
                             <td className="dept-repo-content">{dept.staff_id}</td>
+                            <td className="dept-repo-content">{dept.staff_name}</td>
                             <td className="dept-repo-content">{dept.course_code}</td>
                             <td className="dept-repo-content">{dept.category}</td>
                             <td className="dept-repo-content">{dept.section}</td>
