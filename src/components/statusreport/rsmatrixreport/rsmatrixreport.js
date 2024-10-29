@@ -24,7 +24,7 @@ function MatrixReport() {
         const fetchDeptStatusReport = async () => {
             if (academicYear) {
                 try {
-                    const response = await axios.post(`${apiUrl}/allmatrixreport`, {
+                    const response = await axios.post(`${apiUrl}/api/allmatrixreport`, {
                         academic_year: academicYear,
                     });
                     setAllMatrixReport(response.data);

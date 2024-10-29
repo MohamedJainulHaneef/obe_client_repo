@@ -62,6 +62,10 @@ function Manage()
         navigate(`/staff/${staffId}/markrelease`);
     };
 
+    const handleMarkManage = () => {
+        navigate(`/staff/${staffId}/markmanage`);
+    };
+
     const handleCourseMapManage = () => {
         navigate(`/staff/${staffId}/coursemappingmanage`);
     };
@@ -76,7 +80,7 @@ function Manage()
                 <button className="manage-btn" onClick={handleStudentManage}>Student Manage</button>
                 <button className="manage-btn"  onClick={handleCourseMapManage}>Staff Course Manage</button>
                 <button className="manage-btn" onClick={handleStaffManage}>Staff Manage</button>
-                <button className="manage-btn">Mark Manage</button>
+                <button className="manage-btn" onClick={handleMarkManage}>Mark Manage</button>
                 <button className="manage-btn" onClick={handleScopeManage}>Scope Manage</button>
                 <button className="manage-btn" onClick={handleRelease}>Mark Release</button>
             </div>
