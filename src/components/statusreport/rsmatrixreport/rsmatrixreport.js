@@ -41,7 +41,7 @@ function MatrixReport() {
         matrix.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         matrix.staff_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         matrix.course_code.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    );
 
     return (
         <div className='rsm-repo-main'>
@@ -52,6 +52,13 @@ function MatrixReport() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
+
+            <div className="rsm-repo-filter">
+                <b>All</b> ({filteredReports.length})
+                <b> | Incomplete</b> ({filteredReports.filter(matrix => matrix.status === 'Incomplete').length})
+                <b> | Completed</b> ({filteredReports.filter(matrix => matrix.status === 'Completed').length})
+            </div>
+
             <table className="rsm-repo-header">
                 <thead>
                     <tr>

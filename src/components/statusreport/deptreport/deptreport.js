@@ -186,7 +186,9 @@ function DeptReport()
                             checked={filter.incomplete}
                             onChange={handleFilterChange}
                         />
-                        <b>Incomplete</b>
+                        <b>Incomplete</b> ( 
+            {sortedReport.filter(dept => getActiveField(dept) === 0).length} 
+        )
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -195,7 +197,9 @@ function DeptReport()
                             checked={filter.processing}
                             onChange={handleFilterChange}
                         />
-                        <b>Processing</b>
+                        <b>Processing</b> ( 
+            {sortedReport.filter(dept => getActiveField(dept) === 1).length} 
+        )
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -204,7 +208,9 @@ function DeptReport()
                             checked={filter.completed}
                             onChange={handleFilterChange}
                         />
-                        <b>Completed</b>
+                        <b>Completed</b> ( 
+            {sortedReport.filter(dept => getActiveField(dept) === 2).length} 
+        )
                     </label>
                 </div>
                 <button className='dept-repo-btn'>Download Excel</button>
