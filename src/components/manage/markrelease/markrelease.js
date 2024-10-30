@@ -197,7 +197,7 @@ function MarkRelease() {
                             <th className="release-table-header">S. No</th>
                             <th className="release-table-header">Staff ID</th>
                             <th className="release-table-header">Staff Name</th>
-                            <th className="release-table-header">Course ID</th>
+                            <th className="release-table-header">Dept ID</th>
                             <th className="release-table-header">Course Code</th>
                             <th className="release-table-header">Section</th>
                             <th className="release-table-header">CIA 1</th>

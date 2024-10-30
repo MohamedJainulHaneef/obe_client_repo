@@ -59,7 +59,7 @@ function DeptReport()
     const handleSectionChange = (event) => 
     {
         setActiveSection(event.target.value);
-    };
+    }
 
     const getActiveField = (dept) => 
     {
@@ -91,7 +91,7 @@ function DeptReport()
     const getStatusColor = (value) => 
     {
         if (value === 0) return { color: 'red' };
-        if (value === 1) return { color: 'black' };
+        if (value === 1) return { color: 'blue' };
         if (value === 2) return { color: 'green' };
         return {};
     };

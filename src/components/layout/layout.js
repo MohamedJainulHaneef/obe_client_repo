@@ -67,18 +67,17 @@ function Layout()
             show: user && user.student_outcome === 1,
         },
         {
-            icon: faGraduationCap,
-            name: 'Program Outcome',
-            path: `/staff/${urlStaffId}/programoutcome`,
-            show: user && user.program_outcome === 1,
-        },
-        {
             icon: faClipboardCheck,
             name: 'Program Specific Outcome',
             path: `/staff/${urlStaffId}/programspecificoutcome`,
             show: user && user.program_specific_outcome === 1,
         },
-        
+        {
+            icon: faGraduationCap,
+            name: 'Program Outcome',
+            path: `/staff/${urlStaffId}/programoutcome`,
+            show: user && user.program_outcome === 1,
+        },
         {
             icon: faUserFriends,
             name: 'Class Teacher Report',

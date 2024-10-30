@@ -41,7 +41,7 @@ function MatrixReport() {
         matrix.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         matrix.staff_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         matrix.course_code.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    )
 
     return (
         <div className='rsm-repo-main'>
