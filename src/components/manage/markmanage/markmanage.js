@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from "react";
 import './markmanage.css';
 
@@ -8,33 +5,32 @@ function MarkManage() {
     const [values, setValues] = useState({
         cia1: { lot: '', mot: '', hot: '' },
         cia2: { lot: '', mot: '', hot: '' },
-        ass1: { lot: '' },
-        ass2: { lot: '' },
-        ese: { lot: '', mot: '', hot: '' }
+        ass1: { lot: '', mot: '', hot: '' },
+        ass2: { lot: '', mot: '', hot: '' },
     });
 
-    const handleCia1Change = (type, value) => {
-        setValues((prevValues) => ({
-            ...prevValues,
-            cia1: { ...prevValues.cia1, [type]: value },
-            cia2: { ...prevValues.cia2, [type]: value },
-            ese: { ...prevValues.ese, [type]: value }
-        }));
+    // Calculate MAX CIA values for lot, mot, and hot
+    const maxCia = {
+        lot: (parseInt(values.cia1.lot || 0, 10) + parseInt(values.cia2.lot || 0, 10) +
+              parseInt(values.ass1.lot || 0, 10) + parseInt(values.ass2.lot || 0, 10)) || '',
+        mot: (parseInt(values.cia1.mot || 0, 10) + parseInt(values.cia2.mot || 0, 10) +
+              parseInt(values.ass1.mot || 0, 10) + parseInt(values.ass2.mot || 0, 10)) || '',
+        hot: (parseInt(values.cia1.hot || 0, 10) + parseInt(values.cia2.hot || 0, 10) +
+              parseInt(values.ass1.hot || 0, 10) + parseInt(values.ass2.hot || 0, 10)) || '',
     };
 
-    const handleAss1Change = (value) => {
-        setValues((prevValues) => ({
-            ...prevValues,
-            ass1: { lot: value },
-            ass2: { lot: value }
-        }));
-    };
-
-    const calculateTotal = (field) => {
-        return ['cia1', 'cia2', 'ass1', 'ass2'].reduce((total, item) => {
-            const val = parseFloat(values[item][field] || 0);
-            return total + (isNaN(val) ? 0 : val);
-        }, 0);
+    // Update state based on field inputs, allowing only two digits
+    const handleChange = (event, section, type) => {
+        const value = event.target.value;
+        if (value.length <= 2 && /^\d*$/.test(value)) { // Checks if the input is numeric and 2 digits max
+            setValues(prevValues => ({
+                ...prevValues,
+                [section]: {
+                    ...prevValues[section],
+                    [type]: value,
+                },
+            }));
+        }
     };
 
     return (
@@ -51,92 +47,49 @@ function MarkManage() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className='mark-mng-td'>CIA 1</td>
-                            <td className='mark-mng-td'>
-                                <input
-                                    className='mark-mng-input'
-                                    type="number"
-                                    value={values.cia1.lot}
-                                    onChange={(e) => handleCia1Change('lot', e.target.value)}
-                                />
-                            </td>
-                            <td className='mark-mng-td'>
-                                <input
-                                    className='mark-mng-input'
-                                    type="number"
-                                    value={values.cia1.mot}
-                                    onChange={(e) => handleCia1Change('mot', e.target.value)}
-                                />
-                            </td>
-                            <td className='mark-mng-td'>
-                                <input
-                                    className='mark-mng-input'
-                                    type="number"
-                                    value={values.cia1.hot}
-                                    onChange={(e) => handleCia1Change('hot', e.target.value)}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className='mark-mng-td'>CIA 2</td>
-                            <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.cia2.lot} readOnly />
-                            </td>
-                            <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.cia2.mot} readOnly />
-                            </td>
-                            <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.cia2.hot} readOnly />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className='mark-mng-td'>ASS 1</td>
-                            <td className='mark-mng-td'>
-                                <input
-                                    className='mark-mng-input'
-                                    type="number"
-                                    value={values.ass1.lot}
-                                    onChange={(e) => handleAss1Change(e.target.value)}
-                                />
-                            </td>
-                            <td className='mark-mng-td'></td>
-                            <td className='mark-mng-td'></td>
-                        </tr>
-                        <tr>
-                            <td className='mark-mng-td'>ASS 2</td>
-                            <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.ass2.lot} readOnly />
-                            </td>
-                            <td className='mark-mng-td'></td>
-                            <td className='mark-mng-td'></td>
-                        </tr>
+                        {['cia1', 'cia2', 'ass1', 'ass2'].map(section => (
+                            <tr key={section}>
+                                <td className='mark-mng-td'>{section.toUpperCase()}</td>
+                                {['lot', 'mot', 'hot'].map(type => (
+                                    <td className='mark-mng-td' key={type}>
+                                        <input
+                                            className='mark-mng-input'
+                                            type="number"
+                                            value={values[section][type]}
+                                            onChange={e => handleChange(e, section, type)}
+                                            maxLength="2"
+                                        />
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
                         <tr>
                             <td className='mark-mng-td'>MAX CIA</td>
                             <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={calculateTotal('lot')} readOnly />
+                                <input className='mark-mng-input' type="number" value={maxCia.lot} readOnly />
                             </td>
                             <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={calculateTotal('mot')} readOnly />
+                                <input className='mark-mng-input' type="number" value={maxCia.mot} readOnly />
                             </td>
                             <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={calculateTotal('hot')} readOnly />
+                                <input className='mark-mng-input' type="number" value={maxCia.hot} readOnly />
                             </td>
                         </tr>
                         <tr>
                             <td className='mark-mng-td'>MAX ESE</td>
                             <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.ese.lot} readOnly />
+                                <input className='mark-mng-input' type="number" />
                             </td>
                             <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.ese.mot} readOnly />
+                                <input className='mark-mng-input' type="number" />
                             </td>
                             <td className='mark-mng-td'>
-                                <input className='mark-mng-input' type="number" value={values.ese.hot} readOnly />
+                                <input className='mark-mng-input' type="number" />
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <btn>save</btn>
             </div>
         </div>
     );
