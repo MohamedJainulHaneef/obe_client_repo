@@ -14,7 +14,7 @@ import Settings from './components/settings/settings';
 import PrivateRoute from './components/login/authenticate/privaterouter';
 import MarkRelease from './components/manage/markrelease/markrelease';
 import DeptReport from './components/statusreport/deptreport/deptreport';
-import CourMapManage from './components/manage/coursemapmanage/coursemapmanage';
+import StaffCourseManage from './components/manage/staffcoursemanage/staffcoursemanage';
 import Rsmatrix from './components/rsmatrix/rsmatrix';
 import Rsmatrixreport from './components/statusreport/rsmatrixreport/rsmatrixreport';
 import StudentManage from './components/manage/studentmanage/studentmanage';
@@ -42,7 +42,7 @@ function App() {
                         <Route path="markmanage" element={<MarkManage />} />
                         <Route path="rsmatrix" element={<Rsmatrix />} />
                         <Route path="settings" element={<Settings />} />
-                        <Route path="coursemappingmanage" element={<CourMapManage />} />
+                        <Route path="staffcoursemapmanage" element={<StaffCourseManage />} />
                         <Route path=":dept/departmentreport" element={<DeptReport />} />
                         <Route path='studentoutcome' element={<Studentoutcome />} />
                     </Route>

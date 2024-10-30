@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Loading from '../../assets/load.svg'; 
-import './studentoutcome.css'; 
+import Loading from '../../assets/load.svg';
+import './studentoutcome.css';
 
-const apiUrl = 'http://localhost:5000/api'; 
+const apiUrl = 'http://localhost:5000/api';
 
 const StudentOutcome = () => {
     const [markEntries, setMarkEntries] = useState({
@@ -12,10 +11,11 @@ const StudentOutcome = () => {
         active_sem: [],
         course_id: [],
         category: [],
-        course_code: [],
+        course_code: []
     });
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [selectedBatch, setSelectedBatch] = useState('');
     const [selectedSem, setSelectedSem] = useState('');
     const [selectedCourseId, setSelectedCourseId] = useState('');
@@ -23,23 +23,42 @@ const StudentOutcome = () => {
     const [selectedCourseCode, setSelectedCourseCode] = useState('');
     const [selectedSection, setSelectedSection] = useState('');
 
+    const fetchMarkEntries = async (filters = {}) => {
+        try {
+            const response = await axios.get(`${apiUrl}/markentry`, { params: filters });
+            setMarkEntries(response.data);
+        } catch (error) {
+            console.error('Error fetching mark entries:', error);
+        }
+    };
+
+    const fetchStudents = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/studentmaster`);
+            setStudents(response.data);
+        } catch (error) {
+            console.error('Error fetching student sections:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const markEntryResponse = await axios.get(`${apiUrl}/markentry`);
-                const studentResponse = await axios.get(`${apiUrl}/studentmaster`);
-
-                setMarkEntries(markEntryResponse.data);
-                setStudents(studentResponse.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        setLoading(true);
+        fetchMarkEntries();
+        fetchStudents();
+        setLoading(false);
     }, []);
+
+    useEffect(() => {
+        if (selectedBatch) {
+            fetchMarkEntries({ batch: selectedBatch });
+        }
+    }, [selectedBatch]);
+
+    useEffect(() => {
+        if (selectedCourseId) {
+            fetchMarkEntries({ course_id: selectedCourseId, batch: selectedBatch });
+        }
+    }, [selectedCourseId, selectedBatch]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -49,7 +68,7 @@ const StudentOutcome = () => {
             selectedCourseId,
             selectedCategory,
             selectedCourseCode,
-            selectedSection,
+            selectedSection
         });
     };
 
@@ -128,9 +147,6 @@ export default StudentOutcome;
 
 
 
-
-
-
 // import React, { useState, useEffect } from 'react';
 // import axios from "axios";
 // import Loading from '../../assets/load.svg';
@@ -195,3 +211,4 @@ export default StudentOutcome;
 //     );
 // }
 // export default Studentoutcome
+
