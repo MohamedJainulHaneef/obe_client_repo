@@ -1,0 +1,42 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.mark-mng-main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding:  30px 100px;
+}
+
+.mark-mng-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+.mark-mng-th {
+    background-color: #057252;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.mark-mng-td {
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    border: 1px solid white;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: greenyellow;
+}
+
+.mark-mng-input {
+    height: 40px;
+}
