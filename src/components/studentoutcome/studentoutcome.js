@@ -62,3 +62,15 @@
 //     );
 // }
 // export default Studentoutcome
+
+import React from 'react';
+
+function StudentOutcome()
+{
+    return (
+        <div>
+        </div>
+    )
+}
+
+export default StudentOutcome;
