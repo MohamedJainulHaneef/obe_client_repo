@@ -33,12 +33,29 @@
     font-weight: bold;
 }
 
-.search-box {
-    margin-left: 20px;
-    padding: 20px;
-    font-size: 16px;
-    width: 20%;
-    box-sizing: border-box;
+.rsm-repo-filter {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 5px;
+}
+
+.rsm-repo-btn-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.rsm-repo-label {
+    display: flex;
+    gap: 12px;
+    font-size: 20px;
+}
+
+.rsm-repo-search {
+    text-align: left; 
+    margin-top: 20px;
 }
 
 .status-completed {

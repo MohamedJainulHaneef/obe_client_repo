@@ -17,7 +17,7 @@ function MarkRelease() {
     useEffect(() => {
         const fetchReportData = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/reportdata`);
+                const response = await axios.get(`${apiUrl}/api/reportdata`);
                 const data = response.data;
                 console.log(data)
 
@@ -69,7 +69,7 @@ function MarkRelease() {
         const data = filteredData[index];
         console.log(data)
         try {
-            const res = await axios.put(`${apiUrl}/reportrelease`,data);
+            const res = await axios.put(`${apiUrl}/api/reportrelease`,data);
             if (res) {
                 alert('Release Update Successfully....')
             }
@@ -81,7 +81,7 @@ function MarkRelease() {
     }
     const handleOverAll = async () => {
         try {
-            await axios.put(`${apiUrl}/overallrelease`, { l_cia1, l_cia2 });
+            await axios.put(`${apiUrl}/api/overallrelease`, { l_cia1, l_cia2 });
             alert('Release Update Successfully....')
         }
         catch (error) {

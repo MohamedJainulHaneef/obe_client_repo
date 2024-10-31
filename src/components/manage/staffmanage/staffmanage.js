@@ -81,7 +81,7 @@ function StaffManage()
 
         try 
         {
-            const newStaffResponce = await axios.post(`${apiUrl}/newstaff`, newStaffData);
+            const newStaffResponce = await axios.post(`${apiUrl}/ap/newstaff`, newStaffData);
             if (newStaffResponce.data) 
             {
                 console.log(newStaffResponce.data);
@@ -107,7 +107,7 @@ function StaffManage()
         {
             try 
             {
-                const StaffResponse = await axios.get(`${apiUrl}/staffdetails`);
+                const StaffResponse = await axios.get(`${apiUrl}/api/staffdetails`);
                 if (StaffResponse.data) {
                     console.log(StaffResponse.data);
                     setStaffData(StaffResponse.data);
@@ -153,7 +153,7 @@ function StaffManage()
     {
         try 
         {
-            const updateresponse = await axios.put(`${apiUrl}/staffupdate`, { newstaffid, newstaffname, newpassword, newdept, newcategory });
+            const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, { newstaffid, newstaffname, newpassword, newdept, newcategory });
             if (updateresponse.data) {
                 window.alert("Staff Data Modified")
             }
@@ -180,7 +180,7 @@ function StaffManage()
     {
         try 
         {
-            const DeleteResponse = await axios.post(`${apiUrl}/staffdelete`,{deletestaffid});
+            const DeleteResponse = await axios.post(`${apiUrl}/api/staffdelete`,{deletestaffid});
             if(DeleteResponse.data) 
                 {
                 window.alert("Staff Deleted");

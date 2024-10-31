@@ -3,7 +3,7 @@ import axios from 'axios';
 import Loading from '../../assets/load.svg';
 import './studentoutcome.css';
 
-const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'http://localhost:5000';
 
 const StudentOutcome = () => {
     const [markEntries, setMarkEntries] = useState({
@@ -25,7 +25,7 @@ const StudentOutcome = () => {
 
     const fetchMarkEntries = async (filters = {}) => {
         try {
-            const response = await axios.get(`${apiUrl}/markentry`, { params: filters });
+            const response = await axios.get(`${apiUrl}/api/markentry`, { params: filters });
             setMarkEntries(response.data);
         } catch (error) {
             console.error('Error fetching mark entries:', error);
@@ -34,7 +34,7 @@ const StudentOutcome = () => {
 
     const fetchStudents = async () => {
         try {
-            const response = await axios.get(`${apiUrl}/studentmaster`);
+            const response = await axios.get(`${apiUrl}/api/studentmaster`);
             setStudents(response.data);
         } catch (error) {
             console.error('Error fetching student sections:', error);

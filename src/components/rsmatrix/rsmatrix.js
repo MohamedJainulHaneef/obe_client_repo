@@ -37,7 +37,7 @@ function Rsmatrix()
             if (activeSem) 
             {
                 try {
-                    const response = await axios.post(`${apiUrl}/coursecode`, {
+                    const response = await axios.post(`${apiUrl}/api/rsmcoursecode`, {
                         staff_id: staffId,
                         academic_year: activeSem,
                     })
