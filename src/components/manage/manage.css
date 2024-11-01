@@ -25,7 +25,8 @@
 }
 
 .manage-btn {
-    background-color: rgb(59, 57, 129);
+    background-color: #076ad4;
+    background-color: #0b5aaf;
     padding: 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -34,10 +35,11 @@
     height: 80px;
     cursor: pointer;
     transition: 0.5s;
+    font-weight: 500;
 }
 
 .manage-btn:hover {
-    background-color: rgb(40, 37, 110);
+    background-color: #0b4c92;
 }
 
 .manage-popup-container {

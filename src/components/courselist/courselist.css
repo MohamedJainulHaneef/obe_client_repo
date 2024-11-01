@@ -10,7 +10,7 @@
 }
 
 .course-layout-top-div {
-    width: 85%;
+    width: 90%;
     padding: 20px 0px;
     margin: 0 auto;
     display: flex;
@@ -21,8 +21,8 @@
 .course-content-box {
     border: 1px solid black;
     border-radius: 10px;
-    width: 85%;
-    padding: 30px;
+    width: 90%;
+    padding: 35px;
     margin: 0 auto;
     margin-bottom: 40px;
     box-shadow: 2px  4px 5px rgb(183, 183, 183);
@@ -35,7 +35,7 @@
 }
 
 .course-subject-box {
-    border: 1px solid black;
+    border: 2px solid #ccc;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -46,38 +46,36 @@
     transition: 0.course-3s;
     background-color: white;
     letter-spacing: 0.3px;
+    padding: 90px 0px;
+    gap: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .course-subject-box:hover {
-    box-shadow: 5px 5px 5px rgb(172, 172, 172);
-}
-
-.course-box:hover {
-    border: 3px solid rgb(0, 0, 0);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
 }
 
 .course-box-text {
     text-transform: uppercase;
     font-weight:700;
-    padding: 5px 10px;
 }
 
 .course-box-status {
     font-weight: 700;
-    padding: 5px 10px;
     color: green;
 }
 
 .course-box-text-category {
     text-transform: uppercase;
     font-weight: 700;
-    padding: 5px 10px;
     color: green;
 }
 
 .course-box-text-dept {
     text-transform: uppercase;
     font-weight:700;
-    padding: 5px 10px;
     line-height: 20px;
 }

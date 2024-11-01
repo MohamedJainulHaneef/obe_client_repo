@@ -247,8 +247,16 @@ function Rsmatrix()
                                 key={index}
                                 onClick={() => handleCourseClick(item)}
                             >
+                                <div className="course-status">
+                                    {item.completed ? (
+                                        <span className="rsmatrix-completed">Completed</span>
+                                    ) : (
+                                        <span className="rsmatrix-incomplete">Incomplete</span>
+                                    )}
+                                </div>
                                 <p><strong>COURSE CODE :</strong></p>
                                 <p>{item.course_code}</p>
+                                
                             </div>
                         ))
                     ) : (
@@ -286,7 +294,7 @@ function Rsmatrix()
                                                 <input
                                                     type="number"
                                                     className="rsmatrix-input"
-                                                    value={inputValues[`${co}_${index}`] || ''}
+                                                    value={inputValues[`${co}_${index}`] || 0}
                                                     onChange={(e) => handleInputChange(co, index, e.target.value)}
                                                 />
                                             </td>
