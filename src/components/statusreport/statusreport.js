@@ -59,11 +59,10 @@ function StatusReport()
         }
     }
 
-
     const handleMatrixReport = () => 
-        {
-                navigate(`/staff/${staffId}/matrixreport`);
-        }
+    {
+            navigate(`/staff/${staffId}/matrixreport`);
+    }
 
     return (
         <div className='report-main'>
