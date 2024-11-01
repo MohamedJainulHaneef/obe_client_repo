@@ -14,6 +14,8 @@ const StudentOutcome = () => {
         course_code: []
     });
     const [students, setStudents] = useState([]);
+    const [student, setStudent] = useState([]);
+    // const [overAll, setOverall] = useState();
     const [loading, setLoading] = useState(true);
 
     const [selectedBatch, setSelectedBatch] = useState('');
@@ -42,10 +44,13 @@ const StudentOutcome = () => {
     };
 
     useEffect(() => {
-        setLoading(true);
-        fetchMarkEntries();
-        fetchStudents();
-        setLoading(false);
+        const fetchData = async () => {
+            setLoading(true);
+            await fetchMarkEntries();
+            await fetchStudents();
+            setLoading(false);
+        };
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -60,16 +65,61 @@ const StudentOutcome = () => {
         }
     }, [selectedCourseId, selectedBatch]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({
-            selectedBatch,
-            selectedSem,
-            selectedCourseId,
-            selectedCategory,
-            selectedCourseCode,
-            selectedSection
-        });
+        try {
+            const data = {
+                selectedBatch,
+                selectedSem,
+                selectedCourseId,
+                selectedCategory,
+                selectedCourseCode,
+                selectedSection
+            };
+            const resData = await axios.get(`${apiUrl}/api/studOutcome`, { params: data });
+            setStudent(resData.data);
+            if (Array.isArray(resData.data)) {
+                const updatedStudents = resData.data.map(studentdata => {
+                    const lot = Number(studentdata.lot_percentage) || 0;
+                    const mot = Number(studentdata.mot_percentage) || 0;
+                    const hot = Number(studentdata.hot_percentage) || 0;
+                    const elot = Number(studentdata.elot_percentage) || 0;
+                    const emot = Number(studentdata.emot_percentage) || 0;
+                    const ehot = Number(studentdata.ehot_percentage) || 0;
+    
+                    const overC = (lot + mot + hot) / 3;
+                    const overE = (elot + emot + ehot) / 3;
+                    let overall;
+                    let overallE;
+    
+                    if (overC > 2) {
+                        overall = 'High';
+                    } else if (overC > 1) {
+                        overall = 'Medium';
+                    } else if (overC > 0) {
+                        overall = 'Low';
+                    } else {
+                        overall = 'N/A';
+                    }
+                    
+                    if (overE > 2) {
+                        overallE = 'High';
+                    } else if (overE > 1) {
+                        overallE = 'Medium';
+                    } else if (overE > 0) {
+                        overallE = 'Low';
+                    } else {
+                        overallE = 'N/A';
+                    }
+    
+                    return { ...studentdata, overall, overC, overallE, overE };
+                });
+                setStudent(updatedStudents);
+            }
+
+        } catch (error) {
+            console.log("Error saving student outcome:", error);
+        }
     };
 
     if (loading) {
@@ -84,7 +134,7 @@ const StudentOutcome = () => {
                     <label>Batch:</label>
                     <select value={selectedBatch} onChange={(e) => setSelectedBatch(e.target.value)}>
                         <option value="">Select Batch</option>
-                        {markEntries.batch.map((batch) => (
+                        {markEntries.batch?.map((batch) => (
                             <option key={batch} value={batch}>{batch}</option>
                         ))}
                     </select>
@@ -93,7 +143,7 @@ const StudentOutcome = () => {
                     <label>Active Semester:</label>
                     <select value={selectedSem} onChange={(e) => setSelectedSem(e.target.value)}>
                         <option value="">Select Semester</option>
-                        {markEntries.active_sem.map((sem) => (
+                        {markEntries.active_sem?.map((sem) => (
                             <option key={sem} value={sem}>{sem}</option>
                         ))}
                     </select>
@@ -102,7 +152,7 @@ const StudentOutcome = () => {
                     <label>Course ID:</label>
                     <select value={selectedCourseId} onChange={(e) => setSelectedCourseId(e.target.value)}>
                         <option value="">Select Course ID</option>
-                        {markEntries.course_id.map((courseId) => (
+                        {markEntries.course_id?.map((courseId) => (
                             <option key={courseId} value={courseId}>{courseId}</option>
                         ))}
                     </select>
@@ -111,7 +161,7 @@ const StudentOutcome = () => {
                     <label>Category:</label>
                     <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                         <option value="">Select Category</option>
-                        {markEntries.category.map((category) => (
+                        {markEntries.category?.map((category) => (
                             <option key={category} value={category}>{category}</option>
                         ))}
                     </select>
@@ -120,7 +170,7 @@ const StudentOutcome = () => {
                     <label>Course Code:</label>
                     <select value={selectedCourseCode} onChange={(e) => setSelectedCourseCode(e.target.value)}>
                         <option value="">Select Course Code</option>
-                        {markEntries.course_code.map((courseCode) => (
+                        {markEntries.course_code?.map((courseCode) => (
                             <option key={courseCode} value={courseCode}>{courseCode}</option>
                         ))}
                     </select>
@@ -129,19 +179,56 @@ const StudentOutcome = () => {
                     <label>Section:</label>
                     <select value={selectedSection} onChange={(e) => setSelectedSection(e.target.value)}>
                         <option value="">Select Section</option>
-                        {students.map((section) => (
+                        {students?.map((section) => (
                             <option key={section} value={section}>{section}</option>
                         ))}
                     </select>
                 </div>
                 <button type="submit">Submit</button>
             </form>
+            <div className='stu-outcome-container'>
+                <span className='stu-outcome-title'>STUDENT OUTCOME</span>
+                <table className='stu-outcome-table'>
+                    <thead>
+                        <tr>
+                            <th className='stu-outcome-header'>Reg No</th>
+                            <th className='stu-outcome-header'>Dept ID</th>
+                            <th className='stu-outcome-header'>Course Code</th>
+                            <th className='stu-outcome-header'>Semester</th>
+                            <th className='stu-outcome-header'>LOT Percentage</th>
+                            <th className='stu-outcome-header'>MOT Percentage</th>
+                            <th className='stu-outcome-header'>HOT Percentage</th>
+                            <th className='stu-outcome-header'>Over All</th>
+                            <th className='stu-outcome-header'>ESE LOT </th>
+                            <th className='stu-outcome-header'>ESE MOT </th>
+                            <th className='stu-outcome-header'>ESE HOT </th>
+                            <th className='stu-outcome-header'>Over All ESE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+           {student?.map((studentdata, index) => (
+                            <tr key={index}>
+                                <td className='stu-outcome-content'>{studentdata.reg_no }</td>
+                                <td className='stu-outcome-content'>{studentdata.course_id}</td>
+                                <td className='stu-outcome-content'>{studentdata.course_code}</td>
+                                <td className='stu-outcome-content'>{studentdata.semester }</td>
+                                <td className='stu-outcome-content'>{studentdata.lot_percentage}</td>
+                                <td className='stu-outcome-content'>{studentdata.mot_percentage}</td>
+                                <td className='stu-outcome-content'>{studentdata.hot_percentage}</td>
+                                <td className='stu-outcome-content'>{studentdata.overall}</td>
+                                <td className='stu-outcome-content'>{studentdata.elot_percentage}</td>
+                                <td className='stu-outcome-content'>{studentdata.emot_percentage}</td>                                    <td className='stu-outcome-content'>{studentdata.ehot_percentage}</td>
+                                <td className='stu-outcome-content'>{studentdata.overallE}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
 
 export default StudentOutcome;
-
 
 
 
