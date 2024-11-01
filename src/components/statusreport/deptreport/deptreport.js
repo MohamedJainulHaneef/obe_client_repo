@@ -78,7 +78,7 @@ function DeptReport()
             default:
                 return '';
         }
-    };
+    }
 
     const getStatus = (value) => 
     {
@@ -86,7 +86,7 @@ function DeptReport()
         if (value === 1) return 'Processing';
         if (value === 2) return 'Completed';
         return '';
-    };
+    }
 
     const getStatusColor = (value) => 
     {
@@ -94,7 +94,7 @@ function DeptReport()
         if (value === 1) return { color: 'blue' };
         if (value === 2) return { color: 'green' };
         return {};
-    };
+    }
 
     const handleFilterChange = (event) => 
     {
@@ -116,19 +116,20 @@ function DeptReport()
                 all: checked && prevFilter.incomplete && prevFilter.processing && prevFilter.completed
             }));
         }
-    };
+    }
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
-    };
+    }
 
     const filteredReport = deptStatusReport.filter((dept) => 
     {
         const status = getActiveField(dept);
         const matchesSearch = 
-            dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
-            dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            dept.category.toLowerCase().includes(searchTerm.toLowerCase());
+        dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        dept.staff_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        dept.category.toLowerCase().includes(searchTerm.toLowerCase());
 
         if (!matchesSearch) return false;
 
@@ -137,14 +138,14 @@ function DeptReport()
         if (status === 1 && filter.processing) return true;
         if (status === 2 && filter.completed) return true;
         return false;
-    });
+    })
 
-    const sortedReport = [...filteredReport].sort((a, b) => {
+    const sortedReport = [...filteredReport].sort((a, b) => 
+    {
         const statusOrder = getActiveField(a) - getActiveField(b);
         if (statusOrder !== 0) return statusOrder;
-
         return a.staff_id.localeCompare(b.staff_id);
-    });
+    })
 
     return (
         <div className='dept-repo-main'>
@@ -165,7 +166,7 @@ function DeptReport()
                     placeholder="Search...." 
                     value={searchTerm} 
                     onChange={handleSearchChange}
-                    className="search-input"
+                    className="dept-search-input"
                 />
             </div>
             <div className='dept-repo-btn-content'>
@@ -186,9 +187,10 @@ function DeptReport()
                             checked={filter.incomplete}
                             onChange={handleFilterChange}
                         />
-                        <b>Incomplete</b> ( 
-            {sortedReport.filter(dept => getActiveField(dept) === 0).length} 
-        )
+                        <b>Incomplete</b> 
+                        ( 
+                            {sortedReport.filter(dept => getActiveField(dept) === 0).length} 
+                        )
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -197,9 +199,10 @@ function DeptReport()
                             checked={filter.processing}
                             onChange={handleFilterChange}
                         />
-                        <b>Processing</b> ( 
-            {sortedReport.filter(dept => getActiveField(dept) === 1).length} 
-        )
+                        <b>Processing</b>
+                        ( 
+                            {sortedReport.filter(dept => getActiveField(dept) === 1).length} 
+                        )
                     </label>
                     <label className='dept-repo-label'>
                         <input
@@ -208,9 +211,10 @@ function DeptReport()
                             checked={filter.completed}
                             onChange={handleFilterChange}
                         />
-                        <b>Completed</b> ( 
-            {sortedReport.filter(dept => getActiveField(dept) === 2).length} 
-        )
+                        <b>Completed</b> 
+                        ( 
+                            {sortedReport.filter(dept => getActiveField(dept) === 2).length} 
+                        )
                     </label>
                 </div>
                 <button className='dept-repo-btn'>Download Excel</button>
@@ -221,6 +225,7 @@ function DeptReport()
                         <th className="dept-repo-heading">S. No.</th>
                         <th className="dept-repo-heading">Staff Id</th>
                         <th className="dept-repo-heading">Staff Name</th>
+                        <th className="dept-repo-heading">Dept Id</th>
                         <th className="dept-repo-heading">Course Code</th>
                         <th className="dept-repo-heading">Category</th>
                         <th className="dept-repo-heading">Section</th>
@@ -232,8 +237,10 @@ function DeptReport()
                         <tr key={index} className="staff-map-row">
                             <td className="dept-repo-content">{index + 1}</td>
                             <td className="dept-repo-content">{dept.staff_id}</td>
-                            <td className="dept-repo-content">{dept.staff_name}</td>
+                            <td className="dept-repo-content-sn">{dept.staff_name}</td>
+                            <td className="dept-repo-content">{dept.course_id}</td>
                             <td className="dept-repo-content">{dept.course_code}</td>
+
                             <td className="dept-repo-content">{dept.category}</td>
                             <td className="dept-repo-content">{dept.section}</td>
                             <td className="dept-repo-content" style={getStatusColor(getActiveField(dept))}>
