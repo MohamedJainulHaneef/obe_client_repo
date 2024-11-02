@@ -86,11 +86,17 @@ const StudentOutcome = () => {
                     const elot = Number(studentdata.elot_percentage) || 0;
                     const emot = Number(studentdata.emot_percentage) || 0;
                     const ehot = Number(studentdata.ehot_percentage) || 0;
+                    const overAll_lot = Number(studentdata.overAll_lot) || 0;
+                    const overAll_mot = Number(studentdata.overAll_mot) || 0;
+                    const overAll_hot = Number(studentdata.overAll_hot) || 0;
     
                     const overC = (lot + mot + hot) / 3;
                     const overE = (elot + emot + ehot) / 3;
+                    const overA = (overAll_lot + overAll_mot + overAll_hot) / 3;
+                    
                     let overall;
                     let overallE;
+                    let overallCE;
     
                     if (overC > 2) {
                         overall = 'High';
@@ -111,8 +117,18 @@ const StudentOutcome = () => {
                     } else {
                         overallE = 'N/A';
                     }
+
+                    if (overA > 2) {
+                        overallCE = 'High';
+                    } else if (overA > 1) {
+                        overallCE = 'Medium';
+                    } else if (overA > 0) {
+                        overallCE = 'Low';
+                    } else {
+                        overallCE = 'N/A';
+                    }
     
-                    return { ...studentdata, overall, overC, overallE, overE };
+                    return { ...studentdata, overall, overC, overallE, overE, overA, overallCE};
                 });
                 setStudent(updatedStudents);
             }
@@ -217,8 +233,13 @@ const StudentOutcome = () => {
                                 <td className='stu-outcome-content'>{studentdata.hot_percentage}</td>
                                 <td className='stu-outcome-content'>{studentdata.overall}</td>
                                 <td className='stu-outcome-content'>{studentdata.elot_percentage}</td>
-                                <td className='stu-outcome-content'>{studentdata.emot_percentage}</td>                                    <td className='stu-outcome-content'>{studentdata.ehot_percentage}</td>
+                                <td className='stu-outcome-content'>{studentdata.emot_percentage}</td>  
+                                <td className='stu-outcome-content'>{studentdata.ehot_percentage}</td>
                                 <td className='stu-outcome-content'>{studentdata.overallE}</td>
+                                <td className='stu-outcome-content'>{studentdata.overAll_lot}</td>
+                                <td className='stu-outcome-content'>{studentdata.overAll_mot}</td>  
+                                <td className='stu-outcome-content'>{studentdata.overAll_hot}</td>
+                                <td className='stu-outcome-content'>{studentdata.overallCE}</td>
                             </tr>
                         ))}
                     </tbody>
