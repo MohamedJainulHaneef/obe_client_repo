@@ -55,7 +55,7 @@ const Piechart3 = () => {
     };
 
     return (
-        <div style={{ width: '300px', height: '300px', margin: '20px' }}>
+        <div style={{ width: '200px', height: '300px', margin: '20px' }}>
             <h3 className='pie-heading'>Category Pie Chart</h3>
             <Pie data={data} options={options} />
         </div>

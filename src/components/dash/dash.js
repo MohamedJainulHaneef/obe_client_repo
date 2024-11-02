@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './dash.css';
-import Barchart from '../dash/Barchart/barchart';
+import Barchart from './Barchart/barchart';
 import Piechart1 from '../dash/Piechart/Piechart1';
 import Piechart2 from '../dash/Piechart/Piechart2';
+import Linechart1 from './Linechart/linechart1';
+import Linechart2 from '../dash/Linechart/linechart2';
 // import Piechart3 from '../dash/Piechart/Piechart3';
 import { PiStudentFill } from "react-icons/pi";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaBook } from "react-icons/fa";
 import { SiBookstack } from "react-icons/si";
 import axios from 'axios';
+import { Line } from 'react-chartjs-2';
 
 function Dash() 
 {
@@ -89,7 +92,9 @@ function Dash()
             <div className='dash-piechart-main'>
                 <Piechart1 />
                 <Piechart2 />
-                {/* <Piechart3 /> */}
+                <Linechart1 />
+                <Linechart2 />
+
             </div>
         </div>
     );
