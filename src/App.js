@@ -21,6 +21,7 @@ import StudentManage from './components/manage/studentmanage/studentmanage';
 import Studentoutcome from './components/studentoutcome/studentoutcome';
 import MarkManage from './components/manage/markmanage/markmanage';
 import TutorReport from './components/tutorreport/tutorreport';
+import TutorStudent from './components/tutorreport/tutorstudent/tutorstudent';
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                         <Route path="manage" element={<Manage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
                         <Route path="staffmanage" element={<StaffManage />} />
+                        <Route path="tutorstudentoutcome" element={<TutorStudent />} />
                         <Route path="studentmanage" element={<StudentManage />} />
                         <Route path="markrelease" element={<MarkRelease />} />
                         <Route path="markmanage" element={<MarkManage />} />
