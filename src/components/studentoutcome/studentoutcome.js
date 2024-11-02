@@ -219,6 +219,10 @@ const StudentOutcome = () => {
                             <th className='stu-outcome-header'>ESE MOT </th>
                             <th className='stu-outcome-header'>ESE HOT </th>
                             <th className='stu-outcome-header'>Over All ESE</th>
+                            <th className='stu-outcome-header'>Over All LOT</th>
+                            <th className='stu-outcome-header'>Over All HOT</th>
+                            <th className='stu-outcome-header'>Over All MOT</th>
+                            <th className='stu-outcome-header'>Over All GRADE</th>
                         </tr>
                     </thead>
                     <tbody>

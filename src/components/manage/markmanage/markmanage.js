@@ -6,17 +6,16 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function MarkManage() {
     const [academicYear, setAcademicYear] = useState('');
 
-    const academicYearSet = async () => 
-        {
-            try {
-                const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
-            } 
-            catch (err) {
-                console.log('Error fetching data:', err);
-            }
-        };
-        academicYearSet();
+    const academicYearSet = async () => {
+        try {
+            const response = await axios.post(`${apiUrl}/activesem`, {});
+            setAcademicYear(response.data.academic_year);
+        }
+        catch (err) {
+            console.log('Error fetching data:', err);
+        }
+    };
+    academicYearSet();
     // Initialize state for each input field
     const [values, setValues] = useState({
         cia1: { lot: '', mot: '', hot: '' },
@@ -27,7 +26,7 @@ function MarkManage() {
         level1: { ug: '', pg: '' },
         level2: { ug: '', pg: '' },
         level3: { ug: '', pg: '' },
-        maxEse: { lot: '', mot: '', hot: '' } 
+        maxEse: { lot: '', mot: '', hot: '' }
     });
 
     // Calculate MAX CIA values by summing each field across sections
@@ -55,27 +54,72 @@ function MarkManage() {
         }
     };
 
+    const handlesavecia = async () => {
+        // Check if required fields are filled for CIA and MAX ESE sections
+        const sections = ['cia1', 'cia2', 'ass1', 'ass2', 'maxEse'];
+        const requiredFieldsFilled = sections.every(section =>
+            Object.values(values[section]).every(value => value !== '')
+        );
+
+        if (!requiredFieldsFilled) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Create data object with only CIA and MAX ESE values
+
+        const dataToSend = {
+            cia1: values.cia1,
+            cia2: values.cia2,
+            ass1: values.ass1,
+            ass2: values.ass2,
+            maxEse: values.maxEse,
+            maxCia,
+            academicYear
+        };
+        console.log("data", dataToSend);
+        try {
+            const response = await axios.post(`${apiUrl}/api/calculation`, dataToSend);
+            if (response.data) {
+                alert('Data saved successfully!');
+
+            }
+        } catch (error) {
+            console.error("Error saving data:", error);
+            alert('Failed to save data. Please try again.');
+        }
+    };
+
+
     const handleSave = async () => {
         // Check if required fields are filled
-        if (!values.cia1.lot || !values.cia2.lot || !values.ass1.lot || !values.ass2.lot) {
+        const sections = ['level0', 'level1', 'level2', 'level3'];
+        const requiredFieldsFilled = sections.every(section =>
+            Object.values(values[section]).every(value => value !== '')
+        );
+
+        if (!requiredFieldsFilled) {
             alert('Please fill in all required fields.');
             return;
         }
 
         try {
             const dataToSend = {
-                ...values,
-                maxCia,
+                level0: values.level0,
+                level1: values.level1,
+                level2: values.level2,
+                level3: values.level3,
                 academicYear
             };
-
-            await axios.post(`${apiUrl}/api/calculation`, dataToSend);
+            console.log(academicYear);
+            await axios.post(`${apiUrl}/api/calculationlevel`, dataToSend);
             alert('Data saved successfully!');
         } catch (error) {
             console.error("Error saving data:", error);
             alert('Failed to save data. Please try again.');
         }
     };
+
 
     return (
         <div className="mark-mng-main">
@@ -244,9 +288,33 @@ function MarkManage() {
                                 />
                             </td>
                         </tr>
+                        
+                        {/* Individual input boxes for CIA weightage */}
+                        <tr>
+                        <td className='mark-mng-td'>WEIGHTAGE</td>
+                        <td className='mark-mng-td'>
+                                <input
+                                    className='mark-mng-input'
+                                    type="number"
+                                    value={values.cia1.weightage}
+                                    onChange={e => handleChange(e, 'cia1', 'weightage')}
+                                />
+                        </td>
+                        <td className='mark-mng-td'>
+                                <input
+                                    className='mark-mng-input'
+                                    type="number"
+                                    value={values.maxEse.weightage}
+                                    onChange={e => handleChange(e, 'maxEse', 'weightage')}
+                                />
+                        </td>
+                        </tr>
                     </tbody>
                 </table>
+                <button className="mark-mng-button" onClick={handlesavecia}>Save</button>
                 
+
+
                 {/* Individual input boxes for levels */}
                 <table className="mark-mng-table">
                     <thead>
