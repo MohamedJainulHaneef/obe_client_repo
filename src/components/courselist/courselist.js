@@ -33,7 +33,8 @@ function CourseList()
         {
             if (academicYear) 
             {
-                try {
+                try 
+                {
                     const response = await axios.post(`${apiUrl}/api/coursemap`, {
                         staff_id: staffId,
                         academic_year: academicYear
@@ -50,7 +51,6 @@ function CourseList()
                                     semester: course.semester,
                                     course_code: course.course_code,
                                 })
-                                // console(statusResponse.data);
                                 return { ...course, status: statusResponse.data.status };
                             } 
                             catch (err) {
