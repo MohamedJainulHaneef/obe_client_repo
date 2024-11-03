@@ -1,5 +1,5 @@
 // BarChart.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -10,10 +10,21 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import axios from 'axios';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const BarChart1 = () => {
+
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const[staffdata, setStaffData] = useState([]);
+
+  useEffect(()=>{
+    const staffcount = async() =>{
+      const response = await axios.get(`${apiUrl}/api/stafflinechart`);
+    }
+
+  },[])
   const data = {
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     datasets: [
@@ -62,3 +73,5 @@ const BarChart1 = () => {
 };
 
 export default BarChart1;
+
+//course completed 
