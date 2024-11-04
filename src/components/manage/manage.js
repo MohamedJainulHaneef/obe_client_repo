@@ -69,6 +69,7 @@ function Manage()
     const handleCourseMapManage = () => {
         navigate(`/staff/${staffId}/staffcoursemapmanage`);
     };
+    
     const handleStudentManage = () => {
         navigate(`/staff/${staffId}/studentmanage`);
     };

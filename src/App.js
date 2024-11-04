@@ -18,12 +18,16 @@ import StaffCourseManage from './components/manage/staffcoursemanage/staffcourse
 import Rsmatrix from './components/rsmatrix/rsmatrix';
 import Rsmatrixreport from './components/statusreport/rsmatrixreport/rsmatrixreport';
 import StudentManage from './components/manage/studentmanage/studentmanage';
-import Studentoutcome from './components/studentoutcome/studentoutcome';
+import StudentOutcome from './components/studentoutcome/studentoutcome';
+import CourseOutcome from './components/courseoutcome/courseoutcome';
 import MarkManage from './components/manage/markmanage/markmanage';
 import TutorReport from './components/tutorreport/tutorreport';
 import TutorStudent from './components/tutorreport/tutorstudent/tutorstudent';
+import CourseStuOC from './components/studentoutcome/handlestuoutcome/handlestuoutcome';
+import TutorCouOC from './components/courseoutcome/tutorcououtcome/tutorcououtcome';
 
-function App() {
+function App() 
+{
     return (
         <AuthProvider>
             <Router>
@@ -47,8 +51,11 @@ function App() {
                         <Route path="settings" element={<Settings />} />
                         <Route path="staffcoursemapmanage" element={<StaffCourseManage />} />
                         <Route path=":dept/departmentreport" element={<DeptReport />} />
-                        <Route path='studentoutcome' element={<Studentoutcome />} />
+                        <Route path='studentoutcome' element={<StudentOutcome />} />
+                        <Route path='courseoutcome' element={<CourseOutcome />} />
                         <Route path='classteacherreport' element={<TutorReport />} />
+                        <Route path='coursestudentoutcome' element={<CourseStuOC />} />
+                        <Route path='tutorcourseoutcome' element={<TutorCouOC />} />
                     </Route>
                 </Routes>
             </Router>

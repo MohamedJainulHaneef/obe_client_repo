@@ -14,6 +14,7 @@ function FileUpload() {
     const [file6, setFile6] = useState(null);
     const [file7, setFile7] = useState(null);
     const [file8, setFile8] = useState(null);
+    const [file9, setFile9] = useState(null);
 
     const handleFileChange = (e) => {
         const { name, files } = e.target;
@@ -41,9 +42,13 @@ function FileUpload() {
         else if (name === 'file8') {
             setFile8(files[0]);
         }
+        else if (name === 'file9') {
+            setFile9(files[0]);
+        }
     };
 
-    const handleUpload = async (e, file, endpoint) => {
+    const handleUpload = async (e, file, endpoint) => 
+    {
         e.preventDefault();
         if (!file) {
             alert('Please Select a File');
@@ -145,6 +150,13 @@ function FileUpload() {
                     fileName = 'Mentor Report.xlsx';
                     break;
 
+                case 'hod':
+                    response = await axios.get(`${apiUrl}/api/download/mentor`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Mentor Report.xlsx';
+                    break;
+
                 default:
                     throw new Error('Invalid file type');
             }
@@ -210,6 +222,11 @@ function FileUpload() {
                         <input type='file' name='file8' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file8, 'mentor')}>Upload to Mentor</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'mentor')}>Download Mentor</button>
+                    </div>
+                    <div className='file-container'>
+                        <input type='file' name='file9' onChange={handleFileChange} />
+                        <button className='file-upload-btn' onClick={(e) => handleUpload(e, file9, 'hod')}>Upload to Hod</button>
+                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'hod')}>Download Hod</button>
                     </div>
                 </div>
             </div>

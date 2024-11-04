@@ -15,7 +15,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: flex-end;
-    font-weight: bold;
+    font-weight: bold; 
 }
 
 .course-content-box {
