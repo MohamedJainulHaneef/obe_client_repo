@@ -15,72 +15,86 @@ function StudentOutcome()
 
     useEffect(() => 
     {
-        
         const checkStaffId = async () => 
         {
             if(staffId === 'ADMIN')
-                {
-                    setAdmin(true);
-                    return;
-                }
-
-                else {
-            try 
             {
-                const response = await axios.post(`${apiUrl}/api/checkstaffId`, {
-                    staff_id: staffId
-                })
-
-                if (response.data) 
-                {
-                    if (response.data.courseHandleStaffId) 
-                    {
-                        setCourseHandle(true);
-                    }
-                    if (response.data.tutorHandleStaffId) 
-                    {
-                        setTutorHandle(true);
-                    }
-                }
-            } 
-            catch (err) {
-                console.log('Error fetching data:', err);
+                setAdmin(true);
+                return;
             }
-        }
+            else 
+            {
+                try 
+                {
+                    const response = await axios.post(`${apiUrl}/api/checkstaffId`, {
+                        staff_id: staffId
+                    })
+
+                    if (response.data) 
+                    {
+                        if (response.data.courseHandleStaffId) {
+                            setCourseHandle(true);
+                        }
+                        if (response.data.tutorHandleStaffId) {
+                            setTutorHandle(true);
+                        }
+                    }
+                } 
+                catch (err) {
+                    console.log('Error fetching data:', err);
+                }
+            }
         }
         checkStaffId();
     }, [staffId]);
 
     const handleCourse = () => {
-        navigate(`/staff/${staffId}/coursestudentoutcome`);
+        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+    }
+
+    const handleTutor = () => {
+        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+    }
+
+    const handleHod = () => {
+        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+    }
+
+    const handleAdmin = () => {
+        // navigate(`/staff/${staffId}/coursestudentoutcome`);
     }
     
     return (
-        <div className='so-main'>
-            <div className="so-layout-top-div">
-                <p className="so-layout-staff-id"><span className="so-staff">Staff Id :</span> {staffId}</p>
+        <div className='co-main'>
+            <div className="co-layout-top-div">
+                <p className="co-layout-staff-id"><span className="co-staff">Staff Id :</span> {staffId}</p>
             </div>
-            <div className="so-content-box">
-                <div className='so-entire-box'>
+            <div className="co-content-box">
+                <div className='co-entire-box'>
                     {courseHandle && (
-                        <button className="" onClick={handleCourse}>
-                            Course Handled
+                        <button className="co-box" onClick={handleCourse}>
+                            Course Report
                         </button>
                     )}
                     {tutorHandle && (
-                        <button className="">
-                            Tutor Handled
+                        <button className="co-box" onClick={handleTutor}>
+                            Tutor Report
+                        </button>
+                    )}
+                    {hodHandle && (
+                        <button className="co-box" onClick={handleHod}>
+                            Hod Report
                         </button>
                     )}
                     {admin && (
-                        <button className="">
-                            Admin
+                        <button className="co-box" onClick={handleAdmin}>
+                            Admin Report
                         </button>
                     )}
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 export default StudentOutcome;

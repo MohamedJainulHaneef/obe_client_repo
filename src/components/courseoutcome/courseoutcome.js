@@ -13,32 +13,28 @@ function CourseOutcome()
     const [hodHandle, setHodHandle] = useState(false);
     const [admin, setAdmin] = useState(false);
     
-
     useEffect(() => 
     {
         const checkStaffId = async () => 
+        {
+            if(staffId === 'ADMIN') {
+                setAdmin(true);
+                return;
+            }
+            else 
             {
-                if(staffId === 'ADMIN')
-                    {
-                        setAdmin(true);
-                        return;
-                    }
-    
-                    else {
                 try 
                 {
                     const response = await axios.post(`${apiUrl}/api/checkstaffId`, {
                         staff_id: staffId
                     })
-    
+
                     if (response.data) 
                     {
-                        if (response.data.courseHandleStaffId) 
-                        {
+                        if (response.data.courseHandleStaffId) {
                             setCourseHandle(true);
                         }
-                        if (response.data.tutorHandleStaffId) 
-                        {
+                        if (response.data.tutorHandleStaffId) {
                             setTutorHandle(true);
                         }
                     }
@@ -47,40 +43,57 @@ function CourseOutcome()
                     console.log('Error fetching data:', err);
                 }
             }
-            }
-            checkStaffId();
-    }, [staffId]);
+        }
+        checkStaffId();
+    }, [staffId])
+
+    const handleCourse = () => {
+        navigate(`/staff/${staffId}/coursesoutcome`);
+    }
 
     const handleTutor = () => {
         navigate(`/staff/${staffId}/tutorcourseoutcome`);
     }
+
+    const handleHod = () => {
+        navigate(`/staff/${staffId}/hodcourseoutcome`);
+    }
+
+    const handleAdmin = () => {
+        navigate(`/staff/${staffId}/admincourseoutcome`);
+    }
     
     return (
-        <div className='so-main'>
-            <div className="so-layout-top-div">
-                <p className="so-layout-staff-id"><span className="so-staff">Staff Id :</span> {staffId}</p>
+        <div className='co-main'>
+            <div className="co-layout-top-div">
+                <p className="co-layout-staff-id"><span className="co-staff">Staff Id :</span> {staffId}</p>
             </div>
-            <div className="so-content-box">
-                <div className='so-entire-box'>
+            <div className="co-content-box">
+                <div className='co-entire-box'>
                     {courseHandle && (
-                        <button className="" >
-                            Course Handled
+                        <button className="co-box" onClick={handleCourse}>
+                            Course Report
                         </button>
                     )}
                     {tutorHandle && (
-                        <button className="" onClick={handleTutor}>
-                            Tutor Handled
+                        <button className="co-box" onClick={handleTutor}>
+                            Tutor Report
+                        </button>
+                    )}
+                    {hodHandle && (
+                        <button className="co-box" onClick={handleHod}>
+                            Hod Report
                         </button>
                     )}
                     {admin && (
-                        <button className="">
-                            Admin Handled
+                        <button className="co-box" onClick={handleAdmin}>
+                            Admin Report
                         </button>
                     )}
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 export default CourseOutcome;

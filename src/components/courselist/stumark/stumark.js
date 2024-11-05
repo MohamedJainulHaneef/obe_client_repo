@@ -32,7 +32,8 @@ function Stumark()
         academicYearSet();
     }, [apiUrl]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         const storedSection = localStorage.getItem("activeSection");
         if (storedSection) {
             setActiveSection(storedSection);

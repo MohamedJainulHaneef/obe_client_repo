@@ -24,7 +24,10 @@ import MarkManage from './components/manage/markmanage/markmanage';
 import TutorReport from './components/tutorreport/tutorreport';
 import TutorStudent from './components/tutorreport/tutorstudent/tutorstudent';
 import CourseStuOC from './components/studentoutcome/handlestuoutcome/handlestuoutcome';
+import CourseCouOC from './components/courseoutcome/handlecououtcome/handlecououtcome';
 import TutorCouOC from './components/courseoutcome/tutorcououtcome/tutorcououtcome';
+import HodCouOC from './components/courseoutcome/hodcououtcome/hodcououtcome';
+import AdminCouOC from './components/courseoutcome//admincououtcome/admincououtcome';
 
 function App() 
 {
@@ -55,7 +58,10 @@ function App()
                         <Route path='courseoutcome' element={<CourseOutcome />} />
                         <Route path='classteacherreport' element={<TutorReport />} />
                         <Route path='coursestudentoutcome' element={<CourseStuOC />} />
+                        <Route path='coursesoutcome' element={<CourseCouOC />} />
                         <Route path='tutorcourseoutcome' element={<TutorCouOC />} />
+                        <Route path='hodcourseoutcome' element={<HodCouOC />} />
+                        <Route path='admincourseoutcome' element={<AdminCouOC />} />
                     </Route>
                 </Routes>
             </Router>
