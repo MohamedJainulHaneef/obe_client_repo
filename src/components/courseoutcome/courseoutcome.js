@@ -17,7 +17,8 @@ function CourseOutcome()
     {
         const checkStaffId = async () => 
         {
-            if(staffId === 'ADMIN') {
+            if(staffId === 'ADMIN' || staffId === 'admin')
+            {
                 setAdmin(true);
                 return;
             }

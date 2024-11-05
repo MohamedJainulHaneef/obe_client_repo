@@ -1,7 +1,6 @@
 * {
     margin: 0px;
     padding: 0px;
-    box-sizing: border-box;
 }
 
 .course-main {
@@ -41,12 +40,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 160px;
+    height: 180px;
     cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
     transition: 0.course-3s;
     background-color: white;
-    letter-spacing: 0.3px;
-    padding: 90px 0px;
+    padding: 100px 10px;
     gap: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;

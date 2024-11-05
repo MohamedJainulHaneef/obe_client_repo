@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-import './tutorcououtcome.css'
+import './tutorcououtcome.css';
+import Loading from '../../../assets/load.svg'
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function TutorCouOutcome() 
@@ -40,9 +41,7 @@ function TutorCouOutcome()
 
     }, [staffId,apiUrl]);
 
-    if (!attainmentData) {
-        return <div>Loading...</div>;
-    }
+    if (!attainmentData) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
 
     return (
         <div className='tco-main'>
