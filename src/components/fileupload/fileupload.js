@@ -151,10 +151,10 @@ function FileUpload() {
                     break;
 
                 case 'hod':
-                    response = await axios.get(`${apiUrl}/api/download/mentor`, {
+                    response = await axios.get(`${apiUrl}/api/download/hod`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mentor Report.xlsx';
+                    fileName = 'Hod Report.xlsx';
                     break;
 
                 default:
