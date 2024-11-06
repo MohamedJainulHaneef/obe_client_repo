@@ -140,24 +140,18 @@ function DeptReport()
         return false;
     })
 
-    const sortedReport = [...filteredReport].sort((a, b) => {
-        // Sort by status (incomplete -> processing -> completed)
+    const sortedReport = [...filteredReport].sort((a, b) => 
+    {
         const statusOrder = getActiveField(a) - getActiveField(b);
         if (statusOrder !== 0) return statusOrder;
-    
-        // Sort by category (aided -> sfm -> sfw)
         const categoryOrder = ['aided', 'sfm', 'sfw'];
         const categoryA = categoryOrder.indexOf(a.category.toLowerCase());
         const categoryB = categoryOrder.indexOf(b.category.toLowerCase());
         if (categoryA !== categoryB) return categoryA - categoryB;
-    
-        // Sort by department name
         const deptNameOrder = a.dept_name.localeCompare(b.dept_name);
         if (deptNameOrder !== 0) return deptNameOrder;
-    
-        // Finally, sort by staff ID
         return a.staff_id.localeCompare(b.staff_id);
-    });
+    })
 
     return (
         <div className='dept-repo-main'>

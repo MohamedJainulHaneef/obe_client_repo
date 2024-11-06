@@ -5,7 +5,7 @@ import Loading from '../../../assets/load.svg'
 
 function MarkRelease() {
     const [originalData, setOriginalData] = useState();
-    const [filteredData, setFilteredData] = useState();    const [l_cia1, setL_cia1] = useState();
+    const [filteredData, setFilteredData] = useState(); const [l_cia1, setL_cia1] = useState();
     const [l_cia2, setL_cia2] = useState();
     const [l_a1, setL_a1] = useState();
     const [l_a2, setL_a2] = useState();
@@ -41,7 +41,7 @@ function MarkRelease() {
 
     const handleSearch = (e) => {
         const searchText = e.target.value.toLowerCase();
-        const filteredList = originalData.filter(item => 
+        const filteredList = originalData.filter(item =>
             item.staff_id.toLowerCase().includes(searchText) ||
             item.staff_name.toLowerCase().includes(searchText) ||
             item.course_code.toLowerCase().includes(searchText)
@@ -69,7 +69,7 @@ function MarkRelease() {
         const data = filteredData[index];
         console.log(data)
         try {
-            const res = await axios.put(`${apiUrl}/api/reportrelease`,data);
+            const res = await axios.put(`${apiUrl}/api/reportrelease`, data);
             if (res) {
                 alert('Release Update Successfully....')
             }
@@ -141,58 +141,58 @@ function MarkRelease() {
                 <table className="release-table">
                     <thead className="release-table-head">
                         {/* <tr className="release-row">
-                            <th className="release-table-header"></th>
-                            <th className="release-table-header"></th>
-                            <th className="release-table-header"></th>
-                            <th className="release-table-header"></th>
-                            <th className="release-table-header"></th>
-                            <th className="release-table-header"></th>
-                            <th className="release-table-header">
-                                <input
-                                    type="checkbox"
-                                    name="l_cia1"
-                                    checked={l_cia1 === 2}
-                                    onChange={handleLockChange}
-                                />
-                            </th>
-                            <th className="release-table-header">
-                                <input
-                                    type="checkbox"
-                                    name="l_cia2"
-                                    checked={l_cia2 === 2}
-                                    onChange={handleLockChange}
-                                />
-                            </th>
-                            <th className="release-table-header">
-                                <input
-                                    type="checkbox"
-                                    name="l_a1"
-                                    checked={l_a1 === 2}
-                                    onChange={handleLockChange}
-                                />
-                            </th>
-                            <th className="release-table-header">
-                                <input
-                                    type="checkbox"
-                                    name="l_a2"
-                                    checked={l_a2 === 2}
-                                    onChange={handleLockChange}
-                                />
-                            </th>
-                            <th className="release-table-header">
-                                <input
-                                    type="checkbox"
-                                    name="l_ese"
-                                    checked={l_ese === 2}
-                                    onChange={handleLockChange}
-                                />
-                            </th>
-                            <th className="release-table-header"> <button
-                                onClick={handleOverAll}
-                                className="row-save-btn">
-                                SAVE
-                            </button></th>
-                        </tr> */}
+<th className="release-table-header"></th>
+<th className="release-table-header"></th>
+<th className="release-table-header"></th>
+<th className="release-table-header"></th>
+<th className="release-table-header"></th>
+<th className="release-table-header"></th>
+<th className="release-table-header">
+<input
+type="checkbox"
+name="l_cia1"
+checked={l_cia1 === 2}
+onChange={handleLockChange}
+/>
+</th>
+<th className="release-table-header">
+<input
+type="checkbox"
+name="l_cia2"
+checked={l_cia2 === 2}
+onChange={handleLockChange}
+/>
+</th>
+<th className="release-table-header">
+<input
+type="checkbox"
+name="l_a1"
+checked={l_a1 === 2}
+onChange={handleLockChange}
+/>
+</th>
+<th className="release-table-header">
+<input
+type="checkbox"
+name="l_a2"
+checked={l_a2 === 2}
+onChange={handleLockChange}
+/>
+</th>
+<th className="release-table-header">
+<input
+type="checkbox"
+name="l_ese"
+checked={l_ese === 2}
+onChange={handleLockChange}
+/>
+</th>
+<th className="release-table-header"> <button
+onClick={handleOverAll}
+className="row-save-btn">
+SAVE
+</button></th>
+</tr> */}
                         <tr>
                             <th className="release-table-header">S. No</th>
                             <th className="release-table-header">Staff ID</th>
@@ -212,56 +212,56 @@ function MarkRelease() {
                     <tbody className="">
                         {filteredData.map((reportItem, index) => (
                             <tr key={reportItem.index} className="release-row">
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {index + 1}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.staff_id}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.staff_name}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.course_id}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.course_code}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.course_title}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.section}
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.cia_1 === 2}
                                         onChange={(e) => handleCheckbox(index, 'cia_1', e.target.checked)}
                                     />
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.cia_2 === 2}
                                         onChange={(e) => handleCheckbox(index, 'cia_2', e.target.checked)}
                                     />
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ass_1 === 2}
                                         onChange={(e) => handleCheckbox(index, 'ass_1', e.target.checked)}
-                                     />
+                                    />
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ass_2 === 2}
                                         onChange={(e) => handleCheckbox(index, 'ass_2', e.target.checked)}
                                     />
                                 </td>
-                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}> 
+                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ese === 2}

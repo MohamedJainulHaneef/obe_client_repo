@@ -59,7 +59,7 @@ function CoursesCouOutcome()
                 </div>
             </div>
             <div className="cco-header-title2">
-                <h3>OUccoME BASED EDUCATION - {academicYear}</h3>
+                <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
             </div>
             <h2 className='cco-heading'>Attainment Levels of Courses</h2>
             <table className='cco-table'>

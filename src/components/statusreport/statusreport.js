@@ -61,7 +61,7 @@ function StatusReport()
 
     const handleMatrixReport = () => 
     {
-            navigate(`/staff/${staffId}/matrixreport`);
+        navigate(`/staff/${staffId}/matrixreport`);
     }
 
     return (

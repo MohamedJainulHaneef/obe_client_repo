@@ -56,7 +56,7 @@ function AdminCouOutcome()
                 </div>
             </div>
             <div className="aco-header-title2">
-                <h3>OUacoME BASED EDUCATION - {academicYear}</h3>
+                <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
             </div>
             <h2 className='aco-heading'>Attainment Levels of Courses</h2>
             <table className='aco-table'>
