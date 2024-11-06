@@ -17,7 +17,7 @@ function CourseOutcome()
     {
         const checkStaffId = async () => 
         {
-            if(staffId === 'ADMIN' || staffId === 'admin')
+            if(staffId === 'ADMIN' || staffId === 'admin' || staffId === 'Admin' )
             {
                 setAdmin(true);
                 return;
@@ -26,7 +26,7 @@ function CourseOutcome()
             {
                 try 
                 {
-                    const response = await axios.post(`${apiUrl}/api/checkstaffId`, {
+                    const response = await axios.post(`${apiUrl}/api/chkstaffId`, {
                         staff_id: staffId
                     })
 
@@ -37,6 +37,9 @@ function CourseOutcome()
                         }
                         if (response.data.tutorHandleStaffId) {
                             setTutorHandle(true);
+                        }
+                        if (response.data.hodHandleStaffId) {
+                            setHodHandle(true);
                         }
                     }
                 } 

@@ -180,7 +180,7 @@ function FileUpload()
     }
 
     return (
-        <div className='file-wrapper'>
+        <div className='file-wrapper'> 
             <div>
                 <h2>FILE UPLOADS</h2>
             </div>

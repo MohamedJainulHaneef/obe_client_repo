@@ -290,7 +290,12 @@ function MarkManage() {
                         </tr>
                         
                         {/* Individual input boxes for CIA weightage */}
-                        <tr>
+                        
+                    </tbody>
+                </table>
+                <button className="mark-mng-button" onClick={handlesavecia}>Save</button>
+                <div>
+                
                         <td className='mark-mng-td'>WEIGHTAGE</td>
                         <td className='mark-mng-td'>
                                 <input
@@ -308,12 +313,7 @@ function MarkManage() {
                                     onChange={e => handleChange(e, 'maxEse', 'weightage')}
                                 />
                         </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button className="mark-mng-button" onClick={handlesavecia}>Save</button>
-                
-
+                        </div>
 
                 {/* Individual input boxes for levels */}
                 <table className="mark-mng-table">

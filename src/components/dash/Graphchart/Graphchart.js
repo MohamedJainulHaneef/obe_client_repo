@@ -5,8 +5,8 @@ import { Chart as ChartJS, CategoryScale, RadialLinearScale, PointElement, LineE
 
 ChartJS.register(CategoryScale, RadialLinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const RadarChart = () => {
-    
+const RadarChart = () => 
+{
     const data = 
     {
         labels: ['UG Arts', 'UG Science', 'PG Arts', 'PG Science', 'Overall'],
@@ -50,7 +50,8 @@ const RadarChart = () => {
     const options = 
     {
         responsive: true,
-        plugins: {
+        plugins: 
+        {
             legend: {
                 display: true,
                 position: 'top',
@@ -60,7 +61,8 @@ const RadarChart = () => {
                 text: 'UG and PG Programme Outcomes (Radar Chart)',
             },
         },
-        scales: {
+        scales: 
+        {
             r: { 
                 beginAtZero: true, 
                 angleLines: {

@@ -7,57 +7,67 @@ import axios from 'axios';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-const Piechart2 = () => {
+const Piechart2 = () => 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
     const [chartData, setChartData] = useState({ labels: [], datasets: [] });
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
+    useEffect(() => 
+    {
+        const fetchData = async () => 
+        {
             setLoading(true);
-            try {
+            try 
+            {
                 const response = await axios.get(`${apiUrl}/api/staffpiechart`);
                 const result = response.data;
 
                 const data = result.data.map(item => item.count);
-                const total = data.reduce((acc, curr) => acc + curr, 0); // Total for percentage calculation
+                const total = data.reduce((acc, curr) => acc + curr, 0); 
 
-                setChartData({
+                setChartData(
+                {
                     labels:[`AIDED - ${result.aided}`,`SFM - ${result.sfm}`, `SFW - ${result.sfw}`],
                     datasets: [
                         {
                             data,
                             backgroundColor: [
-                                'rgb(10, 161, 116)',    // Soft teal
-                                'rgb(224, 5, 5)',    // Soft coral
-                                'rgb(146, 0, 236)',    // Soft slate blue
+                                'rgb(10, 161, 116)',    
+                                'rgb(224, 5, 5)',    
+                                'rgb(146, 0, 236)',    
                             ],
                             hoverBackgroundColor: [
-                                'rgb(11, 110, 81)',     // Hover brighter teal
-                                'rgb(202, 7, 7)',     // Hover brighter coral
-                                'rgb(108, 7, 172)',     // Hover brighter slate blue
+                                'rgb(11, 110, 81)',     
+                                'rgb(202, 7, 7)',     
+                                'rgb(108, 7, 172)',     
                             ],
                             borderColor: 'rgba(255, 255, 255, 1)',
                             borderWidth: 2,
                         },
                     ],
-                });
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
+                })
+            } 
+            catch (error) {
+                console.error('Error Fetching Data :', error);
+            } 
+            finally {
                 setLoading(false);
             }
-        };
-
+        }
         fetchData();
     }, [apiUrl]);
 
-    const options = {
-        plugins: {
-            legend: {
+    const options = 
+    {
+        plugins: 
+        {
+            legend: 
+            {
                 display: true,
                 position: 'bottom',
-                labels: {
+                labels: 
+                {
                     color: '#333',
                     font: {
                         size: 17,
@@ -67,14 +77,16 @@ const Piechart2 = () => {
                     boxHeight: 20,
                 },
             },
-            tooltip: {
+            tooltip: 
+            {
                 callbacks: {
                     label: function (tooltipItem) {
                         return `${tooltipItem.label}: ${tooltipItem.raw}`; // Show count
                     },
                 },
             },
-            datalabels: {
+            datalabels: 
+            {
                 color: '#fff',
                 font: {
                     size: 15,
@@ -89,14 +101,14 @@ const Piechart2 = () => {
         },
         responsive: true,
         maintainAspectRatio: true,
-    };
+    }
 
     return (
         <div style={{ width: '350px', height: '350px', margin: '20px' }}>
             <h3 className='pie-heading'>STAFF</h3>
             {loading ? <p>Loading...</p> : <Pie data={chartData} options={options} />}
         </div>
-    );
-};
+    )
+}
 
 export default Piechart2;

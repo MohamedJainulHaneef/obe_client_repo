@@ -1,13 +1,14 @@
 .release-main {
     width: 100%;
-    /* margin: 20px auto; */
     padding: 10px;
-    /* font-family: Arial, sans-serif; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
 }
 
 .release-top-heading {
     text-align: center;
-    margin-top: 5px;
     font-size: 25px;
     font-weight: 700;
     letter-spacing: 1px;
@@ -19,7 +20,6 @@
 .release-input-btn {
     display: flex;
     justify-content: space-between;
-    /* margin-bottom: 15px; */
 }
 
 .release-search {
@@ -53,10 +53,34 @@
     overflow-x: auto;
 }
 
+input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+.img {
+    width: 180px;
+    height: 180px;
+    margin: auto;
+}
+
+.release-table-head tr th {
+    background-color: #057252;
+    text-align: center;
+    color: white;
+    top: 0;
+    z-index: 10;
+    padding: 10px;
+    height: 70PX;
+}
+
+.release-row td {
+    padding: 5px 8px;
+    font-size: 15px;
+}
+
 .release-table {
     width: 100%;
     border-collapse: collapse;
-    text-align: left;
 }
 
 .row-save-btn {
@@ -74,8 +98,14 @@
 
 .release-table th,
 .release-table td {
-    /* padding: 10px; */
     border: 1px solid #ddd;
+}
+
+.release-table td {
+   height: 80px;
+   text-transform: uppercase;
+   text-align: center;
+   font-weight: bold;
 }
 
 .release-table-head th {
@@ -86,9 +116,9 @@
 
 .release-row td {
     text-align: center;
-    /* padding: 15px; */
 
 }
+
 .release-table input[type="checkbox"] {
     transform: scale(1.6); 
     margin: 0 5px; 
@@ -100,33 +130,4 @@
 
 .release-light {
     background-color: #fff;
-}
-
-input[type="checkbox"] {
-    transform: scale(1.2);
-}
-
-.img {
-    width: 180px;
-    height: 180px;
-    margin: auto;
-}
-
-.release-table-head tr th {
-    background-color: #057252;
-    text-align: center;
-    /* position: sticky; */
-    color: white;
-    top: 0;
-    z-index: 10;
-    padding: 10px 8px;
-
-    /* padding: 10px; */
-}
-
-.release-row td {
-   
-    padding: 13px 8px;
-
-    /* padding: 10px; */
 }

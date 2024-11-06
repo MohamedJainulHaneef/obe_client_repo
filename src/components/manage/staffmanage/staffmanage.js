@@ -126,6 +126,7 @@ function StaffManage()
         const searchText = e.target.value.toLowerCase();
         const filterList = staffData.filter((staff) =>
             staff.staff_id.toLowerCase().includes(searchText) ||
+            staff.staff_dept.toLowerCase().includes(searchText) ||
             staff.staff_name.toLowerCase().includes(searchText)
         )
         setFilteredData(filterList);
@@ -467,16 +468,18 @@ function StaffManage()
                             <th className="staff-th-sno">S. No.</th>
                             <th className="staff-th-id">Staff Id</th>
                             <th className="staff-th-name">Staff Name</th>
+                            <th className="staff-th-name">Dept Name</th>
                             <th className="staff-th-edit">Edit</th>
                             <th className="staff-th-delete">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredData.map((staff, index) => (
-                            <tr key={index} className="staff-map-row">
+                            <tr key={index} className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
                                 <td className="staff-td-sno">{index + 1}</td>
                                 <td className="staff-td-id">{staff.staff_id}</td>
                                 <td className="staff-td-name">{staff.staff_name}</td>
+                                <td className="staff-td-name">{staff.staff_dept}</td>
                                 <td className="staff-td-edit">
                                     <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="staff-edit-btn">
                                         <span className="staff-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="staff-icon" /></span>

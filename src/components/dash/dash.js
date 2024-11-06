@@ -31,7 +31,7 @@ function Dash()
         catch (error) {
             console.error('Error fetching counts:', error);
         }
-    };
+    }
 
     const animateCount = (setCount, targetCount, initialCount = 0, duration = 1000) => 
     {

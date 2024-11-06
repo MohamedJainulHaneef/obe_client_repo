@@ -129,6 +129,7 @@ function DeptReport()
         dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
         dept.staff_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
         dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        dept.dept_name.toLowerCase().includes(searchTerm.toLowerCase());
         dept.category.toLowerCase().includes(searchTerm.toLowerCase());
 
         if (!matchesSearch) return false;
@@ -240,15 +241,21 @@ function DeptReport()
                 </thead>
                 <tbody>
                     {sortedReport.map((dept, index) => (
-                        <tr key={index} className="staff-map-row">
+                        <tr 
+                            key={index} 
+                            className={index % 2 === 0 ? 'dept-repo-light' : 'dept-repo-dark'}
+                        >
                             <td className="dept-repo-content">{index + 1}</td>
                             <td className="dept-repo-content">{dept.staff_id}</td>
                             <td className="dept-repo-content-sn">{dept.staff_name}</td>
-                            <td className="dept-repo-content">{dept.dept_name}</td>
+                            <td className="dept-repo-content-dn">{dept.dept_name}</td>
                             <td className="dept-repo-content">{dept.course_code}</td>
                             <td className="dept-repo-content">{dept.category}</td>
                             <td className="dept-repo-content">{dept.section}</td>
-                            <td className="dept-repo-content" style={getStatusColor(getActiveField(dept))}>
+                            <td 
+                                className="dept-repo-content-sr" 
+                                style={getStatusColor(getActiveField(dept))}
+                            >
                                 {getStatus(getActiveField(dept))}
                             </td>                             
                         </tr>

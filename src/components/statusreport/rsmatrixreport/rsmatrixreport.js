@@ -169,7 +169,7 @@ function MatrixReport()
                 </thead>
                 <tbody>
                     {filteredReports.map((matrix, index) => (
-                        <tr key={index} className="staff-map-row">
+                        <tr key={index} className={index % 2 === 0 ? 'rsm-repo-light' : 'rsm-repo-dark'}>
                             <td className="rsm-repo-content">{index + 1}</td>
                             <td className="rsm-repo-content">{matrix.staff_id}</td>
                             <td className="rsm-repo-content-sn">{matrix.staff_name}</td>

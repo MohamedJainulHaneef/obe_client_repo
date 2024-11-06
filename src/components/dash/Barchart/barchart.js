@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './barchart.css';
 
-const ProgressBar = () => {
+const ProgressBar = () => 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
     const [componentReport, setComponentReport] = useState({});
     const [cia1, setCia1] = useState(0);
@@ -11,17 +12,17 @@ const ProgressBar = () => {
     const [ass2, setAss2] = useState(0);
     const [ese, setEse] = useState(0);
 
-    useEffect(() => {
-        const fetchProgress = async () => {
-            try {
+    useEffect(() => 
+    {
+        const fetchProgress = async () => 
+        {
+            try 
+            {
                 const response = await axios.post(`${apiUrl}/api/componentreport`, {});
                 const responseData = response.data;
-                // console.log(responseData.totalCount);
                 setComponentReport(responseData);
+                const totalCount = responseData.totalCount; 
 
-                const totalCount = responseData.totalCount; // Update this to your actual total courses count
-
-                // Calculate the percentages based on the total count of courses
                 const cia1Percentage = parseInt((responseData.cia_1 / totalCount) * 100);
                 const cia2Percentage = parseInt((responseData.cia_2 / totalCount) * 100);
                 const ass1Percentage = parseInt((responseData.ass_1 / totalCount) * 100);
@@ -33,11 +34,12 @@ const ProgressBar = () => {
                 setAss1(ass1Percentage);
                 setAss2(ass2Percentage);
                 setEse(esePercentage);
-            } catch (err) {
-                alert('Error fetching status report.');
-                console.log('Error fetching data:', err);
+            } 
+            catch (err) {
+                alert('Error Fetching Status Report.');
+                console.log('Error Fetching Data:', err);
             }
-        };
+        }
         fetchProgress();
     }, []);
 
@@ -89,7 +91,7 @@ const ProgressBar = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default ProgressBar;

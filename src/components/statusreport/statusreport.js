@@ -69,7 +69,7 @@ function StatusReport()
             <div className='report-entire-wrapper'>
                 <div className='report-entire-content'>
                     <button className='report-btn' onClick={() => handleDeptReport("ALL")}>ALL</button>
-                    <button className='report-btn' onClick={handleMatrixReport}>RS MATRIX</button>
+                    <button className='report-btn' onClick={handleMatrixReport}>MATRIX</button>
                     {reportDeptName.map((dept, index) => (
                         <button key={index} className='report-btn' onClick={() => handleDeptReport(dept)}>{dept}</button>
                     ))}

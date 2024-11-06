@@ -256,7 +256,6 @@ function Rsmatrix()
                                 </div>
                                 <p><strong>COURSE CODE :</strong></p>
                                 <p>{item.course_code}</p>
-                                
                             </div>
                         ))
                     ) : (
