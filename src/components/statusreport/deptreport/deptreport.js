@@ -225,7 +225,7 @@ function DeptReport()
                         <th className="dept-repo-heading">S. No.</th>
                         <th className="dept-repo-heading">Staff Id</th>
                         <th className="dept-repo-heading">Staff Name</th>
-                        <th className="dept-repo-heading">Dept Id</th>
+                        <th className="dept-repo-heading">Dept Name</th>
                         <th className="dept-repo-heading">Course Code</th>
                         <th className="dept-repo-heading">Category</th>
                         <th className="dept-repo-heading">Section</th>
@@ -238,7 +238,7 @@ function DeptReport()
                             <td className="dept-repo-content">{index + 1}</td>
                             <td className="dept-repo-content">{dept.staff_id}</td>
                             <td className="dept-repo-content-sn">{dept.staff_name}</td>
-                            <td className="dept-repo-content">{dept.course_id}</td>
+                            <td className="dept-repo-content">{dept.dept_name}</td>
                             <td className="dept-repo-content">{dept.course_code}</td>
 
                             <td className="dept-repo-content">{dept.category}</td>

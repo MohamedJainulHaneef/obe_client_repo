@@ -165,7 +165,7 @@ function Stumark()
         }
         else if (activeSection === '5') 
         {
-            return active?.ese === 2;
+            return active?.ese === 0;
         }
         return false;
     };

@@ -199,6 +199,7 @@ function MarkRelease() {
                             <th className="release-table-header">Staff Name</th>
                             <th className="release-table-header">Dept ID</th>
                             <th className="release-table-header">Course Code</th>
+                            <th className="release-table-header">Course Title</th>
                             <th className="release-table-header">Section</th>
                             <th className="release-table-header">CIA 1</th>
                             <th className="release-table-header">CIA 2</th>
@@ -225,6 +226,9 @@ function MarkRelease() {
                                 </td>
                                 <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.course_code}
+                                </td>
+                                <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                    {reportItem.course_title}
                                 </td>
                                 <td  className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     {reportItem.section}
