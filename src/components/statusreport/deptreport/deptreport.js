@@ -240,7 +240,6 @@ function DeptReport()
                             <td className="dept-repo-content-sn">{dept.staff_name}</td>
                             <td className="dept-repo-content">{dept.dept_name}</td>
                             <td className="dept-repo-content">{dept.course_code}</td>
-
                             <td className="dept-repo-content">{dept.category}</td>
                             <td className="dept-repo-content">{dept.section}</td>
                             <td className="dept-repo-content" style={getStatusColor(getActiveField(dept))}>
