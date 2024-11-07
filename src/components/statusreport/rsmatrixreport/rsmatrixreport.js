@@ -8,6 +8,8 @@ function MatrixReport()
     const [academicYear, setAcademicYear] = useState('');
     const [allMatrixReport, setAllMatrixReport] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [courseCount, setCourseCount] = useState('');
+    const [comCount, setComCount] = useState('');
     const [filter, setFilter] = useState({
         all: true,
         incomplete: true,
@@ -43,12 +45,35 @@ function MatrixReport()
                     setAllMatrixReport(response.data);
                 } 
                 catch (err) {
-                    alert('Error fetching status report.');
-                    console.log('Error fetching data:', err);
+                    alert('Error Fetching Status Report');
+                    console.log('Error Fetching Data:', err);
                 }
             }
         }
         fetchMatrixReport();
+
+        const matrixCompletedCount = async () => 
+        {
+            if (academicYear) 
+            {
+                try 
+                {
+                    const response = await axios.post(`${apiUrl}/api/matrixcount`, {
+                        academic_year: academicYear,
+                    })
+                    if (response.data) 
+                    {
+                        setCourseCount(response.data.uniqueCourseCount);
+                        setComCount(response.data.completeCount);
+                    }
+                } 
+                catch (err) {
+                    alert('Error Fetching Status Report.');
+                    console.log('Error Fetching Data:', err);
+                }
+            }
+        }
+        matrixCompletedCount();
     }, [academicYear])
 
     const handleFilterChange = (event) => 
@@ -152,6 +177,9 @@ function MatrixReport()
                         {filteredReports.filter(matrix => matrix.status === 'Completed').length}
                         )
                     </label>
+                </div>
+                <div className='rsm-repo-com-status'>
+                    <b>No of Course Codes Completed : </b>{comCount} / {courseCount}
                 </div>
             </div>
             <table className="rsm-repo-header">
