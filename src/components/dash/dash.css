@@ -65,7 +65,9 @@
     width: 100%;
     padding: 15px;
     border: 2px solid black;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+    display: flex;
+    justify-content: space-evenly;
+    /* display: grid;
+    grid-template-columns: repeat(3,1fr); */
     padding-bottom: 35px;
 }
