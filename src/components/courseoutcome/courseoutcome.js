@@ -81,7 +81,7 @@ function CourseOutcome()
                     )}
                     {tutorHandle && (
                         <button className="co-box" onClick={handleTutor}>
-                            Tutor Report
+                            Mentor Report
                         </button>
                     )}
                     {hodHandle && (
