@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import './deptreport.css';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 function DeptReport() 
 {
@@ -17,6 +19,7 @@ function DeptReport()
         completed: true
     });
     const [searchTerm, setSearchTerm] = useState('');
+    
 
     useEffect(() => 
     {
@@ -154,6 +157,55 @@ function DeptReport()
         return a.staff_id.localeCompare(b.staff_id);
     })
 
+   const handleDownload = () => {
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+    const fileName = 'Dept_Report';
+
+    const headers = [
+        'Staff Id', 
+        'Staff Name', 
+        'Dept Name', 
+        'Course Code', 
+        'Category', 
+        'Section',
+        'CIA - 1', 
+        // 'Status - CIA 1',
+        'CIA - 2', 
+        // 'Status - CIA 2',
+        'ASS - 1', 
+        // 'Status - ASS 1',
+        'ASS - 2', 
+        // 'Status - ASS 2',
+        'ESE', 
+        // 'Status - ESE'
+    ];
+
+    const dataWithHeaders = [headers, ...deptStatusReport.map(dept => [
+        dept.staff_id,
+        dept.staff_name,
+        dept.dept_name,
+        dept.course_code,
+        dept.category,
+        dept.section,
+        // dept.cia_1, 
+        getStatus(dept.cia_1),
+        // dept.cia_2, 
+        getStatus(dept.cia_2),
+        // dept.ass_1, 
+        getStatus(dept.ass_1),
+        // dept.ass_2, 
+        getStatus(dept.ass_2),
+        // dept.ese, 
+        getStatus(dept.ese)
+    ])];
+    const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    saveAs(data, fileName + fileExtension);
+};
+
     return (
         <div className='dept-repo-main'>
              <select
@@ -224,7 +276,7 @@ function DeptReport()
                         )
                     </label>
                 </div>
-                <button className='dept-repo-btn'>Download Excel</button>
+                <button className='dept-repo-btn' onClick={handleDownload}>Download Excel</button>
             </div>
             <table className="dept-repo-header">
                 <thead>

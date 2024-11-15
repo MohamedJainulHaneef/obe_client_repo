@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './rsmatrixreport.css';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 
 function MatrixReport() 
 {
@@ -132,6 +135,38 @@ function MatrixReport()
         return false;
     })
 
+    const handleDownload = () => {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const fileName = 'RSMatrix_Report';
+    
+        const headers = [
+            'Staff Id', 
+            'Staff Name', 
+            'Dept Id', 
+            'Course Code', 
+            'Category', 
+            'Section',
+            'Status', 
+            
+        ];
+        const dataWithHeaders = [headers, ...allMatrixReport.map(dept => [
+            dept.staff_id,
+            dept.staff_name,
+            dept.course_id,
+            dept.course_code,
+            dept.category,
+            dept.section,
+            dept.status,
+        ])];
+    
+        const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: fileType });
+        saveAs(data, fileName + fileExtension);
+    };
+
     return (
         <div className='rsm-repo-main'>
             <div className='rsm-repo-search'>
@@ -181,6 +216,7 @@ function MatrixReport()
                 <div className='rsm-repo-com-status'>
                     <b>No of Course Codes Completed : </b>{comCount} / {courseCount}
                 </div>
+                <button className='dept-repo-btn' onClick={handleDownload}>Download Excel</button>
             </div>
             <table className="rsm-repo-header">
                 <thead>
