@@ -170,35 +170,31 @@ function DeptReport()
         'Category', 
         'Section',
         'CIA - 1', 
-        // 'Status - CIA 1',
         'CIA - 2', 
-        // 'Status - CIA 2',
         'ASS - 1', 
-        // 'Status - ASS 1',
         'ASS - 2', 
-        // 'Status - ASS 2',
-        'ESE', 
-        // 'Status - ESE'
+        'Status', 
     ];
 
-    const dataWithHeaders = [headers, ...deptStatusReport.map(dept => [
-        dept.staff_id,
-        dept.staff_name,
-        dept.dept_name,
-        dept.course_code,
-        dept.category,
-        dept.section,
-        // dept.cia_1, 
-        getStatus(dept.cia_1),
-        // dept.cia_2, 
-        getStatus(dept.cia_2),
-        // dept.ass_1, 
-        getStatus(dept.ass_1),
-        // dept.ass_2, 
-        getStatus(dept.ass_2),
-        // dept.ese, 
-        getStatus(dept.ese)
-    ])];
+    const dataWithHeaders = [headers, ...deptStatusReport.map(dept => {
+        const status = ['cia_1', 'cia_2', 'ass_1', 'ass_2'].every(key => getStatus(dept[key]) === 'Completed') 
+        ? 'Finished' 
+        : 'Pending';
+
+        return [
+            dept.staff_id,
+            dept.staff_name,
+            dept.dept_name,
+            dept.course_code,
+            dept.category,
+            dept.section, 
+            getStatus(dept.cia_1),
+            getStatus(dept.cia_2),
+            getStatus(dept.ass_1),
+            getStatus(dept.ass_2),
+            status, 
+        ];
+   })];
     const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
     const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
