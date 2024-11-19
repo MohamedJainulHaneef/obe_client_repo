@@ -35,7 +35,7 @@ h2 {
 
 input[type="file"] {
 	background-color:white;
-	width: 35%;
+	width: 28%;
 	border-radius: 5px; 
 	border: 2px solid gray; 
 	padding: 12px;
@@ -46,7 +46,7 @@ input[type="file"] {
 
 .file-container {
 	display: flex;
-	gap: 40px;
+	gap: 20px;
 }
 
 .file-upload-btn {
@@ -58,7 +58,7 @@ input[type="file"] {
 	color: white;
 	font-size: 16px;
 	font-weight: bold;
-	padding: 16px;
+	padding: 16px 10px;
 	margin-top: 20px;
 }
 
@@ -71,7 +71,20 @@ input[type="file"] {
 	color: white;
 	font-size: 16px;
 	font-weight: bold;
-	padding: 16px;
+	padding: 16px 10px;
+	margin-top: 20px;
+}
+
+.file-model-btn {
+	background-color:#690da7d5;
+	height: 10%;
+	width: 25%;
+	border-radius: 5px; 
+	border: 2px solid #ddd; 
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 16px 10px;
 	margin-top: 20px;
 }
 

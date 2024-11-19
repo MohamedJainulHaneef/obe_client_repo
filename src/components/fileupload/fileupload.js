@@ -191,46 +191,55 @@ function FileUpload()
                         <input type='file' name='file2' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file2, 'staffmaster')}>Upload Staff Master</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'staff')}>Download Staff Master</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'staff')}>Staff Master Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file3' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file3, 'studentmaster')}>Upload Student Master</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'studentmaster')}>Download Student Master</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'studentmaster')}>Student Master Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file1' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file1, 'coursemapping')}>Upload Course Mapping</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'coursemap')}>Download Course Mapping</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'coursemap')}>Course Mapping Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file5' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file5, 'markentry')}>Upload Mark Entry</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'mark')}>Download Mark Entry</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'mark')}>Mark Entry Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file4' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file4, 'scope')}>Upload Scope</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'scope')}>Download Scope</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'scope')}>Scope Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file6' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file6, 'ese')}>Upload ESE Mark</button>
-                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'ese')}>Download ESE Mark </button>
+                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'ese')}>Download ESE Mark</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'ese')}>ESE Mark Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file7' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file7, 'report')}>Upload Report</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'report')}>Download Report</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'report')}>Report Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file8' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file8, 'mentor')}>Upload Mentor</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'mentor')}>Download Mentor</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'mentor')}>Mentor Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file9' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file9, 'hod')}>Upload Hod</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'hod')}>Download Hod</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'hod')}>Hod Model</button>
                     </div>
                 </div>
             </div>
