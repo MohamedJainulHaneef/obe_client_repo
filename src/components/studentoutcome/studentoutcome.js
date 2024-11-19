@@ -61,7 +61,7 @@ function StudentOutcome()
     }
 
     const handleAdmin = () => {
-        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+        navigate(`/staff/${staffId}/adminstudentoutcome`);
     }
     
     return (
