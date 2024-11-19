@@ -98,6 +98,11 @@ input[type="file"] {
 	cursor: pointer;
 }
 
+.file-model-btn:hover {
+	background-color:#3f0764d5;
+	cursor: pointer;
+}
+
 .file-loading-modal {
     position: fixed;
     top: 0;

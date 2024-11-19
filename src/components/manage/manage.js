@@ -67,7 +67,7 @@ function Manage()
     };
 
     const handleCourseMapManage = () => {
-        // navigate(`/staff/${staffId}/staffcoursemapmanage`);
+        navigate(`/staff/${staffId}/staffcoursemapmanage`);
     };
     
     const handleStudentManage = () => {

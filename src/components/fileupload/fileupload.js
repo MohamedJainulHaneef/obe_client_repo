@@ -106,18 +106,40 @@ function FileUpload()
                     fileName = 'Course Mapping Data.xlsx';
                     break;
 
+                case 'coursemapmodel':
+                    response = await axios.get(`${apiUrl}/api/download/coursemapmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Course Mapping Model.xlsx';
+                    break;
+
                 case 'staff':
                     response = await axios.get(`${apiUrl}/api/download/staff`, {
                         responseType: 'blob',
                     });
                     fileName = 'Staff Master Data.xlsx';
                     break;
+                
+                case 'staffmodel':
+                    response = await axios.get(`${apiUrl}/api/download/staffmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Staff Master Model.xlsx';
+                    break;
+                
 
                 case 'studentmaster':
                     response = await axios.get(`${apiUrl}/api/download/studentmaster`, {
                         responseType: 'blob',
                     });
                     fileName = 'Student Master Data.xlsx';
+                    break;
+
+                case 'studentmastermodel':
+                    response = await axios.get(`${apiUrl}/api/download/studentmastermodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Student Master Model.xlsx';
                     break;
 
                 case 'scope':
@@ -127,11 +149,25 @@ function FileUpload()
                     fileName = 'Scope Data.xlsx';
                     break;
 
+                case 'scopemodel':
+                    response = await axios.get(`${apiUrl}/api/download/scopemodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Scope Model.xlsx';
+                    break;
+    
                 case 'mark':
                     response = await axios.get(`${apiUrl}/api/download/mark`, {
                         responseType: 'blob',
                     });
                     fileName = 'Mark Entry Data.xlsx';
+                    break;
+
+                case 'markmodel':
+                    response = await axios.get(`${apiUrl}/api/download/markmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Mark Entry Model.xlsx';
                     break;
 
                 case 'ese':
@@ -141,11 +177,25 @@ function FileUpload()
                     fileName = 'ESE Mark Entry Data.xlsx';
                     break;
 
+                case 'esemodel':
+                    response = await axios.get(`${apiUrl}/api/download/esemodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'ESE Mark Entry Model.xlsx';
+                    break;
+
                 case 'report':
                     response = await axios.get(`${apiUrl}/api/download/report`, {
                         responseType: 'blob',
                     });
                     fileName = 'Status Report.xlsx';
+                    break;
+
+                case 'reportmodel':
+                    response = await axios.get(`${apiUrl}/api/download/reportmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Status Report Model.xlsx';
                     break;
 
                 case 'mentor':
@@ -155,11 +205,25 @@ function FileUpload()
                     fileName = 'Mentor Report.xlsx';
                     break;
 
+                case 'mentormodel':
+                    response = await axios.get(`${apiUrl}/api/download/mentormodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Mentor Report Model.xlsx';
+                    break;
+
                 case 'hod':
                     response = await axios.get(`${apiUrl}/api/download/hod`, {
                         responseType: 'blob',
                     });
                     fileName = 'Hod Report.xlsx';
+                    break;
+                
+                case 'hodmodel':
+                    response = await axios.get(`${apiUrl}/api/download/hodmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Hod Report Model.xlsx';
                     break;
 
                 default:
@@ -191,55 +255,55 @@ function FileUpload()
                         <input type='file' name='file2' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file2, 'staffmaster')}>Upload Staff Master</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'staff')}>Download Staff Master</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'staff')}>Staff Master Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'staffmodel')}>Staff Master Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file3' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file3, 'studentmaster')}>Upload Student Master</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'studentmaster')}>Download Student Master</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'studentmaster')}>Student Master Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'studentmastermodel')}>Student Master Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file1' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file1, 'coursemapping')}>Upload Course Mapping</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'coursemap')}>Download Course Mapping</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'coursemap')}>Course Mapping Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'coursemapmodel')}>Course Mapping Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file5' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file5, 'markentry')}>Upload Mark Entry</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'mark')}>Download Mark Entry</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'mark')}>Mark Entry Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'markmodel')}>Mark Entry Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file4' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file4, 'scope')}>Upload Scope</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'scope')}>Download Scope</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'scope')}>Scope Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'scopemodel')}>Scope Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file6' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file6, 'ese')}>Upload ESE Mark</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'ese')}>Download ESE Mark</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'ese')}>ESE Mark Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'esemodel')}>ESE Mark Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file7' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file7, 'report')}>Upload Report</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'report')}>Download Report</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'report')}>Report Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'reportmodel')}>Report Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file8' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file8, 'mentor')}>Upload Mentor</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'mentor')}>Download Mentor</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'mentor')}>Mentor Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'mentormodel')}>Mentor Model</button>
                     </div>
                     <div className='file-container'>
                         <input type='file' name='file9' onChange={handleFileChange} />
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file9, 'hod')}>Upload Hod</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'hod')}>Download Hod</button>
-                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'hod')}>Hod Model</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'hodmodel')}>Hod Model</button>
                     </div>
                 </div>
             </div>
