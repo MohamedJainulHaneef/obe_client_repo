@@ -1,0 +1,303 @@
+* {
+     margin: 0px;
+     padding: 0px;
+}
+
+.sm-manage {
+     padding: 10px;
+     width: 100%;
+     text-align: center;
+}
+
+.sm-search {
+     width: 270px;
+     height: 45px;
+     padding: 15px;
+     border-radius: 7px;
+     font-size: 17px;
+     font-weight: 500;
+     background-color: rgb(250, 250, 254);
+     border: 2px solid black;
+}
+
+.sm-header {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 12px;
+     font-size: 16px;
+     text-align: left;
+}
+
+.sm-top-heading {
+     text-align: center;
+     margin-top: 5px;
+     font-size: 25px;
+     font-weight: 700;
+     letter-spacing: 1px;
+     word-spacing: 2px;
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.sm-th-sno,
+.sm-th-id,
+.sm-th-name,
+.sm-th-edit,
+.sm-th-delete {
+     background-color: #1c8163;
+     text-align: center;
+     font-size: 19px;
+     color: white;
+     border: 1px solid gray;
+     padding: 7px;
+     height: 65px;
+     font-weight: bold;
+     border-color: black;
+}
+
+.sm-td-sno,
+.sm-td-id,
+.sm-td-edit,
+.sm-td-delete,
+.sm-td-name {
+     text-align: center;
+     font-size: 16px;
+     border: 1px solid gray;
+     padding: 10px 13px;
+     font-weight: bold;
+     text-transform: uppercase;
+}
+
+.sm-icon {
+     font-size: 16px;
+     color: white;
+}
+
+.sm-span {
+     font-size: 16px;
+}
+
+.sm-save-btn {
+     padding: 12px;
+     border-radius: 10px;
+     width: 120px;
+     font-size: 18px;
+     font-weight: 700;
+     background-color: #007BFF;
+     color: white;
+     margin-left: 10px;
+     cursor: pointer;
+}
+
+.sm-input-btn {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-top: 15px;
+}
+
+.sm-addstaff,
+.sm-edit,
+.sm-delete {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background-color: azure;
+     border-radius: 8px;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     z-index: 1000;
+}
+
+.sm-addstaff {
+     padding: 20px;
+     width: 550px;
+     height: 630px;
+}
+
+.sm-edit {
+     padding: 25px;
+     width: 500px;
+     height: 510px;
+}
+
+.sm-edit input {
+     width: 100%;
+}
+
+.sm-edit-psw {
+     display: flex;
+     gap: 20px;
+}
+
+.sm-edit-span {
+     text-align: left;
+}
+
+.sm-delete {
+     padding: 20px;
+     width: 400px;
+     height: 275px;
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+}
+
+.sm-delete-btn-container {
+     display: flex;
+     justify-content: center;
+     padding: 30px;
+     gap: 30px;
+}
+
+.sm-close-class {
+     display: flex;
+     justify-content: flex-end;
+     margin-bottom: 20px;
+}
+
+.sm-close-header {
+     width: 90%;
+     font-size: 25px;
+     font-weight: bolder;
+}
+
+.sm-close {
+     background: none;
+     border: none;
+     font-size: 20px;
+     cursor: pointer;
+     padding: 5px 8px;
+}
+
+.sm-inputs,
+.sm-edit-inputbox {
+     width: 100%;
+     padding: 10px;
+     height: 43px;
+     margin-bottom: 17px;
+     border: .5px solid rgb(48, 47, 47);
+     border-radius: 4px;
+     font-size: 17px;
+}
+
+.sm-edit-inputbox-psw {
+     width: 30px;
+     padding: 10px;
+     height: 43px;
+     margin-bottom: 17px;
+     border: .5px solid rgb(48, 47, 47);
+     border-radius: 4px;
+     font-size: 17px;
+}
+
+.sm-addpopup input::placeholder {
+     color: rgb(59, 58, 58);
+     font-size: 13px;
+}
+
+.sm-check-boxes {
+     display: flex;
+     font-weight: 500;
+}
+
+.sm-individual-check {
+     width: 25%;
+     display: flex;
+     justify-content: left;
+     align-items: center;
+     padding: 5px;
+     padding-bottom: 15px;
+
+}
+
+.sm-check-boxes input[type="checkbox"] {
+     width: 15px;
+     height: 15px;
+     margin-right: 10px;
+     cursor: pointer;
+}
+
+.sm-add-save-btn {
+     width: 100%;
+     height: 45px;
+     margin-top: 15px;
+     cursor: pointer;
+     color: white;
+     background-color: #007BFF;
+     border-radius: 8px;
+     font-size: 19px;
+     font-weight: bold;
+}
+
+.sm-add-save-btn:hover {
+     background-color: #076ad4;
+}
+
+body.blur {
+     transition: filter 0.3s ease;
+}
+
+.sm-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: rgba(0, 0, 0, 0.5);
+     z-index: 999;
+}
+
+.sm-close:hover {
+     background-color: red;
+     color: white;
+}
+
+.sm-save-edit-btn {
+     padding: 13px;
+     border-radius: 8px;
+     width: 100%;
+     font-size: 18px;
+     font-weight: 700;
+     background-color: #007BFF;
+     color: white;
+     cursor: pointer;
+     margin-top: 10px;
+     border: none;
+}
+
+.sm-save-edit-btn:hover {
+     background-color: #076ad4;
+}
+
+.sm-edit-btn,
+.sm-del-btn {
+     border-radius: 10px;
+     width: 120px;
+     padding: 10px 0px;
+     font-size: 17px;
+     font-weight: 600;
+     margin: 3px 0px;
+     background-color: #18a539;
+     color: white;
+     border: none;
+     cursor: pointer;
+}
+
+.sm-del-btn {
+     background-color: rgb(253, 53, 53);
+}
+
+.sm-edit-password {
+     font-weight: bold;
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+}
+
+.sm-repo-dark {
+     background-color: rgb(250, 250, 254);
+}
+
+.sm-repo-light {
+     background-color: white;
+}

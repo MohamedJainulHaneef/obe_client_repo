@@ -28,6 +28,9 @@ import CourseCouOC from './components/courseoutcome/handlecououtcome/handlecouou
 import TutorCouOC from './components/courseoutcome/tutorcououtcome/tutorcououtcome';
 import HodCouOC from './components/courseoutcome/hodcououtcome/hodcououtcome';
 import AdminCouOC from './components/courseoutcome//admincououtcome/admincououtcome';
+import StaffMasterManage from './components/manage/staffmanage/staffmaster/staffmaster';
+import HodManage from './components/manage/staffmanage/staffhod/staffhod';
+import TutorManage from './components/manage/staffmanage/stafftutor/stafftutor';
 
 function App() 
 {
@@ -62,6 +65,9 @@ function App()
                         <Route path='tutorcourseoutcome' element={<TutorCouOC />} />
                         <Route path='hodcourseoutcome' element={<HodCouOC />} />
                         <Route path='admincourseoutcome' element={<AdminCouOC />} />
+                        <Route path='staffmastermanage' element={<StaffMasterManage />} />
+                        <Route path='hodmanage' element={<HodManage />} />
+                        <Route path='tutormanage' element={<TutorManage />} />
                     </Route>
                 </Routes>
             </Router>
