@@ -19,6 +19,7 @@ function StudentManage() {
       try {
         const response = await axios.get(`${apiUrl}/api/studetails`);
         setStudata(response.data);
+        console.log("hello")
       } catch (error) {
         console.log("Error Fetching data", error);
       }
