@@ -71,7 +71,7 @@ function Manage()
     };
     
     const handleStudentManage = () => {
-        // navigate(`/staff/${staffId}/studentmanage`);
+        navigate(`/staff/${staffId}/studentmanage`);
     };
 
     return (

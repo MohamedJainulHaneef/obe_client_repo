@@ -70,7 +70,7 @@ function StudentManage() {
 
   return (
     <div className="student-manage">
-      <h2>Student Details</h2>
+      <h2 className='student-topheading'>Student Details</h2>
       
       {/* Search Bar */}
       <input
@@ -90,21 +90,30 @@ function StudentManage() {
       <table className="student-table">
         <thead>
           <tr>
-            <th>S NO</th>
-            <th>Registration No</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Section</th>
+            <th className='student-header'>S NO</th>
+            <th className='student-header'>Registration No</th>
+            <th className='student-header'>Name</th>
+            <th className='student-header'>Category</th>
+            <th className='student-header'>Section</th>
+            <th className='student-header'>Edit</th>
+            <th className='student-header'>Delete</th>
           </tr>
         </thead>
         <tbody>
           {filteredStudata.map((student, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{student.reg_no}</td>
-              <td>{student.stu_name}</td>
-              <td>{student.category}</td>
-              <td>{student.section}</td>
+              <td className='student-data'>{index + 1}</td>
+              <td className='student-data'>{student.reg_no}</td>
+              <td className='student-data'>{student.stu_name}</td>
+              <td className='student-data'>{student.category}</td>
+              <td className='student-data'>{student.section}</td>
+              <td className='student-data'>
+                <button className='student-edit-btn'>Edit</button>
+              </td>
+              <td className='student-data'>
+                <button  className='student-delete-btn'>Delete</button>
+              </td>
+
             </tr>
           ))}
         </tbody>
