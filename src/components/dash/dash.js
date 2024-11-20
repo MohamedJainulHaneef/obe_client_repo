@@ -90,7 +90,7 @@ function Dash()
             <div className='dash-piechart-main'>
                 <Piechart1 />
                 <Piechart2 />
-                 <Linechart1 />
+                <Linechart1 />
             </div>
         </div>
     );

@@ -18,8 +18,7 @@ const BarChart3D = () => {
                 const response = await axios.post(`${apiUrl}/api/processedChartData`, {});
                 const data = response.data;
 
-                // Explicitly set total value as 333
-                const total = 333; // You can replace this with the actual total if needed
+                const total = 333; 
 
                 setChartData({
                     categories: ['CIA 1', 'CIA 2', 'Assignment 1', 'Assignment 2', 'ESE'],
@@ -30,7 +29,7 @@ const BarChart3D = () => {
                         data.counts.ass_2,
                         data.counts.ese,
                     ],
-                    total, // Store the total value as 333
+                    total,
                 });
             } catch (error) {
                 console.error('Error fetching chart data:', error);
@@ -99,7 +98,7 @@ const BarChart3D = () => {
     };
 
     return (
-        <div style={{ width: '600px', height: '400px' }}>
+        <div style={{ width: '30%', height: '100%' }}>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
     );
