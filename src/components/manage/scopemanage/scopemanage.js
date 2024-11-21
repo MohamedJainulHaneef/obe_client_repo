@@ -330,7 +330,7 @@ function Scope()
                 </table>
             </div>
         </div>
-    );
+    )
 }
 
 export default Scope;

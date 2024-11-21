@@ -8,6 +8,7 @@
     padding: 9px;
     width: 100%;
     text-align: center;
+    height: 100vh;
 }
 
 .scope-top-heading {
@@ -66,8 +67,12 @@
 }
 
 .scope-table-wrapper {
-    overflow-x: auto;
+    flex-grow: 1; 
     overflow-y: auto;
+    max-height: 85%; 
+    flex-grow: 1;
+    overflow-y: auto; 
+    border: 1px solid #ddd;
 }
 
 .scope-table {
@@ -81,7 +86,7 @@
     text-align: center;
     color: white;
     top: 0;
-    z-index: 10;
+    z-index: 1;
 }
 
 .scope-table input[type="checkbox"] {
@@ -110,6 +115,13 @@
 .scope-header-inputbox {
     margin: 0;
     height: 15px;
+}
+
+.scope-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1; 
+    background-color: #f9f9f9;
 }
 
 .scope-staffid {

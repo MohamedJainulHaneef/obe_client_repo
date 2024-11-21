@@ -15,6 +15,7 @@ function Stumark()
     const [isSaveConfirmLoading, setIsSaveConfirmLoading] = useState(false);
     const [activeSection, setActiveSection] = useState('1');
     const [academicYear, setAcademicYear] = useState('');
+    const [maxMark, setMaxMark] = useState('');
     const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
 
     useEffect(() => 
@@ -30,6 +31,19 @@ function Stumark()
             }
         };
         academicYearSet();
+
+        const maxMarkSet = async () =>
+        {
+            try {
+                const response = await axios.post(`${apiUrl}/api/maxmark`, {});
+                setMaxMark(response.data);
+            } 
+            catch (err) {
+                console.log('Error Fetching Max Mark :', err);
+            }
+        }
+        maxMarkSet();
+
     }, [apiUrl]);
 
     useEffect(() => 
@@ -68,12 +82,12 @@ function Stumark()
                         setActive(disable.data);
                     } 
                     else {
-                        console.warn('Received null or undefined data from /getreport');
+                        console.warn('Received Null or Undefined Data from /getreport');
                         setActive({});
                     }
                 } 
                 catch (err) {
-                    console.log('Error fetching student details:', err);
+                    console.log('Error Fetching Student Details :', err);
                 }
             };
             stuDetails();
@@ -99,34 +113,89 @@ function Stumark()
     
         if (type === 'lot') 
         {
-            if (activeSection === '3' || activeSection === '4') 
+            if (activeSection === '1') 
             {
-                if (value > 3) {
-                    alert("Value for LOT cannot exceed 3.");
+                if (value > maxMark?.c1_lot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.c1_lot);                    
                     validatedValue = '';
                 }
             }
-            else 
+            else if (activeSection === '2') 
             {
-                if (value > 25) {
-                    alert("Value for LOT cannot exceed 25.");
-                    validatedValue = ''; 
+                if (value > maxMark?.c2_lot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.c2_lot);                    
+                    validatedValue = '';
+                }
+            }
+            else if (activeSection === '3') 
+            {
+                if (value > maxMark?.a1_lot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.a1_lot);                    
+                    validatedValue = '';
+                }
+            }
+            else if (activeSection === '4') 
+            {
+                if (value > maxMark?.a2_lot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.a2_lot);                    
+                    validatedValue = '';
+                }
+            }
+            else
+            {
+                if (value > maxMark?.e_lot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.e_lot);                    
+                    validatedValue = '';
                 }
             }
         }
         else if (type === 'mot') 
         {
-            if (value > 40) {
-                alert("Value for MOT cannot exceed 40.");
-                validatedValue = '';
+            if (activeSection === '1') 
+            {
+                if (value > maxMark?.c1_mot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.c1_mot);                    
+                    validatedValue = '';
+                }
+            }
+            else if (activeSection === '2') 
+            {
+                if (value > maxMark?.c2_mot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.c2_mot);                    
+                    validatedValue = '';
+                }
+            }
+            else if (activeSection === '5')            
+            {
+                if (value > maxMark?.e_mot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.e_mot);                    
+                    validatedValue = '';
+                }
             }
         }
         else if (type === 'hot') 
         {
-            if (value > 10) {
-                alert("Value for HOT cannot exceed 10.");
-                validatedValue = ''; 
+            if (activeSection === '1') 
+            {
+                if (value > maxMark?.c1_hot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.c1_hot);                    
+                    validatedValue = '';
+                }
             }
+            else if (activeSection === '2') 
+            {
+                if (value > maxMark?.c2_hot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.c2_hot);                    
+                    validatedValue = '';
+                }
+            }
+            else if (activeSection === '5') 
+            {
+                if (value > maxMark?.e_hot) {
+                    alert("Value for LOT cannot exceed " + maxMark?.e_hot);                    
+                    validatedValue = '';
+                }
+            }        
         }
     
         const updatedStuData = stuData.map(user => 

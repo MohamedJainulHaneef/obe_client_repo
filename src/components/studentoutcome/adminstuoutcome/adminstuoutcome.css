@@ -1,0 +1,16 @@
+* {
+     margin: 0px;
+     padding: 0px;
+     box-sizing: border-box;
+}
+
+.aso-dropdown-container {
+     background-color: aquamarine;
+     display: grid;
+     grid-template-columns: repeat(3,1fr);
+}
+
+.aso-label {
+     width: 50%;
+     background-color: blue;
+}
