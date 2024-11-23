@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './studentmanage.css';
+import LoadingSpinner from '../../../assets/load.svg'
 
 function StudentManage() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [studata, setStudata] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false); // Separate state for Add modal
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Separate state for Edit modal
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // State for Delete modal
   const [newStudent, setNewStudent] = useState({ stu_name: '', reg_no: '', category: '', section: '' });
   const [editStudent, setEditStudent] = useState(null);
+  const [studentToDelete, setStudentToDelete] = useState(null); // Store student for deletion
+  const [loading, setLoading] = useState(false); // State to track loading
 
-  // Fetch all students on component mount
+// To fetch all data 
   useEffect(() => {
     const fetchStudentDetails = async () => {
+      setLoading(true); // Show spinner
       try {
         const response = await axios.get(`${apiUrl}/api/studetails`);
         setStudata(response.data);
       } catch (error) {
         console.error('Error fetching student details:', error);
+      } finally {
+        setLoading(false); // Hide spinner
       }
     };
 
     fetchStudentDetails();
   }, [apiUrl]);
 
-  // Filter the student data based on search term
-const filteredStudata = studata.filter((student) =>
-  (student.stu_name?.toLowerCase() || "").includes(searchTerm.toLowerCase() || "") ||
-  (student.reg_no?.toLowerCase() || "").includes(searchTerm.toLowerCase() || "")
-);
+  // Filter student data based on search term
+  const filteredStudata = studata.filter((student) =>
+    (student.stu_name?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
+    (student.reg_no?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '')
+  );
 
-
-  // Add Student Modal Handlers
+  // Add Student Handlers
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => {
     setIsAddModalOpen(false);
@@ -47,14 +53,16 @@ const filteredStudata = studata.filter((student) =>
   const handleSaveStudent = async () => {
     try {
       const response = await axios.post(`${apiUrl}/api/addstudent`, newStudent);
-      setStudata((prev) => [...prev, response.data.student]); // Update local state
+      setStudata((prev) => [...prev, response.data.student]);
       closeAddModal();
+      window.alert("New Student Successfull Added");
+
     } catch (error) {
       console.error('Error adding student:', error);
     }
   };
 
-  // Edit Student Modal Handlers
+  // Edit Student Handlers
   const openEditModal = (student) => {
     setEditStudent(student);
     setIsEditModalOpen(true);
@@ -75,7 +83,7 @@ const filteredStudata = studata.filter((student) =>
       const response = await axios.put(`${apiUrl}/api/editstudent`, editStudent);
       setStudata((prev) =>
         prev.map((student) =>
-          student.reg_no === editStudent.reg_no ? { ...response.data.student } : student
+          student.reg_no === editStudent.reg_no ? response.data.student : student
         )
       );
       closeEditModal();
@@ -84,11 +92,22 @@ const filteredStudata = studata.filter((student) =>
     }
   };
 
-  // Delete Student Handler
-  const handleDelete = async (reg_no) => {
+  // Delete Handlers
+  const openDeleteModal = (student) => {
+    setStudentToDelete(student);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setStudentToDelete(null);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`${apiUrl}/api/deletestudent/${reg_no}`);
-      setStudata((prev) => prev.filter((student) => student.reg_no !== reg_no));
+      await axios.delete(`${apiUrl}/api/deletestudent/${studentToDelete.reg_no}`);
+      setStudata((prev) => prev.filter((student) => student.reg_no !== studentToDelete.reg_no));
+      closeDeleteModal();
     } catch (error) {
       console.error('Error deleting student:', error);
     }
@@ -116,33 +135,68 @@ const filteredStudata = studata.filter((student) =>
       <table className="student-table">
         <thead>
           <tr>
-            <th className='student-header'>S No</th>
-            <th className='student-header'>Registration No</th>
-            <th className='student-header'>Name</th>
-            <th className='student-header'>Category</th>
-            <th className='student-header'>Section</th>
-            <th className='student-header'>Edit</th>
-            <th className='student-header'>Delete</th>
+            <th className="student-header">S No</th>
+            <th className="student-header">Registration No</th>
+            <th className="student-header">Name</th>
+            <th className="student-header">Category</th>
+            <th className="student-header">Section</th>
+            <th className="student-header">Edit</th>
+            <th className="student-header">Delete</th>
           </tr>
         </thead>
+
         <tbody>
-          {filteredStudata.map((student, index) => (
-            <tr key={student.reg_no}>
-              <td className='student-data'>{index + 1}</td>
-              <td className='student-data'>{student.reg_no}</td>
-              <td className='student-data'>{student.stu_name}</td>
-              <td className='student-data'>{student.category}</td>
-              <td className='student-data'>{student.section}</td>
-              <td className='student-data'>
-                <button onClick={() => openEditModal(student)} className='student-edit-btn'>Edit</button>
-              </td>
-              <td className='student-data'>
-                <button onClick={() => handleDelete(student.reg_no)} className='student-delete-btn'>Delete</button>
+          {loading ? (
+            <tr>
+              <td colSpan="7" className="student-loading">
+                <img src={LoadingSpinner} alt="Loading..." className="loading-image" />
               </td>
             </tr>
-          ))}
+          ) : filteredStudata.length > 0 ? (
+            filteredStudata.map((student, index) => (
+              <tr key={student.reg_no}>
+                <td className="student-data">{index + 1}</td>
+                <td className="student-data">{student.reg_no}</td>
+                <td className="student-data">{student.stu_name}</td>
+                <td className="student-data">{student.category}</td>
+                <td className="student-data">{student.section}</td>
+                <td className="student-data">
+                  <button onClick={() => openEditModal(student)} className="student-edit-btn">
+                    Edit
+                  </button>
+                </td>
+                <td className="student-data">
+                  <button onClick={() => openDeleteModal(student)} className="student-delete-btn">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7" className="student-no-data">
+                No data available.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
+
+
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && studentToDelete && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete the student with Registration Number <strong>{studentToDelete.reg_no}</strong>?</p>
+            <div className="modal-actions">
+              <button onClick={handleConfirmDelete} className="confirm-btn">Confirm</button>
+              <button onClick={closeDeleteModal} className="cancel-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Add Student Modal */}
       {isAddModalOpen && (
@@ -200,7 +254,7 @@ const filteredStudata = studata.filter((student) =>
               name="reg_no"
               placeholder="Registration Number"
               value={editStudent.reg_no}
-              disabled // Prevent editing reg_no
+            // disabled // Prevent editing reg_no
             />
             <input
               type="text"
