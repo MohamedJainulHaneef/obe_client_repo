@@ -81,11 +81,12 @@ function Scope()
         }
     };
 
-    const handleSearch = (e) => {
+    const handleSearch = (e) => 
+    {
         const searchText = e.target.value.toLowerCase();
         const filterList = scopeData.filter(scope =>
             scope.staff_id.toLowerCase().includes(searchText)
-        );
+        )
         setFilteredData(filterList);
     }
     
