@@ -1,0 +1,121 @@
+* {
+     padding: 0px;
+     margin: 0px;
+     box-sizing: border-box;
+}
+
+.smsh-main {
+     padding: 12px;
+     display: flex;
+     flex-direction: column;
+     gap: 17px;
+     
+}
+
+.smsh-count {
+     display: flex;
+     justify-content: flex-end;
+}
+
+.sm-save-btn {
+     display: flex;
+     gap: 10px;
+     justify-content: center;
+     align-items: center;
+}
+
+.smsh-icon-add {
+     font-size: 18px;
+     font-weight: bolder;
+}
+
+.smsh-input-btn {
+     display: flex;
+     justify-content: space-between;
+}
+
+.smsh-table {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 16px;
+     text-align: left;
+}
+
+.smsh-span {
+     font-size: 18px;
+     margin-left: 2px;
+     text-align: left;
+}
+
+.smsh-top-heading {
+     text-align: center; 
+     margin-top: 5px;
+     font-size: 25px;
+     font-weight: 700;
+     letter-spacing: 1px;
+     word-spacing: 2px;
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.smsh-search {
+     width: 270px;
+     height: 45px;
+     padding: 15px;
+     border-radius: 7px;
+     font-size: 17px;
+     font-weight: 500;
+     background-color: rgb(250, 250, 254);
+     border: 2px solid black;
+}
+
+.smsh-table thead th {
+     background-color: #1c8163;
+     text-align: center;
+     font-size: 19px;
+     color: white;
+     padding: 10px 13px;
+     height: 65px;
+     font-weight: bold;
+     border: 1px solid black;
+}
+
+.smsh-table tbody td {
+     text-align: center;
+     font-size: 16px;
+     border: 1px solid gray;
+     padding: 10px 14px;
+     font-weight: bold;
+     height: 78px;
+     text-transform: uppercase;
+}
+
+.smsh-edit-btn,
+.smsh-delete-btn {
+     border-radius: 10px;
+     width: 100px;
+     padding: 10px 0px;
+     font-size: 17px;
+     font-weight: 600;
+     margin: 3px 0px;
+     background-color: #18a539;
+     color: white;
+     border: none;
+     cursor: pointer;
+}
+
+.smsh-delete-btn {
+     background-color: red;
+}
+
+.smsh-icon {
+     font-size: 16px;
+     color: white;
+}
+
+.smsh-repo-dark {
+     background-color: rgb(250, 250, 254);
+}
+
+.smsh-repo-light {
+     background-color: white;
+}

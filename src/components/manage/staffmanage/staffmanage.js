@@ -27,7 +27,7 @@ function StaffManage()
                         Staff Master Manage
                     </button>
                     <button className="staff-box" onClick={handleHodManage}>
-                        HOD Manage
+                        Hod Manage
                     </button>
                     <button className="staff-box" onClick={handleTutorManage}>
                         Tutor Manage

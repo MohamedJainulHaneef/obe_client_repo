@@ -4,10 +4,9 @@ import './admincououtcome.css';
 import axios from "axios";
 import Loading from '../../../assets/load.svg'
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 function AdminCouOutcome()  
 {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { staffId } = useParams();
     const [academicYear, setAcademicYear] = useState('');
     const [attainmentData, setAttainmentData] = useState(null);
