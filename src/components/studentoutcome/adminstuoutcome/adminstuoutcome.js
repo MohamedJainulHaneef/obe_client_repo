@@ -13,7 +13,6 @@ function AdminStuOutcome()
     const [sections, setSections] = useState([]);
     const [semesters, setSemesters] = useState([]);
 
-    const [selectedAcademicYear, setSelectedAcademicYear] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedDepartment, setSelectedDepartment] = useState("");
     const [selectedClass, setSelectedClass] = useState("");
@@ -32,8 +31,8 @@ function AdminStuOutcome()
                 setAcademicYears(response.data.academic_data || []);
             }
             catch (error) {
-                console.error("Error fetching academic years:", error);
-                alert("Failed to fetch academic years");
+                console.error("Error Fetching Academic Year:", error);
+                alert("Error Fetching Academic Year");
             }
         }
         fetchAcademicYears();
@@ -45,11 +44,30 @@ function AdminStuOutcome()
                 setAcademicYear(response.data.academic_year);
             }
             catch (err) {
-                console.log('Error fetching academic year:', err);
+                console.log('Error Fetching Academic Year:', err);
             }
         }
         academicYearSet();
 
+    }, []);
+
+    useEffect(() => 
+    {
+        const fetchAcademicYearAndData = async () => 
+        {
+            try {
+                const yearResponse = await axios.post(`${apiUrl}/activesem`, {});
+                const activeYear = yearResponse.data.academic_year;
+                setAcademicYear(activeYear);
+                fetchCourseData({ academic_year: activeYear });
+            } 
+            catch (error) {
+                console.error("Error Fetching Active Academic Year or Course Data :", error);
+                alert("Failed to fetch Academic Year and Related Data");
+            }
+        };
+
+        fetchAcademicYearAndData();
     }, []);
 
     const fetchCourseData = async (filters) => 
@@ -74,24 +92,14 @@ function AdminStuOutcome()
         }
     }
 
-    const handleAcademicYearChange = (value) => 
+    const handleCategoryChange = (value) => 
     {
-        setSelectedAcademicYear(value);
-        setSelectedCategory("");
-        setSelectedDepartment("");
-        setSelectedClass("");
-        setSelectedSection("");
-        setSelectedSemester("");
-        fetchCourseData({ academic_year: value });
-    }
-
-    const handleCategoryChange = (value) => {
         setSelectedCategory(value);
         setSelectedDepartment("");
         setSelectedClass("");
         setSelectedSection("");
         setSelectedSemester("");
-        fetchCourseData({ academic_year: selectedAcademicYear, category: value });
+        fetchCourseData({ academic_year: academicYear, category: value });
     }
 
     const handleDepartmentChange = (value) => 
@@ -102,7 +110,7 @@ function AdminStuOutcome()
         setSelectedSemester("");
         fetchCourseData(
         {
-            academic_year: selectedAcademicYear,
+            academic_year: academicYear,
             category: selectedCategory,
             dept_name: value,
         })
@@ -114,7 +122,7 @@ function AdminStuOutcome()
         setSelectedSection("");
         setSelectedSemester("");
         fetchCourseData({
-            academic_year: selectedAcademicYear,
+            academic_year: academicYear,
             category: selectedCategory,
             dept_name: selectedDepartment,
             course_id: value,
@@ -127,7 +135,7 @@ function AdminStuOutcome()
         setSelectedSection("");
         fetchCourseData(
         {
-            academic_year: selectedAcademicYear,
+            academic_year: academicYear,
             category: selectedCategory,
             dept_name: selectedDepartment,
             course_id: selectedClass,
@@ -140,7 +148,7 @@ function AdminStuOutcome()
         setSelectedSection(value);
         fetchCourseData(
         {
-            academic_year: selectedAcademicYear,
+            academic_year: academicYear,
             category: selectedCategory,
             dept_name: selectedDepartment,
             course_id: selectedClass,
@@ -152,7 +160,7 @@ function AdminStuOutcome()
     const sendData = async () => 
     {
         const dropDownData = await axios.post(`${apiUrl}/api/adminstuoutcome`, { 
-            selectedAcademicYear, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester 
+            academicYear, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester 
         })
         setOutcomeData(dropDownData.data);
         setOutcomeTable(true);
@@ -163,14 +171,12 @@ function AdminStuOutcome()
             <div className="aso-dropdown-container">
                 <div className="aso-search-cnt">
                     <span className="aso-label">Academic Year : </span>
-                    <select className="aso-select" value={selectedAcademicYear} onChange={(e) => handleAcademicYearChange(e.target.value)}>
-                        <option className="aso-option" value="">Select</option>
-                        {academicYears.map((year, index) => (
-                            <option className="aso-option" key={index} value={year.academic_year}>
-                                {year.academic_year}
-                            </option>
-                        ))}
-                    </select>
+                    <input
+                        type="text"
+                        className="aso-select"
+                        value={academicYear}
+                        readOnly
+                    />
                 </div>
                 <div className="aso-search-cnt">
                     <span className="aso-label">Category : </span>
