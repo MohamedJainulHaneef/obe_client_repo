@@ -52,7 +52,7 @@ function CourseOutcome()
     }, [staffId])
 
     const handleCourse = () => {
-        navigate(`/staff/${staffId}/coursesoutcome`);
+        navigate(`/staff/${staffId}/staffcourseoutcome`);
     }
 
     const handleTutor = () => {

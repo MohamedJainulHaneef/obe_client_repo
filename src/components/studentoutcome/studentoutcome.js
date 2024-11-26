@@ -32,16 +32,22 @@ function StudentOutcome()
 
                     if (response.data) 
                     {
-                        if (response.data.courseHandleStaffId) {
+                        if (response.data.courseHandleStaffId) 
+                        {
                             setCourseHandle(true);
                         }
-                        if (response.data.tutorHandleStaffId) {
+                        if (response.data.tutorHandleStaffId) 
+                        {
                             setTutorHandle(true);
+                        }
+                        if (response.data.hodHandleStaffId) 
+                        {
+                            setHodHandle(true);
                         }
                     }
                 } 
                 catch (err) {
-                    console.log('Error fetching data:', err);
+                    console.log('Error Fetching Data:', err);
                 }
             }
         }
@@ -49,15 +55,15 @@ function StudentOutcome()
     }, [staffId]);
 
     const handleCourse = () => {
-        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+        // navigate(`/staff/${staffId}/staffstudentoutcome`);
     }
 
     const handleTutor = () => {
-        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+        // navigate(`/staff/${staffId}/tutorstudentoutcome`);
     }
 
     const handleHod = () => {
-        // navigate(`/staff/${staffId}/coursestudentoutcome`);
+        // navigate(`/staff/${staffId}/hodstudentoutcome`);
     }
 
     const handleAdmin = () => {

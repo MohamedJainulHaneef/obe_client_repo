@@ -80,11 +80,26 @@ function AdminStuOutcome()
 
             const data = response.data || [];
 
-            if (!filters.category) setCategories([...new Set(data.map((item) => item.category))]);
-            if (!filters.dept_name) setDepartments([...new Set(data.map((item) => item.dept_name))]);
-            if (!filters.course_id) setClasses([...new Set(data.map((item) => item.course_id))]);
-            if (!filters.semester) setSemesters([...new Set(data.map((item) => item.semester))]);
-            if (!filters.section) setSections([...new Set(data.map((item) => item.section))]);
+            if (!filters.category) {
+                const sortedCategories = [...new Set(data.map((item) => item.category))].sort();
+                setCategories(sortedCategories);
+            }
+            if (!filters.dept_name) {
+                const sortedDepartments = [...new Set(data.map((item) => item.dept_name))].sort();
+                setDepartments(sortedDepartments);
+            }
+            if (!filters.course_id) {
+                const sortedClasses = [...new Set(data.map((item) => item.course_id))].sort();
+                setClasses(sortedClasses);
+            }
+            if (!filters.semester) {
+                const sortedSemesters = [...new Set(data.map((item) => item.semester))].sort((a, b) => a - b); // Assuming semester is numeric
+                setSemesters(sortedSemesters);
+            }
+            if (!filters.section) {
+                const sortedSections = [...new Set(data.map((item) => item.section))].sort();
+                setSections(sortedSections);
+            }
         }
         catch (error) {
             console.error("Error Fetching Course Data:", error);
@@ -235,7 +250,7 @@ function AdminStuOutcome()
                 </div>
             </div>
             <div className="aso-btn-content">
-                <button className="aso-btn" onClick={sendData}>Search</button>
+                <button className="aso-btn" onClick={sendData}>Get</button>
             </div>
             {outcomeTable && (
                 <div className="aso-table-container" >
