@@ -81,7 +81,7 @@ function StaffMasterManage()
 
         try 
         {
-            const newStaffResponce = await axios.post(`${apiUrl}/ap/newstaff`, newStaffData);
+            const newStaffResponce = await axios.post(`${apiUrl}/api/newstaff`, newStaffData);
             if (newStaffResponce.data) 
             {
                 console.log(newStaffResponce.data);
@@ -134,7 +134,6 @@ function StaffMasterManage()
 
     const handleEdit = (id, name, pass, dept, category) => 
     {
-        console.log("Edit staff with ID:", staffId);
         setNewstaffid(id);
         setNewstaffname(name);
         setOldpassword(pass);
@@ -210,7 +209,6 @@ function StaffMasterManage()
                         <div className="smsm-overlay" />
                         <div className="smsm-addstaff">
                             <div className="smsm-close-class">
-                                <span className="smsm-close-header">ADD STAFF</span>
                                 <button onClick={hidepopup} className="smsm-close">✖</button>
                             </div>
                             <div className="smsm-addpopup">
@@ -237,20 +235,22 @@ function StaffMasterManage()
                                     className="smsm-inputs"
                                     placeholder="STAFF DEPARTMENT"
                                 />
-                                <input
-                                    type="text"
-                                    value={staffcategory}
-                                    onChange={(e) => setStaffcategory(e.target.value)}
-                                    className="smsm-inputs"
-                                    placeholder="CATEGORY"
-                                />
-                                <input
-                                    type="text"
-                                    value={staffpassword}
-                                    onChange={(e) => setStaffpassword(e.target.value)}
-                                    className="smsm-inputs"
-                                    placeholder="PASSWORD"
-                                />
+                                <div className="smsm-edit-psw">
+                                    <input
+                                        type="text"
+                                        value={staffcategory}
+                                        onChange={(e) => setStaffcategory(e.target.value)}
+                                        className="smsm-inputs"
+                                        placeholder="CATEGORY"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={staffpassword}
+                                        onChange={(e) => setStaffpassword(e.target.value)}
+                                        className="smsm-inputs"
+                                        placeholder="PASSWORD"
+                                    />
+						        </div>
                             </div>
                             <div className="smsm-check-boxes">
                                 <div className="smsm-individual-check">
@@ -377,7 +377,10 @@ function StaffMasterManage()
                                     Manage
                                 </div>
                             </div>
-                            <button onClick={savenewstaff} className="smsm-add-save-btn">SAVE</button>
+                            <div className="smsh-delete-btn-container">
+                                <button onClick={savenewstaff} className="smsm-add-save-btn">SAVE</button>
+                                <button onClick={hidepopup} className="smsm-save-edit-btn">CANCEL</button>
+                            </div>
                         </div>
                     </>
                 )}
@@ -440,7 +443,10 @@ function StaffMasterManage()
                                     />
                                 </label>
                             </div>
-                            <button onClick={updatestaff} className="smsm-save-edit-btn">SAVE</button>
+                            <div className="smsh-delete-btn-container">
+                                <button onClick={updatestaff} className="smsm-save-edit-btn">SAVE</button>
+                                <button onClick={staffEditClose} className="smsm-save-edit-btn">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -454,8 +460,8 @@ function StaffMasterManage()
                         <h4>STAFF ID : {deletestaffid}</h4>
                         <h4>STAFF NAME : {deletestaffname}</h4>
                         <div className="smsm-delete-btn-container">
-                            <button onClick={staffDeleteClose}className="smsm-save-btn">Cancel</button>
-                            <button onClick={Confirmdelete}className="smsm-save-btn">Confirm</button>
+                            <button onClick={Confirmdelete}className="smsm-confirm-btn">Confirm</button>
+                            <button onClick={staffDeleteClose}className="smsm-cancel-btn">Cancel</button>
                         </div>
                     </div>
                 </div>

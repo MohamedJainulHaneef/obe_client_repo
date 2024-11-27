@@ -55,7 +55,7 @@ function StudentOutcome()
     }, [staffId]);
 
     const handleCourse = () => {
-        // navigate(`/staff/${staffId}/staffstudentoutcome`);
+        navigate(`/staff/${staffId}/staffstudentoutcome`);
     }
 
     const handleTutor = () => {
@@ -63,7 +63,7 @@ function StudentOutcome()
     }
 
     const handleHod = () => {
-        // navigate(`/staff/${staffId}/hodstudentoutcome`);
+        navigate(`/staff/${staffId}/hodstudentoutcome`);
     }
 
     const handleAdmin = () => {
@@ -79,7 +79,7 @@ function StudentOutcome()
                 <div className='co-entire-box'>
                     {courseHandle && (
                         <button className="co-box" onClick={handleCourse}>
-                            Course Report
+                            Staff Report
                         </button>
                     )}
                     {tutorHandle && (

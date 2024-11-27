@@ -76,7 +76,7 @@ function CourseOutcome()
                 <div className='co-entire-box'>
                     {courseHandle && (
                         <button className="co-box" onClick={handleCourse}>
-                            Course Report
+                            Staff Report
                         </button>
                     )}
                     {tutorHandle && (

@@ -73,7 +73,7 @@
      text-align: center;
      font-size: 19px;
      color: white;
-     padding: 10px 13px;
+     padding: 10px 20px;
      height: 65px;
      font-weight: bold;
      border: 1px solid black;
@@ -83,7 +83,7 @@
      text-align: center;
      font-size: 16px;
      border: 1px solid gray;
-     padding: 10px 14px;
+     padding: 12px 13px;
      font-weight: bold;
      height: 78px;
      text-transform: uppercase;
@@ -92,7 +92,7 @@
 .smsh-edit-btn,
 .smsh-delete-btn {
      border-radius: 10px;
-     width: 100px;
+     width: 95px;
      padding: 10px 0px;
      font-size: 17px;
      font-weight: 600;
@@ -118,6 +118,30 @@
 
 .smsh-repo-light {
      background-color: white;
+}
+
+.smsh-save-btn {
+     padding: 12px;
+     border-radius: 10px;
+     width: 120px;
+     font-size: 18px;
+     font-weight: 700;
+     background-color: #007BFF;
+     color: white;
+     margin-left: 10px;
+     cursor: pointer;
+     display: flex;
+     border: none;
+     gap: 10px;
+     justify-content: center;
+     align-items: center;
+}
+
+
+
+.smsh-icon-add {
+     font-size: 18px;
+     font-weight: bolder;
 }
 
 .modal {
@@ -167,3 +191,129 @@
      justify-content: space-between;
      gap: 10px;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .smsh-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: rgba(0, 0, 0, 0.5);
+     z-index: 999;
+}
+
+.smsh-addstaff,
+.smsh-edit,
+.smsh-delete {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background-color: white;
+     border-radius: 8px;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     z-index: 1000;
+}
+
+.smsh-edit {
+     padding: 25px;
+     width: 500px;
+     display: flex;
+     flex-direction: column;
+     gap: 5px;
+}
+
+.smsh-delete {
+     padding: 30px;
+     width: 400px;
+     /* height: 200px; */
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+     text-align: center;
+}
+.smsh-close-class {
+     display: flex;
+     justify-content: flex-end;
+     /* margin-bottom: 20px; */
+}
+
+.smsh-delete-btn-container {
+     display: flex;
+     justify-content: space-between;
+     padding: 5px 0px;
+     gap: 30px;
+}
+
+.smsh-confirm-btn, .smsh-cancel-btn {
+     padding: 12px;
+     border-radius: 10px;
+     width: 120px;
+     font-size: 18px;
+     font-weight: 700;
+     background-color: #007BFF;
+     color: white;
+     /* margin-left: 10px; */
+     cursor: pointer;
+     border: none;
+}
+
+.smsh-confirm-btn, .smsh-cancel-btn:hover {
+     background-color: #076ad4;
+}
+
+
+.smsh-confirm-btn {
+     background-color: red;
+}
+
+.smsh-close {
+     background: none;
+     border: none;
+     font-size: 20px;
+     cursor: pointer;
+     padding: 5px 8px;
+}
+
+.smsh-close:hover {
+     background-color: red;
+     color: white;
+}
+
+.smsh-edit-inputbox {
+     width: 100%;
+     padding: 10px;
+     height: 43px;
+     margin-top: 8px;
+     margin-bottom: 17px;
+     border: .5px solid rgb(48, 47, 47);
+     border-radius: 4px;
+     font-size: 17px;
+}
+
+.smsh-edit-label {
+ font-weight: bold;
+ margin-left: 2px;
+}
+
+.smsh-edit-inputbox-psw {
+     width: 100%;
+     padding: 10px;
+     height: 43px;
+     margin-bottom: 20px;
+     border: .5px solid rgb(48, 47, 47);
+     border-radius: 4px;
+     font-size: 17px;
+}

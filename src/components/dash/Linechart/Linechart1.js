@@ -2,14 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import Highcharts3D from 'highcharts/highcharts-3d';
-
-// Enable the 3D module
-Highcharts3D(Highcharts);
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const BarChart3D = () => {
+const BarChart = () => {
     const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
@@ -43,14 +39,7 @@ const BarChart3D = () => {
 
     const options = {
         chart: {
-            type: 'column',
-            options3d: {
-                enabled: true,
-                alpha: 10,
-                beta: 0,
-                depth: 30,
-                viewDistance: 25,
-            },
+            type: 'column', // Standard bar chart (column type)
         },
         xAxis: {
             categories: chartData.categories,
@@ -61,15 +50,16 @@ const BarChart3D = () => {
                     fontWeight: 'bold',
                 },
             },
+            gridLineWidth: 0, 
         },
         yAxis: {
             title: {
                 text: 'Counts',
             },
+            gridLineWidth: 0, 
         },
         plotOptions: {
             column: {
-                depth: 40,
                 colorByPoint: true,
                 dataLabels: {
                     enabled: true, // Enable data labels
@@ -104,4 +94,4 @@ const BarChart3D = () => {
     );
 };
 
-export default BarChart3D;
+export default BarChart;

@@ -83,7 +83,7 @@
      font-size: 16px;
 }
 
-.smsm-save-btn {
+.smsm-save-btn, .smsm-confirm-btn, .smsm-cancel-btn {
      padding: 12px;
      border-radius: 10px;
      width: 120px;
@@ -93,6 +93,11 @@
      color: white;
      margin-left: 10px;
      cursor: pointer;
+     border: none;
+}
+
+.smsm-confirm-btn {
+     background-color: red;
 }
 
 .smsm-input-btn {
@@ -109,22 +114,20 @@
      top: 50%;
      left: 50%;
      transform: translate(-50%, -50%);
-     background-color: azure;
+     background-color: white;
      border-radius: 8px;
      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
      z-index: 1000;
 }
 
 .smsm-addstaff {
-     padding: 20px;
+     padding: 25px;
      width: 550px;
-     height: 630px;
 }
 
 .smsm-edit {
      padding: 25px;
      width: 500px;
-     height: 510px;
 }
 
 .smsm-edit input {
@@ -159,7 +162,7 @@
 .smsm-close-class {
      display: flex;
      justify-content: flex-end;
-     margin-bottom: 20px;
+     margin-bottom: 17px;
 }
 
 .smsm-close-header {
@@ -181,7 +184,7 @@
      width: 100%;
      padding: 10px;
      height: 43px;
-     margin-bottom: 17px;
+     margin-bottom: 20px;
      border: .5px solid rgb(48, 47, 47);
      border-radius: 4px;
      font-size: 17px;
@@ -191,7 +194,7 @@
      width: 30px;
      padding: 10px;
      height: 43px;
-     margin-bottom: 17px;
+     margin-bottom: 10px;
      border: .5px solid rgb(48, 47, 47);
      border-radius: 4px;
      font-size: 17px;
