@@ -26,10 +26,10 @@ function MarkManage()
         cia2: { lot: '', mot: '', hot: '' },
         ass1: { lot: '', mot: '', hot: '' },
         ass2: { lot: '', mot: '', hot: '' },
-        level0: { ug: '', pg: '' },
-        level1: { ug: '', pg: '' },
-        level2: { ug: '', pg: '' },
-        level3: { ug: '', pg: '' },
+        level0: { ugStartRange: "0", ugEndRange: "", pgStartRange: "1", pgEndRange: "" },
+        level1: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
+        level2: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
+        level3: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
         maxEse: { lot: '', mot: '', hot: '' }
     })
 
@@ -43,90 +43,101 @@ function MarkManage()
             parseInt(values.ass1.hot || 0, 10) + parseInt(values.ass2.hot || 0, 10)) || '',
     }
 
-    const handleChange = (event, section, type) => 
-    {
-        const value = event.target.value.slice(0, 2); 
-        if (/^\d*$/.test(value)) 
-        {
-            setValues(prevValues => (
-            {
-                ...prevValues,
-                [section]: {
-                    ...prevValues[section],
-                    [type]: value,
-                },
-            }))
+    const handleChange = (event, section, type) => {
+        const value = event.target.value.slice(0, 3); // Allow up to 3 digits
+        if (/^\d*$/.test(value)) { // Ensure value is numeric
+            setValues((prevValues) => {
+                const newValues = {
+                    ...prevValues,
+                    [section]: {
+                        ...prevValues[section],
+                        [type]: value,
+                    },
+                };
+
+                // Automatically update the next level's start range
+                if (type === "ugEndRange" && section.startsWith("level")) {
+                    const currentLevel = parseInt(section.replace("level", ""), 10);
+                    const nextLevel = `level${currentLevel + 1}`;
+                    if (newValues[nextLevel]) {
+                        newValues[nextLevel] = {
+                            ...newValues[nextLevel],
+                            ugStartRange: parseInt(value, 10) + 1 || "", // Increment end range
+                        };
+                    }
+                }
+
+                if (type === "pgEndRange" && section.startsWith("level")) {
+                    const currentLevel = parseInt(section.replace("level", ""), 10);
+                    const nextLevel = `level${currentLevel + 1}`;
+                    if (newValues[nextLevel]) {
+                        newValues[nextLevel] = {
+                            ...newValues[nextLevel],
+                            pgStartRange: parseInt(value, 10) + 1 || "", // Increment end range
+                        };
+                    }
+                }
+
+                return newValues;
+            });
         }
-    }
-
-    const handlesavecia = async () => 
-    {
-        const sections = ['cia1', 'cia2', 'ass1', 'ass2', 'maxEse'];
-        const requiredFieldsFilled = sections.every(section =>
+    };
+    
+    const handleSave = async () => {
+        // Define sections for validation
+        const ciaSections = ['cia1', 'cia2', 'ass1', 'ass2', 'maxEse'];
+        const levelSections = ['level0', 'level1', 'level2', 'level3'];
+    
+        // Validate all required fields for both sets of sections
+        const areCiaFieldsFilled = ciaSections.every(section =>
             Object.values(values[section]).every(value => value !== '')
-        )
-
-        if (!requiredFieldsFilled) {
+        );
+        const areLevelFieldsFilled = levelSections.every(section =>
+            Object.values(values[section]).every(value => value !== '')
+        );
+    
+        if (!areCiaFieldsFilled || !areLevelFieldsFilled) {
             alert('All Fields are Required');
             return;
         }
-
-        const dataToSend = 
-        {
-            cia1: values.cia1,
-            cia2: values.cia2,
-            ass1: values.ass1,
-            ass2: values.ass2,
-            maxEse: values.maxEse,
-            maxCia,
-            academicYear,
-            inputValue
-        }
-
-        try 
-        {
-            const response = await axios.post(`${apiUrl}/api/calculation`, dataToSend);
-            if (response.data) {
-                alert('Data Saved Successfully!');
-
-            }
-        } 
-        catch (error) {
-            console.error("Error Saving Data :", error);
-            alert('Failed to Save Data. Please Try Again.');
-        }
-    }
-
-    const handleSave = async () => 
-    {
-        const sections = ['level0', 'level1', 'level2', 'level3'];
-        const requiredFieldsFilled = sections.every(section =>
-            Object.values(values[section]).every(value => value !== '')
-        )
-
-        if (!requiredFieldsFilled) {
-            alert('All Fields are Required');
-            return;
-        }
-
-        try 
-        {
-            const dataToSend = 
-            {
+    
+        try {
+            // Prepare data for both APIs
+            const ciaData = {
+                cia1: values.cia1,
+                cia2: values.cia2,
+                ass1: values.ass1,
+                ass2: values.ass2,
+                maxEse: values.maxEse,
+                maxCia,
+                academicYear,
+                inputValue
+            };
+    
+            const levelData = {
                 level0: values.level0,
                 level1: values.level1,
                 level2: values.level2,
                 level3: values.level3,
                 academicYear
+            };
+    
+            // Make API calls
+            const [ciaResponse, levelResponse] = await Promise.all([
+                axios.post(`${apiUrl}/api/calculation`, ciaData),
+                axios.post(`${apiUrl}/api/calculationlevel`, levelData)
+            ]);
+    
+            // Check responses
+            if (ciaResponse.data && levelResponse.data) {
+                alert('Data Saved Successfully!');
             }
-            await axios.post(`${apiUrl}/api/calculationlevel`, dataToSend);
-            alert('Data Saved Successfully!');
-        } 
-        catch (error) {
-            console.error("Error Saving Data :", error);
+        } catch (error) {
+            console.error('Error Saving Data:', error);
             alert('Failed to Save Data. Please Try Again.');
         }
-    }
+    };
+    
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -337,157 +348,80 @@ function MarkManage()
                             </tr>
                         </tbody>
                     </table>
-                    <button className="mark-mng-button" onClick={handlesavecia}>SAVE</button>
                 </div>
             </div>
             <div>
-                <table className="mark-mng-ltable">
-                    <thead>
-                        <tr>
-                            <th className="mark-mng-th"></th>
-                            <th className="mark-mng-th" colSpan={2}>UG</th>
-                            <th className="mark-mng-th" colSpan={2}>PG</th>
-                        </tr>
-                        <tr>
-                            <th className="mark-mng-th"></th>
-                            <th className="mark-mng-th">START RANGE</th>
-                            <th className="mark-mng-th">END RANGE</th>
-                            <th className="mark-mng-th">START RANGE</th>
-                            <th className="mark-mng-th">END RANGE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="mark-mng-td">Level 0</td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level0.ug}
-                                    onChange={e => handleChange(e, 'level0', 'ug')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level0.pg}
-                                    onChange={e => handleChange(e, 'level0', 'pg')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="mark-mng-td">Level 1</td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level1.ug}
-                                    onChange={e => handleChange(e, 'level1', 'ug')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level1.pg}
-                                    onChange={e => handleChange(e, 'level1', 'pg')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="mark-mng-td">Level 2</td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level2.ug}
-                                    onChange={e => handleChange(e, 'level2', 'ug')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level2.pg}
-                                    onChange={e => handleChange(e, 'level2', 'pg')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="mark-mng-td">Level 3</td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level3.ug}
-                                    onChange={e => handleChange(e, 'level3', 'ug')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                    value={values.level3.pg}
-                                    onChange={e => handleChange(e, 'level3', 'pg')}
-                                />
-                            </td>
-                            <td className="mark-mng-td">
-                                <input
-                                    className="mark-mng-input"
-                                    type="number"
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div className="mark-mng-level-save-btn">
-                    <button className="mark-mng-button" onClick={handleSave}>SAVE</button>
-                </div>
-                
-            </div>
+      <table className="mark-mng-ltable">
+        <thead>
+          <tr>
+            <th className="mark-mng-th"></th>
+            <th className="mark-mng-th" colSpan={2}>UG</th>
+            <th className="mark-mng-th" colSpan={2}>PG</th>
+          </tr>
+          <tr>
+            <th className="mark-mng-th"></th>
+            <th className="mark-mng-th">START RANGE</th>
+            <th className="mark-mng-th">END RANGE</th>
+            <th className="mark-mng-th">START RANGE</th>
+            <th className="mark-mng-th">END RANGE</th>
+          </tr>
+        </thead>
+        <tbody>
+  {["level0", "level1", "level2", "level3"].map((level, index) => (
+    <tr key={level}>
+      {/* Level Label */}
+      <td className="mark-mng-td">{`Level ${index}`}</td>
+
+      {/* UG Start Range (Read-Only) */}
+      <td className="mark-mng-td">
+        <input
+          className="mark-mng-input"
+          type="number"
+          value={values[level].ugStartRange}
+          readOnly
+          disabled // Prevent user from editing Start Range directly
+        />
+      </td>
+
+      {/* UG End Range */}
+      <td className="mark-mng-td">
+        <input
+          className="mark-mng-input"
+          type="number"
+          value={values[level].ugEndRange}
+          onChange={(e) => handleChange(e, level, "ugEndRange")} // Trigger handleChange for UG End Range
+        />
+      </td>
+
+      {/* PG Start Range (Read-Only) */}
+      <td className="mark-mng-td">
+        <input
+          className="mark-mng-input"
+          type="number"
+          value={values[level].pgStartRange}
+          readOnly
+          disabled // Prevent user from editing Start Range directly
+        />
+      </td>
+
+      {/* PG End Range */}
+      <td className="mark-mng-td">
+        <input
+          className="mark-mng-input"
+          type="number"
+          value={values[level].pgEndRange}
+          onChange={(e) => handleChange(e, level, "pgEndRange")} // Trigger handleChange for PG End Range
+        />
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+      </table>
+      <div className="mark-mng-level-save-btn">
+        <button className="mark-mng-button" onClick={handleSave}>SAVE</button>
+      </div>
+    </div>
         </div>
     )
 }

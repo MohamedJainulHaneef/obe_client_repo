@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import '../adminstuoutcome/adminstuoutcome.css'
+import './hodstuoutcome.css'
 
 function HodStuOutcome() {
      const { staffId } = useParams();
@@ -183,64 +183,61 @@ function HodStuOutcome() {
      };
 
      return (
-          <div className="aso-main">
-               <div className="aso-dropdown-container">
-                    <div className="aso-search-cnt">
-                         <span className="aso-label">Academic Year :</span>
-                         <input type="text" className="aso-select" value={academicYear} readOnly />
+          <div className="hso-main">
+               <div className="hso-dropdown-container">
+                    <div className="hso-search-cnt">
+                         <span className="hso-label">Academic Year :</span>
+                         <input type="text" className="hso-select" value={academicYear} readOnly />
                     </div>
-                    <div className="aso-search-cnt">
-                         <span className="aso-label">Category : </span>
-                         <input type="text" className="aso-select" value={categories} readOnly />
+                    <div className="hso-search-cnt">
+                         <span className="hso-label">Category : </span>
+                         <input type="text" className="hso-select" value={categories} readOnly />
                     </div>
-                    <div className="aso-search-cnt">
-                         <span className="aso-label">Department : </span>
-                         <input type="text" className="aso-select" value={departments} readOnly />
+                    <div className="hso-search-cnt">
+                         <span className="hso-label">Department : </span>
+                         <input type="text" className="hso-select" value={departments} readOnly />
                     </div>
-                    <div className="aso-search-cnt">
-                         <span className="aso-label">Class :</span>
-                         <select className="aso-select" value={selectedClass} onChange={(e) => handleClassChange(e.target.value)}>
-                              <option className="aso-option" value="">Select</option>
+                    <div className="hso-search-cnt">
+                         <span className="hso-label">Class :</span>
+                         <select className="hso-select" value={selectedClass} onChange={(e) => handleClassChange(e.target.value)}>
+                              <option className="hso-option" value="">Select</option>
                               {classes.map((cls, index) => (
-                                   <option className="aso-option" key={index} value={cls}>
+                                   <option className="hso-option" key={index} value={cls}>
                                         {cls}
                                    </option>
                               ))}
                          </select>
                     </div>
-                    <div className="aso-search-cnt">
-                         {/* <label>Semester: </label> */}
-                         <span className="aso-label">Semester :</span>
-                         <select className="aso-select" value={selectedSemester} onChange={(e) => handleSemesterChange(e.target.value)}>
-                              <option className="aso-option" value="">Select</option>
+                    <div className="hso-search-cnt">
+                         <span className="hso-label">Semester :</span>
+                         <select className="hso-select" value={selectedSemester} onChange={(e) => handleSemesterChange(e.target.value)}>
+                              <option className="hso-option" value="">Select</option>
                               {semesters.map((sem, index) => (
-                                   <option className="aso-option" key={index} value={sem}>
+                                   <option className="hso-option" key={index} value={sem}>
                                         {sem}
                                    </option>
                               ))}
                          </select>
                     </div>
-                    <div className="aso-search-cnt">
-                         <span className="aso-label">Section :</span>
-                         <select className="aso-select" value={selectedSection} onChange={(e) => handleSectionChange(e.target.value)}>
-                              <option className="aso-option" value="">Select</option>
+                    <div className="hso-search-cnt">
+                         <span className="hso-label">Section :</span>
+                         <select className="hso-select" value={selectedSection} onChange={(e) => handleSectionChange(e.target.value)}>
+                              <option className="hso-option" value="">Select</option>
                               {sections.map((sec, index) => (
-                                   <option className="aso-option" key={index} value={sec}>
+                                   <option className="hso-option" key={index} value={sec}>
                                         {sec}
                                    </option>
                               ))}
                          </select>
-                    </div>
-                    
-                    
+                    </div> 
                </div>
-               <div className="aso-btn-content">
-                         <button className="aso-btn" onClick={sendData}>Get</button>
+               <div className="hso-btn-content">
+                         <button className="hso-btn" onClick={sendData}>Get</button>
                     </div>
                {outcomeTable && (
-                         <div className="aso-table-container" >
-                              <div className="aso-header">
-                                   <div className="aso-header-title1">
+                         <div className="hso-table-container" >
+                              <div className="hso-header">
+                                   <div className="hso-header-title1">
                                         <h1 className="">JAMAL MOHAMED COLLEGE (Autonomous)</h1>
                                         <span>
                                              Nationally Accredited with A++ Grade by NAAC (4th Cycle) with CGPA
@@ -250,49 +247,49 @@ function HodStuOutcome() {
                                         <h3>TIRUCHIRAPPALLI - 620 020 .</h3>
                                    </div>
                               </div>
-                              <div className="aso-header-title2">
+                              <div className="hso-header-title2">
                                    <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
                               </div>
-                              <h2 className='aso-heading'>SCLA - Student Cognitive Level Attainment</h2>
+                              <h2 className='hso-heading'>SCLA - Student Cognitive Level Attainment</h2>
                               {outcomeData && outcomeData.length > 0 ? (
-                                   <table className="aso-table">
+                                   <table className="hso-table">
                                         <thead>
                                              <tr>
-                                                  <th className='aso--header'>Reg No</th>
-                                                  <th className='aso--header'>Course Code</th>
-                                                  <th className='aso--header'>CIA LOT</th>
-                                                  <th className='aso--header'>CIA MOT</th>
-                                                  <th className='aso--header'>CIA HOT</th>
-                                                  <th className='aso--header'>ESE LOT</th>
-                                                  <th className='aso--header'>ESE MOT</th>
-                                                  <th className='aso--header'>ESE HOT</th>
-                                                  <th className='aso--header'>OA LOT</th>
-                                                  <th className='aso--header'>OA MOT</th>
-                                                  <th className='aso--header'>OA HOT</th>
-                                                  <th className='aso--header'>GRADE</th>
+                                                  <th className='hso--header'>Reg No</th>
+                                                  <th className='hso--header'>Course Code</th>
+                                                  <th className='hso--header'>CIA LOT</th>
+                                                  <th className='hso--header'>CIA MOT</th>
+                                                  <th className='hso--header'>CIA HOT</th>
+                                                  <th className='hso--header'>ESE LOT</th>
+                                                  <th className='hso--header'>ESE MOT</th>
+                                                  <th className='hso--header'>ESE HOT</th>
+                                                  <th className='hso--header'>OA LOT</th>
+                                                  <th className='hso--header'>OA MOT</th>
+                                                  <th className='hso--header'>OA HOT</th>
+                                                  <th className='hso--header'>GRADE</th>
                                              </tr>
                                         </thead>
                                         <tbody>
                                              {outcomeData.map((item, index) => (
                                                   <tr key={index}>
-                                                       <td className='aso--content'>{item.reg_no}</td>
-                                                       <td className='aso--content'>{item.course_code}</td>
-                                                       <td className='aso--content'>{item.lot_attainment}</td>
-                                                       <td className='aso--content'>{item.mot_attainment}</td>
-                                                       <td className='aso--content'>{item.hot_attainment}</td>
-                                                       <td className='aso--content'>{item.elot_attainment}</td>
-                                                       <td className='aso--content'>{item.emot_attainment}</td>
-                                                       <td className='aso--content'>{item.ehot_attainment}</td>
-                                                       <td className='aso--content'>{item.overAll_lot}</td>
-                                                       <td className='aso--content'>{item.overAll_mot}</td>
-                                                       <td className='aso--content'>{item.overAll_hot}</td>
-                                                       <td className='aso--content'>{item.final_grade}</td>
+                                                       <td className='hso--content'>{item.reg_no}</td>
+                                                       <td className='hso--content'>{item.course_code}</td>
+                                                       <td className='hso--content'>{item.lot_attainment}</td>
+                                                       <td className='hso--content'>{item.mot_attainment}</td>
+                                                       <td className='hso--content'>{item.hot_attainment}</td>
+                                                       <td className='hso--content'>{item.elot_attainment}</td>
+                                                       <td className='hso--content'>{item.emot_attainment}</td>
+                                                       <td className='hso--content'>{item.ehot_attainment}</td>
+                                                       <td className='hso--content'>{item.overAll_lot}</td>
+                                                       <td className='hso--content'>{item.overAll_mot}</td>
+                                                       <td className='hso--content'>{item.overAll_hot}</td>
+                                                       <td className='hso--content'>{item.final_grade}</td>
                                                   </tr>
                                              ))}
                                         </tbody>
                                    </table>
                               ) : (
-                                   <p className="aso-no-content">No data available. Please refine your Search.</p>
+                                   <p className="hso-no-content">No data available. Please refine your Search.</p>
                               )}
                          </div>
                     )}

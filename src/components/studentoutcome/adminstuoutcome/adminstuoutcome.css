@@ -11,7 +11,7 @@
 .aso-dropdown-container {
      display: grid;
      grid-template-columns: repeat(3,1fr);
-     gap: 50px;
+     gap: 40px;
      border: 2px solid black;
      padding: 40px 20px;
      border-radius: 7px;
@@ -20,8 +20,9 @@
 
 .aso-search-cnt {
      display: flex;
-     gap: 10px;
-     align-items: center;
+     flex-direction: column;
+     gap: 18px;
+     margin: 0 auto;
 }
 
 .aso-label {
@@ -32,10 +33,10 @@
 }
 
 .aso-select {
-     width: 170px;
+     width: 270px;
      border-radius: 5px;
      font-size: 15px;
-     padding: 5px;
+     padding: 8px;
 }
 
 .aso-btn-content {

@@ -1,0 +1,131 @@
+* {
+     margin: 0px;
+     padding: 0px;
+     box-sizing: border-box;
+}
+
+.sso-main {
+     padding: 15px;
+}
+
+.sso-dropdown-container {
+     display: grid;
+     grid-template-columns: repeat(3,1fr);
+     gap: 40px;
+     border: 2px solid black;
+     padding: 40px 20px;
+     border-radius: 7px;
+     background-color: rgba(255, 255, 255, 0.918);
+}
+
+.sso-search-cnt {
+     display: flex;
+     flex-direction: column;
+     gap: 18px;
+     margin: 0 auto;
+}
+
+.sso-label {
+     width: 150px;
+     font-size: 17px;
+     font-weight: bolder;
+     text-transform: uppercase;
+}
+
+.sso-select {
+     width: 270px;
+     border-radius: 5px;
+     font-size: 15px;
+     padding: 8px;
+}
+
+.sso-btn-content {
+     margin-top: 15px;
+     display: flex;
+     justify-content: flex-end;
+}
+
+.sso-btn {
+     padding: 12px;
+     border-radius: 10px;
+     width: 120px;
+     font-size: 18px;
+     font-weight: 700;
+     background-color: #007BFF;
+     color: white;
+     border: none;
+     margin-left: 10px;
+     cursor: pointer; 
+}
+
+.sso-btn:hover {
+     background-color: #076ad4;
+}
+
+
+.sso-table-container {
+     margin-top: 10px;
+}
+
+.sso-header {
+     display: flex;
+     flex-direction: row;
+}
+
+.sso-header-title1 {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     font-weight: bolder;
+     justify-content: center;
+     align-items: center;
+}
+
+.sso-heading {
+     margin: 30px 0px;
+     font-size: 23px;
+}
+
+.sso-header-title2 {
+     margin-top: 18px;
+     width: 100%;
+     height: 60px;
+     background-color: #057252;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     gap: 5px;
+     font-weight: bold;
+     color: white;
+}
+
+.sso-table {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 15px;
+     text-align: center;
+ }
+
+.sso-table th {
+    background-color: #057252;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    padding: 10px;
+    border: 0.5px solid black;
+    height: 65px;
+    font-weight: bold;
+}
+
+.sso-table td {
+    border: 0.5px solid black;
+    padding: 20px;
+    height: 65px;
+    font-weight: bold;
+}
+
+.sso-no-content {
+     font-size: 18px;
+     margin-left: 2px;
+}

@@ -16,7 +16,7 @@ function StaffManage()
     }
 
     const handleTutorManage = () => {
-        navigate(`/staff/${staffId}/tutormanage`);
+        // navigate(`/staff/${staffId}/tutormanage`);
     }
     
     return (

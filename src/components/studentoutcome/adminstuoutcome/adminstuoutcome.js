@@ -202,7 +202,7 @@ function AdminStuOutcome()
                                 {category}
                             </option>
                         ))}
-                    </select>
+                    </select> 
                 </div>
                 <div className="aso-search-cnt">
                     <span className="aso-label">Department : </span>
