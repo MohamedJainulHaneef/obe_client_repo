@@ -78,9 +78,9 @@ function Manage()
         <div className="manage-body">
             <div className="manage-container">
                 <button className="manage-btn" onClick={handleAcademic}>Academic Year</button>
-                <button className="manage-btn" onClick={handleStudentManage}>Student Manage</button>
-                <button className="manage-btn" onClick={handleCourseMapManage}>Staff Course Manage</button>
                 <button className="manage-btn" onClick={handleStaffManage}>Staff Manage</button>
+                <button className="manage-btn" onClick={handleCourseMapManage}>Staff Course Manage</button>
+                <button className="manage-btn" onClick={handleStudentManage}>Student Manage</button>
                 <button className="manage-btn" onClick={handleMarkManage}>Mark Manage</button>
                 <button className="manage-btn" onClick={handleScopeManage}>Scope Manage</button>
                 <button className="manage-btn" onClick={handleRelease}>Mark Release</button>

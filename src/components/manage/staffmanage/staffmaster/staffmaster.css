@@ -3,13 +3,13 @@
      padding: 0px;
 }
 
-.sm-manage {
+.smsm-manage {
      padding: 10px;
      width: 100%;
      text-align: center;
 }
 
-.sm-search {
+.smsm-search {
      width: 270px;
      height: 45px;
      padding: 15px;
@@ -20,7 +20,7 @@
      border: 2px solid black;
 }
 
-.sm-header {
+.smsm-header {
      width: 100%;
      border-collapse: collapse;
      margin-top: 10px;
@@ -28,7 +28,7 @@
      text-align: left;
 }
 
-.sm-top-heading {
+.smsm-top-heading {
      text-align: center;
      margin-top: 5px;
      font-size: 25px;
@@ -38,11 +38,18 @@
      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.sm-th-sno,
-.sm-th-id,
-.sm-th-name,
-.sm-th-edit,
-.sm-th-delete {
+.smsm-save-btn {
+     display: flex;
+     gap: 10px;
+     justify-content: center;
+     align-items: center;
+}
+
+.smsm-th-sno,
+.smsm-th-id,
+.smsm-th-name,
+.smsm-th-edit,
+.smsm-th-delete {
      background-color: #1c8163;
      text-align: center;
      font-size: 19px;
@@ -54,11 +61,11 @@
      border-color: black;
 }
 
-.sm-td-sno,
-.sm-td-id,
-.sm-td-edit,
-.sm-td-delete,
-.sm-td-name {
+.smsm-td-sno,
+.smsm-td-id,
+.smsm-td-edit,
+.smsm-td-delete,
+.smsm-td-name {
      text-align: center;
      font-size: 16px;
      border: 1px solid gray;
@@ -67,16 +74,16 @@
      text-transform: uppercase;
 }
 
-.sm-icon {
+.smsm-icon {
      font-size: 16px;
      color: white;
 }
 
-.sm-span {
+.smsm-span {
      font-size: 16px;
 }
 
-.sm-save-btn {
+.smsm-save-btn {
      padding: 12px;
      border-radius: 10px;
      width: 120px;
@@ -88,16 +95,16 @@
      cursor: pointer;
 }
 
-.sm-input-btn {
+.smsm-input-btn {
      display: flex;
      justify-content: space-between;
      align-items: center;
      margin-top: 15px;
 }
 
-.sm-addstaff,
-.sm-edit,
-.sm-delete {
+.smsm-addstaff,
+.smsm-edit,
+.smsm-delete {
      position: fixed;
      top: 50%;
      left: 50%;
@@ -108,32 +115,32 @@
      z-index: 1000;
 }
 
-.sm-addstaff {
+.smsm-addstaff {
      padding: 20px;
      width: 550px;
      height: 630px;
 }
 
-.sm-edit {
+.smsm-edit {
      padding: 25px;
      width: 500px;
      height: 510px;
 }
 
-.sm-edit input {
+.smsm-edit input {
      width: 100%;
 }
 
-.sm-edit-psw {
+.smsm-edit-psw {
      display: flex;
      gap: 20px;
 }
 
-.sm-edit-span {
+.smsm-edit-span {
      text-align: left;
 }
 
-.sm-delete {
+.smsm-delete {
      padding: 20px;
      width: 400px;
      height: 275px;
@@ -142,26 +149,26 @@
      gap: 10px;
 }
 
-.sm-delete-btn-container {
+.smsm-delete-btn-container {
      display: flex;
      justify-content: center;
      padding: 30px;
      gap: 30px;
 }
 
-.sm-close-class {
+.smsm-close-class {
      display: flex;
      justify-content: flex-end;
      margin-bottom: 20px;
 }
 
-.sm-close-header {
+.smsm-close-header {
      width: 90%;
      font-size: 25px;
      font-weight: bolder;
 }
 
-.sm-close {
+.smsm-close {
      background: none;
      border: none;
      font-size: 20px;
@@ -169,8 +176,8 @@
      padding: 5px 8px;
 }
 
-.sm-inputs,
-.sm-edit-inputbox {
+.smsm-inputs,
+.smsm-edit-inputbox {
      width: 100%;
      padding: 10px;
      height: 43px;
@@ -180,7 +187,7 @@
      font-size: 17px;
 }
 
-.sm-edit-inputbox-psw {
+.smsm-edit-inputbox-psw {
      width: 30px;
      padding: 10px;
      height: 43px;
@@ -190,17 +197,17 @@
      font-size: 17px;
 }
 
-.sm-addpopup input::placeholder {
+.smsm-addpopup input::placeholder {
      color: rgb(59, 58, 58);
      font-size: 13px;
 }
 
-.sm-check-boxes {
+.smsm-check-boxes {
      display: flex;
      font-weight: 500;
 }
 
-.sm-individual-check {
+.smsm-individual-check {
      width: 25%;
      display: flex;
      justify-content: left;
@@ -210,14 +217,14 @@
 
 }
 
-.sm-check-boxes input[type="checkbox"] {
+.smsm-check-boxes input[type="checkbox"] {
      width: 15px;
      height: 15px;
      margin-right: 10px;
      cursor: pointer;
 }
 
-.sm-add-save-btn {
+.smsm-add-save-btn {
      width: 100%;
      height: 45px;
      margin-top: 15px;
@@ -229,7 +236,7 @@
      font-weight: bold;
 }
 
-.sm-add-save-btn:hover {
+.smsm-add-save-btn:hover {
      background-color: #076ad4;
 }
 
@@ -237,7 +244,7 @@ body.blur {
      transition: filter 0.3s ease;
 }
 
-.sm-overlay {
+.smsm-overlay {
      position: fixed;
      top: 0;
      left: 0;
@@ -247,12 +254,12 @@ body.blur {
      z-index: 999;
 }
 
-.sm-close:hover {
+.smsm-close:hover {
      background-color: red;
      color: white;
 }
 
-.sm-save-edit-btn {
+.smsm-save-edit-btn {
      padding: 13px;
      border-radius: 8px;
      width: 100%;
@@ -265,12 +272,12 @@ body.blur {
      border: none;
 }
 
-.sm-save-edit-btn:hover {
+.smsm-save-edit-btn:hover {
      background-color: #076ad4;
 }
 
-.sm-edit-btn,
-.sm-del-btn {
+.smsm-edit-btn,
+.smsm-del-btn {
      border-radius: 10px;
      width: 120px;
      padding: 10px 0px;
@@ -283,21 +290,21 @@ body.blur {
      cursor: pointer;
 }
 
-.sm-del-btn {
+.smsm-del-btn {
      background-color: rgb(253, 53, 53);
 }
 
-.sm-edit-password {
+.smsm-edit-password {
      font-weight: bold;
      display: flex;
      flex-direction: column;
      gap: 15px;
 }
 
-.sm-repo-dark {
+.smsm-repo-dark {
      background-color: rgb(250, 250, 254);
 }
 
-.sm-repo-light {
+.smsm-repo-light {
      background-color: white;
 }

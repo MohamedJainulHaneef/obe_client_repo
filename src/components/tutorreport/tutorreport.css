@@ -1,0 +1,20 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+.process-main {
+	padding: 30px;
+}
+
+.process-content {
+	padding: 20px;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+
+.process-code {
+    font-size: 18px;
+    color: #888;
+}
