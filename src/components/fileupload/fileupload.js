@@ -153,7 +153,7 @@ function FileUpload()
                     response = await axios.get(`${apiUrl}/api/download/scopemodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Scope Model.xlsx';
+                    fileName = 'Scope Data Model.xlsx';
                     break;
     
                 case 'mark':
@@ -167,7 +167,7 @@ function FileUpload()
                     response = await axios.get(`${apiUrl}/api/download/markmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mark Entry Model.xlsx';
+                    fileName = 'Mark Entry Data Model.xlsx';
                     break;
 
                 case 'ese':

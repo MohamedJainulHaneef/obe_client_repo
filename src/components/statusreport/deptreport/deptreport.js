@@ -20,7 +20,6 @@ function DeptReport()
     });
     const [searchTerm, setSearchTerm] = useState('');
     
-
     useEffect(() => 
     {
         const academicYearSet = async () => 
@@ -47,7 +46,7 @@ function DeptReport()
                     const response = await axios.post(`${apiUrl}/api/deptstatusreport`, {
                         academic_year: academicYear,
                         dept_name: dept === "alldepartments" ? "ALL" : dept
-                    });
+                    })
                     setDeptStatusReport(response.data);
                 } 
                 catch (err) {
@@ -157,50 +156,54 @@ function DeptReport()
         return a.staff_id.localeCompare(b.staff_id);
     })
 
-   const handleDownload = () => {
-    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const fileExtension = '.xlsx';
-    const fileName = 'Dept_Report';
+    const handleDownload = () => 
+    {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const fileName = 'Dept_Report';
 
-    const headers = [
-        'Staff Id', 
-        'Staff Name', 
-        'Dept Name', 
-        'Course Code', 
-        'Category', 
-        'Section',
-        'CIA - 1', 
-        'CIA - 2', 
-        'ASS - 1', 
-        'ASS - 2', 
-        'Status', 
-    ];
-
-    const dataWithHeaders = [headers, ...deptStatusReport.map(dept => {
-        const status = ['cia_1', 'cia_2', 'ass_1', 'ass_2'].every(key => getStatus(dept[key]) === 'Completed') 
-        ? 'Finished' 
-        : 'Pending';
-
-        return [
-            dept.staff_id,
-            dept.staff_name,
-            dept.dept_name,
-            dept.course_code,
-            dept.category,
-            dept.section, 
-            getStatus(dept.cia_1),
-            getStatus(dept.cia_2),
-            getStatus(dept.ass_1),
-            getStatus(dept.ass_2),
-            status, 
+        const headers = 
+        [
+            'Staff Id', 
+            'Staff Name', 
+            'Dept Name', 
+            'Course Code', 
+            'Category', 
+            'Section',
+            'CIA - 1', 
+            'CIA - 2', 
+            'ASS - 1', 
+            'ASS - 2', 
+            'Status', 
         ];
-   })];
-    const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data = new Blob([excelBuffer], { type: fileType });
-    saveAs(data, fileName + fileExtension);
-};
+
+        const dataWithHeaders = [headers, ...deptStatusReport.map(dept => 
+        {
+            const status = ['cia_1', 'cia_2', 'ass_1', 'ass_2'].every(key => getStatus(dept[key]) === 'Completed') 
+            ? 'Finished' 
+            : 'Pending';
+
+            return [
+                dept.staff_id,
+                dept.staff_name,
+                dept.dept_name,
+                dept.course_code,
+                dept.category,
+                dept.section, 
+                getStatus(dept.cia_1),
+                getStatus(dept.cia_2),
+                getStatus(dept.ass_1),
+                getStatus(dept.ass_2),
+                status, 
+            ];
+        })];
+
+        const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
+        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: fileType });
+        saveAs(data, fileName + fileExtension);
+    }
 
     return (
         <div className='dept-repo-main'>

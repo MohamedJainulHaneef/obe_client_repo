@@ -4,7 +4,6 @@ import './rsmatrixreport.css';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-
 function MatrixReport() 
 {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -106,7 +105,6 @@ function MatrixReport()
         if (status === 'Incomplete') return 1;
         if (status === 'Processing') return 2;
         if (status === 'Completed') return 3;
-        
     }
 
     const sortedReports = [...allMatrixReport]
@@ -135,12 +133,14 @@ function MatrixReport()
         return false;
     })
 
-    const handleDownload = () => {
+    const handleDownload = () => 
+    {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
         const fileName = 'RSMatrix_Report';
     
-        const headers = [
+        const headers = 
+        [
             'Staff Id', 
             'Staff Name', 
             'Dept Id', 
@@ -158,14 +158,14 @@ function MatrixReport()
             dept.category,
             dept.section,
             dept.status,
-        ])];
+        ])]
     
         const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
-    };
+    }
 
     return (
         <div className='rsm-repo-main'>
@@ -249,7 +249,7 @@ function MatrixReport()
                 </tbody>
             </table>
         </div>
-    );
+    )
 }
 
 export default MatrixReport;

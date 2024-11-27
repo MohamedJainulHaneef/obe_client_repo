@@ -268,7 +268,7 @@ function AdminStuOutcome()
                     <div className="aso-header-title2">
                         <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
                     </div>
-                    <h2 className='aso-heading'>Student Attainment Level</h2>
+                    <h2 className='aso-heading'>SCLA - Student Cognitive Level Attainment</h2>
                     {outcomeData && outcomeData.length > 0 ? (
                         <table className="aso-table">
                             <thead>

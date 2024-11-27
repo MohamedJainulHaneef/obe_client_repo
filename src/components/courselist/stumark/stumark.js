@@ -237,7 +237,7 @@ function Stumark()
             return active?.ese === 0;
         }
         return false;
-    };
+    }
 
     const handleUpdateMark = async (e, isConfirm) => 
     {
@@ -306,10 +306,11 @@ function Stumark()
         }
         else 
         {
-            try {
+            try 
+            {
                 const response = await axios.put(`${apiUrl}/api/updateMark`, {
                     updates, activeSection, courseCode, academicYear
-                });
+                })
                 if(response.data.success)
                 {
                     setIsSaveLoading(false);

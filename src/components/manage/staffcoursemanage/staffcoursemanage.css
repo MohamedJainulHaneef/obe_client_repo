@@ -4,9 +4,10 @@
    }
    
    .staff-manage {
-     padding: 10px;
-     width: 100%;
-     text-align: center;
+    padding: 12px;
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
    }
    .staff-search-bar{
      width: 270px;
@@ -44,7 +45,7 @@
    .staff-table{
    width: 100%;
    border-collapse: collapse;
-   margin-top: 12px;
+   
    font-size: 16px;
    text-align: left;
    }
@@ -54,8 +55,8 @@
      font-size: 19px;
      color: white;
      border: 1px solid gray;
-     padding: 7px;
-     height: 65px;
+     padding: 12px;
+     /* height: 65px; */
      font-weight: bold;
      border-color: black;
    }
@@ -64,14 +65,14 @@
      text-align: center;
      font-size: 16px;
      border: 1px solid gray;
-     padding: 10px 13px;
+     padding: 12px;
      font-weight: bold;
      text-transform: uppercase;
    }
  
    .staff-delete-btn{
      border-radius: 10px;
-     background-color:red;
+     background-color:rgb(235, 8, 8);
      width: 120px;
      padding: 10px 0px;
      font-size: 17px;
@@ -83,8 +84,7 @@
    }
  
    .staff-delete-btn:hover{
-     background-color:rgb(219, 81, 81);
-   }
+    background-color:rgb(255, 0, 0);   }
  
    .staff-modal-overlay {
      position: fixed;

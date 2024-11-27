@@ -59,7 +59,7 @@ function HodDouOutcome()
             <div className="hco-header-title2">
                 <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
             </div>
-            <h2 className='hco-heading'>Course Cognitive Level Attainment</h2>
+            <h2 className='hco-heading'>CCLA - Course Cognitive Level Attainment</h2>
             <table className='hco-table'>
                 <thead>
                     <tr>

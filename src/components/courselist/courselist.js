@@ -42,8 +42,10 @@ function CourseList()
                     const courseMappings = response.data;
 
                     const courseMappingsWithStatus = await Promise.all(
-                        courseMappings.map(async (course) => {
-                            try {
+                        courseMappings.map(async (course) => 
+                        {
+                            try 
+                            {
                                 const statusResponse = await axios.post(`${apiUrl}/api/report/status`, {
                                     category: course.category,
                                     dept_name: course.dept_name,

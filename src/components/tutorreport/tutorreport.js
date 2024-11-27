@@ -3,7 +3,7 @@ import React from 'react'
 function TutorReport() 
 {
      return (
-          <div></div>
+          <div>Work In Progress</div>
      )
 }
 
