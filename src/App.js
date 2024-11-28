@@ -9,6 +9,7 @@ import Stumark from './components/courselist/stumark/stumark';
 import InputFile from './components/fileupload/fileupload';
 import StatusReport from './components/statusreport/statusreport';
 import TutorReport from './components/tutorreport/tutorreport';
+import HodReport from './components/hodreport/hodreport';
 import Manage from './components/manage/manage';
 import ScopeManage from './components/manage/scopemanage/scopemanage';
 import StaffManage from './components/manage/staffmanage/staffmanage';
@@ -33,6 +34,8 @@ import StaffCouOC from './components/courseoutcome/handlecououtcome/handlecouout
 import StaffStuOC from './components/studentoutcome/handlestuoutcome/handlestuoutcome';
 import TutorCouOC from './components/courseoutcome/tutorcououtcome/tutorcououtcome';
 import TutorStuOC from './components/studentoutcome/tutorstuoutcome/tutorstuoutcome';
+import ProgramOC from './components/prooutcome/prooutcome';
+import ProgramSpecOc from './components/prospecoutcome/prospecoutcome';
 
 function App() 
 {
@@ -46,6 +49,7 @@ function App()
                         <Route path="courselist" element={<CourseList />} />
                         <Route path="studentmark" element={<Stumark />} />
                         <Route path="classteacherreport" element={<TutorReport />} />
+                        <Route path="hodreport" element={<HodReport />} />
                         <Route path="inputfiles" element={<InputFile />} />
                         <Route path="settings" element={<Settings />} />
                         <Route path="statusreport" element={<StatusReport />} />
@@ -72,6 +76,8 @@ function App()
                         <Route path="staffstudentoutcome" element={<StaffStuOC />} />
                         <Route path="tutorcourseoutcome" element={<TutorCouOC />} />
                         <Route path="tutorstudentoutcome" element={<TutorStuOC />} />
+                        <Route path="programoutcome" element={<ProgramOC />} />
+                        <Route path="programspecificoutcome" element={<ProgramSpecOc />} />
                     </Route>  
                 </Routes>
             </Router>
