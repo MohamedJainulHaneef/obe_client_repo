@@ -187,15 +187,15 @@ function HodStuOutcome() {
                <div className="hso-dropdown-container">
                     <div className="hso-search-cnt">
                          <span className="hso-label">Academic Year :</span>
-                         <input type="text" className="hso-select" value={academicYear} readOnly />
+                         <input type="text" className="hso-select" value={academicYear} readOnly disabled />
                     </div>
                     <div className="hso-search-cnt">
                          <span className="hso-label">Category : </span>
-                         <input type="text" className="hso-select" value={categories} readOnly />
+                         <input type="text" className="hso-select" value={categories} readOnly disabled />
                     </div>
                     <div className="hso-search-cnt">
                          <span className="hso-label">Department : </span>
-                         <input type="text" className="hso-select" value={departments} readOnly />
+                         <input type="text" className="hso-select" value={departments} readOnly disabled/>
                     </div>
                     <div className="hso-search-cnt">
                          <span className="hso-label">Class :</span>
@@ -254,21 +254,26 @@ function HodStuOutcome() {
                               {outcomeData && outcomeData.length > 0 ? (
                                    <table className="hso-table">
                                         <thead>
-                                             <tr>
-                                                  <th className='hso--header'>Reg No</th>
-                                                  <th className='hso--header'>Course Code</th>
-                                                  <th className='hso--header'>CIA LOT</th>
-                                                  <th className='hso--header'>CIA MOT</th>
-                                                  <th className='hso--header'>CIA HOT</th>
-                                                  <th className='hso--header'>ESE LOT</th>
-                                                  <th className='hso--header'>ESE MOT</th>
-                                                  <th className='hso--header'>ESE HOT</th>
-                                                  <th className='hso--header'>OA LOT</th>
-                                                  <th className='hso--header'>OA MOT</th>
-                                                  <th className='hso--header'>OA HOT</th>
-                                                  <th className='hso--header'>GRADE</th>
-                                             </tr>
-                                        </thead>
+                                <tr>
+                                <th className='aso--header' rowSpan={2}>Reg No</th>
+                                    <th className='aso--header' rowSpan={2}>Course Code</th>
+                                    <th className='aso--header' colSpan={3}>INTERNAL</th>
+                                    <th className='aso--header' colSpan={3}>EXTERNAL</th>
+                                    <th className='aso--header' colSpan={3}>TOTAL</th>
+                                    <th className='aso--header'rowSpan={2}>GRADE</th>
+                                </tr>
+                                <tr>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                </tr>
+                            </thead>
                                         <tbody>
                                              {outcomeData.map((item, index) => (
                                                   <tr key={index}>

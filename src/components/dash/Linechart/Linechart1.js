@@ -14,10 +14,10 @@ const BarChart = () => {
                 const response = await axios.post(`${apiUrl}/api/processedChartData`, {});
                 const data = response.data;
 
-                const total = 333; 
+                const total = 333;
 
                 setChartData({
-                    categories: ['CIA 1', 'CIA 2', 'Assignment 1', 'Assignment 2', 'ESE'],
+                    categories: ['CIA 1', 'CIA 2', 'ASS 1', 'ASS 2', 'ESE'],
                     data: [
                         data.counts.cia_1,
                         data.counts.cia_2,
@@ -28,21 +28,30 @@ const BarChart = () => {
                     total,
                 });
             } catch (error) {
-                console.error('Error fetching chart data:', error);
+                console.error('Error Fetching Chart Data :', error);
             }
         };
 
         fetchChartData();
     }, []);
 
-    if (!chartData) return <p>Loading chart data...</p>;
+    if (!chartData) return <p>Loading Chart Data...</p>;
 
     const options = {
         chart: {
-            type: 'column', // Standard bar chart (column type)
+            type: 'column',
+        },
+        title: {
+            text: `COMPLETION STATUS of ${chartData.total} COURSES`,            
+            align: 'center', // Aligns title to the center
+            style: {
+                fontSize: '15px', // Adjust font size
+                fontWeight: 'bolder', // Make the title bold
+            },
         },
         xAxis: {
             categories: chartData.categories,
+
             labels: {
                 rotation: 0,
                 style: {
@@ -50,41 +59,54 @@ const BarChart = () => {
                     fontWeight: 'bold',
                 },
             },
-            gridLineWidth: 0, 
+            gridLineWidth: 0,
         },
         yAxis: {
             title: {
-                text: 'Counts',
+                text: 'COUNTS',
+                margin: 20,
             },
-            gridLineWidth: 0, 
+            max: chartData.total,
+            endOnTick: false,
+            tickInterval: 33,
+            labels: {
+                enabled: true,
+                style: {
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                },
+            },
+            gridLineWidth: 0,
         },
         plotOptions: {
             column: {
                 colorByPoint: true,
                 dataLabels: {
-                    enabled: true, // Enable data labels
-                    color: '#000', // Color of the data labels
+                    enabled: true,
+                    color: '#000',
                     style: {
-                        fontSize: '14px', // Font size of the labels
-                        fontWeight: 'bold', // Font weight of the labels
+                        fontSize: '14px',
+                        fontWeight: 'bold',
                     },
-                    verticalAlign: 'bottom', // Position the labels above the bars
-                    y: -10, // Adjust the vertical position to place the labels above the bars
+                    verticalAlign: 'bottom',
+                    y: -10,
                     formatter: function () {
-                        const value = this.y;
-                        const total = chartData.total;
-                        return `${value}/${total}`; // Display as value/total
+                        return `${this.y}`;
                     },
                 },
             },
         },
         series: [
             {
-                name: 'Course Counts',
+                name: '', // Hides the "Series 1" legend
                 data: chartData.data,
-                colors: ['rgb(10, 161, 116)', 'rgb(224, 5, 5)', 'rgb(146, 0, 236)', '#ea9a0d', '#2ECC71'], // Custom bar colors
+                colors: ['rgb(10, 161, 116)', 'rgb(224, 5, 5)', 'rgb(146, 0, 236)', '#ea9a0d', '#2ECC71'],
+                showInLegend: false, // Hides the legend
             },
         ],
+        credits: {
+            enabled: false, // Remove the Highcharts watermark
+        },
     };
 
     return (

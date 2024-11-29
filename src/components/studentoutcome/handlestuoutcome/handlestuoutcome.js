@@ -37,22 +37,24 @@ function HandleStuOutcome() {
           fetchAcademicYear();
      }, [apiUrl]);
 
-     // fetch category 
+     // fetch category  
      useEffect(() => {
           const fetchcategory = async () => {
                try {
-                    const responce = await axios.get(`${apiUrl}/api/category`, {
+                    console.log('staffId',staffId)
+                    const responce = await axios.get(`${apiUrl}/api/category/${staffId}`, {
                          params: { staffId }
                     })
                     if (responce.data) {
                          setCategories([...new Set(responce.data.map((item) => item.category))].sort());
+                         console.log(categories);
                     }
                } catch (err) {
-                    window.alert("category fetching error ");
+                    window.alert("Category Fetching Error ");
                }
           }
           fetchcategory();
-     });
+     }, [apiUrl, staffId]);
 
      const fetchCourseData = async (filters) => {
           try {
@@ -161,8 +163,6 @@ function HandleStuOutcome() {
                     academicYear, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester, staffId
                });
                if (dropDownData.data) {
-                    window.alert("data posted");
-                    console.log(dropDownData.data);
                     setOutcomeData(dropDownData.data);
         setOutcomeTable(true);
                }
@@ -183,6 +183,7 @@ function HandleStuOutcome() {
                               className="aso-select"
                               value={academicYear}
                               readOnly
+                              disabled
                          />
                     </div>
                     <div className="aso-search-cnt">
@@ -265,18 +266,23 @@ function HandleStuOutcome() {
                         <table className="aso-table">
                             <thead>
                                 <tr>
-                                    <th className='aso--header'>Reg No</th>
-                                    <th className='aso--header'>Course Code</th>
-                                    <th className='aso--header'>CIA LOT</th>
-                                    <th className='aso--header'>CIA MOT</th>
-                                    <th className='aso--header'>CIA HOT</th>
-                                    <th className='aso--header'>ESE LOT</th>
-                                    <th className='aso--header'>ESE MOT</th>
-                                    <th className='aso--header'>ESE HOT</th>
-                                    <th className='aso--header'>OA LOT</th>
-                                    <th className='aso--header'>OA MOT</th>
-                                    <th className='aso--header'>OA HOT</th>
-                                    <th className='aso--header'>GRADE</th>
+                                <th className='aso--header' rowSpan={2}>Reg No</th>
+                                    <th className='aso--header' rowSpan={2}>Course Code</th>
+                                    <th className='aso--header' colSpan={3}>INTERNAL</th>
+                                    <th className='aso--header' colSpan={3}>EXTERNAL</th>
+                                    <th className='aso--header' colSpan={3}>TOTAL</th>
+                                    <th className='aso--header'rowSpan={2}>GRADE</th>
+                                </tr>
+                                <tr>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
                                 </tr>
                             </thead>
                             <tbody>

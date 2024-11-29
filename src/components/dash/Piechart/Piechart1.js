@@ -83,26 +83,26 @@ const Piechart1 = () =>
                 },
             },
             datalabels: 
-            {
-                formatter: (value, ctx) => {
-                    let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                    let percentage = ((value / sum) * 100).toFixed(2) + "%";  
-                    return percentage;
-                },
-                color: '#fff',
-                font: 
-                {
-                    size: 15,
-                    weight: 'bold',
-                },
+        {
+            color: '#fff',
+            font: {
+                size: 15,
+                weight: 'bold',
+            },
+            offset: 100, // Moves labels further away from the center of the chart
+            padding: 40, // Adds space around the label text
+            formatter: (value, context) => {
+                const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${percentage}%`; // Only show percentages
             },
         },
-        responsive: true,
-        maintainAspectRatio: true,
-    }
-
+    },
+    responsive: true,
+    maintainAspectRatio: true,
+};
     return (
-        <div style={{ width: '30%', height: '100%', margin: '20px' }}>
+        <div style={{ width: '30%', height: '370px', margin: '10px' }}>
             <h3 className='pie-heading'>STUDENT</h3>
             {loading ? <p>Loading...</p> : <Pie data={chartData} options={options} />}
         </div>

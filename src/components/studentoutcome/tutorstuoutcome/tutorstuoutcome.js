@@ -74,6 +74,7 @@ function AdminStuOutcome()
                               className="tso-select"
                               value={academicYear}
                               readOnly
+                              disabled
                          />
                     </div>
                     <div className="tso-search-cnt">
@@ -83,6 +84,7 @@ function AdminStuOutcome()
                               className="tso-select"
                               value={category}
                               readOnly
+                              disabled
                          />
                     </div>
                     <div className="tso-search-cnt">
@@ -92,6 +94,7 @@ function AdminStuOutcome()
                               className="tso-select"
                               value={department}
                               readOnly
+                              disabled
                          />
                     </div>
                     <div className="tso-search-cnt">
@@ -101,6 +104,7 @@ function AdminStuOutcome()
                               className="tso-select"
                               value={deptId}
                               readOnly
+                              disabled
                          />
                     </div>
                     <div className="tso-search-cnt">
@@ -110,6 +114,7 @@ function AdminStuOutcome()
                               className="tso-select"
                               value={semester}
                               readOnly
+                              disabled
                          />
                     </div>
                     <div className="tso-search-cnt">
@@ -119,6 +124,7 @@ function AdminStuOutcome()
                               className="tso-select"
                               value={section}
                               readOnly
+                              disabled
                          />
                     </div>
                </div>
@@ -145,21 +151,26 @@ function AdminStuOutcome()
                     {outcomeData && outcomeData.length > 0 ? (
                          <table className="tso-table">
                               <thead>
-                                   <tr>
-                                        <th className='tso--header'>Reg No</th>
-                                        <th className='tso--header'>Course Code</th>
-                                        <th className='tso--header'>CIA LOT</th>
-                                        <th className='tso--header'>CIA MOT</th>
-                                        <th className='tso--header'>CIA HOT</th>
-                                        <th className='tso--header'>ESE LOT</th>
-                                        <th className='tso--header'>ESE MOT</th>
-                                        <th className='tso--header'>ESE HOT</th>
-                                        <th className='tso--header'>OA LOT</th>
-                                        <th className='tso--header'>OA MOT</th>
-                                        <th className='tso--header'>OA HOT</th>
-                                        <th className='tso--header'>GRADE</th>
-                                   </tr>
-                              </thead>
+                                <tr>
+                                <th className='aso--header' rowSpan={2}>Reg No</th>
+                                    <th className='aso--header' rowSpan={2}>Course Code</th>
+                                    <th className='aso--header' colSpan={3}>INTERNAL</th>
+                                    <th className='aso--header' colSpan={3}>EXTERNAL</th>
+                                    <th className='aso--header' colSpan={3}>TOTAL</th>
+                                    <th className='aso--header'rowSpan={2}>GRADE</th>
+                                </tr>
+                                <tr>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                    <th className='aso--header'>LOT</th>
+                                    <th className='aso--header'>MOT</th>
+                                    <th className='aso--header'>HOT</th>
+                                </tr>
+                            </thead>
                               <tbody>
                                    {outcomeData.map((item, index) => (
                                         <tr key={index}>

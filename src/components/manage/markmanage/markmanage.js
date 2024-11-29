@@ -26,7 +26,7 @@ function MarkManage()
         cia2: { lot: '', mot: '', hot: '' },
         ass1: { lot: '', mot: '', hot: '' },
         ass2: { lot: '', mot: '', hot: '' },
-        level0: { ugStartRange: "0", ugEndRange: "", pgStartRange: "1", pgEndRange: "" },
+        level0: { ugStartRange: "0", ugEndRange: "", pgStartRange: "0", pgEndRange: "" },
         level1: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
         level2: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
         level3: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },

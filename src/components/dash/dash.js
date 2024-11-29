@@ -88,12 +88,12 @@ function Dash()
                 <Barchart />
             </div>
             <div className='dash-piechart-main'>
+                <Linechart1 />
                 <Piechart1 />
                 <Piechart2 />
-                <Linechart1 />
             </div>
         </div>
-    );
+    )
 }
 
 export default Dash;

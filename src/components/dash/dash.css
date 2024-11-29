@@ -63,11 +63,12 @@
 
 .dash-piechart-main {
     width: 100%;
-    padding: 15px;
+    padding: 19px 19px 10px 19px;
     border: 2px solid black;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: center;
     /* display: grid;
     grid-template-columns: repeat(3,1fr); */
-    padding-bottom: 25px;
+    /* padding-bottom: 25px; */
 }

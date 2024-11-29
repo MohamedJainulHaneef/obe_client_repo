@@ -16,7 +16,7 @@ function StaffManage()
     }
 
     const handleTutorManage = () => {
-        // navigate(`/staff/${staffId}/tutormanage`);
+        navigate(`/staff/${staffId}/tutormanage`);
     }
     
     return (
@@ -24,13 +24,13 @@ function StaffManage()
             <div className="staff-content-box">
                 <div className='staff-entire-box'>
                     <button className="staff-box" onClick={handleStaffMaster}>
-                        Staff Master Manage
+                        STAFF MASTER MANAGE
                     </button>
                     <button className="staff-box" onClick={handleHodManage}>
-                        Hod Manage
+                        HOD MANAGE
                     </button>
                     <button className="staff-box" onClick={handleTutorManage}>
-                        Tutor Manage
+                        TUTOR MANAGE
                     </button>
                 </div>
             </div>

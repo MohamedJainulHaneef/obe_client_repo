@@ -63,17 +63,22 @@ function HodDouOutcome()
             <table className='hco-table'>
                 <thead>
                     <tr>
-                        <th>Course Code</th>
-                        <th>CIA Lot</th>
-                        <th>CIA Mot</th>
-                        <th>CIA Hot</th>
-                        <th>ESE Lot</th>
-                        <th>ESE Mot</th>
-                        <th>ESE Hot</th>
-                        <th>Overall Lot</th>
-                        <th>Overall Mot</th>
-                        <th>Overall Hot</th>
-                        <th>Grade</th>
+                    <th rowSpan={2}>Course Code</th>
+                        <th colSpan={3}>INTERNAL</th>
+                        <th colSpan={3}>EXTERNAL</th>
+                        <th colSpan={3}>TOTAL</th>
+                        <th rowSpan={2}>Grade</th>
+                    </tr>
+                    <tr>
+                        <th>LOT</th>
+                        <th>MOT</th>
+                        <th>HOT</th>
+                        <th>LOT</th>
+                        <th>MOT</th>
+                        <th>HOT</th>
+                        <th>LOT</th>
+                        <th>MOT</th>
+                        <th>HOT</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,6 +95,33 @@ function HodDouOutcome()
                             <td>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
                             <td>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <h2 className='cco-heading'>CAPSO - Course Attainment by Programme Specific Outcome</h2>
+            <table className='cco-table'>
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>CAPSO1</th>
+                        <th>CAPSO2</th>
+                        <th>CAPSO3</th>
+                        <th>CAPSO4</th>
+                        <th>CAPSO5</th>
+                        <th>CAPSO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(attainmentData.capso).map(courseCode => (
+                        <tr key={courseCode}>
+                            <td>{courseCode}</td>
+                            <td>{attainmentData.capso[courseCode].capso1.toFixed(2)}</td>
+                            <td>{attainmentData.capso[courseCode].capso2.toFixed(2)}</td>
+                            <td>{attainmentData.capso[courseCode].capso3.toFixed(2)}</td>
+                            <td>{attainmentData.capso[courseCode].capso4.toFixed(2)}</td>
+                            <td>{attainmentData.capso[courseCode].capso5.toFixed(2)}</td>
+                            <td>{attainmentData.capso[courseCode].capso.toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>
