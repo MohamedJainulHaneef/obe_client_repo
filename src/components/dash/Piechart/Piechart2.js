@@ -23,33 +23,36 @@ const Piechart2 = () =>
                 const response = await axios.get(`${apiUrl}/api/staffpiechart`);
                 const result = response.data;
 
-                const data = result.data.map(item => item.count);
-                const total = data.reduce((acc, curr) => acc + curr, 0); 
-
-                setChartData(
+                if (result && result.categories) 
                 {
-                    labels:[`AIDED - ${result.aided}`,`SFM - ${result.sfm}`, `SFW - ${result.sfw}`],
-                    datasets: [
-                        {
-                            data,
-                            backgroundColor: [
-                                'rgb(10, 161, 116)',    
-                                'rgb(224, 5, 5)',    
-                                'rgb(146, 0, 236)',    
-                            ],
-                            hoverBackgroundColor: [
-                                'rgb(11, 110, 81)',     
-                                'rgb(202, 7, 7)',     
-                                'rgb(108, 7, 172)',     
-                            ],
-                            borderColor: 'rgba(255, 255, 255, 1)',
-                            borderWidth: 2,
-                        },
-                    ],
-                })
+                    const labels = result.categories.map((category) => `${category.label} - ${category.count}`);
+                    const data = result.categories.map((category) => category.count);
+
+                    setChartData(
+                    {
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: data,
+                                backgroundColor: [
+                                    'rgb(10, 161, 116)', // AIDED
+                                    'rgb(224, 5, 5)',    // SFM
+                                    'rgb(146, 0, 236)',  // SFW
+                                ],
+                                hoverBackgroundColor: [
+                                    'rgb(11, 110, 81)',  // AIDED Hover
+                                    'rgb(202, 7, 7)',    // SFM Hover
+                                    'rgb(108, 7, 172)',  // SFW Hover
+                                ],
+                                borderColor: 'rgba(255, 255, 255, 1)',
+                                borderWidth: 2,
+                            },
+                        ],
+                    });
+                }
             } 
             catch (error) {
-                console.error('Error Fetching Data :', error);
+                console.error('Error fetching staff pie chart data:', error);
             } 
             finally {
                 setLoading(false);
@@ -66,8 +69,8 @@ const Piechart2 = () =>
             {
                 display: true,
                 position: 'bottom',
-                labels: 
-                {
+                align: 'center',
+                labels: {
                     color: '#333',
                     font: {
                         size: 17,
@@ -79,9 +82,12 @@ const Piechart2 = () =>
             },
             tooltip: 
             {
-                callbacks: {
+                callbacks: 
+                {
                     label: function (tooltipItem) {
-                        return `${tooltipItem.label}: ${tooltipItem.raw}`; // Show count
+                        const label = tooltipItem.label || '';
+                        const value = tooltipItem.raw || 0;
+                        return `${label}`;
                     },
                 },
             },
@@ -92,8 +98,7 @@ const Piechart2 = () =>
                     size: 15,
                     weight: 'bold',
                 },
-                offset: 100, // Moves labels further away from the center of the chart
-            padding: 40,
+                display: (context) => true,
                 formatter: (value, context) => {
                     const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
                     const percentage = ((value / total) * 100).toFixed(1);
@@ -106,9 +111,15 @@ const Piechart2 = () =>
     }
 
     return (
-        <div style={{  width: '30%', height: '370px', margin: '10px' }}>
-            <h3 className='pie-heading'>STAFF</h3>
-            {loading ? <p>Loading...</p> : <Pie data={chartData} options={options} />}
+        <div style={{ width: '30%', height: '370px', margin: '10px' }}>
+            <h3 className="pie-heading">STAFF</h3>
+            {loading ? (
+                <p>Loading...</p>
+            ) : chartData.labels.length > 0 ? (
+                <Pie data={chartData} options={options} />
+            ) : (
+                <p>No Data Available</p>
+            )}
         </div>
     )
 }

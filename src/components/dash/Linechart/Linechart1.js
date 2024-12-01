@@ -5,18 +5,22 @@ import HighchartsReact from 'highcharts-react-official';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const BarChart = () => {
+const BarChart = () => 
+{
     const [chartData, setChartData] = useState(null);
 
-    useEffect(() => {
-        const fetchChartData = async () => {
-            try {
+    useEffect(() => 
+    {
+        const fetchChartData = async () => 
+        {
+            try 
+            {
                 const response = await axios.post(`${apiUrl}/api/processedChartData`, {});
                 const data = response.data;
+                const total = response.data.countUniqueCourseCodes;
 
-                const total = 333;
-
-                setChartData({
+                setChartData(
+                {
                     categories: ['CIA 1', 'CIA 2', 'ASS 1', 'ASS 2', 'ESE'],
                     data: [
                         data.counts.cia_1,
@@ -26,32 +30,34 @@ const BarChart = () => {
                         data.counts.ese,
                     ],
                     total,
-                });
-            } catch (error) {
+                })
+            } 
+            catch (error) {
                 console.error('Error Fetching Chart Data :', error);
             }
-        };
-
+        }
         fetchChartData();
     }, []);
 
     if (!chartData) return <p>Loading Chart Data...</p>;
 
-    const options = {
+    const options = 
+    {
         chart: {
             type: 'column',
         },
-        title: {
+        title: 
+        {
             text: `COMPLETION STATUS of ${chartData.total} COURSES`,            
-            align: 'center', // Aligns title to the center
+            align: 'center', 
             style: {
-                fontSize: '15px', // Adjust font size
-                fontWeight: 'bolder', // Make the title bold
+                fontSize: '15px', 
+                fontWeight: 'bolder', 
             },
         },
-        xAxis: {
+        xAxis: 
+        {
             categories: chartData.categories,
-
             labels: {
                 rotation: 0,
                 style: {
@@ -61,7 +67,8 @@ const BarChart = () => {
             },
             gridLineWidth: 0,
         },
-        yAxis: {
+        yAxis: 
+        {
             title: {
                 text: 'COUNTS',
                 margin: 20,
@@ -69,7 +76,8 @@ const BarChart = () => {
             max: chartData.total,
             endOnTick: false,
             tickInterval: 33,
-            labels: {
+            labels: 
+            {
                 enabled: true,
                 style: {
                     fontSize: '12px',
@@ -78,10 +86,13 @@ const BarChart = () => {
             },
             gridLineWidth: 0,
         },
-        plotOptions: {
-            column: {
+        plotOptions: 
+        {
+            column: 
+            {
                 colorByPoint: true,
-                dataLabels: {
+                dataLabels: 
+                {
                     enabled: true,
                     color: '#000',
                     style: {
@@ -98,22 +109,22 @@ const BarChart = () => {
         },
         series: [
             {
-                name: '', // Hides the "Series 1" legend
+                name: '', 
                 data: chartData.data,
                 colors: ['rgb(10, 161, 116)', 'rgb(224, 5, 5)', 'rgb(146, 0, 236)', '#ea9a0d', '#2ECC71'],
-                showInLegend: false, // Hides the legend
+                showInLegend: false, 
             },
         ],
         credits: {
-            enabled: false, // Remove the Highcharts watermark
+            enabled: false,
         },
-    };
+    }
 
     return (
         <div style={{ width: '30%', height: '100%' }}>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
-    );
-};
+    )
+}
 
 export default BarChart;

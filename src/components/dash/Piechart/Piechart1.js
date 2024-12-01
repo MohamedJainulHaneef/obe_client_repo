@@ -6,6 +6,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import axios from 'axios';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+
 const Piechart1 = () => 
 {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -21,38 +22,48 @@ const Piechart1 = () =>
             {
                 const response = await axios.get(`${apiUrl}/api/studentpiechart`);
                 const result = response.data;
-                const data = result.data.map(item => item.count);
 
-                setChartData(
+                if (result && result.categories) 
                 {
-                    labels: [`AIDED - ${result.aided}`, `SFM - ${result.sfm}`, `SFW - ${result.sfw}`],
-                    datasets: [
-                        {
-                            data,
-                            backgroundColor: [
-                                'rgb(10, 161, 116)',   
-                                'rgb(224, 5, 5)',      
-                                'rgb(146, 0, 236)',     
-                            ],
-                            hoverBackgroundColor: [
-                                'rgb(11, 110, 81)',     
-                                'rgb(202, 7, 7)',       
-                                'rgb(108, 7, 172)',     
-                            ],
-                            borderColor: 'rgba(255, 255, 255, 1)',
-                            borderWidth: 2,
-                        },
-                    ],
-                })
+                    const labels = result.categories.map(
+                        item => `${item.label} - ${item.count}` 
+                    )
+
+                    const data = result.categories.map(item => item.count);
+
+                    setChartData (
+                    {
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: data,
+                                backgroundColor: [
+                                    'rgb(10, 161, 116)',  // AIDED
+                                    'rgb(224, 5, 5)',     // SFM
+                                    'rgb(146, 0, 236)',   // SFW
+                                ],
+                                hoverBackgroundColor: [
+                                    'rgb(11, 110, 81)',   // AIDED Hover
+                                    'rgb(202, 7, 7)',     // SFM Hover
+                                    'rgb(108, 7, 172)',   // SFW Hover
+                                ],
+                                borderColor: 'rgba(255, 255, 255, 1)',
+                                borderWidth: 2,
+                            },
+                        ],
+                    });
+                }
             } 
             catch (error) {
-                console.error('Error Fetching Data :', error);
+                console.error('Error Fetching Data:', error);
             } 
             finally {
                 setLoading(false);
             }
-        }
+        };
+
         fetchData();
+
     }, [apiUrl]);
 
     const options = 
@@ -64,7 +75,8 @@ const Piechart1 = () =>
                 display: true,
                 position: 'bottom',
                 align: 'center',
-                labels: {
+                labels: 
+                {
                     color: '#333',
                     font: {
                         size: 17,
@@ -76,35 +88,46 @@ const Piechart1 = () =>
             },
             tooltip: 
             {
-                callbacks: {
-                    label: function (tooltipItem) {
-                        return tooltipItem.label;
+                callbacks: 
+                {
+                    label: function (context) 
+                    {
+                        const label = context.label || '';
+                        const value = context.raw || 0;
+                        return `${label}`;
                     },
                 },
             },
             datalabels: 
-        {
-            color: '#fff',
-            font: {
-                size: 15,
-                weight: 'bold',
-            },
-            offset: 100, // Moves labels further away from the center of the chart
-            padding: 40, // Adds space around the label text
-            formatter: (value, context) => {
-                const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
-                const percentage = ((value / total) * 100).toFixed(1);
-                return `${percentage}%`; // Only show percentages
+            {
+                color: '#fff',
+                font: {
+                    size: 15,
+                    weight: 'bold',
+                },
+                display: (context) => true,
+                formatter: (value, context) => 
+                {
+                    const total = context.dataset.data.reduce((acc, curr) => acc + curr, 0);
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return `${percentage}%`;
+                },
             },
         },
-    },
-    responsive: true,
-    maintainAspectRatio: true,
-};
+        responsive: true,
+        maintainAspectRatio: true,
+    }
+    
     return (
         <div style={{ width: '30%', height: '370px', margin: '10px' }}>
-            <h3 className='pie-heading'>STUDENT</h3>
-            {loading ? <p>Loading...</p> : <Pie data={chartData} options={options} />}
+            <h3 className="pie-heading">STUDENT</h3>
+            {loading ? (
+                <p>Loading ...</p>
+            ) : chartData.labels.length > 0 ? (
+                <Pie data={chartData} options={options} />
+            ) : (
+                <p>No Data Available</p>
+            )}
         </div>
     )
 }
