@@ -187,33 +187,57 @@ function StudentManage() {
     // Save the New Student
 
     const handleSaveStudent = async () => {
+        // Prepare the student data
+        // const studentData = {
+
+        // };
+
         try {
-            // Prepare the payload
-            const studentData = {
+            // API call to save the student
+            const response = await axios.post(`${apiUrl}/api/addstudent`, {
                 stu_name: newStudent.stu_name,
                 reg_no: newStudent.reg_no,
                 batch: newStudent.batch,
                 emis: newStudent.emis,
-                section: selectedSection, // Use the selected value
-                semester: selectedSemester, // Use the selected value
+                section: selectedSection,
+                semester: selectedSemester,
                 mentor: newStudent.mentor,
-                category: selectedCategory, // Use the selected value
-                courseId: selectedCourseId, // Use the selected value
-                courseCodes: selectedCourseCodes, // If multiple, send as an array
-            };
-            console.log(studentData)
+                category: selectedCategory,
+                course_id: selectedCourseId
+            });
+            console.log(selectedCourseId);
 
-            // Make the POST request
-            const response = await axios.post(`${apiUrl}/api/addstudent`, studentData);
+            if (response.status === 201) {
+                // Assuming the response contains the newly created student
+                const newStudentData = response.data.student;  // Adjust based on your API response structure
 
-            // Optionally update state or provide feedback
-            setStudata((prev) => [...prev, response.data]);
-            closeAddModal();
-            window.alert("New Student Successfully Added");
+                // Update the studata state to include the new student
+                setStudata(prevStudata => [...prevStudata, newStudentData]);
 
+                alert("Student Succesfully Added")
+
+                // Close the modal after adding the student
+                closeAddModal();
+
+                // Optionally reset the form if needed (clearing the inputs)
+                setNewStudent({
+                    stu_name: '',
+                    reg_no: '',
+                    batch: '',
+                    mentor: '',
+                    emis: ''
+                });
+                setSelectedCategory('');
+                setSelectedCourseId('');
+                setSelectedSemester('');
+                setSelectedSection('');
+                setSelectedCourseCodes([]);
+            } else {
+                alert("Failed to save student. Please try again.");
+            }
         } catch (error) {
             console.error("Error adding student:", error);
-            window.alert("Failed to add the student. Please try again.");
+            alert("An error occurred while adding the student.");
         }
     };
 
@@ -299,7 +323,7 @@ function StudentManage() {
 
                     <button
                         className="scm-save-btn"
-                    // onClick={openAddModal}
+                        onClick={openAddModal}
                     ><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" /></button>
                 </div>
             </div>
@@ -321,43 +345,43 @@ function StudentManage() {
                     </tr>
                 </thead>
                 <tbody>
-    {filteredStudata.length > 0 ? (
-        filteredStudata.map((student, index) => (
-            <tr key={student.reg_no}>
-                <td className="student-data">{index + 1}</td>
-                <td className="student-data">{student.reg_no}</td>
-                <td className="student-data">{student.category}</td>
-                <td className="student-data-stu">{student.stu_name}</td>
-                <td className="student-data">{student.course_id}</td>
-                <td className="student-data">{student.batch}</td>
-                <td className="student-data">{student.semester}</td>
-                <td className="student-data">{student.section}</td>
-                <td className="student-data">
-                    <button className="scm-edit-btn">
-                        <span className="sm-edit-btn">
-                            Edit &nbsp;
-                            <FontAwesomeIcon icon={faEdit} className="scm-icon" />
-                        </span>
-                    </button>
-                </td>
-                <td className="student-data">
-                    <button className="scm-del-btn">
-                        <span className="sc-del-btn">
-                            Delete &nbsp;
-                            <FontAwesomeIcon icon={faTrash} className="scm-icon" />
-                        </span>
-                    </button>
-                </td>
-            </tr>
-        ))
-    ) : (
-        <tr>
-            <td colSpan="10" className="student-no-data">
-                No data available.
-            </td>
-        </tr>
-    )}
-</tbody>
+                    {filteredStudata.length > 0 ? (
+                        filteredStudata.map((student, index) => (
+                            <tr key={student.reg_no}>
+                                <td className="student-data">{index + 1}</td>
+                                <td className="student-data">{student.reg_no}</td>
+                                <td className="student-data">{student.category}</td>
+                                <td className="student-data-stu">{student.stu_name}</td>
+                                <td className="student-data">{student.course_id}</td>
+                                <td className="student-data">{student.batch}</td>
+                                <td className="student-data">{student.semester}</td>
+                                <td className="student-data">{student.section}</td>
+                                <td className="student-data">
+                                    <button className="scm-edit-btn">
+                                        <span className="sm-edit-btn">
+                                            Edit &nbsp;
+                                            <FontAwesomeIcon icon={faEdit} className="scm-icon" />
+                                        </span>
+                                    </button>
+                                </td>
+                                <td className="student-data">
+                                    <button className="scm-del-btn">
+                                        <span className="sc-del-btn">
+                                            Delete &nbsp;
+                                            <FontAwesomeIcon icon={faTrash} className="scm-icon" />
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="10" className="student-no-data">
+                                No data available.
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
 
             </table>
 
