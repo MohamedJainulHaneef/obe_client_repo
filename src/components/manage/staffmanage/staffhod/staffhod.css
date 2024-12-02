@@ -247,7 +247,6 @@
 .smsh-close-class {
      display: flex;
      justify-content: flex-end;
-     /* margin-bottom: 20px; */
 }
 
 .smsh-delete-btn-container {
@@ -255,6 +254,7 @@
      justify-content: space-between;
      padding: 5px 0px;
      gap: 30px;
+     margin-top: 7px;
 }
 
 .smsh-confirm-btn, .smsh-cancel-btn {
