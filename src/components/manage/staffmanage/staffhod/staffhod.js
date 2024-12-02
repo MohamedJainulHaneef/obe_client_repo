@@ -6,6 +6,7 @@ import './staffhod.css';
 
 const API_URL = "http://localhost:5000/api/hod";
 
+
 function StaffHodManage() {
 	const [data, setData] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
@@ -13,9 +14,20 @@ function StaffHodManage() {
 	const [error, setError] = useState(null);
 	const [editingHod, setEditingHod] = useState(null);
 	const [editForm, setEditForm] = useState({});
+	// const [addForm, setaddForm] = useState({});
+
 	const [deleteHod, setDeleteHod] = useState(null);
 	const [deleteHodInfo, setDeleteHodInfo] = useState(false)
+	const [addhod, setAddhod] = useState("");
+	const apiUrl = process.env.REACT_APP_API_URL;
 
+	const [newstaffId, setNewStaffId] = useState("");
+	const [newhodName, setNewHodName] = useState("");
+	const [newgraduate, setNewGraduate] = useState("");
+	// const [newcourseId, setNewCourseId] = useState("");
+	const [newcategory, setNewCategory] = useState("");
+	const [newdeptName, setNewDeptName] = useState("");
+	const [newDeptId, setNewDeptId] = useState("");
 	useEffect(() => {
 		axios.get(API_URL).then((response) => {
 			const sortedData = response.data.sort((a, b) => {
@@ -51,6 +63,7 @@ function StaffHodManage() {
 
 	const staffEditClose = () => {
 		setEditingHod(false);
+		setAddhod(false);
 	}
 
 
@@ -82,6 +95,12 @@ function StaffHodManage() {
 		const { name, value } = e.target;
 		setEditForm((prev) => ({ ...prev, [name]: value })); // Update form values
 	};
+
+	// const handleAddChange = (e) =>{
+	// 	const{name, value} = e.target;
+	// 	setAddhod((prev) => ({ ...prev, [name]: value}));
+	// 	console.log(addhod);
+	// }
 	const staffDeleteClose = () => {
 		setDeleteHod(false);
 	}
@@ -109,6 +128,27 @@ function StaffHodManage() {
 		return <div>Error : {error}</div>;
 	}
 
+	const handleAddHod = () => {
+		setAddhod(true);
+	}
+	const handlenewHod = async () => {
+		try {
+			console.log(newstaffId,newhodName);
+			const newHodAdded = await axios.post(`${apiUrl}/api/newhodadded`, {newstaffId,newhodName,newcategory,newDeptId,newdeptName,newgraduate	});
+	
+			if (newHodAdded.data) {
+				alert(newHodAdded.data.message);
+				setAddhod(false);
+			}
+		} catch (err) {
+			console.error(err.response || err.message); // Log full error response
+			alert("Error: Something went wrong while adding the new HOD");
+			setAddhod(false);
+
+		}
+	};
+	
+
 	return (
 		<div className="smsh-main">
 			<span className="smsh-top-heading">HOD DETAILS</span>
@@ -120,7 +160,7 @@ function StaffHodManage() {
 					onChange={handleSearch}
 				/>
 				<div>
-					<button className="smsh-save-btn"><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smsh-icon-add" /></button>
+					<button className="smsh-save-btn" onClick={handleAddHod}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smsh-icon-add" /></button>
 				</div>
 			</div>
 
@@ -208,7 +248,7 @@ function StaffHodManage() {
 
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
-							<label className="smsh-edit-label">GRADUATE : </label>
+								<label className="smsh-edit-label">GRADUATE : </label>
 								<input
 									type="text"
 									name="graduate"
@@ -218,7 +258,7 @@ function StaffHodManage() {
 								/>
 							</label>
 							<label className="smsm-edit-password">
-							<label className="smsh-edit-label">DEPT ID : </label>								<input
+								<label className="smsh-edit-label">DEPT ID : </label>								<input
 									type="text"
 									name="course_id"
 									value={editForm.course_id}
@@ -230,22 +270,22 @@ function StaffHodManage() {
 
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
-							<label className="smsh-edit-label">CATEGORY : </label>								<input
-							type="text"
-							name="category"
-							value={editForm.category}
-							onChange={handleEditChange}
-							className="smsh-edit-inputbox-psw"
-						/>
+								<label className="smsh-edit-label">CATEGORY : </label>								<input
+									type="text"
+									name="category"
+									value={editForm.category}
+									onChange={handleEditChange}
+									className="smsh-edit-inputbox-psw"
+								/>
 							</label>
 							<label className="smsm-edit-password">
-							<label className="smsh-edit-label">DEPT NAME : </label>								<input
-							type="text"
-							name="dept_name"
-							value={editForm.dept_name}
-							onChange={handleEditChange}
-							className="smsh-edit-inputbox-psw"
-						/>
+								<label className="smsh-edit-label">DEPT NAME : </label>								<input
+									type="text"
+									name="dept_name"
+									value={editForm.dept_name}
+									onChange={handleEditChange}
+									className="smsh-edit-inputbox-psw"
+								/>
 							</label>
 						</div>
 						<div className="smsh-delete-btn-container">
@@ -292,6 +332,85 @@ function StaffHodManage() {
 				// 		<p><b></p>
 				// 		<div className="modal-buttons">
 				// 			
+				// 		</div>
+				// 	</div>
+				// </div>
+			)}
+			{addhod && (
+
+				<div className="smsh-overlay">
+					<div className="smsh-edit">
+						<div className="smsh-close-class">
+							<span onClick={staffEditClose} className="smsh-close">✖</span>
+						</div>
+						<label className="smsh-edit-label">STAFF ID : </label>
+						<input
+							type="text"
+							name="staff_id"
+							className="smsh-edit-inputbox"
+							onChange={(e)=>setNewStaffId(e.target.value)}
+						/>
+						<label className="smsh-edit-label">HOD NAME: </label>
+						<input
+							type="text"
+							name="hod_name"
+
+							onChange={(e)=>setNewHodName(e.target.value)}
+							className="smsh-edit-inputbox"
+						/>
+
+
+						<div className="smsm-edit-psw">
+							<label className="smsm-edit-password">
+								<label className="smsh-edit-label">GRADUATE : </label>
+								<input
+									type="text"
+									name="graduate"
+									onChange={(e)=>setNewGraduate(e.target.value)}
+									className="smsh-edit-inputbox-psw"
+								/>
+							</label>
+							<label className="smsm-edit-password">
+								<label className="smsh-edit-label">DEPT ID : </label>								<input
+									type="text"
+									name="course_id"
+									onChange={(e)=>setNewDeptId(e.target.value)}
+									className="smsh-edit-inputbox-psw"
+								/>
+							</label>
+						</div>
+
+						<div className="smsm-edit-psw">
+							<label className="smsm-edit-password">
+								<label className="smsh-edit-label">CATEGORY : </label>								<input
+									type="text"
+									name="category"
+									onChange={(e)=>setNewCategory(e.target.value)}
+									className="smsh-edit-inputbox-psw"
+								/>
+							</label>
+							<label className="smsm-edit-password">
+								<label className="smsh-edit-label">DEPT NAME : </label>								<input
+									type="text"
+									name="dept_name"
+									onChange={(e)=>setNewDeptName(e.target.value)}
+									className="smsh-edit-inputbox-psw"
+								/>
+							</label>
+						</div>
+						<div className="smsh-delete-btn-container">
+							<button onClick={handlenewHod} className="smsh-cancel-btn">Save</button>
+							<button onClick={() => setAddhod(false)} className="smsh-cancel-btn">Cancel</button>
+						</div>
+					</div>
+				</div>
+				// <div className="modal">
+				// 	<div className="modal-content">
+				// 		<h2>Edit HOD Details</h2>
+
+				// 		<div className="modal-buttons">
+				// 			<button onClick={handleEditSave} style={{ backgroundColor: "#4CAF50", color: "white" }}>Save</button>
+				// 			<button onClick={() => setEditingHod(null)} style={{ backgroundColor: "#f44336", color: "white" }}>Cancel</button>
 				// 		</div>
 				// 	</div>
 				// </div>

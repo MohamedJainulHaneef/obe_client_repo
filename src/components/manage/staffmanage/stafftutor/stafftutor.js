@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './stafftutor.css';
 
-const API_URL = "http://localhost:5000/api/mentor";
 
+const API_URL = "http://localhost:5000/api/mentor";
+const apiUrl = process.env.REACT_APP_API_URL;
 function StaffTutorManage() {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -14,6 +15,22 @@ function StaffTutorManage() {
     const [editingStaff, setEditingStaff] = useState(null); // For edit modal
     const [editForm, setEditForm] = useState({}); // For editing form values
     const [deleteStaff, setDeleteStaff] = useState(null); // For delete confirmation modal
+    const [addtutur, setAddtutur] = useState("");
+
+    const [newtuturName, setNewtuturName] = useState("");
+    const [tuturgraduate, setTuturGraduate] = useState("");
+    const [newcourseId, setNewCourseId] = useState("");
+    const [newTuturId, setNewTuturId] = useState("")
+    const [tuturCategory, setTuturCategory] = useState("");
+    const [tuturdeptName, setTuturdeptName] = useState("");
+    const [tuturDeptId, setTuturDeptId] = useState("");
+    const [tuturBatch, setTuturBatch] = useState("");
+    const [tuturDegree, setTuturDegree] = useState("");
+    const [tuturSection, setTuturSection] = useState("");
+    const [staffsuggest, setStaffsuggest] = useState(false);
+    const [suggestingStaff, setSuggestingStaff] = useState([]);
+    const [limitedStaffId, setLimitedStaffId] = useState([]);
+
 
     useEffect(() => {
         axios
@@ -75,6 +92,7 @@ function StaffTutorManage() {
         setEditForm((prev) => ({ ...prev, [name]: value }));
     };
 
+
     // Save Edit
     const handleEditSave = async () => {
         try {
@@ -100,6 +118,71 @@ function StaffTutorManage() {
         return <div>Error: {error}</div>;
     }
 
+    //  add new tutur
+
+    const handleaddtutur = () => {
+        setAddtutur(true);
+    };
+    const tututaddClose = () => {
+        setAddtutur(false);
+        setStaffsuggest(false);
+    };
+    const handleNewMentor = async () => {
+        console.log(newTuturId, newtuturName, tuturDegree, tuturBatch, tuturCategory, tuturDeptId, tuturSection, tuturgraduate, tuturdeptName);
+    };
+    const handleInputChange = async (value) => {
+        setNewTuturId(value);
+        if (value.trim().length > 0) {
+            try {
+                setStaffsuggest(true);
+
+                const response = await axios.get(`${apiUrl}/api/getstaff`, {
+                    params: { newTuturId: value },
+                });
+
+                if (response.data) {
+                    const limitedSuggestions = response.data.slice(0, 5);
+                    setSuggestingStaff(response.data);
+                    setLimitedStaffId(limitedSuggestions);
+                } else {
+                    alert("No matching staff found.");
+                    setLimitedStaffId([]);
+                }
+            } catch (error) {
+                console.error("Error fetching staff suggestions:", error);
+                setLimitedStaffId([]);
+            }
+        } else {
+            setStaffsuggest(false);
+            setLimitedStaffId([]);
+        }
+    };
+
+    const handleFetchStaff = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/api/staffdata`, {
+                params: { newTuturId: newTuturId },
+            });
+            if (response.data) {
+                // console.log(response.data[0].staff_name);
+                // console.log(response.data[0].staff_pass);
+                setNewtuturName(response.data[0].staff_name);
+                setTuturGraduate(response.data[0].graduate);
+                // setNewCourseId(response.data[0].course_id);
+                setTuturCategory(response.data[0].category);
+                // setTuturDegree(response.data[0].degree);
+                setTuturdeptName(response.data[0].staff_dept);
+                
+
+                // alert("staff data")
+            }
+        } catch (err) {
+            console.log(err, "error")
+        };
+    }
+
+
+
     return (
         <div className="smst-main">
             <span className="smst-top-heading">STAFF DETAILS</span>
@@ -110,11 +193,11 @@ function StaffTutorManage() {
                     placeholder="Search by Id or Name..."
                     onChange={handleSearch}
                 />
-                <button className="sm-save-btn"><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" /></button>
-           </div>
-           <div className="smst-count">
+                <button className="sm-save-btn" onClick={handleaddtutur}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" /></button>
+            </div>
+            <div className="smst-count">
                 <span className="smst-span"><b>Total Records : </b>{filteredData.length}</span>
-           </div>
+            </div>
             <table className="smst-table">
                 <thead>
                     <tr>
@@ -241,7 +324,137 @@ function StaffTutorManage() {
                     </div>
                 </div>
             )}
-        </div>
+            {addtutur && (
+
+                <div className="smsh-overlay">
+                    <div className="smsh-edit">
+                        <div className="smsh-close-class">
+                            <span onClick={tututaddClose} className="smsh-close">✖</span>
+                        </div>
+                        <label className="smsh-edit-label">STAFF ID : </label>
+                        <input
+                            type="text"
+                            name="staff_id"
+                            className="smsh-edit-inputbox"
+                            value={newTuturId}
+                            onChange={(e) => handleInputChange(e.target.value)}
+
+                        />
+                        {staffsuggest && limitedStaffId.length > 0 && (
+                            <ul className="staff-suggestions">
+                                {limitedStaffId.map((item, index) => (
+                                    <li
+                                        key={index}
+                                        onClick={() => {
+                                            setNewTuturId(item.staff_id);
+                                            handleFetchStaff();
+                                            setStaffsuggest(false);
+                                        }}
+                                        className="suggestion-item"
+                                    >
+                                        {item.staff_id} - {item.staff_name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+
+
+                        <label className="smsh-edit-label">STAFF NAME: </label>
+                        <input
+                            type="text"
+                            name="hod_name"
+                            value={newtuturName}
+                            onChange={(e) => setNewtuturName(e.target.value)}
+                            className="smsh-edit-inputbox"
+                        />
+
+
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">GRADUATE : </label>
+                                <input
+                                    type="text"
+                                    name="graduate"
+                                    
+                                    onChange={(e) => setTuturGraduate(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEPT ID : </label>								<input
+                                    type="text"
+                                    name="course_id"
+                                    // value={tut}
+                                    onChange={(e) => setTuturDeptId(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                        </div>
+
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">CATEGORY : </label>								<input
+                                    type="text"
+                                    name="category"
+                                    value={tuturCategory}
+                                    onChange={(e) => setTuturCategory(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEPT NAME : </label>								<input
+                                    type="text"
+                                    name="dept_name"
+                                    value={tuturdeptName}
+                                    onChange={(e) => setTuturdeptName(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                        </div>
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEGREE : </label>								<input
+                                    type="text"
+                                    name="category"
+                                    onChange={(e) => setTuturDegree(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">SECTION : </label>								<input
+                                    type="text"
+                                    name="dept_name"
+                                    onChange={(e) => setTuturSection(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                        </div>
+                        <label className="smsh-edit-label">BATCH : </label>
+                        <input
+                            type="text"
+                            name="staff_id"
+                            className="smsh-edit-inputbox"
+                            onChange={(e) => setTuturBatch(e.target.value)}
+                        />
+                        <div className="smsh-delete-btn-container">
+                            <button onClick={handleNewMentor} className="smsh-cancel-btn">Save</button>
+                            <button onClick={"() => setAddhod(false)"} className="smsh-cancel-btn">Cancel</button>
+                        </div>
+                    </div>
+                </div >
+                // <div className="modal">
+                // 	<div className="modal-content">
+                // 		<h2>Edit HOD Details</h2>
+
+                // 		<div className="modal-buttons">
+                // 			<button onClick={handleEditSave} style={{ backgroundColor: "#4CAF50", color: "white" }}>Save</button>
+                // 			<button onClick={() => setEditingHod(null)} style={{ backgroundColor: "#f44336", color: "white" }}>Cancel</button>
+                // 		</div>
+                // 	</div>
+                // </div>
+            )
+            }
+        </div >
     );
 }
 

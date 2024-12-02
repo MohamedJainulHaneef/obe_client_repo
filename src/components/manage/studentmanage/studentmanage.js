@@ -168,16 +168,25 @@ function StudentManage() {
     const openAddModal = () => setIsAddModalOpen(true);
     const closeAddModal = () => {
         setIsAddModalOpen(false);
+    
+        // Reset all form fields, including dropdowns
         setNewStudent({
             stu_name: '',
             reg_no: '',
             course_id: '',
-            category: '',
-            semester: '',
-            section: '',
-            batch: ''
+            category: 'default',
+            semester: 'default',
+            section: 'default',
+            batch: 'default'
         });
+    
+        // Reset dropdown values to their default state
+        setSelectedCategory('default');
+        setSelectedCourseId('default');
+        setSelectedSemester('default');
+        setSelectedSection('default');
     };
+    
 
     const handleAddInputChange = (e) => {
         const { name, value } = e.target;
@@ -187,10 +196,6 @@ function StudentManage() {
     // Save the New Student
 
     const handleSaveStudent = async () => {
-        // Prepare the student data
-        // const studentData = {
-
-        // };
 
         try {
             // API call to save the student
@@ -203,9 +208,11 @@ function StudentManage() {
                 semester: selectedSemester,
                 mentor: newStudent.mentor,
                 category: selectedCategory,
-                course_id: selectedCourseId
+                course_id: selectedCourseId,
+                course_codes: selectedCourseCodes
+
             });
-            console.log(selectedCourseId);
+            // console.log(selectedCourseId);
 
             if (response.status === 201) {
                 // Assuming the response contains the newly created student
@@ -252,7 +259,7 @@ function StudentManage() {
 
     // Edit Student Handlers
     const openEditModal = (student) => {
-        setEditStudent(student);
+        setEditStudent({ ...student }); // Clone the student object to edit
         setIsEditModalOpen(true);
     };
 
@@ -266,21 +273,31 @@ function StudentManage() {
         setEditStudent((prev) => ({ ...prev, [name]: value }));
     };
 
+
     // Save the Edited Student
 
     const handleSaveEditStudent = async () => {
         try {
             const response = await axios.put(`${apiUrl}/api/editstudent`, editStudent);
-            setStudata((prev) =>
-                prev.map((student) =>
-                    student.reg_no === editStudent.reg_no ? response.data.student : student
-                )
-            );
-            closeEditModal();
+
+            if (response.status === 200) {
+                // Update the state with the edited student
+                setStudata((prev) =>
+                    prev.map((student) =>
+                        student.reg_no === editStudent.reg_no ? response.data.student : student
+                    )
+                );
+                alert("Student updated successfully!");
+                closeEditModal();
+            } else {
+                alert("Failed to update student. Please try again.");
+            }
         } catch (error) {
             console.error('Error updating student:', error);
+            alert("An error occurred while updating the student.");
         }
     };
+
 
     // Delete Handlers
     const openDeleteModal = (student) => {
@@ -304,12 +321,11 @@ function StudentManage() {
     };
 
     if (loading) {
-        return (
-            <div><center><img src={Loading} alt="Loading..." className="img" /></center></div>
-        );
+        return <div><center><img src={Loading} alt="" className="img" /></center></div>;
     }
+
     return (
-        <div className="student-manage">
+        <div className="scm-manage">
             <span className="scm-top-heading">STUDENT DETAILS</span>
             <div className="scm-input-btn">
                 <input
@@ -319,13 +335,12 @@ function StudentManage() {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <div>
-
-                    <button
-                        className="scm-save-btn"
-                        onClick={openAddModal}
-                    ><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" /></button>
-                </div>
+                <button
+                    className="scm-save-btn"
+                    onClick={openAddModal}
+                >
+                    <span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" />
+                </button>
             </div>
 
             {/* Student Table */}
@@ -357,7 +372,7 @@ function StudentManage() {
                                 <td className="student-data">{student.semester}</td>
                                 <td className="student-data">{student.section}</td>
                                 <td className="student-data">
-                                    <button className="scm-edit-btn">
+                                    <button className="scm-edit-btn" onClick={openEditModal}>
                                         <span className="sm-edit-btn">
                                             Edit &nbsp;
                                             <FontAwesomeIcon icon={faEdit} className="scm-icon" />
@@ -365,7 +380,7 @@ function StudentManage() {
                                     </button>
                                 </td>
                                 <td className="student-data">
-                                    <button className="scm-del-btn">
+                                    <button className="scm-del-btn" onClick={openDeleteModal}>
                                         <span className="sc-del-btn">
                                             Delete &nbsp;
                                             <FontAwesomeIcon icon={faTrash} className="scm-icon" />
@@ -377,108 +392,106 @@ function StudentManage() {
                     ) : (
                         <tr>
                             <td colSpan="10" className="student-no-data">
-                                No data available.
+                                No Data Available.
                             </td>
                         </tr>
                     )}
                 </tbody>
-
             </table>
-
-
-            {/* Delete Confirmation Modal */}
-            {isDeleteModalOpen && studentToDelete && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h3>Confirm Delete</h3>
-                        <p>Are you sure you want to delete the student with Registration Number <strong>{studentToDelete.reg_no}</strong>?</p>
-                        <div className="modal-actions">
-                            <button onClick={handleConfirmDelete} className="confirm-btn">Confirm</button>
-                            <button onClick={closeDeleteModal} className="cancel-btn">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
 
             {/* Add Student Modal */}
             {isAddModalOpen && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h3>Add Student</h3>
-                        <input
-                            type="text"
-                            name="stu_name"
-                            placeholder="Student Name"
-                            value={newStudent.stu_name}
-                            onChange={handleAddInputChange}
-                        />
-                        <input
-                            type="text"
-                            name="reg_no"
-                            placeholder="Registration Number"
-                            value={newStudent.reg_no}
-                            onChange={handleAddInputChange}
-                        />
-                        <input
-                            type="number"
-                            name="batch"
-                            placeholder="Batch"
-                            value={newStudent.batch}
-                            onChange={handleAddInputChange}
-                        />
-                        <input
-                            type="text"
-                            name="mentor"
-                            placeholder="mentor"
-                            value={newStudent.mentor}
-                            onChange={handleAddInputChange}
-                        />
-                        <input
-                            type="number"
-                            name="emis"
-                            placeholder="emis"
-                            value={newStudent.emis}
-                            onChange={handleAddInputChange}
-                        />
-                        <select className="aso-select" value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
-                            <option className="aso-option" value="">Category</option>
-                            {categories.map((category, index) => (
-                                <option className="aso-option" key={index} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
-                        <select className="aso-select" value={selectedCourseId} onChange={(e) => handleCourseIdChange(e.target.value)}>
-                            <option className="aso-option" value="">CourseID</option>
-                            {courseId.map((course, index) => (
-                                <option className="aso-option" key={index} value={course}>
-                                    {course}
-                                </option>
-                            ))}
-                        </select>
-                        <select className="aso-select" value={selectedSemester} onChange={(e) => handleSemesterChange(e.target.value)}>
-                            <option className="aso-option" value="">Semester</option>
-                            {semester.map((sem, index) => (
-                                <option className="aso-option" key={index} value={sem}>
-                                    {sem}
-                                </option>
-                            ))}
-                        </select>
-                        <select className="aso-select" value={selectedSection} onChange={(e) => handleSectionChange(e.target.value)}>
-                            <option className="aso-option" value="">Section</option>
-                            {section.map((sec, index) => (
-                                <option className="aso-option" key={index} value={sec}>
-                                    {sec}
-                                </option>
-                            ))}
-                        </select>
-                        <button onClick={handleFetchCourse}>Get CourseId</button>
+                <div className="stu-add-modal">
+                    <div className="stu-add-content">
+                        <span className='stu-span'>ADD STUDENT</span>
+                        <div className='stu-add-input-container'>
+                            <input
+                                type="text"
+                                name="stu_name"
+                                placeholder="Student Name"
+                                value={newStudent.stu_name}
+                                onChange={handleAddInputChange}
+                                className='stu-add-indi-input'
+                            />
+                            <input
+                                type="text"
+                                name="reg_no"
+                                placeholder="Registration Number"
+                                value={newStudent.reg_no}
+                                onChange={handleAddInputChange}
+                                className='stu-add-indi-input'
+                            />
+                        </div>
+                        <div className='student-add-input-container'>
+                            <input
+                                type="number"
+                                name="batch"
+                                placeholder="Batch"
+                                value={newStudent.batch}
+                                onChange={handleAddInputChange}
+                                className='stu-add-indi-input'
+                            />
+                            <input
+                                type="text"
+                                name="mentor"
+                                placeholder="Mentor"
+                                value={newStudent.mentor}
+                                onChange={handleAddInputChange}
+                                className='stu-add-indi-input'
+                            />
+                            <input
+                                type="number"
+                                name="emis"
+                                placeholder="Emis"
+                                value={newStudent.emis}
+                                onChange={handleAddInputChange}
+                                className='stu-add-indi-input'
+                            />
+                        </div>
+                        <div className="student-add-dropdowns">
+                            <select className="stu-select" value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
+                                <option className="stu-option" value="default">Category</option>
+                                {categories.map((category, index) => (
+                                    <option className="stu-option" key={index} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
+                            <select className="stu-select" value={selectedCourseId} onChange={(e) => handleCourseIdChange(e.target.value)}>
+                                <option className="stu-option" value="default">Dept Id</option>
+                                {courseId.map((course, index) => (
+                                    <option className="stu-option" key={index} value={course}>
+                                        {course}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="student-add-dropdowns">
+                            <select className="stu-select" value={selectedSemester} onChange={(e) => handleSemesterChange(e.target.value)}>
+                                <option className="stu-option" value="default">Semester</option>
+                                {semester.map((sem, index) => (
+                                    <option className="stu-option" key={index} value={sem}>
+                                        {sem}
+                                    </option>
+                                ))}
+                            </select>
+                            <select className="stu-select" value={selectedSection} onChange={(e) => handleSectionChange(e.target.value)}>
+                                <option className="stu-option" value="default">Section</option>
+                                {section.map((sec, index) => (
+                                    <option className="stu-option" key={index} value={sec}>
+                                        {sec}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className='stu-btn-container'>
+                            <button onClick={handleFetchCourse} className='stu-btn-1'>Get Course Code</button>
+                            <button onClick={closeAddModal} className='stu-btn-2'>Cancel</button>
+                        </div>
 
                         {/* Render checkboxes if course codes are available */}
                         {courseCodes.length > 0 && (
                             <div className="checkbox-container">
-                                <h3>Select Course Codes:</h3>
                                 <div className="checkbox-row">
                                     {courseCodes.map((courseCode, index) => (
                                         <div key={index} className="checkbox-item">
@@ -495,11 +508,26 @@ function StudentManage() {
                                         </div>
                                     ))}
                                 </div>
+                                <div className='stu-btn-container2'>
+                                    <button onClick={handleSaveStudent} className='stu-btn-3'>SAVE</button>
+                                    <button onClick={closeAddModal} className='stu-btn-2'>Cancel</button>
+                                </div>
                             </div>
                         )}
+                    </div>
+                </div>
+            )}
 
-                        <button onClick={handleSaveStudent}>Save</button>
-                        <button onClick={closeAddModal}>Cancel</button>
+            {/* Delete Confirmation Modal */}
+            {isDeleteModalOpen && studentToDelete && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Confirm Delete</h3>
+                        <p>Are you sure you want to delete the student with Registration Number <strong>{studentToDelete.reg_no}</strong>?</p>
+                        <div className="modal-actions">
+                            <button onClick={handleConfirmDelete} className="confirm-btn">Confirm</button>
+                            <button onClick={closeDeleteModal} className="cancel-btn">Cancel</button>
+                        </div>
                     </div>
                 </div>
             )}
@@ -513,28 +541,56 @@ function StudentManage() {
                             type="text"
                             name="stu_name"
                             placeholder="Student Name"
-                            value={editStudent.stu_name}
+                            value={editStudent.stu_name || ''}
                             onChange={handleEditInputChange}
                         />
                         <input
                             type="text"
                             name="reg_no"
                             placeholder="Registration Number"
-                            value={editStudent.reg_no}
-                        // disabled // Prevent editing reg_no
+                            value={editStudent.reg_no || ''}
+                            disabled // Prevent editing reg_no
+                        />
+                        <input
+                            type="number"
+                            name="batch"
+                            placeholder="Batch"
+                            value={editStudent.batch || ''}
+                            onChange={handleEditInputChange}
                         />
                         <input
                             type="text"
-                            name="category"
-                            placeholder="Category"
-                            value={editStudent.category}
+                            name="mentor"
+                            placeholder="Mentor"
+                            value={editStudent.mentor || ''}
+                            onChange={handleEditInputChange}
+                        />
+                        <input
+                            type="number"
+                            name="emis"
+                            placeholder="EMIS"
+                            value={editStudent.emis || ''}
                             onChange={handleEditInputChange}
                         />
                         <input
                             type="text"
                             name="section"
                             placeholder="Section"
-                            value={editStudent.section}
+                            value={editStudent.section || ''}
+                            onChange={handleEditInputChange}
+                        />
+                        <input
+                            type="text"
+                            name="semester"
+                            placeholder="Semester"
+                            value={editStudent.semester || ''}
+                            onChange={handleEditInputChange}
+                        />
+                        <input
+                            type="text"
+                            name="category"
+                            placeholder="Category"
+                            value={editStudent.category || ''}
                             onChange={handleEditInputChange}
                         />
                         <button onClick={handleSaveEditStudent}>Save</button>
@@ -542,6 +598,7 @@ function StudentManage() {
                     </div>
                 </div>
             )}
+
         </div>
     );
 }
