@@ -193,7 +193,9 @@ function StaffTutorManage() {
                     placeholder="Search by Id or Name..."
                     onChange={handleSearch}
                 />
-                <button className="sm-save-btn" onClick={handleaddtutur}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" /></button>
+                <div>
+					<button className="smsh-save-btn" onClick={handleaddtutur}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smsh-icon-add" /></button>
+				</div>
             </div>
             <div className="smst-count">
                 <span className="smst-span"><b>Total Records : </b>{filteredData.length}</span>
@@ -206,7 +208,7 @@ function StaffTutorManage() {
                         <th>Mentor Name</th>
                         <th>Category</th>
                         <th>Degree</th>
-                        <th>Department Name</th>
+                        <th>Dept Name</th>
                         <th>Section</th>
                         <th>Edit</th>
                         <th>Delete</th>

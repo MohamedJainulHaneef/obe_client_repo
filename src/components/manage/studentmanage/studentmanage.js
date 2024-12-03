@@ -485,8 +485,8 @@ function StudentManage() {
                             </select>
                         </div>
                         <div className='stu-btn-container'>
-                            <button onClick={handleFetchCourse} className='stu-btn-1'>Get Course Code</button>
-                            <button onClick={closeAddModal} className='stu-btn-2'>Cancel</button>
+                            <button onClick={handleFetchCourse} className='stu-btn-1'>GET COURSE CODE</button>
+                            <button onClick={closeAddModal} className='stu-btn-2'>CANCEL</button>
                         </div>
 
                         {/* Render checkboxes if course codes are available */}
@@ -510,7 +510,7 @@ function StudentManage() {
                                 </div>
                                 <div className='stu-btn-container2'>
                                     <button onClick={handleSaveStudent} className='stu-btn-3'>SAVE</button>
-                                    <button onClick={closeAddModal} className='stu-btn-2'>Cancel</button>
+                                    <button onClick={closeAddModal} className='stu-btn-2'>CANCEL</button>
                                 </div>
                             </div>
                         )}
@@ -520,13 +520,13 @@ function StudentManage() {
 
             {/* Delete Confirmation Modal */}
             {isDeleteModalOpen && studentToDelete && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h3>Confirm Delete</h3>
-                        <p>Are you sure you want to delete the student with Registration Number <strong>{studentToDelete.reg_no}</strong>?</p>
-                        <div className="modal-actions">
-                            <button onClick={handleConfirmDelete} className="confirm-btn">Confirm</button>
-                            <button onClick={closeDeleteModal} className="cancel-btn">Cancel</button>
+                <div className="stu-del-modal">
+                    <div className="stu-del-content">
+                        <h2>Confirm Delete</h2>
+                        <p>Are you sure you want to delete the Student with Registration Number <strong>{studentToDelete.reg_no}</strong>?</p>
+                        <div className="stu-del-actions">
+                        <button onClick={handleConfirmDelete} className='stu-btn-3'>SAVE</button>
+                        <button onClick={closeDeleteModal} className='stu-btn-2'>CANCEL</button>
                         </div>
                     </div>
                 </div>

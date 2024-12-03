@@ -3,9 +3,9 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './staffhod.css';
+import Loading from '../../../../assets/load.svg'
 
 const API_URL = "http://localhost:5000/api/hod";
-
 
 function StaffHodManage() {
 	const [data, setData] = useState([]);
@@ -121,7 +121,7 @@ function StaffHodManage() {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		<div><center><img src={Loading} alt="" className="img" /></center></div>
 	}
 
 	if (error) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './markrelease.css';
-import Loading from '../../../assets/load.svg'
+import Loading from '../../../assets/load.svg';
 
 function MarkRelease() 
 {

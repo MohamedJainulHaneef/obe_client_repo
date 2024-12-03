@@ -129,15 +129,23 @@ function Stumark()
             }
             else if (activeSection === '3') 
             {
-                if (value > maxMark?.a1_lot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.a1_lot);                    
+                // if (value > maxMark?.a1_lot) {
+                //     alert("Value for LOT cannot exceed " + maxMark?.a1_lot);                    
+                //     validatedValue = '';
+                // }
+                if(value > 3) {
+                    alert("Value for LOT cannot exceed 3");                    
                     validatedValue = '';
                 }
             }
             else if (activeSection === '4') 
             {
-                if (value > maxMark?.a2_lot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.a2_lot);                    
+                // if (value > maxMark?.a2_lot) {
+                //     alert("Value for LOT cannot exceed " + maxMark?.a2_lot);                    
+                //     validatedValue = '';
+                // }
+                if(value > 3) {
+                    alert("Value for LOT cannot exceed 3");                    
                     validatedValue = '';
                 }
             }

@@ -100,6 +100,10 @@
      background-color: red;
 }
 
+.smst-count {
+     display: flex;
+     justify-content: flex-end;
+}
 .smst-icon {
      font-size: 16px;
      color: white;
