@@ -289,8 +289,8 @@ function StaffHodManage() {
 							</label>
 						</div>
 						<div className="smsh-delete-btn-container">
-							<button onClick={handleEditSave} className="smsh-cancel-btn">Save</button>
-							<button onClick={() => setEditingHod(null)} className="smsh-cancel-btn">Cancel</button>
+							<button onClick={handleEditSave} className="smsh-add-save-btn">Save</button>
+							<button onClick={() => setEditingHod(null)} className="smsh-save-edit-btn">Cancel</button>
 						</div>
 					</div>
 				</div>
@@ -318,8 +318,8 @@ function StaffHodManage() {
 						<h4>DEPARTMENT NAME : {deleteHodInfo.dept_name}</h4>
 						<h4>CATEGORY : {deleteHodInfo.category}</h4>
 						<div className="smsh-delete-btn-container">
-							<button onClick={() => confirmDelete(deleteHodInfo.staff_id)} className="smsh-confirm-btn">Delete</button>
-							<button onClick={cancelDelete} className="smsh-cancel-btn">Cancel</button>
+							<button onClick={() => confirmDelete(deleteHodInfo.staff_id)} className="smsh-save-edit-btn">DELETE</button>
+							<button onClick={cancelDelete} className="smsh-add-save-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
@@ -371,7 +371,8 @@ function StaffHodManage() {
 								/>
 							</label>
 							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">DEPT ID : </label>								<input
+								<label className="smsh-edit-label">DEPT ID : </label>								
+								<input
 									type="text"
 									name="course_id"
 									onChange={(e)=>setNewDeptId(e.target.value)}
@@ -399,8 +400,8 @@ function StaffHodManage() {
 							</label>
 						</div>
 						<div className="smsh-delete-btn-container">
-							<button onClick={handlenewHod} className="smsh-cancel-btn">Save</button>
-							<button onClick={() => setAddhod(false)} className="smsh-cancel-btn">Cancel</button>
+							<button onClick={handlenewHod} className="smsh-add-save-btn">SAVE</button>
+							<button onClick={() => setAddhod(false)} className="smsh-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>

@@ -145,8 +145,6 @@
 
 .smsm-delete {
      padding: 20px;
-     width: 400px;
-     height: 275px;
      display: flex;
      flex-direction: column;
      gap: 10px;
@@ -237,6 +235,7 @@
      border-radius: 8px;
      font-size: 19px;
      font-weight: bold;
+     border: none;
 }
 
 .smsm-add-save-btn:hover {
@@ -260,23 +259,23 @@ body.blur {
 .smsm-close:hover {
      background-color: red;
      color: white;
-}
+} 
 
 .smsm-save-edit-btn {
-     padding: 13px;
-     border-radius: 8px;
      width: 100%;
-     font-size: 18px;
-     font-weight: 700;
-     background-color: #007BFF;
+     height: 45px;
+     margin-top: 15px;
+     border-radius: 8px;
+     font-size: 19px;
+     font-weight: bold;
+     background-color: rgba(255, 0, 0, 0.842);
      color: white;
      cursor: pointer;
-     margin-top: 10px;
      border: none;
 }
 
 .smsm-save-edit-btn:hover {
-     background-color: #076ad4;
+     background-color: rgb(255, 0, 0);
 }
 
 .smsm-edit-btn,

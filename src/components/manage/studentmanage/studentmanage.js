@@ -561,14 +561,14 @@ function StudentManage() {
                         <input
                             type="text"
                             name="mentor"
-                            placeholder="Mentor"
+                            placeholder="Mentor Name"
                             value={editStudent.mentor || ''}
                             onChange={handleEditInputChange}
                         />
                         <input
                             type="number"
                             name="emis"
-                            placeholder="EMIS"
+                            placeholder="Emis No"
                             value={editStudent.emis || ''}
                             onChange={handleEditInputChange}
                         />

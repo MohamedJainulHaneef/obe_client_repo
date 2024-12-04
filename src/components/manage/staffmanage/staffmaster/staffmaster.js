@@ -379,7 +379,7 @@ function StaffMasterManage()
                             </div>
                             <div className="smsh-delete-btn-container">
                                 <button onClick={savenewstaff} className="smsm-add-save-btn">SAVE</button>
-                                <button onClick={hidepopup} className="smsm-save-edit-btn">CANCEL</button>
+                                <button onClick={hidepopup} className="smsm-save-edit-btn">CANCEL</button> 
                             </div>
                         </div>
                     </>
@@ -444,8 +444,8 @@ function StaffMasterManage()
                                 </label>
                             </div>
                             <div className="smsh-delete-btn-container">
-                                <button onClick={updatestaff} className="smsm-save-edit-btn">SAVE</button>
-                                <button onClick={staffEditClose} className="smsm-save-edit-btn">Cancel</button>
+                                <button onClick={updatestaff} className="smsm-add-save-btn">SAVE</button>
+                                <button onClick={staffEditClose} className="smsm-save-edit-btn">CANCEL</button>
                             </div>
                         </div>
                     </div>
@@ -460,8 +460,8 @@ function StaffMasterManage()
                         <h4>STAFF ID : {deletestaffid}</h4>
                         <h4>STAFF NAME : {deletestaffname}</h4>
                         <div className="smsm-delete-btn-container">
-                            <button onClick={Confirmdelete}className="smsm-confirm-btn">Confirm</button>
-                            <button onClick={staffDeleteClose}className="smsm-cancel-btn">Cancel</button>
+                            <button onClick={Confirmdelete}className="smsm-confirm-btn">CONFIRM</button>
+                            <button onClick={staffDeleteClose}className="smsm-cancel-btn">CANCEL</button>
                         </div>
                     </div>
                 </div>
