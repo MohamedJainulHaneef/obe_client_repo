@@ -217,7 +217,7 @@ function StaffTutorManage() {
                     {filteredData.length > 0 ? (
                         filteredData.map((row, index) => (
                             <tr key={index} className={index % 2 === 0 ? 'smst-repo-light' : 'smst-repo-dark'}>
-                                <td>{index+1}</td>
+                                <td>{index + 1}</td>
                                 <td>{row.staff_id}</td>
                                 <td>{row.staff_name}</td>
                                 <td>{row.category}</td>
@@ -243,15 +243,122 @@ function StaffTutorManage() {
                 </tbody>
             </table>
 
-            -----------------------------------------------------------------------------------
+            ---------------------------------------------------------------------------------------------------------------------------------
 
+            {addtutur && (
+
+                <div className="smsh-overlay">
+                    <div className="smsh-edit">
+                        <div className="smsh-close-class">
+                            <span className="smsh-close">✖</span>
+                        </div>
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">STAFF ID : </label>
+                                <input
+                                    type="text"
+                                    name="staffid"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">CATEGORY : </label>
+                                <input
+                                    type="text"
+                                    name="category"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                        </div>
+                        <label className="smsh-edit-label">MENTOR NAME : </label>
+                        <input
+                            type="text"
+                            name="staff_name"
+                            className="smsh-edit-inputbox"
+
+                        />
+
+
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEGREE : </label>
+                                <input
+                                    type="text"
+                                    name="degree"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">CATEGORY : </label>
+                                <input
+                                    type="text"
+                                    name="category"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                        </div>
+
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">GRADUATE : </label>
+                                <input
+                                    type="text"
+                                    name="degree"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">SECTION : </label>
+                                <input
+                                    type="text"
+                                    name="section"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                        </div>
+
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEPT ID : </label>
+                                <input
+                                    type="text"
+                                    name="degree"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEPT NAME : </label>
+                                <input
+                                    type="text"
+                                    name="section"
+                                    className="smsh-edit-inputbox-psw"
+
+                                />
+                            </label>
+                        </div>
+                        <div className="smsh-delete-btn-container">
+                            <button className="smsh-add-save-btn">SAVE</button>
+                            <button className="smsh-save-edit-btn">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            ---------------------------------------------------------------------------------------------------------------------------------
             {editingStaff && (
 
                 <div className="smsh-overlay">
                     <div className="smsh-edit">
-                    <div className="smsh-close-class">
-							<span onClick={() => setEditingStaff(null)} className="smsh-close">✖</span>
-						</div>
+                        <div className="smsh-close-class">
+                            <span onClick={() => setEditingStaff(null)} className="smsh-close">✖</span>
+                        </div>
                         <label className="smsh-edit-label">STAFF ID : </label>
                         <input
                             type="text"
@@ -276,24 +383,24 @@ function StaffTutorManage() {
                             <label className="smsm-edit-password">
                                 <label className="smsh-edit-label">BATCH : </label>
                                 <input
-                            type="text"
-                            name="batch"
-                            value={editForm.batch || ""}
-                            onChange={handleEditChange}
-                            className="smsh-edit-inputbox-psw"
+                                    type="text"
+                                    name="batch"
+                                    value={editForm.batch || ""}
+                                    onChange={handleEditChange}
+                                    className="smsh-edit-inputbox-psw"
 
-                        />
+                                />
                             </label>
                             <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">CATEGORY : </label>								
+                                <label className="smsh-edit-label">CATEGORY : </label>
                                 <input
-                            type="text"
-                            name="category"
-                            value={editForm.category || ""}
-                            onChange={handleEditChange}
-                            className="smsh-edit-inputbox-psw"
+                                    type="text"
+                                    name="category"
+                                    value={editForm.category || ""}
+                                    onChange={handleEditChange}
+                                    className="smsh-edit-inputbox-psw"
 
-                        />
+                                />
                             </label>
                         </div>
 
@@ -301,24 +408,24 @@ function StaffTutorManage() {
                             <label className="smsm-edit-password">
                                 <label className="smsh-edit-label">GRADUATE : </label>
                                 <input
-                            type="text"
-                            name="degree"
-                            value={editForm.graduate || ""}
-                            onChange={handleEditChange}
-                            className="smsh-edit-inputbox-psw"
+                                    type="text"
+                                    name="degree"
+                                    value={editForm.graduate || ""}
+                                    onChange={handleEditChange}
+                                    className="smsh-edit-inputbox-psw"
 
-                        />
+                                />
                             </label>
                             <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">SECTION : </label>			
+                                <label className="smsh-edit-label">SECTION : </label>
                                 <input
-                            type="text"
-                            name="section"
-                            value={editForm.section || ""}
-                            onChange={handleEditChange}
-                            className="smsh-edit-inputbox-psw"
+                                    type="text"
+                                    name="section"
+                                    value={editForm.section || ""}
+                                    onChange={handleEditChange}
+                                    className="smsh-edit-inputbox-psw"
 
-                        />
+                                />
                             </label>
                         </div>
 
@@ -326,24 +433,24 @@ function StaffTutorManage() {
                             <label className="smsm-edit-password">
                                 <label className="smsh-edit-label">DEPT ID : </label>
                                 <input
-                            type="text"
-                            name="degree"
-                            value={editForm.course_id || ""}
-                            onChange={handleEditChange}
-                            className="smsh-edit-inputbox-psw"
+                                    type="text"
+                                    name="degree"
+                                    value={editForm.course_id || ""}
+                                    onChange={handleEditChange}
+                                    className="smsh-edit-inputbox-psw"
 
-                        />
+                                />
                             </label>
                             <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEPT NAME : </label>			
+                                <label className="smsh-edit-label">DEPT NAME : </label>
                                 <input
-                            type="text"
-                            name="section"
-                            value={editForm.dept_name || ""}
-                            onChange={handleEditChange}
-                            className="smsh-edit-inputbox-psw"
+                                    type="text"
+                                    name="section"
+                                    value={editForm.dept_name || ""}
+                                    onChange={handleEditChange}
+                                    className="smsh-edit-inputbox-psw"
 
-                        />
+                                />
                             </label>
                         </div>
                         <div className="smsh-delete-btn-container">
@@ -353,35 +460,8 @@ function StaffTutorManage() {
                     </div>
                 </div>
             )}
-            ---------------------------------------------------------------------------------
-            {/* Edit Modal */}
-            {/* {editingStaff && (
-                <div className="modal">
-                    <div className="modal-content">
-                        
-                        <label>Degree:</label>
-                        
-                        <label>Department Name:</label>
-                        <input
-                            type="text"
-                            name="dept_name"
-                            value={editForm.dept_name || ""}
-                            onChange={handleEditChange}
-                        />
-                        <label>Section:</label>
-                        <input
-                            type="text"
-                            name="section"
-                            value={editForm.section || ""}
-                            onChange={handleEditChange}
-                        />
-                        <div className="modal-buttons">
-                            <button onClick={handleEditSave} style={{ backgroundColor: "#4CAF50", color: "white" }}>Save</button>
-                            <button onClick={() => setEditingStaff(null)} style={{ backgroundColor: "#f44336", color: "white" }}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            )} */}
+
+---------------------------------------------------------------------------------------------------------------------------------
 
             {/* Delete Confirmation Modal */}
             {deleteStaff && (
@@ -403,138 +483,8 @@ function StaffTutorManage() {
                     </div>
                 </div>
             )}
-            {addtutur && (
-
-                <div className="smsh-overlay">
-                    <div className="smsh-edit">
-                        <div className="smsh-close-class">
-                            <span onClick={tututaddClose} className="smsh-close">✖</span>
-                        </div>
-                        <label className="smsh-edit-label">STAFF ID : </label>
-                        <input
-                            type="text"
-                            name="staff_id"
-                            className="smsh-edit-inputbox"
-                            value={newTuturId}
-                            onChange={(e) => handleInputChange(e.target.value)}
-
-                        />
-                        {staffsuggest && limitedStaffId.length > 0 && (
-                            <ul className="staff-suggestions">
-                                {limitedStaffId.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        onClick={() => {
-                                            setNewTuturId(item.staff_id);
-                                            handleFetchStaff();
-                                            setStaffsuggest(false);
-                                        }}
-                                        className="suggestion-item"
-                                    >
-                                        {item.staff_id} - {item.staff_name}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-
-
-                        <label className="smsh-edit-label">STAFF NAME: </label>
-                        <input
-                            type="text"
-                            name="hod_name"
-                            value={newtuturName}
-                            onChange={(e) => setNewtuturName(e.target.value)}
-                            className="smsh-edit-inputbox"
-                        />
-
-
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">GRADUATE : </label>
-                                <input
-                                    type="text"
-                                    name="graduate"
-
-                                    onChange={(e) => setTuturGraduate(e.target.value)}
-                                    className="smsh-edit-inputbox-psw"
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEPT ID : </label>								<input
-                                    type="text"
-                                    name="course_id"
-                                    // value={tut}
-                                    onChange={(e) => setTuturDeptId(e.target.value)}
-                                    className="smsh-edit-inputbox-psw"
-                                />
-                            </label>
-                        </div>
-
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">CATEGORY : </label>								<input
-                                    type="text"
-                                    name="category"
-                                    value={tuturCategory}
-                                    onChange={(e) => setTuturCategory(e.target.value)}
-                                    className="smsh-edit-inputbox-psw"
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEPT NAME : </label>								<input
-                                    type="text"
-                                    name="dept_name"
-                                    value={tuturdeptName}
-                                    onChange={(e) => setTuturdeptName(e.target.value)}
-                                    className="smsh-edit-inputbox-psw"
-                                />
-                            </label>
-                        </div>
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEGREE : </label>								<input
-                                    type="text"
-                                    name="category"
-                                    onChange={(e) => setTuturDegree(e.target.value)}
-                                    className="smsh-edit-inputbox-psw"
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">SECTION : </label>								<input
-                                    type="text"
-                                    name="dept_name"
-                                    onChange={(e) => setTuturSection(e.target.value)}
-                                    className="smsh-edit-inputbox-psw"
-                                />
-                            </label>
-                        </div>
-                        <label className="smsh-edit-label">BATCH : </label>
-                        <input
-                            type="text"
-                            name="staff_id"
-                            className="smsh-edit-inputbox"
-                            onChange={(e) => setTuturBatch(e.target.value)}
-                        />
-                        <div className="smsh-delete-btn-container">
-                            <button onClick={handleNewMentor} className="smsh-cancel-btn">Save</button>
-                            <button onClick={"() => setAddhod(false)"} className="smsh-cancel-btn">Cancel</button>
-                        </div>
-                    </div>
-                </div >
-                // <div className="modal">
-                // 	<div className="modal-content">
-                // 		<h2>Edit HOD Details</h2>
-
-                // 		<div className="modal-buttons">
-                // 			<button onClick={handleEditSave} style={{ backgroundColor: "#4CAF50", color: "white" }}>Save</button>
-                // 			<button onClick={() => setEditingHod(null)} style={{ backgroundColor: "#f44336", color: "white" }}>Cancel</button>
-                // 		</div>
-                // 	</div>
-                // </div>
-            )
-            }
         </div >
-    );
+    )
 }
 
 export default StaffTutorManage;
