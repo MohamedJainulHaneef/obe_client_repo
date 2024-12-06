@@ -484,8 +484,8 @@ function StaffManage() {
 												deleteCourseMapInfo.category,
 												deleteCourseMapInfo.section
 											)
-										}className="smsh-confirm-btn">Delete</button>
-							<button  onClick={staffDeleteClose} className="smsh-cancel-btn">Cancel</button>
+										}className="smsh-add-save-btn">DELETE</button>
+							<button  onClick={staffDeleteClose} className="smsh-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>

@@ -27,13 +27,13 @@ const ProgressBar = () =>
                 const cia2Percentage = parseInt((responseData.cia_2 / totalCount) * 100);
                 const ass1Percentage = parseInt((responseData.ass_1 / totalCount) * 100);
                 const ass2Percentage = parseInt((responseData.ass_2 / totalCount) * 100);
-                const esePercentage = parseInt((responseData.ese / totalCount) * 100);
+                // const esePercentage = parseInt((responseData.ese / totalCount) * 100);
 
                 setCia1(cia1Percentage);
                 setCia2(cia2Percentage);
                 setAss1(ass1Percentage);
                 setAss2(ass2Percentage);
-                setEse(esePercentage);
+                // setEse(esePercentage);
             } 
             catch (err) {
                 alert('Error Fetching Status Report.');
@@ -81,7 +81,7 @@ const ProgressBar = () =>
                     {ass2}%
                 </div>
             </div>
-            <div className='dash-barchart-heading'>
+            {/* <div className='dash-barchart-heading'>
                 ESE COMPONENT
                 <span className="progress-label">{componentReport.ese} / {componentReport.totalCount}</span>
             </div>
@@ -89,7 +89,7 @@ const ProgressBar = () =>
                 <div className="dash-progress-bar" style={{ width: `${ese}%` }}>
                     {ese}%
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

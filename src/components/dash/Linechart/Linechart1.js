@@ -121,7 +121,7 @@ const BarChart = () =>
     }
 
     return (
-        <div style={{ width: '30%', height: '100%' }}>
+        <div style={{ width: '300px', height: '100%' }}>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
     )
