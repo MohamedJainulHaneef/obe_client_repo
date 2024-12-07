@@ -110,118 +110,138 @@ function Stumark()
     const handleInputChange = (registerNo, type, value) => 
     {
         let validatedValue = value;
-    
-        if (type === 'lot') 
+        
+        if (value === '') 
         {
-            if (activeSection === '1') 
-            {
-                if (value > maxMark?.c1_lot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.c1_lot);                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '2') 
-            {
-                if (value > maxMark?.c2_lot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.c2_lot);                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '3') 
-            {
-                // if (value > maxMark?.a1_lot) {
-                //     alert("Value for LOT cannot exceed " + maxMark?.a1_lot);                    
-                //     validatedValue = '';
-                // }
-                if(value > 3) {
-                    alert("Value for LOT cannot exceed 3");                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '4') 
-            {
-                // if (value > maxMark?.a2_lot) {
-                //     alert("Value for LOT cannot exceed " + maxMark?.a2_lot);                    
-                //     validatedValue = '';
-                // }
-                if(value > 3) {
-                    alert("Value for LOT cannot exceed 3");                    
-                    validatedValue = '';
-                }
-            }
-            else
-            {
-                if (value > maxMark?.e_lot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.e_lot);                    
-                    validatedValue = '';
-                }
-            }
-        }
-        else if (type === 'mot') 
+            validatedValue = '';
+        } 
+        else if (/^[0-9]+$/.test(value)) 
         {
-            if (activeSection === '1') 
-            {
-                if (value > maxMark?.c1_mot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.c1_mot);                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '2') 
-            {
-                if (value > maxMark?.c2_mot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.c2_mot);                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '5')            
-            {
-                if (value > maxMark?.e_mot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.e_mot);                    
-                    validatedValue = '';
-                }
-            }
-        }
-        else if (type === 'hot') 
+            validatedValue = value;
+        } 
+        else 
         {
-            if (activeSection === '1') 
-            {
-                if (value > maxMark?.c1_hot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.c1_hot);                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '2') 
-            {
-                if (value > maxMark?.c2_hot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.c2_hot);                    
-                    validatedValue = '';
-                }
-            }
-            else if (activeSection === '5') 
-            {
-                if (value > maxMark?.e_hot) {
-                    alert("Value for LOT cannot exceed " + maxMark?.e_hot);                    
-                    validatedValue = '';
-                }
-            }        
+            validatedValue = 'A';
         }
     
+        if (!isNaN(value)) 
+        {
+            const numericValue = parseFloat(value);
+    
+            if (type === 'lot') 
+            {
+                if (activeSection === '1') 
+                {
+                    if (value > maxMark?.c1_lot) {
+                        alert("Value for LOT cannot exceed " + maxMark?.c1_lot);
+                        validatedValue = '';
+                    }
+                } 
+                else if (activeSection === '2') 
+                {
+                    if (value > maxMark?.c2_lot) {
+                        alert("Value for LOT cannot exceed " + maxMark?.c2_lot);
+                        validatedValue = '';
+                    }
+                } 
+                else if (activeSection === '3' || activeSection === '4') 
+                {
+                    if (value > 3) {
+                        alert("Value for LOT cannot exceed 3");
+                        validatedValue = '';
+                    }
+                } 
+                else 
+                {
+                    if (value > maxMark?.e_lot) {
+                        alert("Value for LOT cannot exceed " + maxMark?.e_lot);
+                        validatedValue = '';
+                    }
+                }
+            } 
+            else if (type === 'mot') 
+            {
+                if (activeSection === '1') 
+                {
+                    if (value > maxMark?.c1_mot) {
+                        alert("Value for MOT cannot exceed " + maxMark?.c1_mot);
+                        validatedValue = '';
+                    }
+                } 
+                else if (activeSection === '2') 
+                {
+                    if (value > maxMark?.c2_mot) {
+                        alert("Value for MOT cannot exceed " + maxMark?.c2_mot);
+                        validatedValue = '';
+                    }
+                } 
+                else if (activeSection === '5') 
+                {
+                    if (value > maxMark?.e_mot) {
+                        alert("Value for MOT cannot exceed " + maxMark?.e_mot);
+                        validatedValue = '';
+                    }
+                }
+            } 
+            else if (type === 'hot') 
+            {
+                if (activeSection === '1') 
+                {
+                    if (value > maxMark?.c1_hot) {
+                        alert("Value for HOT cannot exceed " + maxMark?.c1_hot);
+                        validatedValue = '';
+                    }
+                } 
+                else if (activeSection === '2') 
+                {
+                    if (value > maxMark?.c2_hot) {
+                        alert("Value for HOT cannot exceed " + maxMark?.c2_hot);
+                        validatedValue = '';
+                    }
+                } 
+                else if (activeSection === '5') 
+                {
+                    if (value > maxMark?.e_hot) {
+                        alert("Value for HOT cannot exceed " + maxMark?.e_hot);
+                        validatedValue = '';
+                    }
+                }
+            }
+        }
+
         const updatedStuData = stuData.map(user => 
         {
             if (user.reg_no === registerNo) 
             {
+                if (validatedValue === 'A') 
+                {
+                    return {
+                        ...user,
+                        lot: 'A',
+                        mot: 'A',
+                        hot: 'A',
+                        total: 'A'
+                    }
+                }
                 const newLot = type === 'lot' ? validatedValue : user.lot;
                 const newMot = type === 'mot' ? validatedValue : user.mot;
                 const newHot = type === 'hot' ? validatedValue : user.hot;
-                const newTotal = parseFloat (newLot || 0) + parseFloat (newMot || 0) + parseFloat (newHot || 0);
-                return { ...user, [type]: validatedValue, total: newTotal };
+                const newTotal = 
+                    (newLot === 'A' || newMot === 'A' || newHot === 'A')
+                        ? 'A'
+                        : parseFloat(newLot || 0) + parseFloat(newMot || 0) + parseFloat(newHot || 0);
+    
+                return { 
+                    ...user, 
+                    [type]: validatedValue, 
+                    total: newTotal 
+                }
             }
             return user;
         })
-    
         setStuData(updatedStuData);
     }
-        
+            
     const handleDisable = () => 
     {
         if (activeSection === '1') 
@@ -260,16 +280,17 @@ function Stumark()
         {
             setIsSaveLoading(true);
         }
+
         const updates = {};
         stuData.forEach(user => 
         {
             updates[user.reg_no] = {
-                lot: user.lot,
-                mot: user.mot,
-                hot: user.hot,
-                total: user.total
-            };
-        });
+                lot: user.lot === 'A' ? -1 : user.lot,
+                mot: user.mot === 'A' ? -1 : user.mot,
+                hot: user.hot === 'A' ? -1 : user.hot,
+                total: user.total === 'A' ? -1 : user.total,
+            }
+        })
     
         if( button_value === "1" )
         {
@@ -364,14 +385,6 @@ function Stumark()
                 </div>
             </div>
         )
-    }
-
-    const handleKeyDown = (event) => 
-    {
-        if (['e', 'E', '-', '+', '.'].includes(event.key)) 
-        {
-            event.preventDefault();
-        }
     }
 
     const handleDownload = () => 
@@ -492,14 +505,13 @@ function Stumark()
                                             <td className="mark-td-name">{user.stu_name}</td>
                                             <td className="mark-td-obe">
                                                 <input
-                                                    type="number"
+                                                    type="text"
                                                     className="mark-input"
-                                                    value={user.lot}
+                                                    value={user.lot === -1 ? 'A' : user.lot}
                                                     name="lot"
                                                     min={0}
                                                     max={25}
                                                     onWheel={(e) => e.target.blur()}
-                                                    onKeyDown={handleKeyDown}
                                                     disabled={handleDisable()}
                                                     onChange={(e) => handleInputChange(user.reg_no, 'lot', e.target.value)}
                                                 />
@@ -508,38 +520,36 @@ function Stumark()
                                                 <>
                                                     <td className="mark-td-obe">
                                                         <input
-                                                            type="number"
+                                                            type="text"
                                                             className="mark-input"
                                                             name="mot"
                                                             min={0}
                                                             max={40}
                                                             onWheel={(e) => e.target.blur()}
-                                                            onKeyDown={handleKeyDown}
-                                                            value={user.mot}
+                                                            value={user.mot === -1 ? 'A' : user.mot}                                                            
                                                             disabled={handleDisable()}
                                                             onChange={(e) => handleInputChange(user.reg_no, 'mot', e.target.value)}
                                                         />
                                                     </td>
                                                     <td className="mark-td-obe">
                                                         <input
-                                                            type="number"
+                                                            type="text"
                                                             className="mark-input"
                                                             name="hot"
                                                             min={0}
                                                             max={10}
                                                             onWheel={(e) => e.target.blur()}
-                                                            onKeyDown={handleKeyDown}
-                                                            value={user.hot}
+                                                            value={user.hot === -1 ? 'A' : user.hot}                                                            
                                                             disabled={handleDisable()}
                                                             onChange={(e) => handleInputChange(user.reg_no, 'hot', e.target.value)}
                                                         />
                                                     </td>
                                                     <td className="mark-td-obe">
                                                         <input
-                                                            type="number"
+                                                            type="text"
                                                             className="mark-input"
                                                             name="total"
-                                                            value={user.total}
+                                                            value={user.total === -1 ? 'A' : user.total}                                                            
                                                             readOnly
                                                             disabled
                                                         />

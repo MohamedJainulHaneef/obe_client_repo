@@ -21,7 +21,7 @@ function CourseList()
                 setAcademicYear(response.data.academic_year);
             } 
             catch (err) {
-                console.log('Error fetching data:', err);
+                console.log('Error Fetching Data:', err);
             }
         };
         academicYearSet();
