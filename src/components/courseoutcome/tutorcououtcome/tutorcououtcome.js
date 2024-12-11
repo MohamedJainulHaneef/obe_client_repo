@@ -126,6 +126,33 @@ function TutorCouOutcome()
                     ))}
                 </tbody>
             </table>
+            <h2 className='tco-heading'>PSO - Programme Specific Outcome</h2>
+            <table className='tco-table'>
+                <thead>
+                    <tr>
+                        
+                        <th>CAPSO1 Mean</th>
+                        <th>CAPSO2 Mean</th>
+                        <th>CAPSO3 Mean</th>
+                        <th>CAPSO4 Mean</th>
+                        <th>CAPSO5 Mean</th>
+                        <th>PSO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* {Object.keys(attainmentData.meanScores ).map(index => ( */}
+                        <tr>
+                            {/* <td>Pso{index+1}</td> */}
+                            <td>{attainmentData.meanScores.pso1.toFixed(2)}</td>
+                            <td>{attainmentData.meanScores.pso2.toFixed(2)}</td>
+                            <td>{attainmentData.meanScores.pso3.toFixed(2)}</td>
+                            <td>{attainmentData.meanScores.pso4.toFixed(2)}</td>
+                            <td>{attainmentData.meanScores.pso5.toFixed(2)}</td>
+                            <td>{attainmentData.meanScores.pso.toFixed(2)}</td>
+                        </tr>
+                    {/* ))} */}
+                </tbody>
+            </table>
         </div>
     )
 }

@@ -299,17 +299,19 @@ function StudentManage() {
     };
 
 
-    // Delete Handlers
+    // Open delete modal
     const openDeleteModal = (student) => {
         setStudentToDelete(student);
         setIsDeleteModalOpen(true);
     };
 
+    // Close delete modal
     const closeDeleteModal = () => {
         setIsDeleteModalOpen(false);
         setStudentToDelete(null);
     };
 
+    // Confirm delete
     const handleConfirmDelete = async () => {
         try {
             await axios.delete(`${apiUrl}/api/deletestudent/${studentToDelete.reg_no}`);
@@ -319,6 +321,7 @@ function StudentManage() {
             console.error('Error deleting student:', error);
         }
     };
+
 
     if (loading) {
         return <div><center><img src={Loading} alt="" className="img" /></center></div>;
@@ -380,7 +383,7 @@ function StudentManage() {
                                     </button>
                                 </td>
                                 <td className="student-data">
-                                    <button className="scm-del-btn" onClick={openDeleteModal}>
+                                <button className="scm-del-btn" onClick={() => openDeleteModal(student)}>
                                         <span className="sc-del-btn">
                                             Delete &nbsp;
                                             <FontAwesomeIcon icon={faTrash} className="scm-icon" />
@@ -518,15 +521,18 @@ function StudentManage() {
                 </div>
             )}
 
-            {/* Delete Confirmation Modal */}
-            {isDeleteModalOpen && studentToDelete && (
+           {/* Delete Confirmation Modal */}
+           {isDeleteModalOpen && studentToDelete && (
                 <div className="stu-del-modal">
                     <div className="stu-del-content">
                         <h2>Confirm Delete</h2>
-                        <p>Are you sure you want to delete the Student with Registration Number <strong>{studentToDelete.reg_no}</strong>?</p>
+                        <p>
+                            Are you sure you want to delete the student with Registration Number{' '}
+                            <strong>{studentToDelete.reg_no}</strong>?
+                        </p>
                         <div className="stu-del-actions">
-                        <button onClick={handleConfirmDelete} className='stu-btn-3'>SAVE</button>
-                        <button onClick={closeDeleteModal} className='stu-btn-2'>CANCEL</button>
+                            <button onClick={handleConfirmDelete} className="stu-btn-3">CONFIRM</button>
+                            <button onClick={closeDeleteModal} className="stu-btn-2">CANCEL</button>
                         </div>
                     </div>
                 </div>
