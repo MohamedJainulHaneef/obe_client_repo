@@ -24,6 +24,7 @@ import Settings from './components/settings/settings';
 import Rsmatrix from './components/rsmatrix/rsmatrix';
 import DeptReport from './components/statusreport/deptreport/deptreport';
 import Rsmatrixreport from './components/statusreport/rsmatrixreport/rsmatrixreport';
+import EseReport from './components/statusreport/esereport/esereport';
 import StudentOutcome from './components/studentoutcome/studentoutcome';
 import CourseOutcome from './components/courseoutcome/courseoutcome';
 import AdminStuOC from './components/studentoutcome/adminstuoutcome/adminstuoutcome';
@@ -54,6 +55,7 @@ function App()
                         <Route path="settings" element={<Settings />} />
                         <Route path="statusreport" element={<StatusReport />} />
                         <Route path="matrixreport" element={<Rsmatrixreport />} />
+                        <Route path="esereport" element={<EseReport />} />
                         <Route path="manage" element={<Manage />} />
                         <Route path="scopemanage" element={<ScopeManage />} />
                         <Route path="staffmanage" element={<StaffManage />} />

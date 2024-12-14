@@ -1,0 +1,75 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ese-repo-main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ese-repo-content {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.ese-repo-heading {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.ese-repo-container {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.ese-repo-sub1 {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b60b9;
+    color: white;    
+    border: 2px solid black;
+}
+
+.ese-repo-sub2 {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 15px;
+    text-align: center;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.ese-repo-ex-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ese-repo-btn {
+	background-color: #057252;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+	cursor: pointer;
+}
+
+.ese-repo-btn:hover {
+	background-color: #03573e;
+}

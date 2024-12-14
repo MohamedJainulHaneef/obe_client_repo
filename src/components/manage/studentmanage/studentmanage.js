@@ -555,7 +555,7 @@ function StudentManage() {
                             name="reg_no"
                             placeholder="Registration Number"
                             value={editStudent.reg_no || ''}
-                            disabled // Prevent editing reg_no
+                            disabled
                         />
                         <input
                             type="number"
