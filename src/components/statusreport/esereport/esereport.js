@@ -48,18 +48,29 @@ function EseReport()
         <div className='ese-repo-main'>
             <span className='ese-repo-heading'>ESE REPORT</span>
             <div className='ese-repo-ex-btn'>
+                <span className='ese-repo-count'><b>Total Records : {courseCode.length}</b></span>
                 <button onClick={downloadExcel} className='ese-repo-btn'>
                     Download Excel
                 </button>
             </div>
-            <div className='ese-repo-content'>
-                {courseCode.map((code,index) => (
-                    <div key={index} className='ese-repo-container'>
-                        <div className='ese-repo-sub1'>{code.course_code}</div>
-                        <div className='ese-repo-sub2'>{code.course_title}</div>
-                    </div>
-                ))}
-            </div>
+            <table className="ese-repo-table">
+                <thead>
+                    <tr>
+                        <th className="ese-repo-th">S. No.</th>
+                        <th className="ese-repo-th">Course Code</th>
+                        <th className="ese-repo-th">Course Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {courseCode.map((code, index) => (
+                        <tr key={index} className={index % 2 === 0 ? 'ese-repo-light' : 'ese-repo-dark'}>
+                            <td className='ese-repo-td'>{index+1}</td>
+                            <td className='ese-repo-td'>{code.course_code}</td>
+                            <td className='ese-repo-td'>{code.course_title}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }
