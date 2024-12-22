@@ -252,7 +252,7 @@ function FileUpload()
                 <LoadingModal loading={loading} />
                 <div className='file-div'>
                     <div className='file-header'>
-                        <p className='file-para'>FILE</p>
+                        <p className='file-para'></p>
                         <p className='file-para'>UPLOAD</p>
                         <p className='file-para'>DOWNLOAD</p>
                         <p className='file-para'>SAMPLE</p>
