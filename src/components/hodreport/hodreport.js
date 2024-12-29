@@ -2,7 +2,6 @@ import { useEffect, useState, React } from 'react';
 import axios from "axios";
 import './hodreport.css';
 import { useParams } from 'react-router-dom';
-import { utils, writeFile } from 'xlsx'; // Import for Excel export
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function HodReport() 
