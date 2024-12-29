@@ -4,9 +4,10 @@ import './tutorreport.css';
 import { useParams } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function TutorReport() {
+function TutorReport() 
+{
     const { staffId } = useParams();
-    const [deptStatus, setDeptStatus] = useState([]);
+    const [ deptStatus, setDeptStatus ] = useState([]);
 
     useEffect(() => {
 
@@ -54,9 +55,9 @@ function TutorReport() {
     return (
         <div>
             {sortedDeptStatus.length > 0 ? (
-                <div className='hod-main'>
-                    <span className="hod-top-heading">OBE MARK INCOMPLETE DATA</span>
-                    <div className="hod-input-btn">
+                <div className='tutor-main'>
+                    <span className="tutor-top-heading">OBE MARK INCOMPLETE DATA</span>
+                    <div className="tutor-input-btn">
                         <input
                             className="scope-search"
                             type="text"
@@ -65,36 +66,36 @@ function TutorReport() {
                         <h3>Total No of Records : {sortedDeptStatus.length}</h3>
                     </div>
 
-                    <table className='hod-repo-table'>
+                    <table className='tutor-repo-table'>
                         <thead>
                             <tr>
-                                <th className='hod-repo-th'>S No</th>
-                                <th className='hod-repo-th'>Staff Id</th>
-                                <th className='hod-repo-th'>Staff Name</th>
-                                {/* <th className='hod-repo-th'>Category</th> */}
-                                {/* <th className='hod-repo-th'>Class</th> */}
-                                <th className='hod-repo-th'>Course Code</th>
-                                <th className='hod-repo-th'>Course Title</th>
-                                <th className='hod-repo-th'>CIA 1</th>
-                                <th className='hod-repo-th'>CIA 2</th>
-                                <th className='hod-repo-th'>ASS 1</th>
-                                <th className='hod-repo-th'>ASS 2</th>
+                                <th className='tutor-repo-th'>S No</th>
+                                <th className='tutor-repo-th'>Staff Id</th>
+                                <th className='tutor-repo-th'>Staff Name</th>
+                                {/* <th className='tutor-repo-th'>Category</th> */}
+                                {/* <th className='tutor-repo-th'>Class</th> */}
+                                <th className='tutor-repo-th'>Course Code</th>
+                                <th className='tutor-repo-th'>Course Title</th>
+                                <th className='tutor-repo-th'>CIA 1</th>
+                                <th className='tutor-repo-th'>CIA 2</th>
+                                <th className='tutor-repo-th'>ASS 1</th>
+                                <th className='tutor-repo-th'>ASS 2</th>
                             </tr>
                         </thead>
                         <tbody>
                             {sortedDeptStatus.map((dept, index) => (
                                 <tr key={index}>
-                                    <td className='hod-repo-td'>{index + 1}</td>
-                                    <td className='hod-repo-td'>{dept.staff_id}</td>
-                                    <td className='hod-repo-td'>{dept.staff_name}</td>
-                                    {/* <td className='hod-repo-td'>{dept.category}</td> */}
-                                    {/* <td className='hod-repo-td'>{dept.semester} {dept.course_id} {dept.section}</td> */}
-                                    <td className='hod-repo-td'>{dept.course_code}</td>
-                                    <td className='hod-repo-td'>{dept.course_title}</td>
-                                    <td className={`hod-repo-td-status ${getStatusClass(dept.cia_1)}`}>{dept.cia_1}</td>
-                                    <td className={`hod-repo-td-status ${getStatusClass(dept.cia_2)}`}>{dept.cia_2}</td>
-                                    <td className={`hod-repo-td-status ${getStatusClass(dept.ass_1)}`}>{dept.ass_1}</td>
-                                    <td className={`hod-repo-td-status ${getStatusClass(dept.ass_2)}`}>{dept.ass_2}</td>
+                                    <td className='tutor-repo-td'>{index + 1}</td>
+                                    <td className='tutor-repo-td'>{dept.staff_id}</td>
+                                    <td className='tutor-repo-td'>{dept.staff_name}</td>
+                                    {/* <td className='tutor-repo-td'>{dept.category}</td> */}
+                                    {/* <td className='tutor-repo-td'>{dept.semester} {dept.course_id} {dept.section}</td> */}
+                                    <td className='tutor-repo-td'>{dept.course_code}</td>
+                                    <td className='tutor-repo-td'>{dept.course_title}</td>
+                                    <td className={`tutor-repo-td-status ${getStatusClass(dept.cia_1)}`}>{dept.cia_1}</td>
+                                    <td className={`tutor-repo-td-status ${getStatusClass(dept.cia_2)}`}>{dept.cia_2}</td>
+                                    <td className={`tutor-repo-td-status ${getStatusClass(dept.ass_1)}`}>{dept.ass_1}</td>
+                                    <td className={`tutor-repo-td-status ${getStatusClass(dept.ass_2)}`}>{dept.ass_2}</td>
                                 </tr>
                             ))}
                         </tbody>

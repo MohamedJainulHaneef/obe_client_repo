@@ -7,7 +7,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function HodReport() 
 {
     const { staffId } = useParams();
-    const [deptStatus, setDeptStatus] = useState([]);
+    const [ deptStatus, setDeptStatus ] = useState([]);
 
     useEffect(() => {
 
