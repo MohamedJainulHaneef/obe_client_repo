@@ -71,8 +71,8 @@ function TutorReport() {
                                 <th className='hod-repo-th'>S No</th>
                                 <th className='hod-repo-th'>Staff Id</th>
                                 <th className='hod-repo-th'>Staff Name</th>
-                                <th className='hod-repo-th'>Category</th>
-                                <th className='hod-repo-th'>Class</th>
+                                {/* <th className='hod-repo-th'>Category</th> */}
+                                {/* <th className='hod-repo-th'>Class</th> */}
                                 <th className='hod-repo-th'>Course Code</th>
                                 <th className='hod-repo-th'>Course Title</th>
                                 <th className='hod-repo-th'>CIA 1</th>
@@ -87,8 +87,8 @@ function TutorReport() {
                                     <td className='hod-repo-td'>{index + 1}</td>
                                     <td className='hod-repo-td'>{dept.staff_id}</td>
                                     <td className='hod-repo-td'>{dept.staff_name}</td>
-                                    <td className='hod-repo-td'>{dept.category}</td>
-                                    <td className='hod-repo-td'>{dept.semester} {dept.course_id} {dept.section}</td>
+                                    {/* <td className='hod-repo-td'>{dept.category}</td> */}
+                                    {/* <td className='hod-repo-td'>{dept.semester} {dept.course_id} {dept.section}</td> */}
                                     <td className='hod-repo-td'>{dept.course_code}</td>
                                     <td className='hod-repo-td'>{dept.course_title}</td>
                                     <td className={`hod-repo-td-status ${getStatusClass(dept.cia_1)}`}>{dept.cia_1}</td>
