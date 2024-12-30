@@ -10,12 +10,14 @@ function HodReport()
     const [ deptStatus, setDeptStatus ] = useState([]);
 
     useEffect(() => {
-
         const fetchDeptStatus = async () => {
-            const response = await axios.post(`${apiUrl}/api/deptStatus`, {
-                staff_id: staffId
-            })
-            setDeptStatus(response.data);
+            try {
+                const response = await axios.post(`${apiUrl}/api/deptStatus`, {
+                    staff_id: staffId
+                })
+                setDeptStatus(response.data);
+            }
+            catch (error) {}
         }
         fetchDeptStatus();
     }, [apiUrl, staffId]);
@@ -97,7 +99,7 @@ function HodReport()
                     </table>
 
                 </div>
-            ) : (
+            ) : ( 
                 <div className='process-main'>
                     <div className='process-content'>
                         <p className="process-code">All Assessments are Completed. </p>

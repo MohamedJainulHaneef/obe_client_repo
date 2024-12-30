@@ -50,7 +50,9 @@ function StaffTutorManage() {
         const searchText = e.target.value.toLowerCase();
         const filtered = data.filter((row) =>
             (row.staff_id?.toLowerCase() || "").includes(searchText) ||
-            (row.staff_name?.toLowerCase() || "").includes(searchText)
+            (row.staff_id?.toLowerCase() || "").includes(searchText) ||
+            (row.category?.toLowerCase() || "").includes(searchText) ||
+            (row.dept_name?.toLowerCase() || "").includes(searchText)
         );
         setFilteredData(filtered);
     };
@@ -243,7 +245,7 @@ function StaffTutorManage() {
                 </tbody>
             </table>
 
-            ---------------------------------------------------------------------------------------------------------------------------------
+            
 
             {addtutur && (
 
@@ -351,7 +353,6 @@ function StaffTutorManage() {
                 </div>
             )}
 
-            ---------------------------------------------------------------------------------------------------------------------------------
             {editingStaff && (
 
                 <div className="smsh-overlay">
@@ -461,7 +462,6 @@ function StaffTutorManage() {
                 </div>
             )}
 
----------------------------------------------------------------------------------------------------------------------------------
 
             {/* Delete Confirmation Modal */}
             {deleteStaff && (

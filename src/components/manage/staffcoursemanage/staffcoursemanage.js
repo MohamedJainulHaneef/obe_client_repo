@@ -38,6 +38,11 @@ function StaffManage() {
 
 	const filteredStaffData = staffData.filter((staff) =>
 		(staff.staff_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.category?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.section?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.course_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.course_code?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.course_title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.staff_name?.toLowerCase() || "").includes(searchTerm.toLowerCase())
 	)
 

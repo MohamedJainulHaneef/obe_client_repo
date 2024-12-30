@@ -46,6 +46,8 @@ function MarkRelease()
         const filteredList = originalData.filter(item =>
             item.staff_id.toLowerCase().includes(searchText) ||
             item.staff_name.toLowerCase().includes(searchText) ||
+            item.course_id.toLowerCase().includes(searchText) ||
+            item.course_title.toLowerCase().includes(searchText) ||
             item.course_code.toLowerCase().includes(searchText)
         )
         setFilteredData(filteredList);

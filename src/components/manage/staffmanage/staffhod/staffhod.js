@@ -49,6 +49,8 @@ function StaffHodManage() {
 		const filtered = data.filter((row) =>
 			row.staff_id.toLowerCase().includes(searchText) ||
 			row.hod_name.toLowerCase().includes(searchText) ||
+			row.category.toLowerCase().includes(searchText) ||
+			row.course_id.toLowerCase().includes(searchText) ||
 			row.dept_name.toLowerCase().includes(searchText)
 		);
 		setFilteredData(filtered);

@@ -10,7 +10,6 @@ function TutorReport()
     const [ deptStatus, setDeptStatus ] = useState([]);
 
     useEffect(() => {
-
         const fetchTutorReport = async () => {
             try {
                 const response = await axios.post(`${apiUrl}/api/tutorStatusReport`, {
@@ -18,12 +17,9 @@ function TutorReport()
                 })
                 setDeptStatus(response.data);
             }
-            catch (error) {
-
-            }
+            catch (error) {}
         }
         fetchTutorReport();
-
     }, [apiUrl, staffId]);
 
     const filteredDeptStatus = deptStatus.filter(dept =>

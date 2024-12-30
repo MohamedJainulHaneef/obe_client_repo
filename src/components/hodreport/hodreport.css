@@ -92,11 +92,12 @@
 
 
 .process-main {
-	padding: 30px;
+	padding: 60px;
 }
 
 .process-content {
 	padding: 50px;
+    width: 100%;
 	border-radius: 10px;
 	border: 1px solid black;
     box-shadow: 2px  4px 5px rgb(183, 183, 183);

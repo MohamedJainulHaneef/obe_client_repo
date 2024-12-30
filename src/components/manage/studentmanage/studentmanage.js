@@ -161,6 +161,10 @@ function StudentManage() {
     // Filter student data based on search term
     const filteredStudata = studata.filter((student) =>
         (student.stu_name?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
+        (student.category?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
+        (student.batch?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
+        (student.section?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
+        (student.course_id?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.reg_no?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '')
     );
 
