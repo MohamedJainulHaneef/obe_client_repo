@@ -116,12 +116,12 @@ function MarkRelease()
                             <th className="release-table-header">Dept ID</th>
                             <th className="release-table-header">Course Code</th>
                             <th className="release-table-header">Course Title</th>
-                            <th className="release-table-header">Section</th>
-                            <th className="release-table-header">CIA 1</th>
-                            <th className="release-table-header">CIA 2</th>
+                            <th className="release-table-header">Sec</th>
+                            <th className="release-table-header">Cia 1</th>
+                            <th className="release-table-header">Cia 2</th>
                             <th className="release-table-header">Ass 1</th>
                             <th className="release-table-header">Ass 2</th>
-                            <th className="release-table-header">ESE</th>
+                            {/* <th className="release-table-header">ESE</th> */}
                             <th className="release-table-header">Action</th>
                         </tr>
                     </thead>
@@ -174,13 +174,13 @@ function MarkRelease()
                                         onChange={(e) => handleCheckbox(index, 'ass_2', e.target.checked)}
                                     />
                                 </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                {/* <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <input
                                         type="checkbox"
                                         checked={reportItem.ese === 2}
                                         onChange={(e) => handleCheckbox(index, 'ese', e.target.checked)}
                                     />
-                                </td>
+                                </td> */}
                                 <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                     <button
                                         onClick={() => handleUpdate(index)}
