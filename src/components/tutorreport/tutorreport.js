@@ -7,7 +7,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function TutorReport() 
 {
     const { staffId } = useParams();
-    const [ deptStatus, setDeptStatus ] = useState([]);
+    const [deptStatus, setDeptStatus] = useState([]);
 
     useEffect(() => {
         const fetchTutorReport = async () => {
@@ -17,16 +17,12 @@ function TutorReport()
                 })
                 setDeptStatus(response.data);
             }
-            catch (error) {}
+            catch (error) { }
         }
         fetchTutorReport();
     }, [apiUrl, staffId]);
 
-    const filteredDeptStatus = deptStatus.filter(dept =>
-        ![dept.cia_1, dept.cia_2, dept.ass_1, dept.ass_2].every(status => status === "Completed")
-    )
-
-    const sortedDeptStatus = filteredDeptStatus.sort((a, b) => {
+    const sortedDeptStatus = deptStatus.sort((a, b) => {
         const classA = `${a.semester}${a.course_id}${a.section}`;
         const classB = `${b.semester}${b.course_id}${b.section}`;
         if (classA !== classB) return classA.localeCompare(classB);
@@ -50,7 +46,7 @@ function TutorReport()
 
     return (
         <div>
-            {sortedDeptStatus.length > 0 ? (
+            {deptStatus && (
                 <div className='tutor-main'>
                     <span className="tutor-top-heading">OBE MARK INCOMPLETE DATA</span>
                     <div className="tutor-input-btn">
@@ -66,11 +62,7 @@ function TutorReport()
                         <thead>
                             <tr>
                                 <th className='tutor-repo-th'>S No</th>
-                                <th className='tutor-repo-th'>Staff Id</th>
                                 <th className='tutor-repo-th'>Staff Name</th>
-                                {/* <th className='tutor-repo-th'>Category</th> */}
-                                {/* <th className='tutor-repo-th'>Class</th> */}
-                                <th className='tutor-repo-th'>Course Code</th>
                                 <th className='tutor-repo-th'>Course Title</th>
                                 <th className='tutor-repo-th'>CIA 1</th>
                                 <th className='tutor-repo-th'>CIA 2</th>
@@ -82,11 +74,7 @@ function TutorReport()
                             {sortedDeptStatus.map((dept, index) => (
                                 <tr key={index}>
                                     <td className='tutor-repo-td'>{index + 1}</td>
-                                    <td className='tutor-repo-td'>{dept.staff_id}</td>
                                     <td className='tutor-repo-td'>{dept.staff_name}</td>
-                                    {/* <td className='tutor-repo-td'>{dept.category}</td> */}
-                                    {/* <td className='tutor-repo-td'>{dept.semester} {dept.course_id} {dept.section}</td> */}
-                                    <td className='tutor-repo-td'>{dept.course_code}</td>
                                     <td className='tutor-repo-td'>{dept.course_title}</td>
                                     <td className={`tutor-repo-td-status ${getStatusClass(dept.cia_1)}`}>{dept.cia_1}</td>
                                     <td className={`tutor-repo-td-status ${getStatusClass(dept.cia_2)}`}>{dept.cia_2}</td>
@@ -98,7 +86,8 @@ function TutorReport()
                     </table>
 
                 </div>
-            ) : (
+            )}
+            {deptStatus.length === 0 && (
                 <div className='process-main'>
                     <div className='process-content'>
                         <p className="process-code">All Assessments are Completed. </p>

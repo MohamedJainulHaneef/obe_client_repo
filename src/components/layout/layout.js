@@ -116,7 +116,7 @@ function Layout()
         },
         {
             icon: faGear ,
-            name: 'Settings',
+            name: 'Change Password',
             path: `/staff/${urlStaffId}/settings`,
             show: user.settings === 1,
         },

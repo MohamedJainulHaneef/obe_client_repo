@@ -31,8 +31,9 @@
     border: 1px solid gray;
     padding: 12px 17px;
     font-weight: bold;
-    border-color: black;
-    white-space: nowrap;
+    border-color: black;    
+    height: 70px;
+
 }
 
 .tutor-repo-td {
@@ -41,8 +42,8 @@
     border: 1px solid gray;
     padding: 17px;
     font-weight: bold;
-    white-space: nowrap;
     text-transform: uppercase;
+    height: 70px;
 }
 
 .tutor-repo-td-status {
