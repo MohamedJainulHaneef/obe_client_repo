@@ -39,15 +39,14 @@ function HodReport()
 
     const getStatusClass = (status) => 
     {
-        switch (status) {
+        switch (status) 
+        {
             case "Completed":
                 return "status-completed";
             case "Processing":
                 return "status-processing";
             case "Incomplete":
                 return "status-incomplete";
-            default:
-                return "";
         }
     }
 
@@ -80,7 +79,8 @@ function HodReport()
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredStaffData.map((dept, index) => (
+                        {filteredStaffData.length > 0 ? (
+                            filteredStaffData.map((dept, index) => (
                                 <tr key={index}>
                                     <td className="hod-repo-td">{index + 1}</td>
                                     <td className="hod-repo-td">{dept.staff_name}</td>
@@ -91,7 +91,14 @@ function HodReport()
                                     <td className={`hod-repo-td-status ${getStatusClass(dept.ass_1)}`}>{dept.ass_1}</td>
                                     <td className={`hod-repo-td-status ${getStatusClass(dept.ass_2)}`}>{dept.ass_2}</td>
                                 </tr>
-                            ))}
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="8" className="hod-repo-td">
+                                    No Data Available.
+                                </td>
+                            </tr>
+                        )}
                         </tbody>
                     </table>
                 </div>

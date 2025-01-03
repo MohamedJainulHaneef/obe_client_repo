@@ -137,38 +137,47 @@ function MatrixReport()
     {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
-        const fileName = 'RSMatrix_Report';
+        const date = new Date();
+        const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear().toString().slice(-2)}`;
+        const fileName = `Rs Matrix ${formattedDate}`;
     
-        const headers = 
-        [
+        const headers = [
             'Staff Id', 
             'Staff Name', 
             'Dept Id', 
             'Course Code', 
             'Category', 
             'Section',
-            'Status', 
-            
+            'Status'
         ];
-        const dataWithHeaders = [headers, ...allMatrixReport.map(dept => [
-            dept.staff_id,
-            dept.staff_name,
-            dept.course_id,
-            dept.course_code,
-            dept.category,
-            dept.section,
-            dept.status,
-        ])]
     
-        const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
-        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const data = new Blob([excelBuffer], { type: fileType });
-        saveAs(data, fileName + fileExtension);
+        const data = allMatrixReport.map(dept => ({
+            'Staff Id': dept.staff_id,
+            'Staff Name': dept.staff_name,
+            'Dept Id': dept.course_id,
+            'Course Code': dept.course_code,
+            'Category': dept.category,
+            'Section': dept.section,
+            'Status': dept.status,
+        }));
+    
+        const worksheet = XLSX.utils.json_to_sheet(data);
+    
+        const range = XLSX.utils.decode_range(worksheet['!ref']);
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
+            worksheet[cellAddress].v = headers[C];
+        }
+    
+        const workbook = { Sheets: { 'Rs Matrix': worksheet }, SheetNames: ['Rs Matrix'] };
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const dataBlob = new Blob([excelBuffer], { type: fileType });
+        saveAs(dataBlob, fileName + fileExtension);
     }
 
     return (
         <div className='rsm-repo-main'>
+            <p className='dept-heading'>Relationship Matrix REPORT</p>
             <div className='rsm-repo-search'>
                 <input
                     type="text"
@@ -177,6 +186,9 @@ function MatrixReport()
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="rsm-search-input"
                 />
+                <div className='rsm-repo-com-status'>
+                    <b>No of Course Codes Completed : </b>{comCount} / {courseCount}
+                </div>
             </div>
             <div className='rsm-repo-btn-content'>
                 <div className="rsm-repo-filter">
@@ -213,11 +225,9 @@ function MatrixReport()
                         )
                     </label>
                 </div>
-                <div className='rsm-repo-com-status'>
-                    <b>No of Course Codes Completed : </b>{comCount} / {courseCount}
-                </div>
                 <button className='dept-repo-btn' onClick={handleDownload}>Download Excel</button>
             </div>
+            
             <table className="rsm-repo-header">
                 <thead>
                     <tr>
@@ -232,7 +242,8 @@ function MatrixReport()
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredReports.map((matrix, index) => (
+                {filteredReports.length > 0 ? (
+                    filteredReports.map((matrix, index) => (
                         <tr key={index} className={index % 2 === 0 ? 'rsm-repo-light' : 'rsm-repo-dark'}>
                             <td className="rsm-repo-content">{index + 1}</td>
                             <td className="rsm-repo-content">{matrix.staff_id}</td>
@@ -244,8 +255,15 @@ function MatrixReport()
                             <td className="rsm-repo-content" style={{ color: matrix.status === 'Completed' ? 'green' : 'red' }}>
                                 {matrix.status}
                             </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="8" className="hod-repo-td">
+                                No Data Available.
+                            </td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </div>

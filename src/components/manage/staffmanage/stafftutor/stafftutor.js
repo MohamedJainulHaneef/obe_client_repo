@@ -239,7 +239,7 @@ function StaffTutorManage() {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="9">No Data Found</td>
+                            <td colSpan="9">No Data Available.</td>
                         </tr>
                     )}
                 </tbody>

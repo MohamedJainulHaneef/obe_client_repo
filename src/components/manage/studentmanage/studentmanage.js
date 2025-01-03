@@ -398,7 +398,7 @@ function StudentManage() {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="10" className="student-no-data">
+                            <td colSpan="10" className="hod-repo-td">
                                 No Data Available.
                             </td>
                         </tr>

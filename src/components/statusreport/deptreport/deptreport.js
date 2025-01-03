@@ -160,64 +160,76 @@ function DeptReport()
     {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
-        const fileName = 'Dept_Report';
-
-        const headers = 
-        [
+        const date = new Date();
+        const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear().toString().slice(-2)}`;
+        const fileName = `Mark Entry Report ${formattedDate}`;
+    
+        const headers = [
             'Staff Id', 
             'Staff Name', 
             'Dept Name', 
             'Course Code', 
             'Category', 
             'Section',
-            'CIA - 1', 
-            'CIA - 2', 
-            'ASS - 1', 
-            'ASS - 2', 
-            'Status', 
+            'Cia - 1', 
+            'Cia - 2', 
+            'Ass - 1', 
+            'Ass - 2', 
+            'Status'
         ];
-
-        const dataWithHeaders = [headers, ...deptStatusReport.map(dept => 
-        {
-            const status = ['cia_1', 'cia_2', 'ass_1', 'ass_2'].every(key => getStatus(dept[key]) === 'Completed') 
+    
+        const data = deptStatusReport.map(dept => {
+            const status = ['cia_1', 'cia_2', 'ass_1', 'ass_2'].every(
+                key => getStatus(dept[key]) === 'Completed'
+            ) 
             ? 'Finished' 
             : 'Pending';
+    
+            return {
+                'Staff Id': dept.staff_id,
+                'Staff Name': dept.staff_name,
+                'Dept Name': dept.dept_name,
+                'Course Code': dept.course_code,
+                'Category': dept.category,
+                'Section': dept.section,
+                'Cia - 1': getStatus(dept.cia_1),
+                'Cis - 2': getStatus(dept.cia_2),
+                'Ass - 1': getStatus(dept.ass_1),
+                'Ass - 2': getStatus(dept.ass_2),
+                'Status': status,
+            }
+        })
+    
+        const worksheet = XLSX.utils.json_to_sheet(data);
+    
+        const range = XLSX.utils.decode_range(worksheet['!ref']);
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
+            worksheet[cellAddress].v = headers[C];
+        }
 
-            return [
-                dept.staff_id,
-                dept.staff_name,
-                dept.dept_name,
-                dept.course_code,
-                dept.category,
-                dept.section, 
-                getStatus(dept.cia_1),
-                getStatus(dept.cia_2),
-                getStatus(dept.ass_1),
-                getStatus(dept.ass_2),
-                status, 
-            ];
-        })];
-
-        const ws = XLSX.utils.aoa_to_sheet(dataWithHeaders);
-        const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const data = new Blob([excelBuffer], { type: fileType });
-        saveAs(data, fileName + fileExtension);
+        const workbook = { Sheets: { 'Mark Entry Report': worksheet }, SheetNames: ['Mark Entry Report'] };
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const dataBlob = new Blob([excelBuffer], { type: fileType });
+        saveAs(dataBlob, fileName + fileExtension);
     }
 
     return (
         <div className='dept-repo-main'>
-             <select
-                value={activeSection || ''}
-                onChange={handleSectionChange}
-                className="mark-dropdown"
-            >
-                <option value="1">CIA - 1</option>
-                <option value="2">CIA - 2</option>
-                <option value="3">ASS - 1</option>
-                <option value="4">ASS - 2</option>
-                <option value="5">ESE</option>
-            </select>
+            <p className='dept-heading'>OBE MARK Entry REPORT</p>
+            <div>
+                <select
+                    value={activeSection || ''}
+                    onChange={handleSectionChange}
+                    className="mark-dropdown"
+                >
+                    <option value="1">CIA - 1</option>
+                    <option value="2">CIA - 2</option>
+                    <option value="3">ASS - 1</option>
+                    <option value="4">ASS - 2</option>
+                    <option value="5">ESE</option>
+                </select>
+            </div>
             <div className='dept-repo-search'>
                 <input 
                     type="text" 
@@ -290,27 +302,35 @@ function DeptReport()
                         <th className="dept-repo-heading">Status</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {sortedReport.map((dept, index) => (
-                        <tr 
-                            key={index} 
-                            className={index % 2 === 0 ? 'dept-repo-light' : 'dept-repo-dark'}
-                        >
-                            <td className="dept-repo-content">{index + 1}</td>
-                            <td className="dept-repo-content">{dept.staff_id}</td>
-                            <td className="dept-repo-content-sn">{dept.staff_name}</td>
-                            <td className="dept-repo-content-dn">{dept.dept_name}</td>
-                            <td className="dept-repo-content">{dept.course_code}</td>
-                            <td className="dept-repo-content">{dept.category}</td>
-                            <td className="dept-repo-content">{dept.section}</td>
-                            <td 
-                                className="dept-repo-content-sr" 
-                                style={getStatusColor(getActiveField(dept))}
+                <tbody> 
+                    {sortedReport.length > 0 ? (
+                        sortedReport.map((dept, index) => (
+                            <tr 
+                                key={index} 
+                                className={index % 2 === 0 ? 'dept-repo-light' : 'dept-repo-dark'}
                             >
-                                {getStatus(getActiveField(dept))}
-                            </td>                             
+                                <td className="dept-repo-content">{index + 1}</td>
+                                <td className="dept-repo-content">{dept.staff_id}</td>
+                                <td className="dept-repo-content-sn">{dept.staff_name}</td>
+                                <td className="dept-repo-content-dn">{dept.dept_name}</td>
+                                <td className="dept-repo-content">{dept.course_code}</td>
+                                <td className="dept-repo-content">{dept.category}</td>
+                                <td className="dept-repo-content">{dept.section}</td>
+                                <td 
+                                    className="dept-repo-content-sr" 
+                                    style={getStatusColor(getActiveField(dept))}
+                                >
+                                    {getStatus(getActiveField(dept))}
+                                </td>                             
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="8" className="hod-repo-td">
+                                No Data Available.
+                            </td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </div>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './fileupload.css';
 
 function FileUpload() 
 {
     const apiUrl = process.env.REACT_APP_API_URL;
+    const [academicYear, setAcademicYear] = useState('');
     const [loading, setLoading] = useState(false);
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
@@ -15,6 +16,21 @@ function FileUpload()
     const [file7, setFile7] = useState(null);
     const [file8, setFile8] = useState(null);
     const [file9, setFile9] = useState(null);
+
+    useEffect(() => 
+    {
+        const academicYearSet = async () => 
+        {
+            try {
+                const response = await axios.post(`${apiUrl}/activesem`, {});
+                setAcademicYear(response.data.academic_year);
+            } 
+            catch (err) {
+                console.log('Error Fetching Data:', err);
+            }
+        };
+        academicYearSet();
+    }, []);
 
     const handleFileChange = (e) => 
     {
@@ -103,21 +119,21 @@ function FileUpload()
                     response = await axios.get(`${apiUrl}/api/download/coursemap`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Course Mapping Data.xlsx';
+                    fileName = `Staff Course Mapping ${academicYear}.xlsx`;
                     break;
 
                 case 'coursemapmodel':
                     response = await axios.get(`${apiUrl}/api/download/coursemapmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Course Mapping Model.xlsx';
+                    fileName = 'Staff Course Mapping Model.xlsx';
                     break;
 
                 case 'staff':
                     response = await axios.get(`${apiUrl}/api/download/staff`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Staff Master Data.xlsx';
+                    fileName = `Staff Master ${academicYear}.xlsx`;
                     break;
                 
                 case 'staffmodel':
@@ -132,7 +148,7 @@ function FileUpload()
                     response = await axios.get(`${apiUrl}/api/download/studentmaster`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Student Master Data.xlsx';
+                    fileName = `Student Master ${academicYear}.xlsx`;
                     break;
 
                 case 'studentmastermodel':
@@ -146,84 +162,84 @@ function FileUpload()
                     response = await axios.get(`${apiUrl}/api/download/scope`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Scope Data.xlsx';
+                    fileName = `Scope ${academicYear}.xlsx`;
                     break;
 
                 case 'scopemodel':
                     response = await axios.get(`${apiUrl}/api/download/scopemodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Scope Data Model.xlsx';
+                    fileName = 'Scope Model.xlsx';
                     break;
     
                 case 'mark':
                     response = await axios.get(`${apiUrl}/api/download/mark`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mark Entry Data.xlsx';
+                    fileName = `Student Course Mapping ${academicYear}.xlsx`;
                     break;
 
                 case 'markmodel':
                     response = await axios.get(`${apiUrl}/api/download/markmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mark Entry Data Model.xlsx';
+                    fileName = 'Student Course Mapping Model.xlsx';
                     break;
 
                 case 'ese':
                     response = await axios.get(`${apiUrl}/api/download/ese`, {
                         responseType: 'blob',
                     });
-                    fileName = 'ESE Mark Entry Data.xlsx';
+                    fileName = `ESE ${academicYear}.xlsx`;
                     break;
 
                 case 'esemodel':
                     response = await axios.get(`${apiUrl}/api/download/esemodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'ESE Mark Entry Model.xlsx';
+                    fileName = 'ESE Model ${academicYear}.xlsx';
                     break;
 
                 case 'report':
                     response = await axios.get(`${apiUrl}/api/download/report`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Status Report.xlsx';
+                    fileName = `Report ${academicYear}.xlsx`;
                     break;
 
                 case 'reportmodel':
                     response = await axios.get(`${apiUrl}/api/download/reportmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Status Report Model.xlsx';
+                    fileName = 'Report Model.xlsx';
                     break;
 
                 case 'mentor':
                     response = await axios.get(`${apiUrl}/api/download/mentor`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mentor Report.xlsx';
+                    fileName = `Mentor ${academicYear}.xlsx`;
                     break;
 
                 case 'mentormodel':
                     response = await axios.get(`${apiUrl}/api/download/mentormodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mentor Report Model.xlsx';
+                    fileName = 'Mentor Model.xlsx';
                     break;
 
                 case 'hod':
                     response = await axios.get(`${apiUrl}/api/download/hod`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Hod Report.xlsx';
+                    fileName = `Hod ${academicYear}.xlsx`;
                     break;
                 
                 case 'hodmodel':
                     response = await axios.get(`${apiUrl}/api/download/hodmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Hod Report Model.xlsx';
+                    fileName = 'Hod Model.xlsx';
                     break;
 
                 default:

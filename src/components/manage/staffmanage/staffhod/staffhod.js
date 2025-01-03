@@ -214,7 +214,7 @@ function StaffHodManage() {
 						))
 					) : (
 						<tr>
-							<td colSpan="8">No Data Found</td>
+							<td colSpan="8">No Data Available.</td>
 						</tr>
 					)}
 				</tbody>

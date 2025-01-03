@@ -15,6 +15,22 @@ function Rsmatrix()
     const [inputValues, setInputValues] = useState({}); 
     const [meanOverallScore, setMeanOverallScore] = useState('');
     const [correlation, setCorrelation] = useState('');
+    const [staffName, setStaffName] = useState('');
+
+    useEffect(() => 
+    {
+        const fetchStaffName = async () => 
+        {
+            try {
+                const response = await axios.post(`${apiUrl}/staffName`,{staffId});
+                setStaffName(response.data)
+            }
+            catch(err) {
+
+            }
+        }
+        fetchStaffName();
+    },[apiUrl,staffId])
 
     useEffect(() => 
     {
@@ -236,6 +252,7 @@ function Rsmatrix()
     return (
         <div className="rsmatrix-main">
             <div className="rsmatrix-layout-top-div">
+                <p className="course-layout-staff-id"><span className="course-staff">Welcome </span> {staffName.staff_name}</p>
                 <p className="rsmatrix-layout-staff-id"><span>Staff Id :</span> {staffId}</p>
             </div>
             <div className="rsmatrix-parent">

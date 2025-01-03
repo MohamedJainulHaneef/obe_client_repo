@@ -11,7 +11,23 @@ function StudentOutcome()
     const [courseHandle, setCourseHandle] = useState(false);
     const [tutorHandle, setTutorHandle] = useState(false);
     const [hodHandle, setHodHandle] = useState(false);
-    const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState(false);    
+    const [staffName, setStaffName] = useState('');
+
+    useEffect(() => 
+    {
+            const fetchStaffName = async () => 
+            {
+                try {
+                    const response = await axios.post(`${apiUrl}/staffName`,{staffId});
+                    setStaffName(response.data)
+                }
+                catch(err) {
+    
+                }
+            }
+            fetchStaffName();
+    },[apiUrl,staffId]);
 
     useEffect(() => 
     {
@@ -73,6 +89,7 @@ function StudentOutcome()
     return (
         <div className='co-main'>
             <div className="co-layout-top-div">
+                <p className="co-layout-staff-id"><span className="course-staff">Welcome </span> {staffName.staff_name}</p>
                 <p className="co-layout-staff-id"><span className="co-staff">Staff Id :</span> {staffId}</p>
             </div>
             <div className="co-content-box">

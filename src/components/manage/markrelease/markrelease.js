@@ -126,70 +126,78 @@ function MarkRelease()
                         </tr>
                     </thead>
                     <tbody className="">
-                        {filteredData.map((reportItem, index) => (
-                            <tr key={reportItem.index} className="release-row">
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {reportItem.staff_id}
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {reportItem.staff_name}
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {reportItem.course_id}
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {reportItem.course_code}
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {reportItem.course_title}
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {reportItem.section}
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input
-                                        type="checkbox"
-                                        checked={reportItem.cia_1 === 2}
-                                        onChange={(e) => handleCheckbox(index, 'cia_1', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input
-                                        type="checkbox"
-                                        checked={reportItem.cia_2 === 2}
-                                        onChange={(e) => handleCheckbox(index, 'cia_2', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input
-                                        type="checkbox"
-                                        checked={reportItem.ass_1 === 2}
-                                        onChange={(e) => handleCheckbox(index, 'ass_1', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input
-                                        type="checkbox"
-                                        checked={reportItem.ass_2 === 2}
-                                        onChange={(e) => handleCheckbox(index, 'ass_2', e.target.checked)}
-                                    />
-                                </td>
-                                {/* <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input
-                                        type="checkbox"
-                                        checked={reportItem.ese === 2}
-                                        onChange={(e) => handleCheckbox(index, 'ese', e.target.checked)}
-                                    />
-                                </td> */}
-                                <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <button
-                                        onClick={() => handleUpdate(index)}
-                                        className="row-save-btn">
-                                        SAVE
-                                    </button> 
+                        {filteredData.length > 0 ? (
+                            filteredData.map((reportItem, index) => (
+                                <tr key={reportItem.index} className="release-row">
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {reportItem.staff_id}
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {reportItem.staff_name}
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {reportItem.course_id}
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {reportItem.course_code}
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {reportItem.course_title}
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {reportItem.section}
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input
+                                            type="checkbox"
+                                            checked={reportItem.cia_1 === 2}
+                                            onChange={(e) => handleCheckbox(index, 'cia_1', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input
+                                            type="checkbox"
+                                            checked={reportItem.cia_2 === 2}
+                                            onChange={(e) => handleCheckbox(index, 'cia_2', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input
+                                            type="checkbox"
+                                            checked={reportItem.ass_1 === 2}
+                                            onChange={(e) => handleCheckbox(index, 'ass_1', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input
+                                            type="checkbox"
+                                            checked={reportItem.ass_2 === 2}
+                                            onChange={(e) => handleCheckbox(index, 'ass_2', e.target.checked)}
+                                        />
+                                    </td>
+                                    {/* <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input
+                                            type="checkbox"
+                                            checked={reportItem.ese === 2}
+                                            onChange={(e) => handleCheckbox(index, 'ese', e.target.checked)}
+                                        />
+                                    </td> */}
+                                    <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <button
+                                            onClick={() => handleUpdate(index)}
+                                            className="row-save-btn">
+                                            SAVE
+                                        </button> 
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="11" className="hod-repo-td">
+                                    No Data Available.
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>

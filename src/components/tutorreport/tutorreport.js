@@ -8,56 +8,84 @@ function TutorReport()
 {
     const { staffId } = useParams();
     const [deptStatus, setDeptStatus] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        const fetchTutorReport = async () => {
+    useEffect(() => 
+    {
+        const fetchTutorReport = async () => 
+        {
             try {
                 const response = await axios.post(`${apiUrl}/api/tutorStatusReport`, {
                     staff_id: staffId
-                })
-                setDeptStatus(response.data);
+                });
+                
+                const uniqueData = Array.from(new Set(response.data.map(item => JSON.stringify(item))))
+                .map(item => JSON.parse(item));
+                
+                const allCompleted = uniqueData.every(
+                    (item) =>
+                        item.cia_1 === "Completed" &&
+                        item.cia_2 === "Completed" &&
+                        item.ass_1 === "Completed" &&
+                        item.ass_2 === "Completed"
+                )
+    
+                if (allCompleted) {
+                    setDeptStatus([]); 
+                } 
+                else {
+                    setDeptStatus(uniqueData); 
+                }
+            } 
+            catch (error) {
+                console.error("Error fetching Department Status : ", error);
             }
-            catch (error) { }
-        }
+        };
         fetchTutorReport();
-    }, [apiUrl, staffId]);
 
-    const sortedDeptStatus = deptStatus.sort((a, b) => {
-        const classA = `${a.semester}${a.course_id}${a.section}`;
-        const classB = `${b.semester}${b.course_id}${b.section}`;
-        if (classA !== classB) return classA.localeCompare(classB);
-        if (a.course_code !== b.course_code) return a.course_code.localeCompare(b.course_code);
-        return a.staff_id.localeCompare(b.staff_id);
-    })
+    }, [apiUrl,staffId]);
 
-    const getStatusClass = (status) => {
+    const filteredData = deptStatus.filter(
+        (item) =>
+            item.cia_1 !== "Completed" ||
+            item.cia_2 !== "Completed" ||
+            item.ass_1 !== "Completed" ||
+            item.ass_2 !== "Completed"
+    );
 
-        switch (status) {
+    const filteredStaffData = filteredData.filter((staff) =>
+        (staff.course_title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+        (staff.staff_name?.toLowerCase() || "").includes(searchTerm.toLowerCase())
+    )
+
+    const getStatusClass = (status) => 
+    {
+        switch (status) 
+        {
             case "Completed":
                 return "status-completed";
             case "Processing":
                 return "status-processing";
             case "Incomplete":
                 return "status-incomplete";
-            default:
-                return "";
         }
     }
 
     return (
         <div>
-            {deptStatus && (
+            {deptStatus.length > 0 && (
                 <div className='tutor-main'>
                     <span className="tutor-top-heading">OBE MARK INCOMPLETE DATA</span>
                     <div className="tutor-input-btn">
                         <input
                             className="scope-search"
                             type="text"
-                            placeholder="Search by Staff ID..."
+                            placeholder="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <h3>Total No of Records : {sortedDeptStatus.length}</h3>
+                        <h3>Total No of Records : {filteredStaffData.length}</h3>
                     </div>
-
                     <table className='tutor-repo-table'>
                         <thead>
                             <tr>
@@ -71,7 +99,8 @@ function TutorReport()
                             </tr>
                         </thead>
                         <tbody>
-                            {sortedDeptStatus.map((dept, index) => (
+                        {filteredStaffData.length > 0 ? (
+                            filteredStaffData.map((dept, index) => (
                                 <tr key={index}>
                                     <td className='tutor-repo-td'>{index + 1}</td>
                                     <td className='tutor-repo-td'>{dept.staff_name}</td>
@@ -81,7 +110,14 @@ function TutorReport()
                                     <td className={`tutor-repo-td-status ${getStatusClass(dept.ass_1)}`}>{dept.ass_1}</td>
                                     <td className={`tutor-repo-td-status ${getStatusClass(dept.ass_2)}`}>{dept.ass_2}</td>
                                 </tr>
-                            ))}
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="7" className="tutor-repo-td">
+                                    No Data Available.
+                                </td>
+                            </tr>
+                        )}
                         </tbody>
                     </table>
 

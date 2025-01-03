@@ -198,7 +198,7 @@ function StaffMasterManage()
             <div className="smsm-input-btn">
                 <input className="smsm-search"
                     type="text"
-                    placeholder="Search by Id or Name ..."
+                    placeholder="Search ..."
                     onChange={handleSearch}
                 />
                 <div>
@@ -479,24 +479,32 @@ function StaffMasterManage()
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredData.map((staff, index) => (
-                            <tr key={index}className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
-                                <td className="smsm-td-sno">{index + 1}</td>
-                                <td className="smsm-td-id">{staff.staff_id}</td>
-                                <td className="smsm-td-name">{staff.staff_name}</td>
-                                <td className="smsm-td-name">{staff.staff_dept}</td>
-                                <td className="smsm-td-edit">
-                                    <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="smsm-edit-btn">
-                                        <span className="smsm-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="smsm-icon" /></span>
-                                    </button>
-                                </td>
-                                <td className="smsm-td-delete">
-                                    <button onClick={() => handleDelete(staff.staff_id,staff.staff_name)} className="smsm-del-btn">
-                                       <span className="smsm-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="smsm-icon" /></span>
-                                    </button>
+                        {filteredData.length > 0 ? (
+                            filteredData.map((staff, index) => (
+                                <tr key={index}className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
+                                    <td className="smsm-td-sno">{index + 1}</td>
+                                    <td className="smsm-td-id">{staff.staff_id}</td>
+                                    <td className="smsm-td-name">{staff.staff_name}</td>
+                                    <td className="smsm-td-name">{staff.staff_dept}</td>
+                                    <td className="smsm-td-edit">
+                                        <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="smsm-edit-btn">
+                                            <span className="smsm-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="smsm-icon" /></span>
+                                        </button>
+                                    </td>
+                                    <td className="smsm-td-delete">
+                                        <button onClick={() => handleDelete(staff.staff_id,staff.staff_name)} className="smsm-del-btn">
+                                        <span className="smsm-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="smsm-icon" /></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="8" className="hod-repo-td">
+                                    No Data Available.
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>

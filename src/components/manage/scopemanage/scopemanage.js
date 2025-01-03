@@ -229,104 +229,112 @@ function Scope()
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredData.map((scopeItem, rowIndex) => (
-                            <tr key={scopeItem.staff_id} className="scope-staffid">
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    {scopeItem.staff_id}
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.dashboard === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'dashboard', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.course_list === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_list', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.course_outcome === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_outcome', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.student_outcome === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'student_outcome', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.program_outcome === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'program_outcome', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.program_specific_outcome === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'program_specific_outcome', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.mentor_report === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'mentor_report', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.hod_report === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'hod_report', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.report === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'report', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.input_files === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'input_files', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.manage === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'manage', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.relationship_matrix === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'relationship_matrix', e.target.checked)}
-                                    />
-                                </td>
-                                <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                    <input 
-                                        type="checkbox"
-                                        checked={scopeItem.settings === 1}
-                                        onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'settings', e.target.checked)}
-                                    />
+                        {filteredData.length > 0 ? (
+                            filteredData.map((scopeItem, rowIndex) => (
+                                <tr key={scopeItem.staff_id} className="scope-staffid">
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        {scopeItem.staff_id}
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.dashboard === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'dashboard', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.course_list === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_list', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.course_outcome === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'course_outcome', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.student_outcome === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'student_outcome', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.program_outcome === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'program_outcome', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.program_specific_outcome === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'program_specific_outcome', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.mentor_report === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'mentor_report', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.hod_report === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'hod_report', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.report === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'report', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.input_files === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'input_files', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.manage === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'manage', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.relationship_matrix === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'relationship_matrix', e.target.checked)}
+                                        />
+                                    </td>
+                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                        <input 
+                                            type="checkbox"
+                                            checked={scopeItem.settings === 1}
+                                            onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'settings', e.target.checked)}
+                                        />
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="16" className="hod-repo-td">
+                                    No Data Available.
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>

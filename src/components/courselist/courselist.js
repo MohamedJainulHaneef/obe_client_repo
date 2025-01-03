@@ -11,6 +11,22 @@ function CourseList()
     const navigate = useNavigate();
     const [courseData, setCourseData] = useState([]);
     const [academicYear, setAcademicYear] = useState('');
+    const [staffName, setStaffName] = useState('');
+
+    useEffect(() => 
+    {
+        const fetchStaffName = async () => 
+        {
+            try {
+                const response = await axios.post(`${apiUrl}/staffName`,{staffId});
+                setStaffName(response.data)
+            }
+            catch(err) {
+
+            }
+        }
+        fetchStaffName();
+    },[apiUrl,staffId])
 
     useEffect(() => 
     {
@@ -90,6 +106,7 @@ function CourseList()
     return (
         <div className="course-main">
             <div className="course-layout-top-div">
+                <p className="course-layout-staff-id"><span className="course-staff">Welcome </span> {staffName.staff_name}</p>
                 <p className="course-layout-staff-id"><span className="course-staff">Staff Id :</span> {staffId}</p>
             </div>
             <div className="course-content-box">

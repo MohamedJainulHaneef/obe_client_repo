@@ -1,20 +1,22 @@
 .dept-repo-main {
     padding: 10px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .dept-repo-btn-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
 }
 
 .dept-repo-filter {
     display: flex;
     align-items: center;
     gap: 30px;
-    margin: 4.5px;
+    margin-left: 5px;
 }
 
 .dept-search-container {
@@ -25,7 +27,6 @@
 
 .dept-repo-search {
     text-align: left;
-    margin-top: 15px;
 }
 
 .dept-search-input {
@@ -43,7 +44,6 @@
     color: white;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
     border: none;
 }
 
@@ -51,7 +51,6 @@
     display: flex;
     gap: 30px;
     font-size: 20px;
-    margin-top: 22px;
 }
 
 .dept-search-btn:hover {
@@ -78,7 +77,6 @@
 .dept-repo-header {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
     font-size: 16px;
     text-align: left;
 }
@@ -135,4 +133,12 @@
 
 .dept-repo-light {
     background-color: white;
+}
+
+.dept-heading {
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
