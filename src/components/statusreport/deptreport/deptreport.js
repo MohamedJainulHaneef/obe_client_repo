@@ -4,6 +4,7 @@ import axios from 'axios';
 import './deptreport.css';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import Loading from '../../../assets/load.svg';
 
 function DeptReport() 
 {
@@ -213,6 +214,8 @@ function DeptReport()
         const dataBlob = new Blob([excelBuffer], { type: fileType });
         saveAs(dataBlob, fileName + fileExtension);
     }
+
+    if (!deptStatusReport) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
 
     return (
         <div className='dept-repo-main'>
