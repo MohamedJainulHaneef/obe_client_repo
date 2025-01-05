@@ -92,7 +92,7 @@ function Layout()
         },
         {
             icon: faClipboard,
-            name: 'Status Report',
+            name: 'Work Progress Report',
             path: `/staff/${urlStaffId}/statusreport`,
             show: user && user.report === 1,
         },
