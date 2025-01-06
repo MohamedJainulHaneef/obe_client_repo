@@ -510,7 +510,7 @@ function MarkManage()
                     {!isModifying && (
                         <button className="mark-mng-button" onClick={handleModify}>MODIFY</button>
                     )}
-                    {isModifying && (<button className="mark-mng-button" onClick={handleSave}>Saved</button>
+                    {isModifying && (<button className="mark-mng-button" onClick={handleSave}>SAVE</button>
                     )}
                 </div>
             </div>

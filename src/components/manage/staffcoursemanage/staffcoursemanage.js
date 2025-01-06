@@ -157,7 +157,7 @@ function StaffManage() {
 			<div className="scm-input-btn">
 				<input className="scm-search"
 					type="text"
-					placeholder="Search by Name or Staff Id..."
+					placeholder="Search..."
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
