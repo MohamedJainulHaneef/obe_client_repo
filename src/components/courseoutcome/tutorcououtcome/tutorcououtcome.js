@@ -85,15 +85,15 @@ function TutorCouOutcome()
                     {Object.keys(attainmentData.overall).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td>{attainmentData.lot[courseCode]}</td>
-                            <td>{attainmentData.mot[courseCode]}</td>
-                            <td>{attainmentData.hot[courseCode]}</td>
+                            <td className='tco-content-clr'>{attainmentData.lot[courseCode]}</td>
+                            <td className='tco-content-clr'>{attainmentData.mot[courseCode]}</td>
+                            <td className='tco-content-clr'>{attainmentData.hot[courseCode]}</td>
                             <td>{attainmentData.elot[courseCode]}</td>
                             <td>{attainmentData.emot[courseCode]}</td>
                             <td>{attainmentData.ehot[courseCode]}</td>
-                            <td>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='tco-content-clr'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
+                            <td className='tco-content-clr'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
+                            <td className='tco-content-clr'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}
@@ -140,17 +140,14 @@ function TutorCouOutcome()
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {Object.keys(attainmentData.meanScores ).map(index => ( */}
-                        <tr>
-                            {/* <td>Pso{index+1}</td> */}
-                            <td>{attainmentData.meanScores.pso1.toFixed(2)}</td>
-                            <td>{attainmentData.meanScores.pso2.toFixed(2)}</td>
-                            <td>{attainmentData.meanScores.pso3.toFixed(2)}</td>
-                            <td>{attainmentData.meanScores.pso4.toFixed(2)}</td>
-                            <td>{attainmentData.meanScores.pso5.toFixed(2)}</td>
-                            <td>{attainmentData.meanScores.pso.toFixed(2)}</td>
-                        </tr>
-                    {/* ))} */}
+                    <tr>
+                        <td>{attainmentData.meanScores.pso1.toFixed(2)}</td>
+                        <td>{attainmentData.meanScores.pso2.toFixed(2)}</td>
+                        <td>{attainmentData.meanScores.pso3.toFixed(2)}</td>
+                        <td>{attainmentData.meanScores.pso4.toFixed(2)}</td>
+                        <td>{attainmentData.meanScores.pso5.toFixed(2)}</td>
+                        <td>{attainmentData.meanScores.pso.toFixed(2)}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

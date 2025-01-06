@@ -85,22 +85,22 @@ function HodDouOutcome()
                     {Object.keys(attainmentData.overall).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td>{attainmentData.lot[courseCode]}</td>
-                            <td>{attainmentData.mot[courseCode]}</td>
-                            <td>{attainmentData.hot[courseCode]}</td>
+                            <td className='hco-content-clr'>{attainmentData.lot[courseCode]}</td>
+                            <td className='hco-content-clr'>{attainmentData.mot[courseCode]}</td>
+                            <td className='hco-content-clr'>{attainmentData.hot[courseCode]}</td>
                             <td>{attainmentData.elot[courseCode]}</td>
                             <td>{attainmentData.emot[courseCode]}</td>
                             <td>{attainmentData.ehot[courseCode]}</td>
-                            <td>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='hco-content-clr'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
+                            <td className='hco-content-clr'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
+                            <td className='hco-content-clr'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <h2 className='cco-heading'>CAPSO - Course Attainment by Programme Specific Outcome</h2>
-            <table className='cco-table'>
+            <h2 className='hco-heading'>CAPSO - Course Attainment by Programme Specific Outcome</h2>
+            <table className='hco-table'>
                 <thead>
                     <tr>
                         <th>Course Code</th>

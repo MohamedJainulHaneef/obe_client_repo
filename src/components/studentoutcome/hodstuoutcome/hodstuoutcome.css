@@ -67,9 +67,8 @@
      margin-top: 10px;
 }
 
-.hso-header {
-     display: flex;
-     flex-direction: row;
+.hso-content-clr {
+     background-color: rgb(250, 250, 254);
 }
 
 .hso-header-title1 {

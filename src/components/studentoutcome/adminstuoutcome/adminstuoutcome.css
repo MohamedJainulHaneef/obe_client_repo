@@ -67,9 +67,8 @@
      margin-top: 10px;
 }
 
-.aso-header {
-     display: flex;
-     flex-direction: row;
+.aso-content-clr {
+     background-color: rgb(250, 250, 254);
 }
 
 .aso-header-title1 {

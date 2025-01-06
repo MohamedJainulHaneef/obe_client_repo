@@ -46,9 +46,9 @@ function CoursesCouOutcome()
     if (!attainmentData) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
 
     return (
-        <div className='cco-main'>
-            <div className="cco-header">
-                <div className="cco-header-title1">
+        <div className='sco-main'>
+            <div className="sco-header">
+                <div className="sco-header-title1">
                     <h1 className="">JAMAL MOHAMED COLLEGE (Autonomous)</h1>
                     <span>
                         Nationally Accredited with A++ Grade by NAAC (4th Cycle) with CGPA
@@ -58,11 +58,11 @@ function CoursesCouOutcome()
                     <h3>TIRUCHIRAPPALLI - 620 020 .</h3>
                 </div>
             </div>
-            <div className="cco-header-title2">
+            <div className="sco-header-title2">
                 <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
             </div>
-            <h2 className='cco-heading'>CCLA - Course Cognitive Level Attainment</h2>
-            <table className='cco-table'>
+            <h2 className='sco-heading'>CCLA - Course Cognitive Level Attainment</h2>
+            <table className='sco-table'>
                 <thead>
                     <tr>
                     <th rowSpan={2}>Course Code</th>
@@ -87,22 +87,22 @@ function CoursesCouOutcome()
                     {Object.keys(attainmentData.overall).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td>{attainmentData.lot[courseCode]}</td>
-                            <td>{attainmentData.mot[courseCode]}</td>
-                            <td>{attainmentData.hot[courseCode]}</td>
+                            <td className='sco-content-clr'>{attainmentData.lot[courseCode]}</td>
+                            <td className='sco-content-clr'>{attainmentData.mot[courseCode]}</td>
+                            <td className='sco-content-clr'>{attainmentData.hot[courseCode]}</td>
                             <td>{attainmentData.elot[courseCode]}</td>
                             <td>{attainmentData.emot[courseCode]}</td>
                             <td>{attainmentData.ehot[courseCode]}</td>
-                            <td>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='sco-content-clr'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
+                            <td className='sco-content-clr'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
+                            <td className='sco-content-clr'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <h2 className='cco-heading'>CAPSO - Course Attainment by Programme Specific Outcome</h2>
-            <table className='cco-table'>
+            <h2 className='sco-heading'>CAPSO - Course Attainment by Programme Specific Outcome</h2>
+            <table className='sco-table'>
                 <thead>
                     <tr>
                         <th>Course Code</th>

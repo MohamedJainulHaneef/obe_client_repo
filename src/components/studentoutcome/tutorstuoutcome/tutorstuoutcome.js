@@ -152,40 +152,40 @@ function AdminStuOutcome()
                          <table className="tso-table">
                               <thead>
                                 <tr>
-                                <th className='aso--header' rowSpan={2}>Reg No</th>
-                                    <th className='aso--header' rowSpan={2}>Course Code</th>
-                                    <th className='aso--header' colSpan={3}>INTERNAL</th>
-                                    <th className='aso--header' colSpan={3}>EXTERNAL</th>
-                                    <th className='aso--header' colSpan={3}>TOTAL</th>
-                                    <th className='aso--header'rowSpan={2}>GRADE</th>
+                                <th className='tso-header' rowSpan={2}>Reg No</th>
+                                    <th className='tso-header' rowSpan={2}>Course Code</th>
+                                    <th className='tso-header' colSpan={3}>INTERNAL</th>
+                                    <th className='tso-header' colSpan={3}>EXTERNAL</th>
+                                    <th className='tso-header' colSpan={3}>TOTAL</th>
+                                    <th className='tso-header'rowSpan={2}>GRADE</th>
                                 </tr>
                                 <tr>
-                                    <th className='aso--header'>LOT</th>
-                                    <th className='aso--header'>MOT</th>
-                                    <th className='aso--header'>HOT</th>
-                                    <th className='aso--header'>LOT</th>
-                                    <th className='aso--header'>MOT</th>
-                                    <th className='aso--header'>HOT</th>
-                                    <th className='aso--header'>LOT</th>
-                                    <th className='aso--header'>MOT</th>
-                                    <th className='aso--header'>HOT</th>
+                                    <th className='tso-header'>LOT</th>
+                                    <th className='tso-header'>MOT</th>
+                                    <th className='tso-header'>HOT</th>
+                                    <th className='tso-header'>LOT</th>
+                                    <th className='tso-header'>MOT</th>
+                                    <th className='tso-header'>HOT</th>
+                                    <th className='tso-header'>LOT</th>
+                                    <th className='tso-header'>MOT</th>
+                                    <th className='tso-header'>HOT</th>
                                 </tr>
                             </thead>
                               <tbody>
                                    {outcomeData.map((item, index) => (
                                         <tr key={index}>
-                                        <td className='tso--content'>{item.reg_no}</td>
-                                        <td className='tso--content'>{item.course_code}</td>
-                                        <td className='tso--content'>{item.lot_attainment}</td>
-                                        <td className='tso--content'>{item.mot_attainment}</td>
-                                        <td className='tso--content'>{item.hot_attainment}</td>
-                                        <td className='tso--content'>{item.elot_attainment}</td>
-                                        <td className='tso--content'>{item.emot_attainment}</td>
-                                        <td className='tso--content'>{item.ehot_attainment}</td>
-                                        <td className='tso--content'>{item.overAll_lot}</td>
-                                        <td className='tso--content'>{item.overAll_mot}</td>
-                                        <td className='tso--content'>{item.overAll_hot}</td>
-                                        <td className='tso--content'>{item.final_grade}</td>
+                                        <td className='tso-content'>{item.reg_no}</td>
+                                        <td className='tso-content'>{item.course_code}</td>
+                                        <td className='tso-content-clr'>{item.lot_attainment}</td>
+                                        <td className='tso-content-clr'>{item.mot_attainment}</td>
+                                        <td className='tso-content-clr'>{item.hot_attainment}</td>
+                                        <td className='tso-content'>{item.elot_attainment}</td>
+                                        <td className='tso-content'>{item.emot_attainment}</td>
+                                        <td className='tso-content'>{item.ehot_attainment}</td>
+                                        <td className='tso-content-clr'>{item.overAll_lot}</td>
+                                        <td className='tso-content-clr'>{item.overAll_mot}</td>
+                                        <td className='tso-content-clr'>{item.overAll_hot}</td>
+                                        <td className='tso-content'>{item.final_grade}</td>
                                         </tr>
                                    ))}
                               </tbody>

@@ -76,8 +76,6 @@ function DeptReport()
                 return dept.ass_1;
             case '4':
                 return dept.ass_2;
-            case '5':
-                return dept.ese;
             default:
                 return '';
         }
@@ -230,7 +228,6 @@ function DeptReport()
                     <option value="2">CIA - 2</option>
                     <option value="3">ASS - 1</option>
                     <option value="4">ASS - 2</option>
-                    <option value="5">ESE</option>
                 </select>
             </div>
             <div className='dept-repo-search'>

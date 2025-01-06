@@ -83,15 +83,15 @@ function AdminCouOutcome()
                     {Object.keys(attainmentData.overall).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td>{attainmentData.lot[courseCode]}</td>
-                            <td>{attainmentData.mot[courseCode]}</td>
-                            <td>{attainmentData.hot[courseCode]}</td>
+                            <td className='aco-content-clr'>{attainmentData.lot[courseCode]}</td>
+                            <td className='aco-content-clr'>{attainmentData.mot[courseCode]}</td>
+                            <td className='aco-content-clr'>{attainmentData.hot[courseCode]}</td>
                             <td>{attainmentData.elot[courseCode]}</td>
                             <td>{attainmentData.emot[courseCode]}</td>
                             <td>{attainmentData.ehot[courseCode]}</td>
-                            <td>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='aco-content-clr'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
+                            <td className='aco-content-clr'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
+                            <td className='aco-content-clr'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}

@@ -67,11 +67,6 @@
      margin-top: 10px;
 }
 
-.sso-header {
-     display: flex;
-     flex-direction: row;
-}
-
 .sso-header-title1 {
      width: 100%;
      display: flex;
