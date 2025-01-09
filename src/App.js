@@ -37,6 +37,7 @@ import TutorCouOC from './components/courseoutcome/tutorcououtcome/tutorcououtco
 import TutorStuOC from './components/studentoutcome/tutorstuoutcome/tutorstuoutcome';
 import ProgramOC from './components/prooutcome/prooutcome';
 import ProgramSpecOc from './components/prospecoutcome/prospecoutcome';
+import Terminologies from './components/terminologies/terminologies';
 
 function App() 
 {
@@ -80,6 +81,7 @@ function App()
                         <Route path="tutorstudentoutcome" element={<TutorStuOC />} />
                         <Route path="programoutcome" element={<ProgramOC />} />
                         <Route path="programspecificoutcome" element={<ProgramSpecOc />} />
+                        <Route path="terminologies" element={<Terminologies />} />
                     </Route>  
                 </Routes>
             </Router>

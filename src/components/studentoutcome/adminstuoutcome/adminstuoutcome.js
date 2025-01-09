@@ -298,15 +298,15 @@ function AdminStuOutcome()
                                     <tr key={index}>
                                         <td className='aso-content'>{item.reg_no}</td>
                                         <td className='aso-content'>{item.course_code}</td>
-                                        <td className='aso-content-clr'>{item.lot_attainment}</td>
-                                        <td className='aso-content-clr'>{item.mot_attainment}</td>
-                                        <td className='aso-content-clr'>{item.hot_attainment}</td>
-                                        <td className='aso-content'>{item.elot_attainment}</td>
-                                        <td className='aso-content'>{item.emot_attainment}</td>
-                                        <td className='aso-content'>{item.ehot_attainment}</td>
-                                        <td className='aso-content-clr'>{item.overAll_lot}</td>
-                                        <td className='aso-content-clr'>{item.overAll_mot}</td>
-                                        <td className='aso-content-clr'>{item.overAll_hot}</td>
+                                        <td className='aso-content-cia'>{item.lot_attainment}</td>
+                                        <td className='aso-content-cia'>{item.mot_attainment}</td>
+                                        <td className='aso-content-cia'>{item.hot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.elot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.emot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.ehot_attainment}</td>
+                                        <td className='aso-content-all'>{item.overAll_lot}</td>
+                                        <td className='aso-content-all'>{item.overAll_mot}</td>
+                                        <td className='aso-content-all'>{item.overAll_hot}</td>
                                         <td className='aso-content'>{item.final_grade}</td>
                                     </tr>
                                 ))}

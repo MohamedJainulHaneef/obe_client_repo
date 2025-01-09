@@ -87,15 +87,15 @@ function CoursesCouOutcome()
                     {Object.keys(attainmentData.overall).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td className='sco-content-clr'>{attainmentData.lot[courseCode]}</td>
-                            <td className='sco-content-clr'>{attainmentData.mot[courseCode]}</td>
-                            <td className='sco-content-clr'>{attainmentData.hot[courseCode]}</td>
-                            <td>{attainmentData.elot[courseCode]}</td>
-                            <td>{attainmentData.emot[courseCode]}</td>
-                            <td>{attainmentData.ehot[courseCode]}</td>
-                            <td className='sco-content-clr'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td className='sco-content-clr'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td className='sco-content-clr'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='sco-content-cia'>{attainmentData.lot[courseCode]}</td>
+                            <td className='sco-content-cia'>{attainmentData.mot[courseCode]}</td>
+                            <td className='sco-content-cia'>{attainmentData.hot[courseCode]}</td>
+                            <td className='sco-content-ese'>{attainmentData.elot[courseCode]}</td>
+                            <td className='sco-content-ese'>{attainmentData.emot[courseCode]}</td>
+                            <td className='sco-content-ese'>{attainmentData.ehot[courseCode]}</td>
+                            <td className='sco-content-all'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
+                            <td className='sco-content-all'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
+                            <td className='sco-content-all'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}

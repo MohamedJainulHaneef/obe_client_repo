@@ -1,7 +1,7 @@
 import { useEffect, React, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { faHome, faFileAlt, faTachometerAlt, faKey, faSignOutAlt , faGear, faGraduationCap, faCog, faProjectDiagram, 
+import { faHome, faFileAlt, faTachometerAlt, faKey, faSignOutAlt , faGear, faGraduationCap, faLightbulb, faProjectDiagram, 
 faBookOpen, faUserGraduate, faClipboardCheck, faUserFriends, faChalkboardTeacher, faClipboard } 
 from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
@@ -53,6 +53,12 @@ function Layout()
             name: 'Course List',
             path: `/staff/${urlStaffId}/courselist`,
             show: user && user.course_list === 1,
+        },
+        {
+            icon: faProjectDiagram,
+            name: 'Relationship Matrix',
+            path: `/staff/${urlStaffId}/rsmatrix`,
+            show: user && user.relationship_matrix === 1,
         },
         {
             icon: faFileAlt,
@@ -109,16 +115,16 @@ function Layout()
             show: user && user.manage === 1,
         },
         {
-            icon: faProjectDiagram,
-            name: 'Relationship Matrix',
-            path: `/staff/${urlStaffId}/rsmatrix`,
-            show: user && user.relationship_matrix === 1,
-        },
-        {
             icon: faGear ,
             name: 'Change Password',
             path: `/staff/${urlStaffId}/settings`,
             show: user.settings === 1,
+        },
+        {
+            icon: faLightbulb ,
+            name: 'OBE Terminologies',
+            path: `/staff/${urlStaffId}/terminologies`,
+            show: ['ADMIN', 'admin', 'Admin'].includes(urlStaffId),        
         },
     ];
 

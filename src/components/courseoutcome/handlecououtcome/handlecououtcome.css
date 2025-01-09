@@ -58,6 +58,14 @@
     font-weight: bold;
 }
 
-.sco-content-clr {
-     background-color: rgb(250, 250, 254);
+.sco-content-cia {
+	background-color: #4a91e248
+}
+
+.sco-content-ese {
+	background-color: rgba(255, 166, 0, 0.301)
+}
+
+.sco-content-all {
+	background-color: #81c7847c
 }

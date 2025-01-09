@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.termi-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+    gap: 25px;
+    background-color: #8f8c8c1a;
+    font-family: 'Arial', sans-serif;
+}
+
+.termi-a4 {
+    width: 100%;
+    padding: 60px;
+    border: 2px solid #000;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.termi-top-heading {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: .5px;
+}
+
+.termi-term, .termi-term2 {
+    font-size: 20px;
+    background-color: #505050;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.termi-term2 {
+    margin-top: 20px;
+}
+
+.termi-list {
+    list-style-type: disc;
+    padding-left: 40px;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.termi-list span {
+    font-weight: bold;
+    color: #333;
+}
+
+.termi-para {
+    text-indent: 2em;
+    text-align: justify;
+    line-height: 1.8;
+}
+
+.termi-span {
+    font-weight: bold;
+    color: #333;
+}

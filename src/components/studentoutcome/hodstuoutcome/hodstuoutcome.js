@@ -277,15 +277,15 @@ function HodStuOutcome()
 									<tr key={index}>
 										<td className='hso-content'>{item.reg_no}</td>
 										<td className='hso-content'>{item.course_code}</td>
-										<td className='hso-content-clr'>{item.lot_attainment}</td>
-										<td className='hso-content-clr'>{item.mot_attainment}</td>
-										<td className='hso-content-clr'>{item.hot_attainment}</td>
-										<td className='hso-content'>{item.elot_attainment}</td>
-										<td className='hso-content'>{item.emot_attainment}</td>
-										<td className='hso-content'>{item.ehot_attainment}</td>
-										<td className='hso-content-clr'>{item.overAll_lot}</td>
-										<td className='hso-content-clr'>{item.overAll_mot}</td>
-										<td className='hso-content-clr'>{item.overAll_hot}</td>
+										<td className='hso-content-cia'>{item.lot_attainment}</td>
+										<td className='hso-content-cia'>{item.mot_attainment}</td>
+										<td className='hso-content-cia'>{item.hot_attainment}</td>
+										<td className='hso-content-ese'>{item.elot_attainment}</td>
+										<td className='hso-content-ese'>{item.emot_attainment}</td>
+										<td className='hso-content-ese'>{item.ehot_attainment}</td>
+										<td className='hso-content-all'>{item.overAll_lot}</td>
+										<td className='hso-content-all'>{item.overAll_mot}</td>
+										<td className='hso-content-all'>{item.overAll_hot}</td>
 										<td className='hso-content'>{item.final_grade}</td>
 									</tr>
 								))}

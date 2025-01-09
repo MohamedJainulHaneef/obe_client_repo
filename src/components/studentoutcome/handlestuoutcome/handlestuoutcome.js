@@ -284,15 +284,15 @@ function HandleStuOutcome() {
 									<tr key={index}>
 										<td className='sso-content'>{item.reg_no}</td>
 										<td className='sso-content'>{item.course_code}</td>
-										<td className='sso-content-clr'>{item.lot_attainment}</td>
-										<td className='sso-content-clr'>{item.mot_attainment}</td>
-										<td className='sso-content-clr'>{item.hot_attainment}</td>
-										<td className='sso-content'>{item.elot_attainment}</td>
-										<td className='sso-content'>{item.emot_attainment}</td>
-										<td className='sso-content'>{item.ehot_attainment}</td>
-										<td className='sso-content-clr'>{item.overAll_lot}</td>
-										<td className='sso-content-clr'>{item.overAll_mot}</td>
-										<td className='sso-content-clr'>{item.overAll_hot}</td>
+										<td className='sso-content-cia'>{item.lot_attainment}</td>
+										<td className='sso-content-cia'>{item.mot_attainment}</td>
+										<td className='sso-content-cia'>{item.hot_attainment}</td>
+										<td className='sso-content-ese'>{item.elot_attainment}</td>
+										<td className='sso-content-ese'>{item.emot_attainment}</td>
+										<td className='sso-content-ese'>{item.ehot_attainment}</td>
+										<td className='sso-content-all'>{item.overAll_lot}</td>
+										<td className='sso-content-all'>{item.overAll_mot}</td>
+										<td className='sso-content-all'>{item.overAll_hot}</td>
 										<td className='sso-content'>{item.final_grade}</td>
 									</tr>
 								))}
