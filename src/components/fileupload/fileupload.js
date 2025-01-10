@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './fileupload.css';
 
-function FileUpload() 
-{
+function FileUpload() {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const [academicYear, setAcademicYear] = useState('');
     const [loading, setLoading] = useState(false);
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
@@ -16,24 +14,11 @@ function FileUpload()
     const [file7, setFile7] = useState(null);
     const [file8, setFile8] = useState(null);
     const [file9, setFile9] = useState(null);
+    const [file10, setFile10] = useState(null);
+    const [file11, setFile11] = useState(null);
+    const [file12, setFile12] = useState(null);
 
-    useEffect(() => 
-    {
-        const academicYearSet = async () => 
-        {
-            try {
-                const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
-            } 
-            catch (err) {
-                console.log('Error Fetching Data:', err);
-            }
-        };
-        academicYearSet();
-    }, []);
-
-    const handleFileChange = (e) => 
-    {
+    const handleFileChange = (e) => {
         const { name, files } = e.target;
         if (name === 'file1') {
             setFile1(files[0]);
@@ -62,10 +47,18 @@ function FileUpload()
         else if (name === 'file9') {
             setFile9(files[0]);
         }
+        else if (name === 'file10') {
+            setFile10(files[0]);
+        }
+        else if (name === 'file11') {
+            setFile11(files[0]);
+        }
+        else if (name === 'file12') {
+            setFile12(files[0]);
+        }
     }
 
-    const handleUpload = async (e, file, endpoint) => 
-    {
+    const handleUpload = async (e, file, endpoint) => {
         e.preventDefault();
         if (!file) {
             alert('Please Select a File');
@@ -93,8 +86,7 @@ function FileUpload()
         }
     }
 
-    const LoadingModal = ({ loading }) => 
-    {
+    const LoadingModal = ({ loading }) => {
         if (!loading) return null;
         return (
             <div className="file-loading-modal">
@@ -106,49 +98,46 @@ function FileUpload()
         )
     }
 
-    const handleDownload = async (e, fileType) => 
-    {
+    const handleDownload = async (e, fileType) => {
         e.preventDefault();
-        try 
-        {
+        try {
             let response;
             let fileName;
-            switch (fileType) 
-            {
+            switch (fileType) {
                 case 'coursemap':
                     response = await axios.get(`${apiUrl}/api/download/coursemap`, {
                         responseType: 'blob',
                     });
-                    fileName = `Staff Course Mapping ${academicYear}.xlsx`;
+                    fileName = 'Course Mapping Data.xlsx';
                     break;
 
                 case 'coursemapmodel':
                     response = await axios.get(`${apiUrl}/api/download/coursemapmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Staff Course Mapping Model.xlsx';
+                    fileName = 'Course Mapping Model.xlsx';
                     break;
 
                 case 'staff':
                     response = await axios.get(`${apiUrl}/api/download/staff`, {
                         responseType: 'blob',
                     });
-                    fileName = `Staff Master ${academicYear}.xlsx`;
+                    fileName = 'Staff Master Data.xlsx';
                     break;
-                
+
                 case 'staffmodel':
                     response = await axios.get(`${apiUrl}/api/download/staffmodel`, {
                         responseType: 'blob',
                     });
                     fileName = 'Staff Master Model.xlsx';
                     break;
-                
+
 
                 case 'studentmaster':
                     response = await axios.get(`${apiUrl}/api/download/studentmaster`, {
                         responseType: 'blob',
                     });
-                    fileName = `Student Master ${academicYear}.xlsx`;
+                    fileName = 'Student Master Data.xlsx';
                     break;
 
                 case 'studentmastermodel':
@@ -162,85 +151,128 @@ function FileUpload()
                     response = await axios.get(`${apiUrl}/api/download/scope`, {
                         responseType: 'blob',
                     });
-                    fileName = `Scope ${academicYear}.xlsx`;
+                    fileName = 'Scope Data.xlsx';
                     break;
 
                 case 'scopemodel':
                     response = await axios.get(`${apiUrl}/api/download/scopemodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Scope Model.xlsx';
+                    fileName = 'Scope Data Model.xlsx';
                     break;
-    
+
                 case 'mark':
                     response = await axios.get(`${apiUrl}/api/download/mark`, {
                         responseType: 'blob',
                     });
-                    fileName = `Student Course Mapping ${academicYear}.xlsx`;
+                    fileName = 'Mark Entry Data.xlsx';
                     break;
 
                 case 'markmodel':
                     response = await axios.get(`${apiUrl}/api/download/markmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Student Course Mapping Model.xlsx';
+                    fileName = 'Mark Entry Data Model.xlsx';
                     break;
 
                 case 'ese':
                     response = await axios.get(`${apiUrl}/api/download/ese`, {
                         responseType: 'blob',
                     });
-                    fileName = `ESE ${academicYear}.xlsx`;
+                    fileName = 'ESE Mark Entry Data.xlsx';
                     break;
 
                 case 'esemodel':
                     response = await axios.get(`${apiUrl}/api/download/esemodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'ESE Model ${academicYear}.xlsx';
+                    fileName = 'ESE Mark Entry Model.xlsx';
                     break;
 
                 case 'report':
                     response = await axios.get(`${apiUrl}/api/download/report`, {
                         responseType: 'blob',
                     });
-                    fileName = `Report ${academicYear}.xlsx`;
+                    fileName = 'Status Report.xlsx';
                     break;
 
                 case 'reportmodel':
                     response = await axios.get(`${apiUrl}/api/download/reportmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Report Model.xlsx';
+                    fileName = 'Status Report Model.xlsx';
                     break;
 
                 case 'mentor':
                     response = await axios.get(`${apiUrl}/api/download/mentor`, {
                         responseType: 'blob',
                     });
-                    fileName = `Mentor ${academicYear}.xlsx`;
+                    fileName = 'Mentor Report.xlsx';
                     break;
 
                 case 'mentormodel':
                     response = await axios.get(`${apiUrl}/api/download/mentormodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Mentor Model.xlsx';
+                    fileName = 'Mentor Report Model.xlsx';
                     break;
 
                 case 'hod':
                     response = await axios.get(`${apiUrl}/api/download/hod`, {
                         responseType: 'blob',
                     });
-                    fileName = `Hod ${academicYear}.xlsx`;
+                    fileName = 'Hod Report.xlsx';
                     break;
-                
+
                 case 'hodmodel':
                     response = await axios.get(`${apiUrl}/api/download/hodmodel`, {
                         responseType: 'blob',
                     });
-                    fileName = 'Hod Model.xlsx';
+                    fileName = 'Hod Report Model.xlsx';
                     break;
+
+                case 'calculation':
+                    response = await axios.get(`${apiUrl}/api/download/calculation`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Calculation Report.xlsx';
+                    break;
+
+                case 'calculationmodel':
+                    response = await axios.get(`${apiUrl}/api/download/calculationmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Calculation Report Model.xlsx';
+                    break;
+
+                case 'rsmatrix':
+                    response = await axios.get(`${apiUrl}/api/download/rsmatrix`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Rsmatrix Report.xlsx';
+                    break;
+
+                case 'rsmatrixmodel':
+                    response = await axios.get(`${apiUrl}/api/download/rsmatrixmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Rsmatrix Report Model.xlsx';
+                    break;
+
+                case 'academic':
+                    response = await axios.get(`${apiUrl}/api/download/academic`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Academic Report.xlsx';
+                    break;
+
+                case 'academicmodel':
+                    response = await axios.get(`${apiUrl}/api/download/academicmodel`, {
+                        responseType: 'blob',
+                    });
+                    fileName = 'Academic Report Model.xlsx';
+                    break;
+
 
                 default:
                     throw new Error('Invalid file type');
@@ -260,7 +292,7 @@ function FileUpload()
     }
 
     return (
-        <div className='file-wrapper'> 
+        <div className='file-wrapper'>
             <div>
                 <h2>FILE UPLOADS</h2>
             </div>
@@ -326,6 +358,24 @@ function FileUpload()
                         <button className='file-upload-btn' onClick={(e) => handleUpload(e, file7, 'report')}>Report</button>
                         <button className='file-download-btn' onClick={(e) => handleDownload(e, 'report')}>Report</button>
                         <button className='file-model-btn' onClick={(e) => handleDownload(e, 'reportmodel')}>Report</button>
+                    </div>
+                    <div className='file-container'>
+                        <input type='file' name='file10' onChange={handleFileChange} />
+                        <button className='file-upload-btn' onClick={(e) => handleUpload(e, file10, 'calculation')}>Calculation</button>
+                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'calculation')}>Calculation</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'calculationmodel')}>Calculation</button>
+                    </div>
+                    <div className='file-container'>
+                        <input type='file' name='file11' onChange={handleFileChange} />
+                        <button className='file-upload-btn' onClick={(e) => handleUpload(e, file11, 'rsmatrix')}>RS Matrix</button>
+                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'rsmatrix')}>RS Matrix</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'rsmatrixmodel')}>RS Matrix</button>
+                    </div>
+                    <div className='file-container'>
+                        <input type='file' name='file12' onChange={handleFileChange} />
+                        <button className='file-upload-btn' onClick={(e) => handleUpload(e, file12, 'academic')}>Academic</button>
+                        <button className='file-download-btn' onClick={(e) => handleDownload(e, 'academic')}>Academic</button>
+                        <button className='file-model-btn' onClick={(e) => handleDownload(e, 'academicmodel')}>Academic</button>
                     </div>
                 </div>
             </div>
