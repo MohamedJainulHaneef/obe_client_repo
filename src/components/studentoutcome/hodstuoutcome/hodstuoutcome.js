@@ -60,7 +60,7 @@ function HodStuOutcome()
 					params: { academicYear, categories, departments },
 				})
 				if (response.data) {
-					setClasses([...new Set(response.data.map((item) => item.course_id))].sort());
+					setClasses([...new Set(response.data.map((item) => item.dept_id))].sort());
 				} 
 				else {
 					setClasses([]);
@@ -92,8 +92,8 @@ function HodStuOutcome()
 				const sortedDepartments = [...new Set(data.map((item) => item.dept_name))].sort();
 				setDepartments(sortedDepartments);
 			}
-			if (!filters.course_id) {
-				const sortedClasses = [...new Set(data.map((item) => item.course_id))].sort();
+			if (!filters.dept_id) {
+				const sortedClasses = [...new Set(data.map((item) => item.dept_id))].sort();
 				setClasses(sortedClasses);
 			}
 			if (!filters.semester) {
@@ -120,7 +120,7 @@ function HodStuOutcome()
 			category: categories,
 			dept_name: departments,
 			staff_id: staffId,
-			course_id: value,
+			dept_id: value,
 		})
 	}
 
@@ -132,7 +132,7 @@ function HodStuOutcome()
 				academic_year: academicYear,
 				category: categories,
 				dept_name: departments,
-				course_id: selectedClass,
+				dept_id: selectedClass,
 				semester: value,
 			})
 	}
@@ -144,7 +144,7 @@ function HodStuOutcome()
 				academic_year: academicYear,
 				category: categories,
 				dept_name: departments,
-				course_id: selectedClass,
+				dept_id: selectedClass,
 				semester: selectedSemester,
 				section: value,
 			})

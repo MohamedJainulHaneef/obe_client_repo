@@ -43,7 +43,7 @@ function AdminStuOutcome()
                     })
                     setCategory(tutorDetails.data.tutorDetails.category);
                     setDepartment(tutorDetails.data.tutorDetails.dept_name);
-                    setDeptId(tutorDetails.data.tutorDetails.course_id);
+                    setDeptId(tutorDetails.data.tutorDetails.dept_id);
                     setSemester(tutorDetails.data.studentSection.semester);
                     setSection(tutorDetails.data.tutorDetails.section);
                } 

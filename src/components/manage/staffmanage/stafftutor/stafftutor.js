@@ -170,7 +170,7 @@ function StaffTutorManage() {
                 // console.log(response.data[0].staff_pass);
                 setNewtuturName(response.data[0].staff_name);
                 setTuturGraduate(response.data[0].graduate);
-                // setNewCourseId(response.data[0].course_id);
+                // setNewCourseId(response.data[0].dept_id);
                 setTuturCategory(response.data[0].category);
                 // setTuturDegree(response.data[0].degree);
                 setTuturdeptName(response.data[0].staff_dept);
@@ -436,7 +436,7 @@ function StaffTutorManage() {
                                 <input
                                     type="text"
                                     name="degree"
-                                    value={editForm.course_id || ""}
+                                    value={editForm.dept_id || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
 

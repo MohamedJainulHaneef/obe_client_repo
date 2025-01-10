@@ -88,8 +88,8 @@ function AdminStuOutcome()
                 const sortedDepartments = [...new Set(data.map((item) => item.dept_name))].sort();
                 setDepartments(sortedDepartments);
             }
-            if (!filters.course_id) {
-                const sortedClasses = [...new Set(data.map((item) => item.course_id))].sort();
+            if (!filters.dept_id) {
+                const sortedClasses = [...new Set(data.map((item) => item.dept_id))].sort();
                 setClasses(sortedClasses);
             }
             if (!filters.semester) {
@@ -140,7 +140,7 @@ function AdminStuOutcome()
             academic_year: academicYear,
             category: selectedCategory,
             dept_name: selectedDepartment,
-            course_id: value,
+            dept_id: value,
         })
     }
 
@@ -153,7 +153,7 @@ function AdminStuOutcome()
             academic_year: academicYear,
             category: selectedCategory,
             dept_name: selectedDepartment,
-            course_id: selectedClass,
+            dept_id: selectedClass,
             semester: value,
         })
     }
@@ -166,7 +166,7 @@ function AdminStuOutcome()
             academic_year: academicYear,
             category: selectedCategory,
             dept_name: selectedDepartment,
-            course_id: selectedClass,
+            dept_id: selectedClass,
             semester: selectedSemester,
             section: value,
         })

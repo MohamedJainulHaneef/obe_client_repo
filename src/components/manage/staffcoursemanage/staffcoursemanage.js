@@ -12,12 +12,12 @@ function StaffManage() {
 	const [deleteCourseMapInfo, setDeleteCourseMapInfo] = useState(false)
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 	const [newStaff, setNewStaff] = useState({
-		staff_id: '', staff_name: '', category: '', batch: '', section: '', course_id: '',
+		staff_id: '', staff_name: '', category: '', batch: '', section: '', dept_id: '',
 		degree: '', dept_name: '', semester: '', course_code: '', course_title: '', active_sem: ''
 	})
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [staffToEdit, setStaffToEdit] = useState({
-		staff_id: '', staff_name: '', category: '', batch: '', section: '', course_id: '',
+		staff_id: '', staff_name: '', category: '', batch: '', section: '', dept_id: '',
 		degree: '', dept_name: '', semester: '', course_code: '', course_title: '', active_sem: ''
 	})
 
@@ -37,7 +37,7 @@ function StaffManage() {
 
 	const filteredStaffData = staffData.filter((staff) =>
 		(staff.section?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
-		(staff.course_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.dept_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.course_title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.staff_name?.toLowerCase() || "").includes(searchTerm.toLowerCase())
 	)
@@ -46,7 +46,7 @@ function StaffManage() {
 	const closeAddModal = () => {
 		setIsAddModalOpen(false);
 		setNewStaff({
-			staff_id: '', staff_name: '', category: '', batch: '', section: '', course_id: '',
+			staff_id: '', staff_name: '', category: '', batch: '', section: '', dept_id: '',
 			degree: '', dept_name: '', semester: '', course_code: '', course_title: '', active_sem: ''
 		})
 	}
@@ -105,7 +105,7 @@ function StaffManage() {
 	const closeEditModal = () => {
 		setIsEditModalOpen(false);
 		setStaffToEdit({
-			staff_id: '', staff_name: '', category: '', batch: '', section: '', course_id: '',
+			staff_id: '', staff_name: '', category: '', batch: '', section: '', dept_id: '',
 			degree: '', dept_name: '', semester: '', course_code: '', course_title: '', active_sem: ''
 		})
 	}
@@ -195,7 +195,7 @@ function StaffManage() {
 								</td>
 								<td className="scm-data">{staff.category}</td>
 								<td className="scm-data">{staff.section}</td>
-								<td className="scm-data">{staff.course_id}</td>
+								<td className="scm-data">{staff.dept_id}</td>
 								<td className="scm-data">{staff.course_code}</td>
 								<td className="scm-data" >
 									{staff.course_title}
@@ -261,9 +261,9 @@ function StaffManage() {
 						/>
 						<input
 							type="text"
-							name="course_id"
+							name="dept_id"
 							placeholder="Course ID"
-							value={newStaff.course_id}
+							value={newStaff.dept_id}
 							onChange={handleAddInputChange}
 						/>
 						<input
@@ -356,9 +356,9 @@ function StaffManage() {
 						/>
 						<input
 							type="text"
-							name="course_id"
+							name="dept_id"
 							placeholder="Course ID"
-							value={staffToEdit.course_id}
+							value={staffToEdit.dept_id}
 							onChange={handleEditInputChange}
 						/>
 						<input
@@ -428,7 +428,7 @@ function StaffManage() {
 						<h4>DEPT NAME : {deleteCourseMapInfo.dept_name}</h4>
 						<h4>CATEGORY : {deleteCourseMapInfo.category}</h4>
 						<h4>SECTION : {deleteCourseMapInfo.section}</h4>
-						<h4>COURSE ID : {deleteCourseMapInfo.course_id}</h4>
+						<h4>COURSE ID : {deleteCourseMapInfo.dept_id}</h4>
 						<h4>COURSE CODE : {deleteCourseMapInfo.course_code}</h4>
 						<div className="smsh-delete-btn-container">
 							<button onClick={() =>

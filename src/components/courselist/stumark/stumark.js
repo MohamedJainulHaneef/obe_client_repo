@@ -24,7 +24,7 @@ function Stumark()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setAcademicYear(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching academic year:', err);
@@ -64,12 +64,12 @@ function Stumark()
                 try 
                 {
                     const StuResponse = await axios.post(`${apiUrl}/api/studentdetails`, {
-                        course_id: courseId,
+                        dept_id: courseId,
                         stu_section: section,
                         stu_category: category,
                         stu_course_code: courseCode,
                         activeSection,
-                        academic_year: academicYear
+                        academic_sem: academicYear
                     });
 
                     setStuData(StuResponse.data);

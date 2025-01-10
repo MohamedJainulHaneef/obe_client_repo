@@ -164,7 +164,7 @@ function StudentManage() {
         (student.category?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.batch?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.section?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
-        (student.course_id?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
+        (student.dept_id?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.reg_no?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '')
     );
 
@@ -177,7 +177,7 @@ function StudentManage() {
         setNewStudent({
             stu_name: '',
             reg_no: '',
-            course_id: '',
+            dept_id: '',
             category: 'default',
             semester: 'default',
             section: 'default',
@@ -212,7 +212,7 @@ function StudentManage() {
                 semester: selectedSemester,
                 mentor: newStudent.mentor,
                 category: selectedCategory,
-                course_id: selectedCourseId,
+                dept_id: selectedCourseId,
                 course_codes: selectedCourseCodes
 
             });
@@ -374,7 +374,7 @@ function StudentManage() {
                                 <td className="student-data">{student.reg_no}</td>
                                 <td className="student-data">{student.category}</td>
                                 <td className="student-data-stu">{student.stu_name}</td>
-                                <td className="student-data">{student.course_id}</td>
+                                <td className="student-data">{student.dept_id}</td>
                                 <td className="student-data">{student.batch}</td>
                                 <td className="student-data">{student.semester}</td>
                                 <td className="student-data">{student.section}</td>

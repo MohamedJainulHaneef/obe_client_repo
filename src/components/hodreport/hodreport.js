@@ -31,7 +31,7 @@ function HodReport()
 		(staff.staff_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.category?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.section?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
-		(staff.course_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+		(staff.dept_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.course_code?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.course_title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.staff_name?.toLowerCase() || "").includes(searchTerm.toLowerCase())
@@ -84,7 +84,7 @@ function HodReport()
                                 <tr key={index}>
                                     <td className="hod-repo-td">{index + 1}</td>
                                     <td className="hod-repo-td">{dept.staff_name}</td>
-                                    <td className="hod-repo-td">{dept.semester} {dept.course_id} {dept.section}</td>
+                                    <td className="hod-repo-td">{dept.semester} {dept.dept_id} {dept.section}</td>
                                     <td className="hod-repo-td">{dept.course_title}</td>
                                     <td className={`hod-repo-td-status ${getStatusClass(dept.cia_1)}`}>{dept.cia_1}</td>
                                     <td className={`hod-repo-td-status ${getStatusClass(dept.cia_2)}`}>{dept.cia_2}</td>

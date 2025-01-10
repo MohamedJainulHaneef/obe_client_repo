@@ -71,8 +71,8 @@ function HandleStuOutcome() {
 				const sortedDepartments = [...new Set(data.map((item) => item.dept_name))].sort();
 				setDepartments(sortedDepartments);
 			}
-			if (!filters.course_id) {
-				const sortedClasses = [...new Set(data.map((item) => item.course_id))].sort();
+			if (!filters.dept_id) {
+				const sortedClasses = [...new Set(data.map((item) => item.dept_id))].sort();
 				setClasses(sortedClasses);
 			}
 			if (!filters.semester) {
@@ -120,7 +120,7 @@ function HandleStuOutcome() {
 			academic_year: academicYear,
 			category: categories,
 			dept_name: departments,
-			course_id: value,
+			dept_id: value,
 			staff_id: staffId
 		})
 	}
@@ -132,7 +132,7 @@ function HandleStuOutcome() {
 			academic_year: academicYear,
 			category: categories,
 			dept_name: departments,
-			course_id: selectedClass,
+			dept_id: selectedClass,
 			semester: value,
 			staff_id: staffId
 		})
@@ -144,7 +144,7 @@ function HandleStuOutcome() {
 			academic_year: academicYear,
 			category: categories,
 			dept_name: departments,
-			course_id: selectedClass,
+			dept_id: selectedClass,
 			semester: selectedSemester,
 			section: value,
 			staff_id: staffId

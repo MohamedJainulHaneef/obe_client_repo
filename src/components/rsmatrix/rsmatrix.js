@@ -38,7 +38,7 @@ function Rsmatrix()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setActiveSem(response.data.academic_year);
+                setActiveSem(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching active semester:', err);
@@ -55,7 +55,7 @@ function Rsmatrix()
                 try {
                     const response = await axios.post(`${apiUrl}/api/rsmcoursecode`, {
                         staff_id: staffId,
-                        academic_year: activeSem,
+                        academic_sem: activeSem,
                     })
                     setCourseDetails(response.data);
                 } 

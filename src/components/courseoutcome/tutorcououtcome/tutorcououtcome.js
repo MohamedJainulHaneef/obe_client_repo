@@ -31,7 +31,7 @@ function TutorCouOutcome()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setAcademicYear(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching academic year:', err);

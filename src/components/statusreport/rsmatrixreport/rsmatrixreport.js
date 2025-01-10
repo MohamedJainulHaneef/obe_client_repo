@@ -24,7 +24,7 @@ function MatrixReport()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setAcademicYear(response.data.academic_sem);
             } 
             catch (err) {
                 alert('Error fetching Academic Year.');
@@ -42,7 +42,7 @@ function MatrixReport()
                 try 
                 {
                     const response = await axios.post(`${apiUrl}/api/allmatrixreport`, {
-                        academic_year: academicYear,
+                        academic_sem: academicYear,
                     });
                     setAllMatrixReport(response.data);
                 } 
@@ -61,7 +61,7 @@ function MatrixReport()
                 try 
                 {
                     const response = await axios.post(`${apiUrl}/api/matrixcount`, {
-                        academic_year: academicYear,
+                        academic_sem: academicYear,
                     })
                     if (response.data) 
                     {
@@ -154,7 +154,7 @@ function MatrixReport()
         const data = allMatrixReport.map(dept => ({
             'Staff Id': dept.staff_id,
             'Staff Name': dept.staff_name,
-            'Dept Id': dept.course_id,
+            'Dept Id': dept.dept_id,
             'Course Code': dept.course_code,
             'Category': dept.category,
             'Section': dept.section,
@@ -248,7 +248,7 @@ function MatrixReport()
                             <td className="rsm-repo-content">{index + 1}</td>
                             <td className="rsm-repo-content">{matrix.staff_id}</td>
                             <td className="rsm-repo-content-sn">{matrix.staff_name}</td>
-                            <td className="rsm-repo-content">{matrix.course_id}</td>
+                            <td className="rsm-repo-content">{matrix.dept_id}</td>
                             <td className="rsm-repo-content">{matrix.course_code}</td>
                             <td className="rsm-repo-content">{matrix.category}</td>
                             <td className="rsm-repo-content">{matrix.section}</td>

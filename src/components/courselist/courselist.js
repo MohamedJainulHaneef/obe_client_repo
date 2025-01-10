@@ -34,7 +34,7 @@ function CourseList()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setAcademicYear(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error Fetching Data:', err);
@@ -53,7 +53,7 @@ function CourseList()
                 {
                     const response = await axios.post(`${apiUrl}/api/coursemap`, {
                         staff_id: staffId,
-                        academic_year: academicYear
+                        academic_sem: academicYear
                     })
                     const courseMappings = response.data;
 
@@ -98,7 +98,7 @@ function CourseList()
             classDetails: user.degree,
             courseCode: user.course_code,
             courseTitle: user.course_title,
-            courseId: user.course_id,
+            courseId: user.dept_id,
             category: user.category
         }})
     }

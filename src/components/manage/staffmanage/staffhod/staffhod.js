@@ -50,7 +50,7 @@ function StaffHodManage() {
 			row.staff_id.toLowerCase().includes(searchText) ||
 			row.hod_name.toLowerCase().includes(searchText) ||
 			row.category.toLowerCase().includes(searchText) ||
-			row.course_id.toLowerCase().includes(searchText) ||
+			row.dept_id.toLowerCase().includes(searchText) ||
 			row.dept_name.toLowerCase().includes(searchText)
 		);
 		setFilteredData(filtered);
@@ -190,7 +190,7 @@ function StaffHodManage() {
 							<tr key={index} className={index % 2 === 0 ? 'smsh-repo-light' : 'smsh-repo-dark'}>
 								<td>{index + 1}</td>
 								<td>{row.category}</td>
-								<td>{row.course_id}</td>
+								<td>{row.dept_id}</td>
 								<td>{row.staff_id}</td>
 								<td>{row.hod_name}</td>
 								<td>{row.dept_name}</td>
@@ -262,8 +262,8 @@ function StaffHodManage() {
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">DEPT ID : </label>								<input
 									type="text"
-									name="course_id"
-									value={editForm.course_id}
+									name="dept_id"
+									value={editForm.dept_id}
 									onChange={handleEditChange}
 									className="smsh-edit-inputbox-psw"
 								/>
@@ -376,7 +376,7 @@ function StaffHodManage() {
 								<label className="smsh-edit-label">DEPT ID : </label>								
 								<input
 									type="text"
-									name="course_id"
+									name="dept_id"
 									onChange={(e)=>setNewDeptId(e.target.value)}
 									className="smsh-edit-inputbox-psw"
 								/>

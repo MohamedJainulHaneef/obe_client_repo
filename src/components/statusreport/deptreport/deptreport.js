@@ -27,7 +27,7 @@ function DeptReport()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setAcademicYear(response.data.academic_sem);
             } 
             catch (err) {
                 alert('Error fetching Academic Year.');
@@ -45,7 +45,7 @@ function DeptReport()
                 try 
                 {
                     const response = await axios.post(`${apiUrl}/api/deptstatusreport`, {
-                        academic_year: academicYear,
+                        academic_sem: academicYear,
                         dept_name: dept === "alldepartments" ? "ALL" : dept
                     })
                     setDeptStatusReport(response.data);

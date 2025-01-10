@@ -46,7 +46,7 @@ function MarkRelease()
         const filteredList = originalData.filter(item =>
             item.staff_id.toLowerCase().includes(searchText) ||
             item.staff_name.toLowerCase().includes(searchText) ||
-            item.course_id.toLowerCase().includes(searchText) ||
+            item.dept_id.toLowerCase().includes(searchText) ||
             item.course_title.toLowerCase().includes(searchText) ||
             item.course_code.toLowerCase().includes(searchText)
         )
@@ -136,7 +136,7 @@ function MarkRelease()
                                         {reportItem.staff_name}
                                     </td>
                                     <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                        {reportItem.course_id}
+                                        {reportItem.dept_id}
                                     </td>
                                     <td className={index % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                         {reportItem.course_code}
