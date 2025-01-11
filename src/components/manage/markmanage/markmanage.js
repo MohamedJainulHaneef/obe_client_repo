@@ -6,7 +6,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 function MarkManage() 
 {
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [isEditable, setIsEditable] = useState(false);
     const [isModifying, setIsModifying] = useState(false); 
     const [inputValue, setInputValue] = useState('');
@@ -19,7 +19,7 @@ function MarkManage()
         level0: { ugStartRange: "0", ugEndRange: "", pgStartRange: "0", pgEndRange: "" },
         level1: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
         level2: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
-        level3: { ugStartRange: "", ugEndRange: "", pgStartRange: "", pgEndRange: "" },
+        level3: { ugStartRange: "", ugEndRange: "100", pgStartRange: "", pgEndRange: "100" },
         maxEse: { lot: '', mot: '', hot: '', weightage: '' },
     })
 
@@ -76,17 +76,17 @@ function MarkManage()
 
     }, [apiUrl]);
 
-    const academicYearSet = async () => 
+    const academicSemSet = async () => 
     {
         try {
             const response = await axios.post(`${apiUrl}/activesem`, {});
-            setAcademicYear(response.data.academic_sem);
+            setAcademicSem(response.data.academic_sem);
         }
         catch (err) {
             console.log('Error fetching data:', err);
         }
     }
-    academicYearSet();
+    academicSemSet();
 
     const maxCia =
     {
@@ -121,7 +121,7 @@ function MarkManage()
                     {
                         newValues[nextLevel] = {
                             ...newValues[nextLevel],
-                            ugStartRange: parseInt(value, 10) + 1 || "", // Increment end range
+                            ugStartRange: parseInt(value, 10) + 1 || "",
                         }
                     }
                 }
@@ -172,13 +172,15 @@ function MarkManage()
                 ass2: values.ass2,
                 maxEse: values.maxEse,
                 maxCia,
-                academicYear,
+                academicSem,
                 inputValue,
                 level0: values.level0,
                 level1: values.level1,
                 level2: values.level2,
                 level3: values.level3,
             }
+
+            // console.log(ciaData)
 
             const [ciaResponse] = await Promise.all([
                 axios.post(`${apiUrl}/api/calculation`, ciaData)

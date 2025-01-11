@@ -8,7 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function HodDouOutcome() 
 {
     const { staffId } = useParams();
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [attainmentData, setAttainmentData] = useState(null);
 
     useEffect(() => 
@@ -27,17 +27,17 @@ function HodDouOutcome()
         }
         checkStaffId();
 
-        const academicYearSet = async () => 
+        const academicSemSet = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_sem);
+                setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching academic year:', err);
             }
         }
-        academicYearSet();
+        academicSemSet();
 
     }, [staffId,apiUrl]);
 
@@ -57,7 +57,7 @@ function HodDouOutcome()
                 </div>
             </div>
             <div className="hco-header-title2">
-                <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
+                <h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
             </div>
             <h2 className='hco-heading'>CCLA - Course Cognitive Level Attainment</h2>
             <table className='hco-table'>

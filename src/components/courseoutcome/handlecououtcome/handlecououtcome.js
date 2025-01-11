@@ -8,7 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function CoursesCouOutcome()  
 {
     const { staffId } = useParams();
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [attainmentData, setAttainmentData] = useState(null);
 
     useEffect(() => 
@@ -27,19 +27,19 @@ function CoursesCouOutcome()
         }
         checkStaffId();
 
-        const academicYearSet = async () => 
+        const academicSemSet = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {
                     
                 });
-                setAcademicYear(response.data.academic_sem);
+                setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching academic year:', err);
             }
         }
-        academicYearSet();
+        academicSemSet();
 
     }, [staffId,apiUrl]);
 
@@ -59,7 +59,7 @@ function CoursesCouOutcome()
                 </div>
             </div>
             <div className="sco-header-title2">
-                <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
+                <h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
             </div>
             <h2 className='sco-heading'>CCLA - Course Cognitive Level Attainment</h2>
             <table className='sco-table'>

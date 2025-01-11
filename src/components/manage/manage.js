@@ -17,7 +17,7 @@ function Manage()
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicSem(response.data.academic_year); 
+                setAcademicSem(response.data.academic_sem); 
             } 
             catch (err) {
                 console.error('Error fetching data:', err);
@@ -97,7 +97,6 @@ function Manage()
                                 onChange={(e) => setAcademicSem(e.target.value)}
                                 className="manage-dropdown"
                             >
-                                <option value="Apr - 2024">APR - 2024</option>
                                 <option value="Nov - 2024">NOV - 2024</option>
                                 <option value="Apr - 2025">APR - 2025</option>
                                 <option value="Nov - 2025">NOV - 2025</option>

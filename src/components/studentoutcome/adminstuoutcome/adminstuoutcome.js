@@ -6,7 +6,7 @@ function AdminStuOutcome()
 {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    const [academicYears, setAcademicYears] = useState([]);
+    const [academicSems, setacademicSems] = useState([]);
     const [categories, setCategories] = useState([]);
     const [departments, setDepartments] = useState([]);
     const [classes, setClasses] = useState([]);
@@ -19,46 +19,46 @@ function AdminStuOutcome()
     const [selectedSection, setSelectedSection] = useState("");
     const [selectedSemester, setSelectedSemester] = useState("");
     const [outcomeData, setOutcomeData] = useState("");
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setacademicSem] = useState('');
     const [outcomeTable, setOutcomeTable] = useState('');
 
     useEffect(() => 
     {
-        const fetchAcademicYears = async () => 
+        const fetchacademicSems = async () => 
         {
             try {
                 const response = await axios.get(`${apiUrl}/api/academic`);
-                setAcademicYears(response.data.academic_data || []);
+                setacademicSems(response.data.academic_data || []);
             }
             catch (error) {
                 console.error("Error Fetching Academic Year:", error);
                 alert("Error Fetching Academic Year");
             }
         }
-        fetchAcademicYears();
+        fetchacademicSems();
 
-        const academicYearSet = async () => 
+        const academicSemSet = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setacademicSem(response.data.academic_year);
             }
             catch (err) {
                 console.log('Error Fetching Academic Year:', err);
             }
         }
-        academicYearSet();
+        academicSemSet();
 
     }, []);
 
     useEffect(() => 
     {
-        const fetchAcademicYearAndData = async () => 
+        const fetchacademicSemAndData = async () => 
         {
             try {
                 const yearResponse = await axios.post(`${apiUrl}/activesem`, {});
                 const activeYear = yearResponse.data.academic_year;
-                setAcademicYear(activeYear);
+                setacademicSem(activeYear);
                 fetchCourseData({ academic_year: activeYear });
             } 
             catch (error) {
@@ -67,7 +67,7 @@ function AdminStuOutcome()
             }
         };
 
-        fetchAcademicYearAndData();
+        fetchacademicSemAndData();
     }, []);
 
     const fetchCourseData = async (filters) => 
@@ -114,7 +114,7 @@ function AdminStuOutcome()
         setSelectedClass("");
         setSelectedSection("");
         setSelectedSemester("");
-        fetchCourseData({ academic_year: academicYear, category: value });
+        fetchCourseData({ academic_year: academicSem, category: value });
     }
 
     const handleDepartmentChange = (value) => 
@@ -125,7 +125,7 @@ function AdminStuOutcome()
         setSelectedSemester("");
         fetchCourseData(
         {
-            academic_year: academicYear,
+            academic_year: academicSem,
             category: selectedCategory,
             dept_name: value,
         })
@@ -137,7 +137,7 @@ function AdminStuOutcome()
         setSelectedSection("");
         setSelectedSemester("");
         fetchCourseData({
-            academic_year: academicYear,
+            academic_year: academicSem,
             category: selectedCategory,
             dept_name: selectedDepartment,
             dept_id: value,
@@ -150,7 +150,7 @@ function AdminStuOutcome()
         setSelectedSection("");
         fetchCourseData(
         {
-            academic_year: academicYear,
+            academic_year: academicSem,
             category: selectedCategory,
             dept_name: selectedDepartment,
             dept_id: selectedClass,
@@ -163,7 +163,7 @@ function AdminStuOutcome()
         setSelectedSection(value);
         fetchCourseData(
         {
-            academic_year: academicYear,
+            academic_year: academicSem,
             category: selectedCategory,
             dept_name: selectedDepartment,
             dept_id: selectedClass,
@@ -175,7 +175,7 @@ function AdminStuOutcome()
     const sendData = async () => 
     {
         const dropDownData = await axios.post(`${apiUrl}/api/adminstuoutcome`, { 
-            academicYear, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester 
+            academicSem, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester 
         })
         setOutcomeData(dropDownData.data);
         setOutcomeTable(true);
@@ -189,7 +189,7 @@ function AdminStuOutcome()
                     <input
                         type="text"
                         className="aso-select"
-                        value={academicYear}
+                        value={academicSem}
                         readOnly
                         disabled
                     />
@@ -267,7 +267,7 @@ function AdminStuOutcome()
                         </div>
                     </div>
                     <div className="aso-header-title2">
-                        <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
+                        <h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
                     </div>
                     <h2 className='aso-heading'>SCLA - Student Cognitive Level Attainment</h2>
                     {outcomeData && outcomeData.length > 0 ? (

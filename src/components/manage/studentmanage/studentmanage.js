@@ -19,8 +19,8 @@ function StudentManage() {
 
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
-    const [courseId, setCourseId] = useState([])
-    const [selectedCourseId, setSelectedCourseId] = useState("");
+    const [deptId, setdeptId] = useState([])
+    const [selecteddeptId, setSelectedDeptId] = useState("");
     const [semester, setSemester] = useState([])
     const [selectedSemester, setSelectedSemester] = useState("");
     const [section, setSection] = useState([]);
@@ -35,7 +35,7 @@ function StudentManage() {
         try {
             const submit = {
                 category: selectedCategory,
-                courseId: selectedCourseId,
+                deptId: selecteddeptId,
                 semester: selectedSemester,
                 section: selectedSection,
             };
@@ -80,12 +80,12 @@ function StudentManage() {
         setSelectedCategory(value);
 
         try {
-            const response = await axios.post(`${apiUrl}/api/courseid`, {
+            const response = await axios.post(`${apiUrl}/api/deptId`, {
                 category: value, // Key must match what the backend expects
             });
 
             // Update the course ID state with the response data
-            setCourseId(response.data);
+            setdeptId(response.data);
             // console.log("Unique Course IDs:", response.data);
 
         } catch (error) {
@@ -95,13 +95,13 @@ function StudentManage() {
 
     //to fetch semester 
 
-    const handleCourseIdChange = async (value) => {
-        setSelectedCourseId(value);
+    const handledeptIdChange = async (value) => {
+        setSelectedDeptId(value);
 
         try {
             const response = await axios.post(`${apiUrl}/api/semester`, {
                 category: selectedCategory, // Include the category
-                courseId: value,           // Include the courseId
+                deptId: value,           // Include the deptId
             });
 
             // console.log("Fetched Semesters:", response.data);
@@ -122,7 +122,7 @@ function StudentManage() {
         try {
             const response = await axios.post(`${apiUrl}/api/section`, {
                 category: selectedCategory,  // Send selected category
-                courseId: selectedCourseId,  // Send selected course ID
+                deptId: selecteddeptId,  // Send selected course ID
                 semester: value,             // Send selected semester
             });
 
@@ -186,7 +186,7 @@ function StudentManage() {
     
         // Reset dropdown values to their default state
         setSelectedCategory('default');
-        setSelectedCourseId('default');
+        setSelectedDeptId('default');
         setSelectedSemester('default');
         setSelectedSection('default');
     };
@@ -212,11 +212,11 @@ function StudentManage() {
                 semester: selectedSemester,
                 mentor: newStudent.mentor,
                 category: selectedCategory,
-                dept_id: selectedCourseId,
+                dept_id: selecteddeptId,
                 course_codes: selectedCourseCodes
 
             });
-            // console.log(selectedCourseId);
+            // console.log(selecteddeptId);
 
             if (response.status === 201) {
                 // Assuming the response contains the newly created student
@@ -239,7 +239,7 @@ function StudentManage() {
                     emis: ''
                 });
                 setSelectedCategory('');
-                setSelectedCourseId('');
+                setSelectedDeptId('');
                 setSelectedSemester('');
                 setSelectedSection('');
                 setSelectedCourseCodes([]);
@@ -464,9 +464,9 @@ function StudentManage() {
                                     </option>
                                 ))}
                             </select>
-                            <select className="stu-select" value={selectedCourseId} onChange={(e) => handleCourseIdChange(e.target.value)}>
+                            <select className="stu-select" value={selecteddeptId} onChange={(e) => handledeptIdChange(e.target.value)}>
                                 <option className="stu-option" value="default">Dept Id</option>
-                                {courseId.map((course, index) => (
+                                {deptId.map((course, index) => (
                                     <option className="stu-option" key={index} value={course}>
                                         {course}
                                     </option>

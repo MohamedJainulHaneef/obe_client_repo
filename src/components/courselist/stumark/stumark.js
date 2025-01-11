@@ -14,23 +14,23 @@ function Stumark()
     const [isSaveLoading, setIsSaveLoading] = useState(false);
     const [isSaveConfirmLoading, setIsSaveConfirmLoading] = useState(false);
     const [activeSection, setActiveSection] = useState('1');
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [maxMark, setMaxMark] = useState('');
-    const { deptName, section, semester, classDetails, courseCode, courseTitle, courseId, category } = location.state || {};
+    const { deptName, section, semester, classDetails, courseCode, courseTitle, deptId, category } = location.state || {};
 
     useEffect(() => 
     {
-        const academicYearSet = async () => 
+        const academicSemSet = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_sem);
+                setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching academic year:', err);
             }
         };
-        academicYearSet();
+        academicSemSet();
 
         const maxMarkSet = async () =>
         {
@@ -57,25 +57,25 @@ function Stumark()
 
     useEffect(() => 
     {
-        if (academicYear) 
+        if (academicSem) 
         {  
             const stuDetails = async () => 
             {
                 try 
                 {
                     const StuResponse = await axios.post(`${apiUrl}/api/studentdetails`, {
-                        dept_id: courseId,
+                        dept_id: deptId,
                         stu_section: section,
                         stu_category: category,
                         stu_course_code: courseCode,
                         activeSection,
-                        academic_sem: academicYear
+                        academic_sem: academicSem
                     });
 
                     setStuData(StuResponse.data);
     
                     const disable = await axios.get(`${apiUrl}/api/getreport`, {
-                        params: { activeSection, courseCode, deptName, section, category, academicYear }
+                        params: { activeSection, courseCode, deptName, section, category, academicSem }
                     });
     
                     if (disable.data) {
@@ -92,7 +92,7 @@ function Stumark()
             };
             stuDetails();
         }
-    }, [academicYear, courseId, section, category, courseCode, deptName, activeSection, apiUrl]);
+    }, [academicSem, deptId, section, category, courseCode, deptName, activeSection, apiUrl]);
 
 
     const handleSectionChange = (event) => 
@@ -325,7 +325,7 @@ function Stumark()
                 try 
                 {
                     const response = await axios.put(`${apiUrl}/api/updateMark`, {
-                        updates, activeSection, courseCode, academicYear
+                        updates, activeSection, courseCode, academicSem
                     })
 
                     if(response.data.success) 
@@ -338,7 +338,7 @@ function Stumark()
                         window.location.reload();
                         try {
                             const reportResponse = await axios.put(`${apiUrl}/api/report`, {
-                                activeSection, courseCode, deptName, section, category, button_value, academicYear
+                                activeSection, courseCode, deptName, section, category, button_value, academicSem
                             });
                         } 
                         catch (err) {
@@ -365,7 +365,7 @@ function Stumark()
             try 
             {
                 const response = await axios.put(`${apiUrl}/api/updateMark`, {
-                    updates, activeSection, courseCode, academicYear
+                    updates, activeSection, courseCode, academicSem
                 })
                 if(response.data.success)
                 {
@@ -376,7 +376,7 @@ function Stumark()
                     try 
                     {
                         const reportResponse = await axios.put(`${apiUrl}/api/report`, {
-                            activeSection, courseCode, deptName, section, category, button_value, academicYear
+                            activeSection, courseCode, deptName, section, category, button_value, academicSem
                         });
                     } 
                     catch (err) 
@@ -467,7 +467,7 @@ function Stumark()
                     </div>
                 </div>
                 <div className="mark-header-title2">
-                    <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
+                    <h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
                     <h3>{deptName}</h3>
                 </div>
                 <div className="mark-title-content">

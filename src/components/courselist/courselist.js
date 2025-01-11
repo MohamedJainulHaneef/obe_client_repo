@@ -10,7 +10,7 @@ function CourseList()
     const { staffId } = useParams();
     const navigate = useNavigate();
     const [courseData, setCourseData] = useState([]);
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [staffName, setStaffName] = useState('');
 
     useEffect(() => 
@@ -30,30 +30,30 @@ function CourseList()
 
     useEffect(() => 
     {
-        const academicYearSet = async () => 
+        const academicSemSet = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_sem);
+                setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error Fetching Data:', err);
             }
         };
-        academicYearSet();
-    }, []);
+        academicSemSet();
+    }, [apiUrl,staffId]);
 
     useEffect(() => 
     {
         const fetchCourseMapDetails = async () => 
         {
-            if (academicYear) 
+            if (academicSem) 
             {
                 try 
                 {
                     const response = await axios.post(`${apiUrl}/api/coursemap`, {
                         staff_id: staffId,
-                        academic_sem: academicYear
+                        academic_sem: academicSem
                     })
                     const courseMappings = response.data;
 
@@ -86,7 +86,7 @@ function CourseList()
         }
         fetchCourseMapDetails();
         
-    }, [staffId, academicYear]);
+    }, [staffId, academicSem]);
 
     const markpage = (user) => 
     {
@@ -98,7 +98,7 @@ function CourseList()
             classDetails: user.degree,
             courseCode: user.course_code,
             courseTitle: user.course_title,
-            courseId: user.dept_id,
+            deptId: user.dept_id,
             category: user.category
         }})
     }
