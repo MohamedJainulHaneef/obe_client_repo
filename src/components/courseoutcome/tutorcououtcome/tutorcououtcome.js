@@ -91,9 +91,9 @@ function TutorCouOutcome()
                             <td className='tco-content-ese'>{attainmentData.elot[courseCode]}</td>
                             <td className='tco-content-ese'>{attainmentData.emot[courseCode]}</td>
                             <td className='tco-content-ese'>{attainmentData.ehot[courseCode]}</td>
-                            <td className='tco-content-all'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td className='tco-content-all'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td className='tco-content-all'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='tco-content-all'>{attainmentData.overall[courseCode].lot}</td>
+                            <td className='tco-content-all'>{attainmentData.overall[courseCode].mot}</td>
+                            <td className='tco-content-all'>{attainmentData.overall[courseCode].hot}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}
@@ -130,7 +130,6 @@ function TutorCouOutcome()
             <table className='tco-table'>
                 <thead>
                     <tr>
-                        
                         <th>CAPSO1 Mean</th>
                         <th>CAPSO2 Mean</th>
                         <th>CAPSO3 Mean</th>

@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './hodcououtcome.css';
-import Loading from '../../../assets/load.svg'
+import Loading from '../../../assets/load.svg';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function HodDouOutcome() 
+function HodCouOutcome() 
 {
     const { staffId } = useParams();
     const [academicSem, setAcademicSem] = useState('');
@@ -13,35 +13,37 @@ function HodDouOutcome()
 
     useEffect(() => 
     {
-        const checkStaffId = async () => 
-        {
+        const checkStaffId = async () => {
             try {
                 const response = await axios.post(`${apiUrl}/api/checkHodCOC`, {
                     staff_id: staffId
-                })
-                setAttainmentData(response.data.attainedScores); 
+                });
+                setAttainmentData(response.data.attainedScores);
             } 
             catch (err) {
-                console.log('Error fetching data:', err);
+                console.error('Error fetching data:', err);
             }
         }
         checkStaffId();
 
-        const academicSemSet = async () => 
-        {
+        const academicSemSet = async () => {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
                 setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
-                console.log('Error fetching academic year:', err);
+                console.error('Error fetching academic year:', err);
             }
         }
         academicSemSet();
 
-    }, [staffId,apiUrl]);
+    }, [staffId]);
 
     if (!attainmentData) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
+
+    const getValue = (obj, key, defaultValue = 0) => {
+        return obj && obj[key] !== null && obj[key] !== undefined ? obj[key] : defaultValue;
+    }
 
     return (
         <div className='hco-main'>
@@ -63,7 +65,7 @@ function HodDouOutcome()
             <table className='hco-table'>
                 <thead>
                     <tr>
-                    <th rowSpan={2}>Course Code</th>
+                        <th rowSpan={2}>Course Code</th>
                         <th colSpan={3}>INTERNAL</th>
                         <th colSpan={3}>EXTERNAL</th>
                         <th colSpan={3}>TOTAL</th>
@@ -82,19 +84,19 @@ function HodDouOutcome()
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(attainmentData.overall).map(courseCode => (
+                    {Object.keys(attainmentData.overall || {}).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td className='hco-content-cia'>{attainmentData.lot[courseCode]}</td>
-                            <td className='hco-content-cia'>{attainmentData.mot[courseCode]}</td>
-                            <td className='hco-content-cia'>{attainmentData.hot[courseCode]}</td>
-                            <td className='hco-content-ese'>{attainmentData.elot[courseCode]}</td>
-                            <td className='hco-content-ese'>{attainmentData.emot[courseCode]}</td>
-                            <td className='hco-content-ese'>{attainmentData.ehot[courseCode]}</td>
-                            <td className='hco-content-all'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td className='hco-content-all'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td className='hco-content-all'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
-                            <td>{attainmentData.grade[courseCode]}</td>
+                            <td className='hco-content-cia'>{getValue(attainmentData.lot, courseCode)}</td>
+                            <td className='hco-content-cia'>{getValue(attainmentData.mot, courseCode)}</td>
+                            <td className='hco-content-cia'>{getValue(attainmentData.hot, courseCode)}</td>
+                            <td className='hco-content-ese'>{getValue(attainmentData.elot, courseCode)}</td>
+                            <td className='hco-content-ese'>{getValue(attainmentData.emot, courseCode)}</td>
+                            <td className='hco-content-ese'>{getValue(attainmentData.ehot, courseCode)}</td>
+                            <td className='hco-content-all'>{getValue(attainmentData.overall[courseCode], 'lot')}</td>
+                            <td className='hco-content-all'>{getValue(attainmentData.overall[courseCode], 'mot')}</td>
+                            <td className='hco-content-all'>{getValue(attainmentData.overall[courseCode], 'hot')}</td>
+                            <td>{getValue(attainmentData.grade, courseCode, 'N/A')}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -113,15 +115,15 @@ function HodDouOutcome()
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(attainmentData.capso).map(courseCode => (
+                    {Object.keys(attainmentData.capso || {}).map(courseCode => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td>{attainmentData.capso[courseCode].capso1.toFixed(2)}</td>
-                            <td>{attainmentData.capso[courseCode].capso2.toFixed(2)}</td>
-                            <td>{attainmentData.capso[courseCode].capso3.toFixed(2)}</td>
-                            <td>{attainmentData.capso[courseCode].capso4.toFixed(2)}</td>
-                            <td>{attainmentData.capso[courseCode].capso5.toFixed(2)}</td>
-                            <td>{attainmentData.capso[courseCode].capso.toFixed(2)}</td>
+                            <td>{getValue(attainmentData.capso[courseCode], 'capso1').toFixed(2)}</td>
+                            <td>{getValue(attainmentData.capso[courseCode], 'capso2').toFixed(2)}</td>
+                            <td>{getValue(attainmentData.capso[courseCode], 'capso3').toFixed(2)}</td>
+                            <td>{getValue(attainmentData.capso[courseCode], 'capso4').toFixed(2)}</td>
+                            <td>{getValue(attainmentData.capso[courseCode], 'capso5').toFixed(2)}</td>
+                            <td>{getValue(attainmentData.capso[courseCode], 'capso').toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -130,4 +132,4 @@ function HodDouOutcome()
     )
 }
 
-export default HodDouOutcome;
+export default HodCouOutcome;

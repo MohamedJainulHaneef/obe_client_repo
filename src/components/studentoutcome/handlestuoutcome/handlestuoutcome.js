@@ -17,22 +17,22 @@ function HandleStuOutcome() {
 	const [selectedSection, setSelectedSection] = useState("");
 	const [selectedSemester, setSelectedSemester] = useState("");
 	const [outcomeData, setOutcomeData] = useState("");
-	const [academicYear, setAcademicYear] = useState('');
+	const [academicSem, setAcademicSem] = useState('');
 	const [outcomeTable, setOutcomeTable] = useState('');
 
 	useEffect(() => 
 	{
-		const fetchAcademicYear = async () => {
+		const fetchacademicSem = async () => {
 			try {
 				const response = await axios.post(`${apiUrl}/activesem`);
-				setAcademicYear(response.data.academic_year || "");
+				setAcademicSem(response.data.academic_sem || "");
 			}
 			catch (err) {
 				console.error("Error fetching academic year:", err);
 			}
 		};
 
-		fetchAcademicYear();
+		fetchacademicSem();
 	}, [apiUrl]);
 
 	useEffect(() => 
@@ -96,7 +96,7 @@ function HandleStuOutcome() {
 		setSelectedClass("");
 		setSelectedSection("");
 		setSelectedSemester("");
-		fetchCourseData({ academic_year: academicYear, category: value, staff_id: staffId });
+		fetchCourseData({ academic_year: academicSem, category: value, staff_id: staffId });
 	}
 
 	const handleDepartmentChange = (value) => {
@@ -105,7 +105,7 @@ function HandleStuOutcome() {
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicYear,
+			academic_year: academicSem,
 			category: selectedCategory,
 			dept_name: value,
 			staff_id: staffId
@@ -117,7 +117,7 @@ function HandleStuOutcome() {
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicYear,
+			academic_year: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: value,
@@ -129,7 +129,7 @@ function HandleStuOutcome() {
 		setSelectedSemester(value);
 		setSelectedSection("");
 		fetchCourseData({
-			academic_year: academicYear,
+			academic_year: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: selectedClass,
@@ -141,7 +141,7 @@ function HandleStuOutcome() {
 	const handleSectionChange = (value) => {
 		setSelectedSection(value);
 		fetchCourseData({
-			academic_year: academicYear,
+			academic_year: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: selectedClass,
@@ -155,7 +155,7 @@ function HandleStuOutcome() {
 	{
 		try {
 			const dropDownData = await axios.post(`${apiUrl}/api/staffstuoutcome`, {
-				academicYear, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester, staffId
+				academicSem, selectedCategory, selectedDepartment, selectedClass, selectedSection, selectedSemester, staffId
 			});
 			if (dropDownData.data) {
 				setOutcomeData(dropDownData.data);
@@ -175,7 +175,7 @@ function HandleStuOutcome() {
 					<input
 						type="text"
 						className="sso-select"
-						value={academicYear}
+						value={academicSem}
 						readOnly
 						disabled
 					/>
@@ -253,7 +253,7 @@ function HandleStuOutcome() {
 						</div>
 					</div>
 					<div className="sso-header-title2">
-						<h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
+						<h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
 					</div>
 					<h2 className='sso-heading'>SCLA - Student Cognitive Level Attainment</h2>
 					{outcomeData && outcomeData.length > 0 ? (
@@ -282,18 +282,18 @@ function HandleStuOutcome() {
 							<tbody>
 								{outcomeData.map((item, index) => (
 									<tr key={index}>
-										<td className='sso-content'>{item.reg_no}</td>
-										<td className='sso-content'>{item.course_code}</td>
-										<td className='sso-content-cia'>{item.lot_attainment}</td>
-										<td className='sso-content-cia'>{item.mot_attainment}</td>
-										<td className='sso-content-cia'>{item.hot_attainment}</td>
-										<td className='sso-content-ese'>{item.elot_attainment}</td>
-										<td className='sso-content-ese'>{item.emot_attainment}</td>
-										<td className='sso-content-ese'>{item.ehot_attainment}</td>
-										<td className='sso-content-all'>{item.overAll_lot}</td>
-										<td className='sso-content-all'>{item.overAll_mot}</td>
-										<td className='sso-content-all'>{item.overAll_hot}</td>
-										<td className='sso-content'>{item.final_grade}</td>
+										<td className='aso-content'>{item.reg_no}</td>
+                                        <td className='aso-content'>{item.course_code}</td>
+                                        <td className='aso-content-cia'>{item.lot_attainment}</td>
+                                        <td className='aso-content-cia'>{item.mot_attainment}</td>
+                                        <td className='aso-content-cia'>{item.hot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.elot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.emot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.ehot_attainment}</td>
+                                        <td className='aso-content-all'>{item.overAll_lot}</td>
+                                        <td className='aso-content-all'>{item.overAll_mot}</td>
+                                        <td className='aso-content-all'>{item.overAll_hot}</td>
+                                        <td className='aso-content'>{item.final_grade}</td>
 									</tr>
 								))}
 							</tbody>

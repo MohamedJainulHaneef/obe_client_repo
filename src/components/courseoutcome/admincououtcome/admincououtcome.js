@@ -90,9 +90,9 @@ function AdminCouOutcome()
                                 <td className="aco-content-ese">{attainmentData.elot[courseCode]}</td>
                                 <td className="aco-content-ese">{attainmentData.emot[courseCode]}</td>
                                 <td className="aco-content-ese">{attainmentData.ehot[courseCode]}</td>
-                                <td className="aco-content-all">{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                                <td className="aco-content-all">{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                                <td className="aco-content-all">{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                                <td className="aco-content-all">{attainmentData.overall[courseCode].lot}</td>
+                                <td className="aco-content-all">{attainmentData.overall[courseCode].mot}</td>
+                                <td className="aco-content-all">{attainmentData.overall[courseCode].hot}</td>
                                 <td>{attainmentData.grade[courseCode]}</td>
                             </tr>
                         ))}

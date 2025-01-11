@@ -93,9 +93,9 @@ function CoursesCouOutcome()
                             <td className='sco-content-ese'>{attainmentData.elot[courseCode]}</td>
                             <td className='sco-content-ese'>{attainmentData.emot[courseCode]}</td>
                             <td className='sco-content-ese'>{attainmentData.ehot[courseCode]}</td>
-                            <td className='sco-content-all'>{attainmentData.overall[courseCode].lot.toFixed(1)}</td>
-                            <td className='sco-content-all'>{attainmentData.overall[courseCode].mot.toFixed(1)}</td>
-                            <td className='sco-content-all'>{attainmentData.overall[courseCode].hot.toFixed(1)}</td>
+                            <td className='sco-content-all'>{attainmentData.overall[courseCode].lot}</td>
+                            <td className='sco-content-all'>{attainmentData.overall[courseCode].mot}</td>
+                            <td className='sco-content-all'>{attainmentData.overall[courseCode].hot}</td>
                             <td>{attainmentData.grade[courseCode]}</td>
                         </tr>
                     ))}

@@ -7,7 +7,7 @@ function HodStuOutcome()
 {
 	const { staffId } = useParams();
 	const apiUrl = process.env.REACT_APP_API_URL;
-	const [academicYear, setAcademicYear] = useState("");
+	const [academicSem, setAcademicSem] = useState("");
 	const [categories, setCategories] = useState("");
 	const [departments, setDepartments] = useState("");
 	const [classes, setClasses] = useState([]);
@@ -21,16 +21,16 @@ function HodStuOutcome()
 
 	useEffect(() => 
 	{
-		const fetchAcademicYear = async () => {
+		const fetchacademicSem = async () => {
 			try {
 				const response = await axios.post(`${apiUrl}/activesem`);
-				setAcademicYear(response.data.academic_year || "");
+				setAcademicSem(response.data.academic_sem || "");
 			} catch (err) {
 				console.error("Error fetching academic year:", err);
 			}
 		};
 
-		fetchAcademicYear();
+		fetchacademicSem();
 	}, [apiUrl]);
 
 	useEffect(() => 
@@ -57,7 +57,7 @@ function HodStuOutcome()
 			try 
 			{
 				const response = await axios.get(`${apiUrl}/api/courseid`, {
-					params: { academicYear, categories, departments },
+					params: { academicSem, categories, departments },
 				})
 				if (response.data) {
 					setClasses([...new Set(response.data.map((item) => item.dept_id))].sort());
@@ -70,10 +70,10 @@ function HodStuOutcome()
 				console.error("Error fetching classes:", err);
 			}
 		}
-		if (academicYear && categories && departments) {
+		if (academicSem && categories && departments) {
 			fetchClasses();
 		}
-	}, [academicYear, categories, departments, apiUrl]);
+	}, [academicSem, categories, departments, apiUrl]);
 
 	const fetchCourseData = async (filters) => 
 	{
@@ -116,7 +116,7 @@ function HodStuOutcome()
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicYear,
+			academic_year: academicSem,
 			category: categories,
 			dept_name: departments,
 			staff_id: staffId,
@@ -129,7 +129,7 @@ function HodStuOutcome()
 		setSelectedSection("");
 		fetchCourseData(
 			{
-				academic_year: academicYear,
+				academic_year: academicSem,
 				category: categories,
 				dept_name: departments,
 				dept_id: selectedClass,
@@ -140,14 +140,14 @@ function HodStuOutcome()
 	const handleSectionChange = (value) => {
 		setSelectedSection(value);
 		fetchCourseData(
-			{
-				academic_year: academicYear,
-				category: categories,
-				dept_name: departments,
-				dept_id: selectedClass,
-				semester: selectedSemester,
-				section: value,
-			})
+		{
+			academic_year: academicSem,
+			category: categories,
+			dept_name: departments,
+			dept_id: selectedClass,
+			semester: selectedSemester,
+			section: value,
+		})
 	}
 
 	const sendData = async () => 
@@ -164,7 +164,7 @@ function HodStuOutcome()
 				deptId: selectedClass,
 				semester: selectedSemester,
 				section: selectedSection,
-				academicYear: academicYear,
+				academicSem: academicSem,
 			};
 
 			const dropDownData = await axios.post(`${apiUrl}/api/hoduoutcome`, payload);
@@ -185,7 +185,7 @@ function HodStuOutcome()
 			<div className="hso-dropdown-container">
 				<div className="hso-search-cnt">
 					<span className="hso-label">Academic Year :</span>
-					<input type="text" className="hso-select" value={academicYear} readOnly disabled />
+					<input type="text" className="hso-select" value={academicSem} readOnly disabled />
 				</div>
 				<div className="hso-search-cnt">
 					<span className="hso-label">Category : </span>
@@ -246,7 +246,7 @@ function HodStuOutcome()
 						</div>
 					</div>
 					<div className="hso-header-title2">
-						<h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
+						<h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
 					</div>
 					<h2 className='hso-heading'>SCLA - Student Cognitive Level Attainment</h2>
 					{outcomeData && outcomeData.length > 0 ? (
@@ -275,18 +275,18 @@ function HodStuOutcome()
 							<tbody>
 								{outcomeData.map((item, index) => (
 									<tr key={index}>
-										<td className='hso-content'>{item.reg_no}</td>
-										<td className='hso-content'>{item.course_code}</td>
-										<td className='hso-content-cia'>{item.lot_attainment}</td>
-										<td className='hso-content-cia'>{item.mot_attainment}</td>
-										<td className='hso-content-cia'>{item.hot_attainment}</td>
-										<td className='hso-content-ese'>{item.elot_attainment}</td>
-										<td className='hso-content-ese'>{item.emot_attainment}</td>
-										<td className='hso-content-ese'>{item.ehot_attainment}</td>
-										<td className='hso-content-all'>{item.overAll_lot}</td>
-										<td className='hso-content-all'>{item.overAll_mot}</td>
-										<td className='hso-content-all'>{item.overAll_hot}</td>
-										<td className='hso-content'>{item.final_grade}</td>
+										<td className='aso-content'>{item.reg_no}</td>
+                                        <td className='aso-content'>{item.course_code}</td>
+                                        <td className='aso-content-cia'>{item.lot_attainment}</td>
+                                        <td className='aso-content-cia'>{item.mot_attainment}</td>
+                                        <td className='aso-content-cia'>{item.hot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.elot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.emot_attainment}</td>
+                                        <td className='aso-content-ese'>{item.ehot_attainment}</td>
+                                        <td className='aso-content-all'>{item.overAll_lot}</td>
+                                        <td className='aso-content-all'>{item.overAll_mot}</td>
+                                        <td className='aso-content-all'>{item.overAll_hot}</td>
+                                        <td className='aso-content'>{item.final_grade}</td>
 									</tr>
 								))}
 							</tbody>

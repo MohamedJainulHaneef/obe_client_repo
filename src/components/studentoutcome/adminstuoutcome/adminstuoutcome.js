@@ -6,7 +6,6 @@ function AdminStuOutcome()
 {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    const [academicSems, setacademicSems] = useState([]);
     const [categories, setCategories] = useState([]);
     const [departments, setDepartments] = useState([]);
     const [classes, setClasses] = useState([]);
@@ -19,54 +18,24 @@ function AdminStuOutcome()
     const [selectedSection, setSelectedSection] = useState("");
     const [selectedSemester, setSelectedSemester] = useState("");
     const [outcomeData, setOutcomeData] = useState("");
-    const [academicSem, setacademicSem] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [outcomeTable, setOutcomeTable] = useState('');
-
-    useEffect(() => 
-    {
-        const fetchacademicSems = async () => 
-        {
-            try {
-                const response = await axios.get(`${apiUrl}/api/academic`);
-                setacademicSems(response.data.academic_data || []);
-            }
-            catch (error) {
-                console.error("Error Fetching Academic Year:", error);
-                alert("Error Fetching Academic Year");
-            }
-        }
-        fetchacademicSems();
-
-        const academicSemSet = async () => 
-        {
-            try {
-                const response = await axios.post(`${apiUrl}/activesem`, {});
-                setacademicSem(response.data.academic_year);
-            }
-            catch (err) {
-                console.log('Error Fetching Academic Year:', err);
-            }
-        }
-        academicSemSet();
-
-    }, []);
-
+    
     useEffect(() => 
     {
         const fetchacademicSemAndData = async () => 
         {
             try {
                 const yearResponse = await axios.post(`${apiUrl}/activesem`, {});
-                const activeYear = yearResponse.data.academic_year;
-                setacademicSem(activeYear);
+                const activeYear = yearResponse.data.academic_sem;
+                setAcademicSem(activeYear);
                 fetchCourseData({ academic_year: activeYear });
             } 
             catch (error) {
                 console.error("Error Fetching Active Academic Year or Course Data :", error);
                 alert("Failed to fetch Academic Year and Related Data");
             }
-        };
-
+        }
         fetchacademicSemAndData();
     }, []);
 

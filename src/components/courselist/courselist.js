@@ -22,14 +22,11 @@ function CourseList()
                 setStaffName(response.data)
             }
             catch(err) {
-
+                console.log('Error Fetching Staff Name : ', err)
             }
         }
         fetchStaffName();
-    },[apiUrl,staffId])
 
-    useEffect(() => 
-    {
         const academicSemSet = async () => 
         {
             try {
@@ -41,6 +38,7 @@ function CourseList()
             }
         };
         academicSemSet();
+
     }, [apiUrl,staffId]);
 
     useEffect(() => 
@@ -86,7 +84,7 @@ function CourseList()
         }
         fetchCourseMapDetails();
         
-    }, [staffId, academicSem]);
+    }, [staffId, academicSem, apiUrl]);
 
     const markpage = (user) => 
     {
