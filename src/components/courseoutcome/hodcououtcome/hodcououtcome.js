@@ -115,15 +115,15 @@ function HodCouOutcome()
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(attainmentData.capso || {}).map(courseCode => (
+                    {Object.keys(attainmentData.capso || {}).map((courseCode) => (
                         <tr key={courseCode}>
                             <td>{courseCode}</td>
-                            <td>{getValue(attainmentData.capso[courseCode], 'capso1').toFixed(2)}</td>
-                            <td>{getValue(attainmentData.capso[courseCode], 'capso2').toFixed(2)}</td>
-                            <td>{getValue(attainmentData.capso[courseCode], 'capso3').toFixed(2)}</td>
-                            <td>{getValue(attainmentData.capso[courseCode], 'capso4').toFixed(2)}</td>
-                            <td>{getValue(attainmentData.capso[courseCode], 'capso5').toFixed(2)}</td>
-                            <td>{getValue(attainmentData.capso[courseCode], 'capso').toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso1 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso2 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso3 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso4 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso5 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso || 0).toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>

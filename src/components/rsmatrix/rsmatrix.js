@@ -8,7 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 function Rsmatrix() 
 {
     const { staffId } = useParams();
-    const [activeSem, setActiveSem] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [courseDetails, setCourseDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState(null);
@@ -25,37 +25,35 @@ function Rsmatrix()
                 const response = await axios.post(`${apiUrl}/staffName`,{staffId});
                 setStaffName(response.data)
             }
-            catch(err) {
-
-            }
+            catch(err) {}
         }
         fetchStaffName();
     },[apiUrl,staffId])
 
     useEffect(() => 
     {
-        const fetchActiveSem = async () => 
+        const fetchacademicSem = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setActiveSem(response.data.academic_sem);
+                setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
                 console.log('Error fetching active semester:', err);
             }
         }
-        fetchActiveSem();
+        fetchacademicSem();
     }, []);
 
     useEffect(() => 
     {
         const fetchCourseCodes = async () => {
-            if (activeSem) 
+            if (academicSem) 
             {
                 try {
                     const response = await axios.post(`${apiUrl}/api/rsmcoursecode`, {
                         staff_id: staffId,
-                        academic_sem: activeSem,
+                        academic_sem: academicSem,
                     })
                     setCourseDetails(response.data);
                 } 
@@ -65,11 +63,22 @@ function Rsmatrix()
             }
         }
         fetchCourseCodes();
-    }, [staffId, activeSem]);
+    }, [staffId, academicSem, showModal]);
 
     const handleCourseClick = async (course) => 
     {
         setSelectedCourse(course);
+
+        setInputValues({
+            CO1_0: '', CO1_1: '', CO1_2: '', CO1_3: '', CO1_4: '', CO1_5: '', CO1_6: '', CO1_7: '', CO1_8: '', CO1_9: '', CO1_meanScore: '',
+            CO2_0: '', CO2_1: '', CO2_2: '', CO2_3: '', CO2_4: '', CO2_5: '', CO2_6: '', CO2_7: '', CO2_8: '', CO2_9: '', CO2_meanScore: '',
+            CO3_0: '', CO3_1: '', CO3_2: '', CO3_3: '', CO3_4: '', CO3_5: '', CO3_6: '', CO3_7: '', CO3_8: '', CO3_9: '', CO3_meanScore: '',
+            CO4_0: '', CO4_1: '', CO4_2: '', CO4_3: '', CO4_4: '', CO4_5: '', CO4_6: '', CO4_7: '', CO4_8: '', CO4_9: '', CO4_meanScore: '',
+            CO5_0: '', CO5_1: '', CO5_2: '', CO5_3: '', CO5_4: '', CO5_5: '', CO5_6: '', CO5_7: '', CO5_8: '', CO5_9: '', CO5_meanScore: '',
+        });
+        setMeanOverallScore('');
+        setCorrelation('');
+
         try 
         {
             const response = await axios.get(`${apiUrl}/api/rsmatrix/${course.course_code}`);
@@ -144,7 +153,6 @@ function Rsmatrix()
     const closeModal = () => 
     {
         setShowModal(false);
-        window.location.reload();
         setSelectedCourse(null);
     }
 
@@ -213,35 +221,33 @@ function Rsmatrix()
             else if (meanOverall >= 2.5) corrLevel = 'High';
             setCorrelation(corrLevel);
         }
-    }
+    } 
 
     const handleSave = async () => 
     {
         for (const key in inputValues) 
         {
-            if (inputValues[key] === '' || inputValues[key] === undefined) 
-            {
-                alert('All Fields are Required');
-                return; 
+            if (!inputValues[key]) 
+                {
+                alert('All fields are Required');
+                return;
             }
         }
 
         try 
         {
-            const saveData = {
-                course_code: selectedCourse.course_code,
-                scores: inputValues,
-                meanOverallScore,
-                correlation,
-            };
-            const save = await axios.post(`${apiUrl}/api/rsmatrix`, saveData);
+            const save = await axios.post(`${apiUrl}/api/rsmatrixSave`, {
+                course_code: selectedCourse.course_code, scores: inputValues,
+                meanOverallScore, correlation,
+            })
+
             if (save.status === 200) {
                 alert('Data Updated Successfully!');
             } 
             else if (save.status === 201) {
                 alert('Data Saved Successfully!');
             }
-            window.location.reload();
+            setShowModal(false)
         } 
         catch (err) {
             console.error('Error saving data:', err);
@@ -310,20 +316,20 @@ function Rsmatrix()
                                                 <input
                                                     type="number"
                                                     className="rsmatrix-input"
-                                                    value={inputValues[`${co}_${index}`] || 0}
+                                                    value={inputValues[`${co}_${index}`]}
                                                     onChange={(e) => handleInputChange(co, index, e.target.value)}
                                                 />
                                             </td>
                                         ))}
                                         <td className='rsmatrix-td'>
-                                            <input type="number" className="rsmatrix-input" readOnly value={inputValues[`${co}_meanScore`] || ''} />
+                                            <input type="number" className="rsmatrix-input" readOnly disabled value={inputValues[`${co}_meanScore`] || ''} />
                                         </td>
                                     </tr>
                                 ))}
                                 <tr>
                                     <td colSpan={11} className='rsmatrix-course-colspan'>Mean Overall Score</td>
                                     <td className='rsmatrix-td'>
-                                        <input type="number" className="rsmatrix-input" readOnly value={meanOverallScore} />
+                                        <input type="number" className="rsmatrix-input" readOnly disabled value={meanOverallScore} />
                                     </td>
                                 </tr>
                                 <tr>
@@ -331,7 +337,7 @@ function Rsmatrix()
                                         Correlation
                                     </td>
                                     <td className='rsmatrix-td'>
-                                        <input type="text" className="rsmatrix-input" readOnly value={correlation} />
+                                        <input type="text" className="rsmatrix-input" readOnly disabled value={correlation} />
                                     </td>
                                 </tr>
                             </tbody>

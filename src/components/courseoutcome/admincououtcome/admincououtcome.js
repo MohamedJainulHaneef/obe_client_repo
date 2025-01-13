@@ -99,8 +99,34 @@ function AdminCouOutcome()
                     </tbody>
                 </table>
             </div>
+            <h2 className='aco-heading'>CAPSO - Course Attainment by Programme Specific Outcome</h2>
+            <table className='aco-table'>
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>CAPSO1</th>
+                        <th>CAPSO2</th>
+                        <th>CAPSO3</th>
+                        <th>CAPSO4</th>
+                        <th>CAPSO5</th>
+                        <th>CAPSO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(attainmentData.capso || {}).map((courseCode) => (
+                        <tr key={courseCode}>
+                            <td>{courseCode}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso1 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso2 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso3 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso4 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso5 || 0).toFixed(2)}</td>
+                            <td>{(attainmentData.capso[courseCode]?.capso || 0).toFixed(2)}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
-
     )
 }
 

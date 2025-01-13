@@ -8,11 +8,13 @@ function HodStuOutcome()
 	const { staffId } = useParams();
 	const apiUrl = process.env.REACT_APP_API_URL;
 	const [academicSem, setAcademicSem] = useState("");
-	const [categories, setCategories] = useState("");
-	const [departments, setDepartments] = useState("");
+	const [categories, setCategories] = useState([]);
+	const [departments, setDepartments] = useState([]);
 	const [classes, setClasses] = useState([]);
 	const [semesters, setSemesters] = useState([]);
 	const [sections, setSections] = useState([]);
+	const [selectedCategory, setSelectedCategory] = useState('');
+	const [selectedDept, setSelectedDept] = useState('');
 	const [selectedClass, setSelectedClass] = useState("");
 	const [selectedSemester, setSelectedSemester] = useState("");
 	const [selectedSection, setSelectedSection] = useState("");
@@ -25,7 +27,8 @@ function HodStuOutcome()
 			try {
 				const response = await axios.post(`${apiUrl}/activesem`);
 				setAcademicSem(response.data.academic_sem || "");
-			} catch (err) {
+			} 
+			catch (err) {
 				console.error("Error fetching academic year:", err);
 			}
 		};
@@ -38,10 +41,7 @@ function HodStuOutcome()
 		const fetchHodData = async () => {
 			try {
 				const response = await axios.get(`${apiUrl}/api/hoddata`, { params: { staffId } });
-				if (response.data) {
-					setCategories(response.data.category || "");
-					setDepartments(response.data.dept_name || "");
-				}
+				setCategories(response.data)
 			}
 			catch (err) {
 				console.error("Error fetching HOD data:", err);
@@ -50,34 +50,10 @@ function HodStuOutcome()
 		fetchHodData();
 	}, [apiUrl, staffId]);
 
-	useEffect(() => 
-	{
-		const fetchClasses = async () => 
-		{
-			try 
-			{
-				const response = await axios.get(`${apiUrl}/api/courseid`, {
-					params: { academicSem, categories, departments },
-				})
-				if (response.data) {
-					setClasses([...new Set(response.data.map((item) => item.dept_id))].sort());
-				} 
-				else {
-					setClasses([]);
-				}
-			}
-			catch (err) {
-				console.error("Error fetching classes:", err);
-			}
-		}
-		if (academicSem && categories && departments) {
-			fetchClasses();
-		}
-	}, [academicSem, categories, departments, apiUrl]);
-
 	const fetchCourseData = async (filters) => 
 	{
-		try {
+		try 
+		{
 			const response = await axios.get(`${apiUrl}/api/coursemapping`, {
 				params: filters,
 			})
@@ -111,36 +87,65 @@ function HodStuOutcome()
 		}
 	}
 
+	const handleCategoryChange = async (value) => 
+	{
+		const category = value; 
+    	setSelectedCategory(category);
+
+		try 
+		{
+			const response = await axios.post(`${apiUrl}/api/hodDept`,{ 
+				staff_id: staffId, 
+				category: category
+			})
+			setDepartments(response.data)
+		}
+		catch(error) {
+			console.log('Error Fetching HOD Dept : ', error)
+		}
+	}
+
+	const handleDeptChange = (value) => { 
+		setSelectedDept(value);
+		setSelectedClass("");
+		setSelectedSection("");
+		setSelectedSemester("");
+		fetchCourseData({
+			academic_year: academicSem,
+			category: selectedCategory, 
+			dept_name: value, 
+			staff_id: staffId,
+		})
+	}
+	
 	const handleClassChange = (value) => {
 		setSelectedClass(value);
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
 			academic_year: academicSem,
-			category: categories,
-			dept_name: departments,
+			category: selectedCategory, 
+			dept_name: selectedDept, 
 			staff_id: staffId,
-			dept_id: value,
+			dept_id: value
 		})
 	}
 
 	const handleSemesterChange = (value) => {
 		setSelectedSemester(value);
 		setSelectedSection("");
-		fetchCourseData(
-			{
-				academic_year: academicSem,
-				category: categories,
-				dept_name: departments,
-				dept_id: selectedClass,
-				semester: value,
-			})
+		fetchCourseData({
+			academic_year: academicSem,
+			category: categories,
+			dept_name: departments,
+			dept_id: selectedClass,
+			semester: value,
+		})
 	}
 
 	const handleSectionChange = (value) => {
 		setSelectedSection(value);
-		fetchCourseData(
-		{
+		fetchCourseData({
 			academic_year: academicSem,
 			category: categories,
 			dept_name: departments,
@@ -189,11 +194,25 @@ function HodStuOutcome()
 				</div>
 				<div className="hso-search-cnt">
 					<span className="hso-label">Category : </span>
-					<input type="text" className="hso-select" value={categories} readOnly disabled />
+					<select className="hso-select" value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)} >
+						<option className="hso-option" value="">Select</option>
+						{categories.map((catgry, index) => ( 
+							<option className="hso-option" key={index} value={catgry}>
+								{catgry}
+							</option>
+						))}
+					</select>
 				</div>
 				<div className="hso-search-cnt">
 					<span className="hso-label">Department : </span>
-					<input type="text" className="hso-select" value={departments} readOnly disabled />
+					<select className="hso-select" value={selectedDept} onChange={(e) => handleDeptChange(e.target.value)}>
+						<option className="hso-option" value="">Select</option>
+						{departments.map((dept, index) => (
+							<option className="hso-option" key={index} value={dept}>
+								{dept}
+							</option>
+						))}
+					</select>
 				</div>
 				<div className="hso-search-cnt">
 					<span className="hso-label">Class :</span>

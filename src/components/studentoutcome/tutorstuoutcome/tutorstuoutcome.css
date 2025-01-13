@@ -62,7 +62,6 @@
      background-color: #076ad4;
 }
 
-
 .tso-table-container {
      margin-top: 10px;
 }
@@ -91,6 +90,7 @@
 .tso-heading {
      margin: 30px 0px;
      font-size: 23px;
+     text-align: center;
 }
 
 .tso-header-title2 {

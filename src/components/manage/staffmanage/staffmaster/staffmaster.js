@@ -13,13 +13,15 @@ function StaffMasterManage()
     const [staffId, setStaffId] = useState("");
     const [staffName, setStaffName] = useState("");
     const [staffDept, setStaffDept] = useState("");
-    const [staffcategory, setStaffcategory] = useState("");
+    const [staffCategory, setStaffCategory] = useState("");
+    const [deptCategory, setDeptCategory] = useState("");
     const [staffpassword, setStaffpassword] = useState("");
     const [edit, setEdit] = useState(false);
     const [newstaffname, setNewstaffname] = useState("");
     const [oldpassword, setOldpassword] = useState("");
     const [newdept, setNewdept] = useState("");
-    const [newcategory, setNewcategory] = useState("");
+    const [newStaffCategory, setNewStaffCategory] = useState("");
+    const [newDeptCategory, setNewDeptCategory] = useState("");
     const [newstaffid, setNewstaffid] = useState("");
     const [newpassword, setNewpassword] = useState("");
     const [deletestaff, setDeletestaff]= useState(false);
@@ -64,7 +66,7 @@ function StaffMasterManage()
     const savenewstaff = async (e) => 
     {
         e.preventDefault();
-        if (!staffId || !staffName || !staffDept || !staffcategory || !staffpassword) 
+        if (!staffId || !staffName || !staffDept || !staffCategory || !staffpassword) 
         {
             window.alert("All Fields are Required");
             return;
@@ -74,7 +76,8 @@ function StaffMasterManage()
             staff_id: staffId,
             staff_name: staffName,
             staff_dept: staffDept,
-            category: staffcategory,
+            staff_category: staffCategory,
+            dept_category: deptCategory,
             password: staffpassword,
             permissions: checkboxValues
         }
@@ -84,10 +87,9 @@ function StaffMasterManage()
             const newStaffResponce = await axios.post(`${apiUrl}/api/newstaff`, newStaffData);
             if (newStaffResponce.data) 
             {
-                console.log(newStaffResponce.data);
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
-                window.alert("New Staff Added");
+                window.alert("New Staff has been Added Successfully");
                 window.location.reload();
             }
             setPopup(false);
@@ -109,7 +111,6 @@ function StaffMasterManage()
             {
                 const StaffResponse = await axios.get(`${apiUrl}/api/staffdetails`);
                 if (StaffResponse.data) {
-                    console.log(StaffResponse.data);
                     setStaffData(StaffResponse.data);
                     setFilteredData(StaffResponse.data);
                 }
@@ -132,13 +133,14 @@ function StaffMasterManage()
         setFilteredData(filterList);
     }
 
-    const handleEdit = (id, name, pass, dept, category) => 
+    const handleEdit = (id, name, pass, dept, staff_category, dept_category) => 
     {
         setNewstaffid(id);
         setNewstaffname(name);
         setOldpassword(pass);
         setNewdept(dept);
-        setNewcategory(category);
+        setNewStaffCategory(staff_category);
+        setNewDeptCategory(dept_category)
         setNewpassword("")
         setEdit(true);
     }
@@ -152,14 +154,16 @@ function StaffMasterManage()
     {
         try 
         {
-            const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, { newstaffid, newstaffname, newpassword, newdept, newcategory });
+            const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, { 
+                newstaffid, newstaffname, newpassword, newdept, newStaffCategory, newDeptCategory, oldpassword
+            });
             if (updateresponse.data) {
                 window.alert("Staff Data Modified")
             }
             setEdit(false);
         }
         catch (err) {
-            console.log("ERR UPDATE STAFF", err)
+            console.log("Err Update Staff", err)
         }
     }
 
@@ -228,20 +232,29 @@ function StaffMasterManage()
                                     placeholder="STAFF NAME"
                                     required
                                 />
-                                <input
-                                    type="text"
-                                    value={staffDept}
-                                    onChange={(e) => setStaffDept(e.target.value)}
-                                    className="smsm-inputs"
-                                    placeholder="STAFF DEPARTMENT"
-                                />
                                 <div className="smsm-edit-psw">
                                     <input
                                         type="text"
-                                        value={staffcategory}
-                                        onChange={(e) => setStaffcategory(e.target.value)}
+                                        value={staffCategory}
+                                        onChange={(e) => setStaffCategory(e.target.value)}
                                         className="smsm-inputs"
-                                        placeholder="CATEGORY"
+                                        placeholder="STAFF CATEGORY"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={deptCategory}
+                                        onChange={(e) => setDeptCategory(e.target.value)}
+                                        className="smsm-inputs"
+                                        placeholder="DEPT CATEGORY"
+                                    />
+						        </div>
+                                <div className="smsm-edit-psw">
+                                    <input
+                                        type="text"
+                                        value={staffDept}
+                                        onChange={(e) => setStaffDept(e.target.value)}
+                                        className="smsm-inputs"
+                                        placeholder="STAFF DEPARTMENT"
                                     />
                                     <input
                                         type="text"
@@ -414,8 +427,15 @@ function StaffMasterManage()
                             />
                             <input
                                 type="text"
-                                value={newcategory}
-                                onChange={(e) => setNewcategory(e.target.value)}
+                                value={newStaffCategory}
+                                onChange={(e) => setNewStaffCategory(e.target.value)}
+                                className="smsm-edit-inputbox"
+                                placeholder={""}
+                            />
+                            <input
+                                type="text"
+                                value={newDeptCategory}
+                                onChange={(e) => setNewDeptCategory(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
                             />
@@ -487,7 +507,7 @@ function StaffMasterManage()
                                     <td className="smsm-td-name">{staff.staff_name}</td>
                                     <td className="smsm-td-name">{staff.staff_dept}</td>
                                     <td className="smsm-td-edit">
-                                        <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.category)} className="smsm-edit-btn">
+                                        <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.staff_category, staff.dept_category)} className="smsm-edit-btn">
                                             <span className="smsm-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="smsm-icon" /></span>
                                         </button>
                                     </td>

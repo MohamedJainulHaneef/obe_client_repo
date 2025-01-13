@@ -418,7 +418,7 @@ function Stumark()
     {
         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         const fileExtension = '.xlsx';
-        const fileName = `Report_Section_${activeSection}`;
+        const fileName = `Report Section ${activeSection}`;
         let headers = [];
         let dataWithHeaders = [];
 
