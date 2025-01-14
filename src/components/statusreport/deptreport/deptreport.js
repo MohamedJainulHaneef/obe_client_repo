@@ -192,7 +192,7 @@ function DeptReport()
                 'Category': dept.category,
                 'Section': dept.section,
                 'Cia - 1': getStatus(dept.cia_1),
-                'Cis - 2': getStatus(dept.cia_2),
+                'Cia - 2': getStatus(dept.cia_2),
                 'Ass - 1': getStatus(dept.ass_1),
                 'Ass - 2': getStatus(dept.ass_2),
                 'Status': status,

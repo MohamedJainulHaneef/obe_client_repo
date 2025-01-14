@@ -8,22 +8,22 @@ function StatusReport()
     const apiUrl = process.env.REACT_APP_API_URL;
     const { staffId } = useParams();
     const navigate = useNavigate();
-    const [academicYear, setAcademicYear] = useState('');
+    const [academicSem, setAcademicSem] = useState('');
     const [reportDeptName, setReportDeptName] = useState([]);
    
     useEffect(() => 
     {
-        const academicYearSet = async () => 
+        const academicSemSet = async () => 
         {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicYear(response.data.academic_year);
+                setAcademicSem(response.data.academic_sem);
             } 
             catch (err) {
                 alert('Error fetching Academic Year.');
             } 
         }
-        academicYearSet();
+        academicSemSet();
 
     }, [])
 
@@ -31,11 +31,11 @@ function StatusReport()
     {
         const fetchStatusReport = async () => 
         {
-            if (academicYear) 
+            if (academicSem) 
             {
                 try {
                     const response = await axios.post(`${apiUrl}/api/statusDeptName`, {
-                        academicYear,
+                        academicSem,
                     })
                     const sortedDepartments = response.data.sort((a, b) => a.localeCompare(b))
                     setReportDeptName(sortedDepartments);
@@ -47,7 +47,7 @@ function StatusReport()
             }
         }
         fetchStatusReport();
-    }, [academicYear]);
+    }, [academicSem]);
 
     const handleDeptReport = (dept) => 
     {
