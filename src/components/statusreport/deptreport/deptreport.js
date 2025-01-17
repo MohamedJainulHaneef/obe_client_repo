@@ -324,7 +324,7 @@ function DeptReport()
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="8" className="hod-repo-td">
+                            <td colSpan="8" className="dept-repo-td">
                                 No Data Available.
                             </td>
                         </tr>

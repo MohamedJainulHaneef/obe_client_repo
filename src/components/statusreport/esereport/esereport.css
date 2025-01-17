@@ -88,3 +88,13 @@
 .ese-repo-light {
     background-color: white;
 }
+
+.ese-repo-td {
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid gray;
+    padding: 17px;
+    height: 70px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

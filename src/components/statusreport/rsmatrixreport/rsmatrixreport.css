@@ -88,3 +88,13 @@
 .rsm-repo-com-status {
     font-size: 20px;
 }
+
+.hod-repo-td {
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid gray;
+    padding: 17px;
+    height: 70px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

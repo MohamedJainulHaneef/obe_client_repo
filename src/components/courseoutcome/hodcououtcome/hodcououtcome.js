@@ -11,7 +11,7 @@ function HodCouOutcome()
     const [academicSem, setAcademicSem] = useState('');
     const [attainmentData, setAttainmentData] = useState(null);
 
-    useEffect(() => 
+    useEffect(() =>  
     {
         const checkStaffId = async () => {
             try {

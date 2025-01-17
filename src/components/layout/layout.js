@@ -85,22 +85,10 @@ function Layout()
             show: user && user.program_outcome === 1,
         },
         {
-            icon: faUserFriends,
-            name: 'Class Teacher Report',
-            path: `/staff/${urlStaffId}/classteacherreport`,
-            show: user && user.mentor_report === 1,
-        },
-        {
-            icon: faChalkboardTeacher,
-            name: 'HOD Report',
-            path: `/staff/${urlStaffId}/hodreport`,
-            show: user && user.hod_report === 1,
-        },
-        {
             icon: faClipboard,
             name: 'Work Progress Report',
-            path: `/staff/${urlStaffId}/statusreport`,
-            show: user && user.report === 1,
+            path: `/staff/${urlStaffId}/workprogressreport`,
+            show: user && user.work_progress_report === 1,
         },
         {
             icon: faKey,
@@ -114,6 +102,12 @@ function Layout()
             path: `/staff/${urlStaffId}/manage`,
             show: user && user.manage === 1,
         },
+        // {
+        //     icon: faUserFriends,
+        //     name: 'OBE Report',
+        //     path: `/staff/${urlStaffId}/obereport`,
+        //     show: user && user.obe_report === 1,
+        // },
         {
             icon: faGear ,
             name: 'Change Password',

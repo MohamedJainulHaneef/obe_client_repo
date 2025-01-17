@@ -8,8 +8,6 @@ import CourseList from './components/courselist/courselist';
 import Stumark from './components/courselist/stumark/stumark';
 import InputFile from './components/fileupload/fileupload';
 import StatusReport from './components/statusreport/statusreport';
-import TutorReport from './components/tutorreport/tutorreport';
-import HodReport from './components/hodreport/hodreport';
 import Manage from './components/manage/manage';
 import ScopeManage from './components/manage/scopemanage/scopemanage';
 import StaffManage from './components/manage/staffmanage/staffmanage';
@@ -50,11 +48,9 @@ function App()
                         <Route path="dashboard" element={<Dash />} />
                         <Route path="courselist" element={<CourseList />} />
                         <Route path="studentmark" element={<Stumark />} />
-                        <Route path="classteacherreport" element={<TutorReport />} />
-                        <Route path="hodreport" element={<HodReport />} />
                         <Route path="inputfiles" element={<InputFile />} />
                         <Route path="settings" element={<Settings />} />
-                        <Route path="statusreport" element={<StatusReport />} />
+                        <Route path="workprogressreport" element={<StatusReport />} />
                         <Route path="matrixreport" element={<Rsmatrixreport />} />
                         <Route path="esereport" element={<EseReport />} />
                         <Route path="manage" element={<Manage />} />
