@@ -7,28 +7,27 @@ import Loading from '../../../../assets/load.svg'
 
 const API_URL = "http://localhost:5000/api/hod";
 
-function StaffHodManage() {
+function StaffHodManage() 
+{
+	const apiUrl = process.env.REACT_APP_API_URL;
 	const [data, setData] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [editingHod, setEditingHod] = useState(null);
 	const [editForm, setEditForm] = useState({});
-	// const [addForm, setaddForm] = useState({});
-
 	const [deleteHod, setDeleteHod] = useState(null);
 	const [deleteHodInfo, setDeleteHodInfo] = useState(false)
 	const [addhod, setAddhod] = useState("");
-	const apiUrl = process.env.REACT_APP_API_URL;
-
 	const [newstaffId, setNewStaffId] = useState("");
 	const [newhodName, setNewHodName] = useState("");
 	const [newgraduate, setNewGraduate] = useState("");
-	// const [newcourseId, setNewCourseId] = useState("");
 	const [newcategory, setNewCategory] = useState("");
 	const [newdeptName, setNewDeptName] = useState("");
 	const [newDeptId, setNewDeptId] = useState("");
-	useEffect(() => {
+
+	useEffect(() => 
+	{
 		axios.get(API_URL).then((response) => {
 			const sortedData = response.data.sort((a, b) => {
 				const order = ["AIDED", "SFM", "SFW"];
@@ -40,8 +39,8 @@ function StaffHodManage() {
 		}).catch((err) => {
 			setError(err.message);
 			setLoading(false);
-		});
-	}, []);
+		})
+	}, [])
 
 
 	const handleSearch = (e) => {
@@ -52,71 +51,67 @@ function StaffHodManage() {
 			row.category.toLowerCase().includes(searchText) ||
 			row.dept_id.toLowerCase().includes(searchText) ||
 			row.dept_name.toLowerCase().includes(searchText)
-		);
+		)
 		setFilteredData(filtered);
-	};
+	}
 
 	const handleDelete = (row) => {
-
 		setDeleteHod(true)
 		setDeleteHodInfo(row)
-		// setDeleteHod(row);  // Set the HOD to delete
-	};
+	}
 
 	const staffEditClose = () => {
 		setEditingHod(false);
 		setAddhod(false);
 	}
 
-
-	const confirmDelete = async (id) => {
+	const confirmDelete = async (id,dept_id) => 
+	{
 		try {
-			await axios.delete(`${API_URL}/${id}`);
+			await axios.delete(`${API_URL}/${id}`,{ data: { id, dept_id } });
 			const updatedData = data.filter((row) => row.staff_id !== id);
 			setData(updatedData);
 			setFilteredData(updatedData);
-			setDeleteHod(null);  // Close modal after deletion
-			alert("Record deleted successfully.");
-		} catch (err) {
+			setDeleteHod(null);
+			alert("Record Deleted Successfully.");
+		} 
+		catch (err) {
 			console.error("Error deleting record:", err);
 			alert("Failed to delete the record. Please try again.");
 		}
-	};
+	}
 
 	const cancelDelete = () => {
-		setDeleteHod(null);  // Close modal without deleting
-	};
+		setDeleteHod(null);  
+	}
 
-	const handleEditClick = (row) => {
-		console.log("Edit clicked for:", row); // Debugging log
-		setEditingHod(row); // Set the HOD to edit
-		setEditForm({ ...row }); // Pre-fill form with HOD details
-	};
+	const handleEditClick = (row) => { 
+		setEditingHod(row);
+		setEditForm({ ...row }); 
+	}
 
 	const handleEditChange = (e) => {
 		const { name, value } = e.target;
-		setEditForm((prev) => ({ ...prev, [name]: value })); // Update form values
-	};
+		setEditForm((prev) => ({ ...prev, [name]: value })); 
+	}
 
-	// const handleAddChange = (e) =>{
-	// 	const{name, value} = e.target;
-	// 	setAddhod((prev) => ({ ...prev, [name]: value}));
-	// 	console.log(addhod);
-	// }
 	const staffDeleteClose = () => {
 		setDeleteHod(false);
 	}
-	const handleEditSave = async () => {
+
+	const handleEditSave = async () => 
+	{
 		try {
-			await axios.put(`${API_URL}/${editForm.staff_id}`, editForm); // Save to backend
+			await axios.put(`${API_URL}/${editForm.staff_id}`, editForm);
 			const updatedData = data.map((row) =>
 				row.staff_id === editForm.staff_id ? editForm : row
-			);
+			)
 			setData(updatedData);
 			setFilteredData(updatedData);
-			setEditingHod(null); // Close modal
+			setEditingHod(null); 
 			alert("Record updated successfully.");
-		} catch (err) {
+		} 
+		catch (err) {
 			console.error("Error updating record:", err);
 			alert("Failed to update the record. Please try again.");
 		}
@@ -126,31 +121,26 @@ function StaffHodManage() {
 		<div><center><img src={Loading} alt="" className="img" /></center></div>
 	}
 
-	if (error) {
-		return <div>Error : {error}</div>;
-	}
+	if (error) { return <div>Error : {error}</div> }
 
-	const handleAddHod = () => {
-		setAddhod(true);
-	}
-	const handlenewHod = async () => {
+	const handleAddHod = () => { setAddhod(true) }
+
+	const handlenewHod = async () => 
+	{
 		try {
-			console.log(newstaffId,newhodName);
-			const newHodAdded = await axios.post(`${apiUrl}/api/newhodadded`, {newstaffId,newhodName,newcategory,newDeptId,newdeptName,newgraduate	});
-	
+			const newHodAdded = await axios.post(`${apiUrl}/api/newhodadded`, { newstaffId, newhodName, newcategory, newDeptId, newdeptName, newgraduate })
 			if (newHodAdded.data) {
 				alert(newHodAdded.data.message);
 				setAddhod(false);
 			}
-		} catch (err) {
-			console.error(err.response || err.message); // Log full error response
+		} 
+		catch (err) {
+			console.error(err.response || err.message); 
 			alert("Error: Something went wrong while adding the new HOD");
-			setAddhod(false);
-
+			setAddhod(false)
 		}
-	};
+	}
 	
-
 	return (
 		<div className="smsh-main">
 			<span className="smsh-top-heading">HOD DETAILS</span>
@@ -165,9 +155,6 @@ function StaffHodManage() {
 					<button className="smsh-save-btn" onClick={handleAddHod}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smsh-icon-add" /></button>
 				</div>
 			</div>
-
-
-
 			<div className="smsh-count">
 				<span className="smsh-span"><b>Total Number of Heads : </b>{filteredData.length}</span>
 			</div>
@@ -220,9 +207,7 @@ function StaffHodManage() {
 				</tbody>
 			</table>
 
-			{/* Edit Modal */}
 			{editingHod && (
-
 				<div className="smsh-overlay">
 					<div className="smsh-edit">
 						<div className="smsh-close-class">
@@ -246,8 +231,6 @@ function StaffHodManage() {
 							onChange={handleEditChange}
 							className="smsh-edit-inputbox"
 						/>
-
-
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">GRADUATE : </label>
@@ -269,7 +252,6 @@ function StaffHodManage() {
 								/>
 							</label>
 						</div>
-
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">CATEGORY : </label>								<input
@@ -296,19 +278,8 @@ function StaffHodManage() {
 						</div>
 					</div>
 				</div>
-				// <div className="modal">
-				// 	<div className="modal-content">
-				// 		<h2>Edit HOD Details</h2>
-
-				// 		<div className="modal-buttons">
-				// 			<button onClick={handleEditSave} style={{ backgroundColor: "#4CAF50", color: "white" }}>Save</button>
-				// 			<button onClick={() => setEditingHod(null)} style={{ backgroundColor: "#f44336", color: "white" }}>Cancel</button>
-				// 		</div>
-				// 	</div>
-				// </div>
 			)}
 
-			{/* Delete Confirmation Modal */}
 			{deleteHod && (
 				<div className="smsh-overlay">
 					<div className="smsh-delete">
@@ -320,26 +291,16 @@ function StaffHodManage() {
 						<h4>DEPARTMENT NAME : {deleteHodInfo.dept_name}</h4>
 						<h4>CATEGORY : {deleteHodInfo.category}</h4>
 						<div className="smsh-delete-btn-container">
-							<button onClick={() => confirmDelete(deleteHodInfo.staff_id)} className="smsh-save-edit-btn">DELETE</button>
+							<button onClick={() => confirmDelete(deleteHodInfo.staff_id,deleteHodInfo.dept_id
+
+							)} className="smsh-save-edit-btn">DELETE</button>
 							<button onClick={cancelDelete} className="smsh-add-save-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
-
-				// <div className="modal">
-				// 	<div className="modal-content">
-				// 		<p><b></p>
-				// 		<p><b></p>
-				// 		<p><b>Category:</b> {deleteHodInfo.category}</p>
-				// 		<p><b></p>
-				// 		<div className="modal-buttons">
-				// 			
-				// 		</div>
-				// 	</div>
-				// </div>
 			)}
-			{addhod && (
 
+			{addhod && (
 				<div className="smsh-overlay">
 					<div className="smsh-edit">
 						<div className="smsh-close-class">
@@ -360,8 +321,6 @@ function StaffHodManage() {
 							onChange={(e)=>setNewHodName(e.target.value)}
 							className="smsh-edit-inputbox"
 						/>
-
-
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">GRADUATE : </label>
@@ -382,7 +341,6 @@ function StaffHodManage() {
 								/>
 							</label>
 						</div>
-
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">CATEGORY : </label>								<input
@@ -407,19 +365,9 @@ function StaffHodManage() {
 						</div>
 					</div>
 				</div>
-				// <div className="modal">
-				// 	<div className="modal-content">
-				// 		<h2>Edit HOD Details</h2>
-
-				// 		<div className="modal-buttons">
-				// 			<button onClick={handleEditSave} style={{ backgroundColor: "#4CAF50", color: "white" }}>Save</button>
-				// 			<button onClick={() => setEditingHod(null)} style={{ backgroundColor: "#f44336", color: "white" }}>Cancel</button>
-				// 		</div>
-				// 	</div>
-				// </div>
 			)}
 		</div>
-	);
+	)
 }
 
 export default StaffHodManage;

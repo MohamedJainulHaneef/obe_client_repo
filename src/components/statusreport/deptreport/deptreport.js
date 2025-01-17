@@ -177,12 +177,10 @@ function DeptReport()
             'Status'
         ];
     
-        const data = deptStatusReport.map(dept => {
+        const data = deptStatusReport.map(dept => 
+        {
             const status = ['cia_1', 'cia_2', 'ass_1', 'ass_2'].every(
-                key => getStatus(dept[key]) === 'Completed'
-            ) 
-            ? 'Finished' 
-            : 'Pending';
+                key => getStatus(dept[key]) === 'Completed') ? 'Finished' : 'Pending';
     
             return {
                 'Staff Id': dept.staff_id,

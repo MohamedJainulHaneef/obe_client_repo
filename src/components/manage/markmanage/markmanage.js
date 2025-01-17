@@ -183,7 +183,7 @@ function MarkManage()
             // console.log(ciaData)
 
             const [ciaResponse] = await Promise.all([
-                axios.post(`${apiUrl}/api/calculation`, ciaData)
+                axios.post(`${apiUrl}/api/calc`, ciaData)
             ])
 
             if (ciaResponse.data) {
