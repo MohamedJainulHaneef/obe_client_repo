@@ -366,12 +366,12 @@ function FileUpload()
                     <button className='file-download-btn' onClick={(e) => handleDownload(e, 'calculation')}>Calculation</button>
                     <button className='file-model-btn' onClick={(e) => handleDownload(e, 'calculationmodel')}>Calculation</button>
                 </div> */}
-                <div className='file-container'>
+                {/* <div className='file-container'>
                     <input type='file' name='file11' onChange={handleFileChange} />
                     <button className='file-upload-btn' onClick={(e) => handleUpload(e, file11, 'rsmatrix')}>RS Matrix</button>
                     <button className='file-download-btn' onClick={(e) => handleDownload(e, 'rsmatrix')}>RS Matrix</button>
                     <button className='file-model-btn' onClick={(e) => handleDownload(e, 'rsmatrixmodel')}>RS Matrix</button>
-                </div>
+                </div> */}
                 {/* <div className='file-container'>
                     <input type='file' name='file12' onChange={handleFileChange} />
                     <button className='file-upload-btn' onClick={(e) => handleUpload(e, file12, 'academic')}>Academic</button>
