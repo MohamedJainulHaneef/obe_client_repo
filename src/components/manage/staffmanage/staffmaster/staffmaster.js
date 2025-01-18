@@ -36,9 +36,8 @@ function StaffMasterManage()
         so: false,
         po: false,
         pso: false,
-        tutor: false,
-        hod: false,
-        report: false,
+        wpr: false,
+        obereport: false,
         input: false,
         manage: false,
         rsm: true,
@@ -345,30 +344,21 @@ function StaffMasterManage()
                                 <div className="smsm-individual-check">
                                     <input
                                         type="checkbox"
-                                        name="tutor"
-                                        checked={checkboxValues.tutor}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    Tutor
-                                </div>
-                                <div className="smsm-individual-check">
-                                    <input
-                                        type="checkbox"
-                                        name="hod"
-                                        checked={checkboxValues.hod}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    HOD
-                                </div>
-                                <div className="smsm-individual-check">
-                                    <input
-                                        type="checkbox"
-                                        name="report"
-                                        checked={checkboxValues.report}
+                                        name="wpr"
+                                        checked={checkboxValues.wpr}
                                         onChange={handleCheckboxChange}
                                     />
                                     Report
                                 </div>
+                                {/* <div className="smsm-individual-check">
+                                    <input
+                                        type="checkbox"
+                                        name="obereport"
+                                        checked={checkboxValues.obereport}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    Obe Report
+                                </div> */}
                                 <div className="smsm-individual-check">
                                     <input
                                         type="checkbox"

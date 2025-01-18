@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import './prospecoutcome.css'
 
 function ProSpecOutcome() 
 {
@@ -9,8 +10,10 @@ function ProSpecOutcome()
     const [selectedDept, setSelectedDept] = useState('');
     const [deptId, setDeptId] = useState([]);
     const [selectedDeptId, setSelectedDeptId] = useState('');
-    const [attainmentData, setAttainmentData] = useState(null)
-    const [attainmentTable, setAttainmentTable] = useState(false)
+    const [attainmentSpecData, setAttainmentSpecData] = useState([])
+    const [specTable, setSpecTable] = useState(false)
+    const [attainmentAllData, setAttainmentAllData] = useState([])
+    const [allTable, setAllTable] = useState(false)
     const [programType, setProgramType] = useState('UG');
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -47,8 +50,8 @@ function ProSpecOutcome()
             const response = await axios.post(`${apiUrl}/api/proSpecOutcome`, {
                 academicYear, selectedDept, selectedDeptId
             })
-            setAttainmentData(response.data)
-            setAttainmentTable(true)
+            setAttainmentSpecData(response.data)
+            setSpecTable(true)
         }
         catch (error) {
             alert('Error fetching Outcome Results');
@@ -62,8 +65,8 @@ function ProSpecOutcome()
             const response = await axios.post(`${apiUrl}/api/proOutcome`, {
                 academicYear, programType
             })
-            setAttainmentData(response.data)
-            setAttainmentTable(true)
+            setAttainmentAllData(response.data)
+            setAllTable(true)
         }
         catch (error) {
             alert('Error fetching Outcome Results');
@@ -71,18 +74,30 @@ function ProSpecOutcome()
     }
 
     return (
-        <>
-            <button onClick={() => handleTab('SpecDept')}>Pso for spec dept</button>
-            <button onClick={() => handleTab('AllDept')}>Pso for all dept</button>
+        <div className='spec-main'>
+            <div className='spec-btn-container'>
+                <button
+                    onClick={() => handleTab('SpecDept')}
+                    className={activeTab === 'SpecDept' ? 'spec-btn-active' : 'spec-btn-inactive'}
+                >
+                    Pso for Specific Deparment
+                </button>
+                <button
+                    onClick={() => handleTab('AllDept')}
+                    className={activeTab === 'AllDept' ? 'spec-btn-active' : 'spec-btn-inactive'}
+                >
+                    Pso for All Deparment
+                </button>
+            </div>
             {activeTab === 'SpecDept' && (
-                <div className="aso-main">
+                <div className="spec-dd-container">
                     <div className="aso-dropdown-container">
                         <div className="aso-search-cnt">
-                            <span className="aso-label">Academic Year: </span>
+                            <span className="aso-label">Academic Year :</span>
                             <input type="text" className="aso-select" value={academicYear} readOnly disabled />
                         </div>
                         <div className="aso-search-cnt">
-                            <span className="aso-label">Department: </span>
+                            <span className="aso-label">Department :</span>
                             <select
                                 className="aso-select"
                                 onChange={(e) => handleDeptChange(e.target.value)}
@@ -99,7 +114,7 @@ function ProSpecOutcome()
                             </select>
                         </div>
                         <div className="aso-search-cnt">
-                            <span className="aso-label">Class: </span>
+                            <span className="aso-label">Class :</span>
                             <select
                                 className="aso-select"
                                 onChange={(e) => setSelectedDeptId(e.target.value)}
@@ -119,7 +134,7 @@ function ProSpecOutcome()
                             Get
                         </button>
                     </div>
-                    {attainmentTable && (
+                    {specTable && (
                         <div className="aso-table-container">
                             <div className="aso-header">
                                 <div className="aso-header-title1">
@@ -135,8 +150,8 @@ function ProSpecOutcome()
                             <div className="aso-header-title2">
                                 <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
                             </div>
-                            <h2 className="aso-heading">SCLA - Student Cognitive Level Attainment</h2>
-                            {attainmentData.overall ? (
+                            <h2 className="aso-heading">PSO - Program Specific Outcome</h2>
+                            {attainmentSpecData?.overall ? (
                                 <table className="aso-table">
                                     <thead>
                                         <tr>
@@ -147,56 +162,58 @@ function ProSpecOutcome()
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Object.keys(attainmentData.overall).map((courseCode, index) => (
+                                        {Object.keys(attainmentSpecData.overall).map((courseCode, index) => (
                                             <tr key={courseCode}>
                                                 <td>{index + 1}</td>
                                                 <td>{courseCode}</td>
-                                                <td>{attainmentData.avgOverallScore[courseCode]?.toFixed(2)}</td>
-                                                <td>{attainmentData.grade[courseCode]}</td>
+                                                <td>{attainmentSpecData.avgOverallScore[courseCode]?.toFixed(2)}</td>
+                                                <td>{attainmentSpecData.grade[courseCode]}</td>
                                             </tr>
                                         ))}
                                         <tr>
-                                            <td colSpan={3}><strong>Program Specific Outcome ( PSO )</strong></td>
-                                            <td>{attainmentData.meanScores?.pso?.toFixed(2)}</td>
+                                            <td colSpan={3}><strong>Program Specific Outcome (PSO)</strong></td>
+                                            <td>{attainmentSpecData.meanScores?.pso?.toFixed(2)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             ) : (
-                                <p className="aso-no-content">No Data Available. Please refine your search.</p>
+                                <p className="aso-no-content">No Data Available. Please refine your Search.</p>
                             )}
                         </div>
                     )}
                 </div>
             )}
             {activeTab === 'AllDept' && (
-                <div className="aso-main">
+                <div className="spec-dd-container">
                     <div className="aso-dropdown-container">
                         <div className="aso-search-cnt">
-                            <span className="aso-label">Academic Year: </span>
+                            <span className="aso-label">Academic Year :</span>
                             <input type="text" className="aso-select" value={academicYear} readOnly disabled />
                         </div>
                         <div className="aso-search-cnt">
-                            <span className="aso-label">Program Type: </span>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="programType"
-                                    value="UG"
-                                    checked={programType === 'UG'}
-                                    onChange={handleProgramTypeChange}
-                                />
-                                UG
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="programType"
-                                    value="PG"
-                                    checked={programType === 'PG'}
-                                    onChange={handleProgramTypeChange}
-                                />
-                                PG
-                            </label>
+                            <span className="aso-label">Program Type :</span>
+                            <div className='spec-radio-cnt'>
+                                <label className='spec-label'>
+                                    <input
+                                        type="radio"
+                                        name="programType"
+                                        value="UG"
+                                        checked={programType === 'UG'}
+                                        onChange={handleProgramTypeChange}
+                                    />
+                                    <span>UG</span>
+                                </label>
+                                <label className='spec-label'>
+                                    <input
+                                        type="radio"
+                                        name="programType"
+                                        value="PG"
+                                        checked={programType === 'PG'}
+                                        onChange={handleProgramTypeChange}
+                                    />
+                                    <span>PG</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div className="aso-btn-content">
@@ -204,7 +221,7 @@ function ProSpecOutcome()
                             Get
                         </button>
                     </div>
-                    {attainmentTable && (
+                    {allTable && (
                         <div className="aso-table-container">
                             <div className="aso-header">
                                 <div className="aso-header-title1">
@@ -220,7 +237,7 @@ function ProSpecOutcome()
                             <div className="aso-header-title2">
                                 <h3>OUTCOME BASED EDUCATION - {academicYear}</h3>
                             </div>
-                            <h2 className="aso-heading">SCLA - Student Cognitive Level Attainment</h2>
+                            <h2 className="aso-heading">PSO - Program Specific Outcome</h2>
                             <table className="aso-table">
                                 <thead>
                                     <tr>
@@ -231,7 +248,7 @@ function ProSpecOutcome()
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {Object.entries(attainmentData.departmentResults).map(([department, data], deptIndex) => {
+                                    {Object.entries(attainmentAllData.departmentResults).map(([department, data], deptIndex) => {
                                         const psoValue = data.meanScores?.pso?.toFixed(2);
                                         const grade = data.grade;
                                         return (
@@ -249,7 +266,7 @@ function ProSpecOutcome()
                     )}
                 </div>
             )}
-        </>
+        </div>
     )
 }
 

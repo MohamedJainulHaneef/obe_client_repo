@@ -104,28 +104,39 @@ function CourseList()
     return (
         <div className="course-main">
             <div className="course-layout-top-div">
-                <p className="course-layout-staff-id"><span className="course-staff">Welcome </span> {staffName.staff_name}</p>
-                <p className="course-layout-staff-id"><span className="course-staff">Staff Id :</span> {staffId}</p>
+                <p className="course-layout-staff-id">
+                    <span className="course-staff">Welcome </span> {staffName.staff_name}
+                </p>
+                <p className="course-layout-staff-id">
+                    <span className="course-staff">Staff Id :</span> {staffId}
+                </p>
             </div>
             <div className="course-content-box">
-                <div className='course-entire-box'>
-                    {courseData.map((user, index) => (
-                        <button 
-                            key={index} 
-                            className="course-subject-box" 
-                            onClick={() => markpage(user)} >
-                            <div 
-                                className="course-box-status"
-                                style={{ color: user.status === "Completed" ? "green" : "red" }}
+                <div className="course-entire-box">
+                    {courseData && courseData.length > 0 ? (
+                        courseData.map((user, index) => (
+                            <button 
+                                key={index} 
+                                className="course-subject-box" 
+                                onClick={() => markpage(user)}
                             >
-                                {user.status}
-                            </div>
-                            <div className="course-box-text-category">{user.category}</div>
-                            <div className="course-box-text-dept">{user.dept_name}</div>
-                            <div className="course-box-text">{user.degree} ( {user.section} ) - Semester : {user.semester}</div>
-                            <div className="course-box-text">{user.course_code}</div>
-                        </button>
-                    ))}
+                                <div 
+                                    className="course-box-status"
+                                    style={{ color: user.status === "Completed" ? "green" : "red" }}
+                                >
+                                    {user.status}
+                                </div>
+                                <div className="course-box-text-category">{user.category}</div>
+                                <div className="course-box-text-dept">{user.dept_name}</div>
+                                <div className="course-box-text">
+                                    {user.degree} ( {user.section} ) - Semester : {user.semester}
+                                </div>
+                                <div className="course-box-text">{user.course_code}</div>
+                            </button>
+                        ))
+                    ) : (
+                        <p className="rsmatrix-no-code">No Course Codes Found for this ID</p>
+                    )}
                 </div>
             </div>
         </div>

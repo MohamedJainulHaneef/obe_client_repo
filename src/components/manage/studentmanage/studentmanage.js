@@ -5,18 +5,18 @@ import Loading from '../../../assets/load.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-function StudentManage() {
+function StudentManage() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
     const [studata, setStudata] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // State for Delete modal
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [newStudent, setNewStudent] = useState({ stu_name: '', reg_no: '', batch: '', mentor: '', emis: '' });
     const [editStudent, setEditStudent] = useState(null);
-    const [studentToDelete, setStudentToDelete] = useState(null); // Store student for deletion
-    const [loading, setLoading] = useState(true); // State to track loading
-
+    const [studentToDelete, setStudentToDelete] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
     const [deptId, setdeptId] = useState([])
@@ -28,8 +28,7 @@ function StudentManage() {
     const [courseCodes, setCourseCodes] = useState([]);
     const [selectedCourseCodes, setSelectedCourseCodes] = useState([]);
 
-
-    //fetch course id based on the detailse
+    // Fetch Dept Id based on the Detailse
 
     const handleFetchCourse = async () => {
         try {
@@ -39,126 +38,97 @@ function StudentManage() {
                 semester: selectedSemester,
                 section: selectedSection,
             };
-
-            // Send the request to fetch course codes
             const response = await axios.post(`${apiUrl}/api/coursecode`, submit);
-
-            console.log("Submission successful:", response.data);
-
-            // Update the state with the fetched course codes
             setCourseCodes(response.data);
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error fetching course code:", error);
         }
     };
 
-
-
-
-
-
-
-    // to fetch category
+    // To fetch Category
 
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/api/category`); // Changed POST to GET
-                setCategories(response.data); // Assuming `response.data` contains an array
-                // console.log('Fetched Categories:', response.data);
-            } catch (error) {
-                console.error('Error fetching categories:', error);
+                const response = await axios.get(`${apiUrl}/api/category`);
+                setCategories(response.data);
             }
-        };
-
+            catch (error) {
+                console.error('Error fetching Categories:', error);
+            }
+        }
         fetchCategory();
     }, [apiUrl]);
 
-    // to fetch course id
+    // To fetch Dept Id
 
     const handleCategoryChange = async (value) => {
         setSelectedCategory(value);
-
         try {
             const response = await axios.post(`${apiUrl}/api/deptId`, {
-                category: value, // Key must match what the backend expects
-            });
-
-            // Update the course ID state with the response data
+                category: value,
+            })
             setdeptId(response.data);
-            // console.log("Unique Course IDs:", response.data);
-
-        } catch (error) {
-            console.error("Error posting category:", error);
+        }
+        catch (error) {
+            console.error("Error posting Category:", error);
         }
     };
 
-    //to fetch semester 
+    // To fetch Semester 
 
     const handledeptIdChange = async (value) => {
         setSelectedDeptId(value);
-
         try {
             const response = await axios.post(`${apiUrl}/api/semester`, {
-                category: selectedCategory, // Include the category
-                deptId: value,           // Include the deptId
-            });
-
-            // console.log("Fetched Semesters:", response.data);
-
-            // Update state with the fetched semesters
+                category: selectedCategory,
+                deptId: value,
+            })
             setSemester(response.data);
-
-        } catch (error) {
-            console.error("Error fetching semesters:", error);
         }
-    };
+        catch (error) {
+            console.error("Error fetching Semesters:", error);
+        }
+    }
 
-    //to fetch section
+    // To fetch Section
 
     const handleSemesterChange = async (value) => {
-        setSelectedSemester(value); // Update selected semester state
-
+        setSelectedSemester(value);
         try {
             const response = await axios.post(`${apiUrl}/api/section`, {
-                category: selectedCategory,  // Send selected category
-                deptId: selecteddeptId,  // Send selected course ID
-                semester: value,             // Send selected semester
+                category: selectedCategory,
+                deptId: selecteddeptId,
+                semester: value,
             });
-
-            // Update the state with fetched sections
             setSection(response.data);
-            console.log("Fetched Sections:", response.data);
-
-        } catch (error) {
-            console.error("Error fetching sections:", error);
         }
-    };
+        catch (error) {
+            console.error("Error fetching Sections:", error);
+        }
+    }
 
-    const handleSectionChange = (value) => {
-        setSelectedSection(value)
+    const handleSectionChange = (value) => { setSelectedSection(value) }
 
-    };
+    // To fetch all Student Details
 
-
-
-    // To fetch all data 
     useEffect(() => {
         const fetchStudentDetails = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/studetails`);
                 setStudata(response.data);
-            } catch (error) {
-                console.error('Error fetching student details:', error);
-            } finally {
-                setLoading(false); // Hide spinner
             }
-        };
-
+            catch (error) {
+                console.error('Error fetching student details:', error);
+            }
+            finally {
+                setLoading(false);
+            }
+        }
         fetchStudentDetails();
     }, [apiUrl]);
 
-    // Filter student data based on search term
     const filteredStudata = studata.filter((student) =>
         (student.stu_name?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.category?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
@@ -166,91 +136,64 @@ function StudentManage() {
         (student.section?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.dept_id?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '') ||
         (student.reg_no?.toLowerCase() || '').includes(searchTerm.toLowerCase() || '')
-    );
+    )
 
-    // Add Student Handlers
     const openAddModal = () => setIsAddModalOpen(true);
+
     const closeAddModal = () => {
-        setIsAddModalOpen(false);
-    
-        // Reset all form fields, including dropdowns
+        setIsAddModalOpen(false)
         setNewStudent({
-            stu_name: '',
-            reg_no: '',
-            dept_id: '',
-            category: 'default',
-            semester: 'default',
-            section: 'default',
-            batch: 'default'
-        });
-    
-        // Reset dropdown values to their default state
+            stu_name: '', reg_no: '', dept_id: '', category: 'default',
+            semester: 'default', section: 'default', batch: 'default'
+        })
         setSelectedCategory('default');
         setSelectedDeptId('default');
         setSelectedSemester('default');
         setSelectedSection('default');
-    };
-    
+    }
 
     const handleAddInputChange = (e) => {
         const { name, value } = e.target;
         setNewStudent((prev) => ({ ...prev, [name]: value }));
-    };
+    }
 
     // Save the New Student
 
-    const handleSaveStudent = async () => {
-
+    const handleSaveStudent = async () => 
+    {
         try {
-            // API call to save the student
             const response = await axios.post(`${apiUrl}/api/addstudent`, {
-                stu_name: newStudent.stu_name,
-                reg_no: newStudent.reg_no,
-                batch: newStudent.batch,
-                emis: newStudent.emis,
-                section: selectedSection,
-                semester: selectedSemester,
-                mentor: newStudent.mentor,
-                category: selectedCategory,
-                dept_id: selecteddeptId,
-                course_codes: selectedCourseCodes
-
-            });
-            // console.log(selecteddeptId);
+                stu_name: newStudent.stu_name, reg_no: newStudent.reg_no,
+                batch: newStudent.batch, emis: newStudent.emis,
+                section: selectedSection, semester: selectedSemester,
+                mentor: newStudent.mentor, category: selectedCategory,
+                dept_id: selecteddeptId, course_codes: selectedCourseCodes
+            })
 
             if (response.status === 201) {
-                // Assuming the response contains the newly created student
-                const newStudentData = response.data.student;  // Adjust based on your API response structure
-
-                // Update the studata state to include the new student
+                const newStudentData = response.data.student;
                 setStudata(prevStudata => [...prevStudata, newStudentData]);
-
                 alert("Student Succesfully Added")
-
-                // Close the modal after adding the student
                 closeAddModal();
-
-                // Optionally reset the form if needed (clearing the inputs)
                 setNewStudent({
-                    stu_name: '',
-                    reg_no: '',
-                    batch: '',
-                    mentor: '',
-                    emis: ''
-                });
+                    stu_name: '', reg_no: '',
+                    batch: '', mentor: '', emis: ''
+                })
                 setSelectedCategory('');
                 setSelectedDeptId('');
                 setSelectedSemester('');
                 setSelectedSection('');
                 setSelectedCourseCodes([]);
-            } else {
-                alert("Failed to save student. Please try again.");
             }
-        } catch (error) {
-            console.error("Error adding student:", error);
-            alert("An error occurred while adding the student.");
+            else {
+                alert("Failed to Save Student. Please try again.");
+            }
         }
-    };
+        catch (error) {
+            console.error("Error adding Student :", error);
+            alert("An error occurred while adding the Student.");
+        }
+    }
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
@@ -258,78 +201,79 @@ function StudentManage() {
             checked
                 ? [...prevSelected, value]
                 : prevSelected.filter((code) => code !== value)
-        );
-    };
+        )
+    }
 
-    // Edit Student Handlers
     const openEditModal = (student) => {
-        setEditStudent({ ...student }); // Clone the student object to edit
+        setEditStudent({ ...student }); 
         setIsEditModalOpen(true);
-    };
+    }
 
     const closeEditModal = () => {
         setIsEditModalOpen(false);
         setEditStudent(null);
-    };
+    }
 
     const handleEditInputChange = (e) => {
         const { name, value } = e.target;
         setEditStudent((prev) => ({ ...prev, [name]: value }));
-    };
+    }
 
 
     // Save the Edited Student
 
-    const handleSaveEditStudent = async () => {
-        try {
+    const handleSaveEditStudent = async () => 
+    {
+        try 
+        {
             const response = await axios.put(`${apiUrl}/api/editstudent`, editStudent);
-
             if (response.status === 200) {
-                // Update the state with the edited student
                 setStudata((prev) =>
                     prev.map((student) =>
                         student.reg_no === editStudent.reg_no ? response.data.student : student
                     )
                 );
-                alert("Student updated successfully!");
+                alert("Student Updated Successfully!");
                 closeEditModal();
-            } else {
+            } 
+            else {
                 alert("Failed to update student. Please try again.");
             }
-        } catch (error) {
-            console.error('Error updating student:', error);
+        } 
+        catch (error) {
+            console.error('Error updating Student:', error);
             alert("An error occurred while updating the student.");
         }
-    };
+    }
 
+    // Open Delete Modal
 
-    // Open delete modal
     const openDeleteModal = (student) => {
         setStudentToDelete(student);
         setIsDeleteModalOpen(true);
-    };
+    }
 
-    // Close delete modal
+    // Close Delete Modal
+
     const closeDeleteModal = () => {
         setIsDeleteModalOpen(false);
         setStudentToDelete(null);
-    };
+    }
 
-    // Confirm delete
+    // Confirm Delete
+
     const handleConfirmDelete = async () => {
         try {
             await axios.delete(`${apiUrl}/api/deletestudent/${studentToDelete.reg_no}`);
             setStudata((prev) => prev.filter((student) => student.reg_no !== studentToDelete.reg_no));
             closeDeleteModal();
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error deleting student:', error);
         }
-    };
-
-
-    if (loading) {
-        return <div><center><img src={Loading} alt="" className="img" /></center></div>;
     }
+
+    if (loading) {  return <div><center><img src={Loading} alt="" className="img" /></center></div> }
 
     return (
         <div className="scm-manage">
@@ -338,7 +282,7 @@ function StudentManage() {
                 <input
                     className="scm-search"
                     type="text"
-                    placeholder="Search by Name or Reg No ..."
+                    placeholder="Search ..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -349,20 +293,18 @@ function StudentManage() {
                     <span>ADD</span><FontAwesomeIcon icon={faPlus} className="smst-icon-add" />
                 </button>
             </div>
-
-            {/* Student Table */}
             <table className="student-table">
                 <thead>
                     <tr>
-                        <th className="student-header">No</th>
+                        <th className="student-header">S No</th>
                         <th className="student-header">Reg No</th>
                         <th className="student-header">Category</th>
                         <th className="student-header">Name</th>
-                        <th className="student-header">Id</th>
+                        <th className="student-header">Dept Id</th>
                         <th className="student-header">Batch</th>
                         <th className="student-header">Sem</th>
                         <th className="student-header">Sec</th>
-                        <th className="student-header">Edit</th>
+                        {/* <th className="student-header">Edit</th> */}
                         <th className="student-header">Delete</th>
                     </tr>
                 </thead>
@@ -378,16 +320,16 @@ function StudentManage() {
                                 <td className="student-data">{student.batch}</td>
                                 <td className="student-data">{student.semester}</td>
                                 <td className="student-data">{student.section}</td>
-                                <td className="student-data">
+                                {/* <td className="student-data">
                                     <button className="scm-edit-btn" onClick={openEditModal}>
                                         <span className="sm-edit-btn">
                                             Edit &nbsp;
                                             <FontAwesomeIcon icon={faEdit} className="scm-icon" />
                                         </span>
                                     </button>
-                                </td>
+                                </td> */}
                                 <td className="student-data">
-                                <button className="scm-del-btn" onClick={() => openDeleteModal(student)}>
+                                    <button className="scm-del-btn" onClick={() => openDeleteModal(student)}>
                                         <span className="sc-del-btn">
                                             Delete &nbsp;
                                             <FontAwesomeIcon icon={faTrash} className="scm-icon" />
@@ -405,8 +347,6 @@ function StudentManage() {
                     )}
                 </tbody>
             </table>
-
-            {/* Add Student Modal */}
             {isAddModalOpen && (
                 <div className="stu-add-modal">
                     <div className="stu-add-content">
@@ -495,8 +435,6 @@ function StudentManage() {
                             <button onClick={handleFetchCourse} className='stu-btn-1'>GET COURSE CODE</button>
                             <button onClick={closeAddModal} className='stu-btn-2'>CANCEL</button>
                         </div>
-
-                        {/* Render checkboxes if course codes are available */}
                         {courseCodes.length > 0 && (
                             <div className="checkbox-container">
                                 <div className="checkbox-row">
@@ -524,9 +462,7 @@ function StudentManage() {
                     </div>
                 </div>
             )}
-
-           {/* Delete Confirmation Modal */}
-           {isDeleteModalOpen && studentToDelete && (
+            {isDeleteModalOpen && studentToDelete && (
                 <div className="stu-del-modal">
                     <div className="stu-del-content">
                         <h2>Confirm Delete</h2>
@@ -541,8 +477,6 @@ function StudentManage() {
                     </div>
                 </div>
             )}
-
-            {/* Edit Student Modal */}
             {isEditModalOpen && editStudent && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -608,9 +542,8 @@ function StudentManage() {
                     </div>
                 </div>
             )}
-
         </div>
-    );
+    )
 }
 
 export default StudentManage;
