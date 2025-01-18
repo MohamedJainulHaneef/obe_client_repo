@@ -20,6 +20,8 @@
 .release-input-btn {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
 }
 
 .release-search {

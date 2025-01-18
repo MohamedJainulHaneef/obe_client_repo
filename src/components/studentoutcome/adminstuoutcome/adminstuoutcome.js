@@ -220,7 +220,7 @@ function AdminStuOutcome()
                 </div>
             </div>
             <div className="aso-btn-content">
-                <button className="aso-btn" onClick={sendData}>Get</button>
+                <button className="aso-btn" onClick={sendData}>Fetch Outcome</button>
             </div>
             {outcomeTable && (
                 <div className="aso-table-container" >

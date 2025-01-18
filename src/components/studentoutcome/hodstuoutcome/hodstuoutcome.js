@@ -249,7 +249,7 @@ function HodStuOutcome()
 				</div>
 			</div>
 			<div className="hso-btn-content">
-				<button className="hso-btn" onClick={sendData}>Get</button>
+				<button className="hso-btn" onClick={sendData}>Fetch Outcome</button>
 			</div>
 			{outcomeTable && (
 				<div className="hso-table-container" >

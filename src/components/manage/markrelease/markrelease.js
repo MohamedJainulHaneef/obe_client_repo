@@ -106,6 +106,7 @@ function MarkRelease()
                     placeholder="Search....."
                     onChange={handleSearch}
                 />
+                <span><b>No of Records : </b>{filteredData.length}</span>
             </div>
             <div className="release-table-wrapper">
                 <table className="release-table">

@@ -131,7 +131,7 @@ function ProSpecOutcome()
                     </div>
                     <div className="aso-btn-content">
                         <button className="aso-btn" onClick={handleGetOutcomeSpec}>
-                            Get
+                            Fetch Outcome
                         </button>
                     </div>
                     {specTable && (
@@ -218,7 +218,7 @@ function ProSpecOutcome()
                     </div>
                     <div className="aso-btn-content">
                         <button className="aso-btn" onClick={handleGetOutcomeAll}>
-                            Get
+                            Fetch Outcome
                         </button>
                     </div>
                     {allTable && (

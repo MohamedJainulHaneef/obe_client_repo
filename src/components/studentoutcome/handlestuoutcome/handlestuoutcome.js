@@ -237,7 +237,7 @@ function HandleStuOutcome() {
 				</div>
 			</div>
 			<div className="sso-btn-content">
-				<button className="sso-btn" onClick={sendData}>Get</button>
+				<button className="sso-btn" onClick={sendData}>Fetch Outcome</button>
 			</div>
 			{outcomeTable && (
 				<div className="sso-table-container" >

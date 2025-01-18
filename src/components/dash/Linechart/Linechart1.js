@@ -67,6 +67,23 @@ const BarChart = () =>
             },
             gridLineWidth: 0,
         },
+        yAxis: {
+            title: {
+                text: 'COUNTS',
+                margin: 20,
+            },
+            max: Math.max(...chartData.data), 
+            endOnTick: true,
+            tickInterval: Math.ceil(Math.max(...chartData.data) / 5),
+            labels: {
+                enabled: true,
+                style: {
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                },
+            },
+            gridLineWidth: 0,
+        },
         yAxis: 
         {
             title: {
@@ -75,7 +92,7 @@ const BarChart = () =>
             },
             max: chartData.total,
             endOnTick: false,
-            tickInterval: 33,
+            tickInterval: Math.ceil(Math.max(...chartData.data) / 5),
             labels: 
             {
                 enabled: true,
@@ -111,7 +128,7 @@ const BarChart = () =>
             {
                 name: '', 
                 data: chartData.data,
-                colors: ['rgb(10, 161, 116)', 'rgb(224, 5, 5)', 'rgb(146, 0, 236)', '#ea9a0d', '#2ECC71'],
+                colors: ['rgb(0, 81, 255)', 'rgb(224, 5, 5)', 'rgb(146, 0, 236)', '#ea9a0d', 'rgb(10, 161, 116)'],
                 showInLegend: false, 
             },
         ],

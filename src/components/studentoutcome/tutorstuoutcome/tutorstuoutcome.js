@@ -123,7 +123,7 @@ function AdminStuOutcome()
 				</div>
 			</div>
 			<div className="tso-btn-content">
-				<button className="tso-btn" onClick={sendData}>Get</button>
+				<button className="tso-btn" onClick={sendData}>Fetch Outcome</button>
 			</div>
 			{outcomeTable && (
 				<div className="tso-table-container" >
