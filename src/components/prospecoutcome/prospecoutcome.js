@@ -21,8 +21,9 @@ function ProSpecOutcome()
         const fetchDeptName = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/proDeptName`)
+                const sortedDeptNames = response.data.dept_name.sort((a, b) => a.localeCompare(b));
                 setAcademicYear(response.data.academic_year)
-                setDept(response.data.dept_name)
+                setDept(sortedDeptNames)
             }
             catch (error) {
                 alert('Error fetching Dept Names');
@@ -38,7 +39,8 @@ function ProSpecOutcome()
         const changeDept = value;
         try {
             const response = await axios.post(`${apiUrl}/api/proDeptIdChange`, { changeDept })
-            setDeptId(response.data)
+            const sortedDeptIds = response.data.sort((a, b) => a.localeCompare(b));
+            setDeptId(sortedDeptIds)
         }
         catch (error) {
             alert('Error fetching Dept Id Names');

@@ -34,7 +34,7 @@ function Login()
             else 
             {
                 alert(response.data.message);
-                console.log("error");
+                setPassword('')
             }
         } 
         catch (error) {
