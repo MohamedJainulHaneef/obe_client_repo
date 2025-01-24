@@ -67,3 +67,15 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     background-color: #f9f9f9;
 }
+
+.content-info {
+    margin: 0 auto;
+    width: 90%;
+    font-size: 20px;
+    line-height: 35px;
+    text-align: justify;
+}
+
+.content-info span {
+    font-weight: bold;
+}

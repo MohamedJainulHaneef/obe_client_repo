@@ -28,6 +28,25 @@ function StaffMasterManage()
     const [deletestaffid, setDeletestaffid]=useState("");
     const [deletestaffname, setDeletestaffname]=useState("")
 
+    useEffect(() => 
+    {
+        const staffDetails = async () => 
+        {
+            try 
+            {
+                const StaffResponse = await axios.get(`${apiUrl}/api/staffdetails`);
+                if (StaffResponse.data) {
+                    setStaffData(StaffResponse.data);
+                    setFilteredData(StaffResponse.data);
+                }
+            }
+            catch (err) {
+                console.log('Error Fetching Data:', err);
+            }
+        }
+        staffDetails();
+    }, [apiUrl, staffData]);
+
     const [checkboxValues, setCheckboxValues] = useState(
     {
         dashboard: true,
@@ -89,7 +108,7 @@ function StaffMasterManage()
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
                 window.alert("New Staff has been Added Successfully");
-                window.location.reload();
+                // window.location.reload();
             }
             setPopup(false);
         }
@@ -101,25 +120,6 @@ function StaffMasterManage()
         setStaffDept("");
         setPopup(false);
     }
-
-    useEffect(() => 
-   {
-        const staffDetails = async () => 
-        {
-            try 
-            {
-                const StaffResponse = await axios.get(`${apiUrl}/api/staffdetails`);
-                if (StaffResponse.data) {
-                    setStaffData(StaffResponse.data);
-                    setFilteredData(StaffResponse.data);
-                }
-            }
-            catch (err) {
-                console.log('Error Fetching Data:', err);
-            }
-        }
-        staffDetails();
-    }, [apiUrl]);
 
     const handleSearch = (e) => 
     {

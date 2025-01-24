@@ -113,6 +113,24 @@ function CourseOutcome()
                     )}
                 </div>
             </div>
+            <div className='content-info'>
+                <p>
+                    <span>Course Outcome (CO) : </span>Course Outcome define what students should know, understand, or be able to do after completing the course.
+                    They are generally measurable and focused on skills, knowledge, or competencies.
+                    For example, in a Computer Science course, a CO might be “Students will be able to write efficient algorithms to solve complex problems.<br /><br />
+                    <p>To measure the attainment of CO the following two methodologies is used.</p>
+                </p><br />
+                <li><span>Course Cognitive Level Attainment (CCLA) : </span>
+                    The CCLA measures how well students achieve cognitive-level outcomes (LOT, MOT, HOT) in the specified course.
+                    To calculate CCLA the input is the various assessment scores scored by the students in the specified course.
+                </li><br />
+                <li ><span>Course Attainment by Programme Specific Outcome (CAPSO) : </span>
+                    The CAPSO is a systematic process for evaluating the impact of a course on achieving the program-specific outcome (PSO). 
+                    To calculate CAPSO the values of the Relationship Matrix and the values of the three cognitive levels calculated in CCLA 
+                    for a specified course are given as input.
+                </li><br />
+                <span>Note : </span><lable>The calculation process are given in OBE Terminologies Menu</lable>
+            </div>
         </div>
     )
 }

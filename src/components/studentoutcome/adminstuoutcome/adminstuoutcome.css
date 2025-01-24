@@ -10,7 +10,7 @@
 
 .aso-dropdown-container {
      display: grid;
-     grid-template-columns: repeat(3,1fr);
+     grid-template-columns: repeat(3, 1fr);
      gap: 40px;
      border: 2px solid black;
      padding: 40px 20px;
@@ -55,7 +55,7 @@
      color: white;
      border: none;
      margin-left: 10px;
-     cursor: pointer; 
+     cursor: pointer;
 }
 
 .aso-btn:hover {
@@ -67,15 +67,15 @@
 }
 
 .aso-content-cia {
-	background-color: #4a91e248
+     background-color: #4a91e248
 }
 
 .aso-content-ese {
-	background-color: rgba(255, 166, 0, 0.301)
+     background-color: rgba(255, 166, 0, 0.301)
 }
 
 .aso-content-all {
-	background-color: #81c7847c
+     background-color: #81c7847c
 }
 
 .aso-header-title1 {
@@ -112,26 +112,75 @@
      border-collapse: collapse;
      font-size: 15px;
      text-align: center;
- }
+}
 
 .aso-table th {
-    background-color: #057252;
-    text-align: center;
-    font-size: 20px;
-    color: white;
-    padding: 20px;
-    border: 0.5px solid black;
-    font-weight: bold;
-    text-transform: uppercase;
+     background-color: #057252;
+     text-align: center;
+     font-size: 20px;
+     color: white;
+     padding: 20px;
+     border: 0.5px solid black;
+     font-weight: bold;
+     text-transform: uppercase;
 }
 
 .aso-table td {
-    border: 0.5px solid black;
-    padding: 20px;
-    font-weight: bold;
+     border: 0.5px solid black;
+     padding: 20px;
+     font-weight: bold;
 }
 
 .aso-no-content {
      font-size: 18px;
      margin-left: 2px;
+}
+
+.alert-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.5);
+     z-index: 1000;
+     display: flex;
+     justify-content: center;
+}
+
+.alert-box {
+     position: absolute;
+     top: 20px;
+     background-color: rgb(235, 235, 235);
+     padding: 20px;
+     border-radius: 5px;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+     text-align: center;
+     width: 550px;
+     text-indent: 2em;
+     text-align: justify;
+     border: 1px solid #ccc;
+     z-index: 1001;
+     font-family: Arial, Helvetica, sans-serif;
+     line-height: 25px;
+     font-size: 19px;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+}
+
+.alert-button {
+     align-self: flex-end;
+     margin-top: 15px;
+     padding: 10px 20px;
+     background-color: #0967cc;
+     color: white;
+     border: none;
+     border-radius: 3px;
+     cursor: pointer;
+     font-size: 16px;
+}
+
+.alert-button:hover {
+     background-color: #0056b3;
 }

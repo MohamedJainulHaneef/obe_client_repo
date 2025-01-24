@@ -1,5 +1,7 @@
 .hco-main {
      padding: 15px;
+     max-height: 700px;
+     overflow-y: auto;
 }
 
 .hco-header {
@@ -40,23 +42,28 @@
      border-collapse: collapse;
      font-size: 15px;
      text-align: center;
- }
+}
 
 .hco-table th {
-    background-color: #057252;
-    text-align: center;
-    font-size: 20px;
-    color: white;
-    padding: 20px;
-    border: 0.5px solid black;
-    font-weight: bold;
-    text-transform: uppercase;
+     background-color: #057252;
+     text-align: center;
+     font-size: 20px;
+     color: white;
+     padding: 20px;
+     border: 0.5px solid black;
+     font-weight: bold;
+     text-transform: uppercase;
+     /* position: sticky;
+     top: 0;
+     z-index: 1;
+     box-sizing: border-box; */
 }
 
 .hco-table td {
-    border: 0.5px solid black;
-    padding: 20px;
-    font-weight: bold;
+     border: 0.5px solid black;
+     padding: 20px;
+     font-weight: bold;
+     box-sizing: border-box;
 }
 
 .hco-content-clr {
@@ -64,13 +71,13 @@
 }
 
 .hco-content-cia {
-	background-color: #4a91e248
+     background-color: #4a91e248
 }
 
 .hco-content-ese {
-	background-color: rgba(255, 166, 0, 0.301)
+     background-color: rgba(255, 166, 0, 0.301)
 }
 
 .hco-content-all {
-	background-color: #81c7847c
+     background-color: #81c7847c
 }

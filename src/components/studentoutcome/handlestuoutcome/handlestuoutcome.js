@@ -3,9 +3,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import './handlestuoutcome.css'
 
-function HandleStuOutcome() {
+function HandleStuOutcome() 
+{
 	const apiUrl = process.env.REACT_APP_API_URL;
 	const { staffId } = useParams();
+	const [showSclaPopup, setShowSclaPopup] = useState(false);
 	const [categories, setCategories] = useState([]);
 	const [departments, setDepartments] = useState([]);
 	const [classes, setClasses] = useState([]);
@@ -52,6 +54,9 @@ function HandleStuOutcome() {
 		}
 		fetchcategory();
 	}, [apiUrl, staffId]);
+
+	const handlePopup = () => { setShowSclaPopup(true) }
+    const closePopup  = () => { setShowSclaPopup(false) }
 
 	const fetchCourseData = async (filters) => 
 	{
@@ -255,7 +260,23 @@ function HandleStuOutcome() {
 					<div className="sso-header-title2">
 						<h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
 					</div>
-					<h2 className='sso-heading'>SCLA - Student Cognitive Level Attainment</h2>
+					<h2 className='aso-heading'  title='Click to View' onClick={handlePopup}>
+                        SCLA - Student Cognitive Level Attainment
+                    </h2>
+                    {showSclaPopup && (
+                        <div className="alert-overlay">
+                            <div className="alert-box">
+                                <p>
+                                    The attainment level for each student in a course is calculated by analyzing their performance across three cognitive levels :
+                                    Lower-Order Thinking (LOT), Medium-Order Thinking (MOT), and Higher-Order Thinking (HOT). Each cognitive level is assessed
+                                    for Continuous Internal Assessment (CIA) and End-Semester Examination (ESE).
+                                </p>
+                                <button onClick={closePopup} className="alert-button">
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    )}
 					{outcomeData && outcomeData.length > 0 ? (
 						<table className="sso-table">
 							<thead>

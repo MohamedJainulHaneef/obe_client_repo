@@ -5,13 +5,12 @@ import './adminstuoutcome.css';
 function AdminStuOutcome() 
 {
     const apiUrl = process.env.REACT_APP_API_URL;
-
+    const [showSclaPopup, setShowSclaPopup] = useState(false);
     const [categories, setCategories] = useState([]);
     const [departments, setDepartments] = useState([]);
     const [classes, setClasses] = useState([]);
     const [sections, setSections] = useState([]);
     const [semesters, setSemesters] = useState([]);
-
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedDepartment, setSelectedDepartment] = useState("");
     const [selectedClass, setSelectedClass] = useState("");
@@ -38,6 +37,9 @@ function AdminStuOutcome()
         }
         fetchacademicSemAndData();
     }, []);
+
+    const handlePopup = () => { setShowSclaPopup(true) }
+    const closePopup  = () => { setShowSclaPopup(false) }
 
     const fetchCourseData = async (filters) => 
     {
@@ -238,7 +240,23 @@ function AdminStuOutcome()
                     <div className="aso-header-title2">
                         <h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
                     </div>
-                    <h2 className='aso-heading'>SCLA - Student Cognitive Level Attainment</h2>
+                    <h2 className='aso-heading'  title='Click to View' onClick={handlePopup}>
+                        SCLA - Student Cognitive Level Attainment
+                    </h2>
+                    {showSclaPopup && (
+                        <div className="alert-overlay">
+                            <div className="alert-box">
+                                <p>
+                                    The attainment level for each student in a course is calculated by analyzing their performance across three cognitive levels :
+                                    Lower-Order Thinking (LOT), Medium-Order Thinking (MOT), and Higher-Order Thinking (HOT). Each cognitive level is assessed
+                                    for Continuous Internal Assessment (CIA) and End-Semester Examination (ESE).
+                                </p>
+                                <button onClick={closePopup} className="alert-button">
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    )}
                     {outcomeData && outcomeData.length > 0 ? (
                         <table className="aso-table">
                             <thead>

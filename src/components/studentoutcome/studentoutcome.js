@@ -116,6 +116,14 @@ function StudentOutcome()
                     )}
                 </div>
             </div>
+            <div className='content-info'>
+                <li><span>Student Cognitive Level Attainment (SCLA) : </span>
+                    The attainment level for each student in a course is calculated by analyzing their performance across three cognitive levels :
+                    Lower-Order Thinking (LOT), Medium-Order Thinking (MOT), and Higher-Order Thinking (HOT). Each cognitive level is assessed
+                    for Continuous Internal Assessment (CIA) and End-Semester Examination (ESE).
+                </li><br />
+                <span>Note : </span><lable>The calculation process are given in OBE Terminologies Menu</lable>
+            </div>
         </div>
     )
 }

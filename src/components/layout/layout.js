@@ -118,8 +118,8 @@ function Layout()
             icon: faLightbulb ,
             name: 'OBE Terminologies',
             path: `/staff/${urlStaffId}/terminologies`,
-            show: ['ADMIN', 'admin', 'Admin'].includes(urlStaffId),
-            // show: user        
+            // show: ['ADMIN', 'admin', 'Admin'].includes(urlStaffId),
+            show: user        
         },
     ];
 

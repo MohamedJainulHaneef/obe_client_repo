@@ -6,6 +6,7 @@ import './hodstuoutcome.css'
 function HodStuOutcome() 
 {
 	const { staffId } = useParams();
+	const [showSclaPopup, setShowSclaPopup] = useState(false);
 	const apiUrl = process.env.REACT_APP_API_URL;
 	const [academicSem, setAcademicSem] = useState("");
 	const [categories, setCategories] = useState([]);
@@ -20,6 +21,8 @@ function HodStuOutcome()
 	const [selectedSection, setSelectedSection] = useState("");
 	const [outcomeData, setOutcomeData] = useState("");
 	const [outcomeTable, setOutcomeTable] = useState('');
+	const [showCclaPopup, setShowCclaPopup] = useState(false);
+
 
 	useEffect(() => 
 	{
@@ -49,6 +52,9 @@ function HodStuOutcome()
 		}
 		fetchHodData();
 	}, [apiUrl, staffId]);
+
+	const handlePopup = () => { setShowSclaPopup(true) }
+    const closePopup  = () => { setShowSclaPopup(false) }
 
 	const fetchCourseData = async (filters) => 
 	{
@@ -267,7 +273,23 @@ function HodStuOutcome()
 					<div className="hso-header-title2">
 						<h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
 					</div>
-					<h2 className='hso-heading'>SCLA - Student Cognitive Level Attainment</h2>
+					<h2 className='aso-heading'  title='Click to View' onClick={handlePopup}>
+                        SCLA - Student Cognitive Level Attainment
+                    </h2>
+                    {showSclaPopup && (
+                        <div className="alert-overlay">
+                            <div className="alert-box">
+                                <p>
+                                    The attainment level for each student in a course is calculated by analyzing their performance across three cognitive levels :
+                                    Lower-Order Thinking (LOT), Medium-Order Thinking (MOT), and Higher-Order Thinking (HOT). Each cognitive level is assessed
+                                    for Continuous Internal Assessment (CIA) and End-Semester Examination (ESE).
+                                </p>
+                                <button onClick={closePopup} className="alert-button">
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    )}
 					{outcomeData && outcomeData.length > 0 ? (
 						<table className="hso-table">
 							<thead>
