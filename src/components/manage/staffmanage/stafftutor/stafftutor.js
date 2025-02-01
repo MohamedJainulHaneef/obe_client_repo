@@ -4,23 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './stafftutor.css';
 
-
 const API_URL = "http://localhost:5000/api/mentor";
 const apiUrl = process.env.REACT_APP_API_URL;
-function StaffTutorManage() {
+
+function StaffTutorManage() 
+{
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [editingStaff, setEditingStaff] = useState(null); // For edit modal
-    const [editForm, setEditForm] = useState({}); // For editing form values
-    const [deleteStaff, setDeleteStaff] = useState(null); // For delete confirmation modal
-    const [addtutur, setAddtutur] = useState("");
+    const [editingStaff, setEditingStaff] = useState(null);
+    const [editForm, setEditForm] = useState({});
+    const [deleteStaff, setDeleteStaff] = useState(null);
+    const [addtutur, setAddtutur] = useState(false);
 
+    const [newTuturId, setNewTuturId] = useState("");
     const [newtuturName, setNewtuturName] = useState("");
     const [tuturgraduate, setTuturGraduate] = useState("");
-    const [newcourseId, setNewCourseId] = useState("");
-    const [newTuturId, setNewTuturId] = useState("")
     const [tuturCategory, setTuturCategory] = useState("");
     const [tuturdeptName, setTuturdeptName] = useState("");
     const [tuturDeptId, setTuturDeptId] = useState("");
@@ -31,159 +31,134 @@ function StaffTutorManage() {
     const [suggestingStaff, setSuggestingStaff] = useState([]);
     const [limitedStaffId, setLimitedStaffId] = useState([]);
 
-
     useEffect(() => {
-        axios
-            .get(API_URL)
-            .then((response) => {
-                setData(response.data);
-                setFilteredData(response.data);
-                setLoading(false);
-            })
+        axios.get(API_URL).then((response) => {
+            setData(response.data);
+            setFilteredData(response.data);
+            setLoading(false);
+        })
             .catch((err) => {
                 setError(err.message);
                 setLoading(false);
-            });
+            })
     }, []);
 
     const handleSearch = (e) => {
         const searchText = e.target.value.toLowerCase();
         const filtered = data.filter((row) =>
             (row.staff_id?.toLowerCase() || "").includes(searchText) ||
-            (row.staff_id?.toLowerCase() || "").includes(searchText) ||
+            (row.staff_name?.toLowerCase() || "").includes(searchText) ||
             (row.category?.toLowerCase() || "").includes(searchText) ||
             (row.dept_name?.toLowerCase() || "").includes(searchText)
-        );
+        )
         setFilteredData(filtered);
-    };
+    }
 
-    // Handle Delete Click
-    const handleDelete = (row) => {
-        setDeleteStaff(row); // Open delete confirmation modal 
-    };
+    const handleDelete = (row) => { setDeleteStaff(row) }
 
-    // Confirm Delete
     const confirmDelete = async (id) => {
         try {
-            await axios.delete(`${API_URL}/${id}`);
+            await axios.delete(`${API_URL}/mentor/${id}`);
             const updatedData = data.filter((row) => row.staff_id !== id);
             setData(updatedData);
             setFilteredData(updatedData);
-            setDeleteStaff(null); // Close modal
+            setDeleteStaff(null);
             alert("Record deleted successfully.");
-        } catch (err) {
-            console.error("Error deleting record:", err);
+        }
+        catch (err) {
+            if (err.response) { console.error("Error details:", err.response.data) }
             alert("Failed to delete the record. Please try again.");
         }
-    };
+    }
 
-    // Cancel Delete
-    const cancelDelete = () => {
-        setDeleteStaff(null); // Close delete modal without any action
-    };
+    const cancelDelete = () => { setDeleteStaff(null) }
 
-    // Handle Edit Click
-    const handleEditClick = (row) => {
-        setEditingStaff(row); // Open edit modal
-        setEditForm({ ...row }); // Pre-fill form with staff details
-    };
+    const handleEditClick = (row) => { setEditingStaff(row); setEditForm({ ...row }) }
 
-    // Handle Edit Input Change
     const handleEditChange = (e) => {
         const { name, value } = e.target;
         setEditForm((prev) => ({ ...prev, [name]: value }));
-    };
+    }
 
-
-    // Save Edit
     const handleEditSave = async () => {
         try {
             await axios.put(`${API_URL}/${editForm.staff_id}`, editForm);
             const updatedData = data.map((row) =>
                 row.staff_id === editForm.staff_id ? editForm : row
-            );
+            )
             setData(updatedData);
             setFilteredData(updatedData);
-            setEditingStaff(null); // Close modal
-            alert("Record updated successfully.");
-        } catch (err) {
-            console.error("Error updating record:", err);
+            setEditingStaff(null);
+            alert("Record updated Successfully.");
+        }
+        catch (err) {
+            console.error("Error updating Record :", err);
             alert("Failed to update the record. Please try again.");
         }
-    };
-
-    if (loading) {
-        return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    if (loading) { return <div>Loading...</div> }
+    if (error) { return <div>Error: {error}</div> }
 
-    //  add new tutur
+    const handleaddtutur = () => { setAddtutur(true) }
+    const tututaddClose = () => { setAddtutur(false); setStaffsuggest(false) }
 
-    const handleaddtutur = () => {
-        setAddtutur(true);
-    };
-    const tututaddClose = () => {
-        setAddtutur(false);
-        setStaffsuggest(false);
-    };
     const handleNewMentor = async () => {
-        console.log(newTuturId, newtuturName, tuturDegree, tuturBatch, tuturCategory, tuturDeptId, tuturSection, tuturgraduate, tuturdeptName);
-    };
+        const newMentor = {
+            staff_id: newTuturId,
+            staff_name: newtuturName,
+            graduate: tuturgraduate,
+            category: tuturCategory,
+            dept_name: tuturdeptName,
+            dept_id: tuturDeptId,
+            batch: tuturBatch,
+            degree: tuturDegree,
+            section: tuturSection,
+        }
+        try {
+            const response = await axios.post(`${apiUrl}/api/newtutoradded`, { newMentor });
+            if (response.status === 201) {
+                setData((prevData) => [...prevData, response.data.mentor]);
+                setFilteredData((prevData) => [...prevData, response.data.mentor]);
+                setAddtutur(false);
+                alert("New Mentor Added Successfully.");
+            }
+        }
+        catch (err) {
+            console.error("Error adding new mentor:", err);
+            alert("Failed to add new mentor. Please try again.");
+        }
+    }
+
     const handleInputChange = async (value) => {
         setNewTuturId(value);
         if (value.trim().length > 0) {
             try {
                 setStaffsuggest(true);
-
                 const response = await axios.get(`${apiUrl}/api/getstaff`, {
                     params: { newTuturId: value },
-                });
+                })
 
                 if (response.data) {
                     const limitedSuggestions = response.data.slice(0, 5);
                     setSuggestingStaff(response.data);
                     setLimitedStaffId(limitedSuggestions);
-                } else {
+                }
+                else {
                     alert("No matching staff found.");
                     setLimitedStaffId([]);
                 }
-            } catch (error) {
+            }
+            catch (error) {
                 console.error("Error fetching staff suggestions:", error);
                 setLimitedStaffId([]);
             }
-        } else {
+        }
+        else {
             setStaffsuggest(false);
             setLimitedStaffId([]);
         }
-    };
-
-    const handleFetchStaff = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/api/staffdata`, {
-                params: { newTuturId: newTuturId },
-            });
-            if (response.data) {
-                // console.log(response.data[0].staff_name);
-                // console.log(response.data[0].staff_pass);
-                setNewtuturName(response.data[0].staff_name);
-                setTuturGraduate(response.data[0].graduate);
-                // setNewCourseId(response.data[0].dept_id);
-                setTuturCategory(response.data[0].category);
-                // setTuturDegree(response.data[0].degree);
-                setTuturdeptName(response.data[0].staff_dept);
-
-
-                // alert("staff data")
-            }
-        } catch (err) {
-            console.log(err, "error")
-        };
     }
-
-
 
     return (
         <div className="smst-main">
@@ -196,11 +171,17 @@ function StaffTutorManage() {
                     onChange={handleSearch}
                 />
                 <div>
-                    <button className="smsh-save-btn" onClick={handleaddtutur}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smsh-icon-add" /></button>
+                    <button className="smsh-save-btn" onClick={handleaddtutur}>
+                        <span>ADD</span>
+                        <FontAwesomeIcon icon={faPlus} className="smsh-icon-add" />
+                    </button>
                 </div>
             </div>
             <div className="smst-count">
-                <span className="smst-span"><b>Total Records : </b>{filteredData.length}</span>
+                <span className="smst-span">
+                    <b>Total Records : </b>
+                    {filteredData.length}
+                </span>
             </div>
             <table className="smst-table">
                 <thead>
@@ -226,135 +207,34 @@ function StaffTutorManage() {
                                 <td>{row.dept_name}</td>
                                 <td>{row.section}</td>
                                 <td>
-                                    <button className="smst-edit-btn" onClick={() => handleEditClick(row)}>
-                                        <span className="smst-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="smst-icon" /></span>
+                                    <button
+                                        className="smst-edit-btn"
+                                        onClick={() => handleEditClick(row)}
+                                    >
+                                        Edit&nbsp;
+                                        <FontAwesomeIcon icon={faEdit} className="smst-icon" />
                                     </button>
                                 </td>
                                 <td>
-                                    <button className="smst-delete-btn" onClick={() => handleDelete(row)}>
-                                        <span className="smst-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="smst-icon" /></span>
+                                    <button
+                                        className="smst-delete-btn"
+                                        onClick={() => handleDelete(row)}
+                                    >
+                                        Delete&nbsp;
+                                        <FontAwesomeIcon icon={faTrash} className="smst-icon" />
                                     </button>
                                 </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="9">No Data Available.</td>
+                            <td colSpan="8">No Data Available.</td>
                         </tr>
                     )}
                 </tbody>
             </table>
 
-            
-
-            {addtutur && (
-
-                <div className="smsh-overlay">
-                    <div className="smsh-edit">
-                        <div className="smsh-close-class">
-                            <span className="smsh-close">✖</span>
-                        </div>
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">STAFF ID : </label>
-                                <input
-                                    type="text"
-                                    name="staffid"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">CATEGORY : </label>
-                                <input
-                                    type="text"
-                                    name="category"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                        </div>
-                        <label className="smsh-edit-label">MENTOR NAME : </label>
-                        <input
-                            type="text"
-                            name="staff_name"
-                            className="smsh-edit-inputbox"
-
-                        />
-
-
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEGREE : </label>
-                                <input
-                                    type="text"
-                                    name="degree"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">CATEGORY : </label>
-                                <input
-                                    type="text"
-                                    name="category"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                        </div>
-
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">GRADUATE : </label>
-                                <input
-                                    type="text"
-                                    name="degree"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">SECTION : </label>
-                                <input
-                                    type="text"
-                                    name="section"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                        </div>
-
-                        <div className="smsm-edit-psw">
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEPT ID : </label>
-                                <input
-                                    type="text"
-                                    name="degree"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                            <label className="smsm-edit-password">
-                                <label className="smsh-edit-label">DEPT NAME : </label>
-                                <input
-                                    type="text"
-                                    name="section"
-                                    className="smsh-edit-inputbox-psw"
-
-                                />
-                            </label>
-                        </div>
-                        <div className="smsh-delete-btn-container">
-                            <button className="smsh-add-save-btn">SAVE</button>
-                            <button className="smsh-save-edit-btn">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             {editingStaff && (
-
                 <div className="smsh-overlay">
                     <div className="smsh-edit">
                         <div className="smsh-close-class">
@@ -376,10 +256,7 @@ function StaffTutorManage() {
                             value={editForm.staff_name || ""}
                             onChange={handleEditChange}
                             className="smsh-edit-inputbox"
-
                         />
-
-
                         <div className="smsm-edit-psw">
                             <label className="smsm-edit-password">
                                 <label className="smsh-edit-label">BATCH : </label>
@@ -389,7 +266,6 @@ function StaffTutorManage() {
                                     value={editForm.batch || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
-
                                 />
                             </label>
                             <label className="smsm-edit-password">
@@ -400,11 +276,9 @@ function StaffTutorManage() {
                                     value={editForm.category || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
-
                                 />
                             </label>
                         </div>
-
                         <div className="smsm-edit-psw">
                             <label className="smsm-edit-password">
                                 <label className="smsh-edit-label">GRADUATE : </label>
@@ -414,7 +288,6 @@ function StaffTutorManage() {
                                     value={editForm.graduate || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
-
                                 />
                             </label>
                             <label className="smsm-edit-password">
@@ -425,11 +298,9 @@ function StaffTutorManage() {
                                     value={editForm.section || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
-
                                 />
                             </label>
                         </div>
-
                         <div className="smsm-edit-psw">
                             <label className="smsm-edit-password">
                                 <label className="smsh-edit-label">DEPT ID : </label>
@@ -439,7 +310,6 @@ function StaffTutorManage() {
                                     value={editForm.dept_id || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
-
                                 />
                             </label>
                             <label className="smsm-edit-password">
@@ -450,7 +320,6 @@ function StaffTutorManage() {
                                     value={editForm.dept_name || ""}
                                     onChange={handleEditChange}
                                     className="smsh-edit-inputbox-psw"
-
                                 />
                             </label>
                         </div>
@@ -462,8 +331,6 @@ function StaffTutorManage() {
                 </div>
             )}
 
-
-            {/* Delete Confirmation Modal */}
             {deleteStaff && (
                 <div className="smst-overlay">
                     <div className="smst-content">
@@ -483,7 +350,103 @@ function StaffTutorManage() {
                     </div>
                 </div>
             )}
-        </div >
+
+            {addtutur && (
+                <div className="smsh-overlay">
+                    <div className="smsh-edit">
+                        <div className="smsh-close-class">
+                            <span onClick={tututaddClose} className="smsh-close">✖</span>
+                        </div>
+                        <label className="smsh-edit-label">STAFF ID:</label>
+                        <input
+                            type="text"
+                            value={newTuturId}
+                            onChange={(e) => handleInputChange(e.target.value)}
+                            className="smsh-edit-inputbox"
+                        />
+                        <label className="smsh-edit-label">MENTOR NAME:</label>
+                        <input
+                            type="text"
+                            value={newtuturName}
+                            onChange={(e) => setNewtuturName(e.target.value)}
+                            className="smsh-edit-inputbox"
+                        />
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">CATEGORY:</label>
+                                <input
+                                    type="text"
+                                    value={tuturCategory}
+                                    onChange={(e) => setTuturCategory(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEGREE:</label>
+                                <input
+                                    type="text"
+                                    value={tuturDegree}
+                                    onChange={(e) => setTuturDegree(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                        </div>
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">GRADUATE:</label>
+                                <input
+                                    type="text"
+                                    value={tuturgraduate}
+                                    onChange={(e) => setTuturGraduate(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">SECTION:</label>
+                                <input
+                                    type="text"
+                                    value={tuturSection}
+                                    onChange={(e) => setTuturSection(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                        </div>
+                        <div className="smsm-edit-psw">
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEPT NAME:</label>
+                                <input
+                                    type="text"
+                                    value={tuturdeptName}
+                                    onChange={(e) => setTuturdeptName(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                            <label className="smsm-edit-password">
+                                <label className="smsh-edit-label">DEPT ID:</label>
+                                <input
+                                    type="text"
+                                    value={tuturDeptId}
+                                    onChange={(e) => setTuturDeptId(e.target.value)}
+                                    className="smsh-edit-inputbox-psw"
+                                />
+                            </label>
+                        </div>
+                        <label className="smsh-edit-label">BATCH:</label>
+                        <input
+                            type="text"
+                            value={tuturBatch}
+                            onChange={(e) => setTuturBatch(e.target.value)}
+                            className="smsh-edit-inputbox"
+                        />
+                        <div className="smsm-edit-password">
+                            <button className="smsh-save-btn" onClick={handleNewMentor}>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
     )
 }
 

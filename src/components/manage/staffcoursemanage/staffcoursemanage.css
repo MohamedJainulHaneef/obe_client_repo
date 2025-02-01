@@ -67,7 +67,6 @@
     color: white;
     border: 1px solid gray;
     padding: 12px;
-    /* height: 65px; */
     font-weight: bold;
     border-color: black;
 }
@@ -114,12 +113,10 @@
     right: 0;
     bottom: 0;
     background-color: rgba(32, 31, 31, 0.7);
-    /* Semi-transparent background */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    /* Ensures the modal is above other content */
 }
 
 .scm-modal-content {
@@ -128,7 +125,6 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 300px;
-    /* Set a fixed width for the modal */
 }
 
 .scm-modal-content h3 {
@@ -192,4 +188,64 @@
     flex-direction: column;
     gap: 20px;
     text-align: center;
+}
+
+/* ------------------------------------------------------------------------------------------------------- */
+
+.scm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.scm-modal-content {
+    background: white;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scm-modal-content h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.scm-modal-content select,
+.scm-modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.scm-scm-save {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.scm-save-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.scm-save-btn:hover {
+    background-color: #0056b3;
 }
