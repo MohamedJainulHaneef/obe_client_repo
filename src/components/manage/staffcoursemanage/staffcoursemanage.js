@@ -26,9 +26,15 @@ const Staffcoursemanage = () =>
 	const [degree, setDegree] = useState("");
 	const [semester, setSemester] = useState([])
 	const [selectedSemester, setSelectedSemester] = useState("")
+	const [section, setSection] = useState([])
+	const [selectedSection, setSelectedSection] = useState("")
+	const [courseCode, setCourseCode] = useState([])
+	const [selectedCourseCode, setSelectedCourseCode] = useState("")
+	const [courseTitle, setCourseTitle] = useState("")
+	const [batch, setBatch] = useState("")
 
+	// Fetch Staff Data
 
-	//Fetch Staff Data
 	useEffect(() => {
 		const fetchStaffDetails = async () => {
 			try {
@@ -42,7 +48,8 @@ const Staffcoursemanage = () =>
 		fetchStaffDetails();
 	}, [apiUrl]);
 
-	//Search Filter
+	// Search Filter
+
 	const filteredStaffData = staffData.filter((staff) =>
 		(staff.section?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
 		(staff.dept_id?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
@@ -50,53 +57,45 @@ const Staffcoursemanage = () =>
 		(staff.staff_name?.toLowerCase() || "").includes(searchTerm.toLowerCase())
 	)
 
-	//Delete Staff Modal
+	// Delete Staff Modal
+
 	const handleDeleteModel = (staff) => {
 		setDeleteCourseMap(true);
 		setDeleteCourseMapInfo(staff);
 	}
 
-	//Close Delete Modal
-	const staffDeleteClose = () => {
-		setDeleteCourseMap(false);
-	}
-	//Delete Staff
-	const handleDeleteStaff = async (staffId, courseCode, category, section, courseId) => {
+	const staffDeleteClose = () => { setDeleteCourseMap(false) }
+
+	// Delete Staff
+
+	const handleDeleteStaff = async (staffId, courseCode, category, section) => {
 		try {
 			const response = await axios.delete(`${apiUrl}/api/deletestaff`, {
 				params: {
-					staff_id: staffId,
-					course_code: courseCode,
-					category: category,
-					section: section
-				},
-			});
+					staff_id: staffId, course_code: courseCode,
+					category: category, section: section
+				}
+			})
 
 			if (response.status === 200) {
-				setStaffData((prev) =>
-					prev.filter(
-						(staff) =>
-							!(
-								staff.staff_id === staffId &&
-								staff.course_code === courseCode &&
-								staff.category === category &&
-								staff.section === section
-							)
-					)
-				);
+				setStaffData((prev) => prev.filter((staff) => !(
+					staff.staff_id === staffId &&
+					staff.course_code === courseCode &&
+					staff.category === category &&
+					staff.section === section
+				)))
 				alert("Staff Course Entry Deleted Successfully!");
 				setDeleteCourseMap(false);
 			}
-		} catch (error) {
+		}
+		catch (error) {
 			console.error("Error Deleting Staff Course:", error);
 			alert("Failed to Delete Staff Course");
 		}
 	}
 
-	//Open Add Modal
 	const openAddModal = () => setIsAddModalOpen(true);
 
-	//Close Add Modal
 	const closeAddModal = () => {
 		setIsAddModalOpen(false);
 		setNewStaff({
@@ -105,117 +104,123 @@ const Staffcoursemanage = () =>
 		})
 	}
 
-	//add staff input change
+	// Add Staff Input Change
+
 	const handleAddInputChange = (e) => {
 		const { name, value } = e.target;
 		setNewStaff((prev) => ({ ...prev, [name]: value }));
 	}
 
-	//Save New Staff
-	const handleSaveStaff = async () => {
-		alert('Staff Added Successfully!');
-		console.log(newStaff);
+	// Fetch Staff ID
 
-	}
-
-	//fetch Staff Id
 	useEffect(() => {
 		const fetchCategory = async () => {
 			try {
 				const response = await axios.get(`${apiUrl}/api/staffId`);
 				setStaffId(response.data)
-				// console.log(response.data);
-
-
 			}
-			catch (error) {
-				console.log(error)
-			}
+			catch (error) { console.log(error) }
 		}
 		fetchCategory()
-
 	}, [])
 
-	//fetch staff name
+	// Fetch Staff Name
+
 	const handleStaffIdChange = async (value) => {
 		setSelectedStaffId(value)
 		try {
-			const response = await axios.post(`${apiUrl}/api/staffname`, {
-				staff_id: value
-
-			})
+			const response = await axios.post(`${apiUrl}/api/staffname`, { staff_id: value })
 			setStaffName(response.data)
 		}
-		catch (error) {
-			console.log(error);
-
-		}
+		catch (error) { console.log(error) }
 	}
 
-	//fetch dept-id
+	// Fetch Dept Id
+
 	const handleCategoryChange = async (value) => {
 		setSelectedCategory(value)
 		try {
-			const response = await axios.post(`${apiUrl}/api/depId`, {
-				category: value,
-			})
+			const response = await axios.post(`${apiUrl}/api/depId`, { category: value })
 			setDeptId(response.data)
-
 		}
-		catch (error) {
-			console.log(error);
-
-		}
-
-
+		catch (error) { console.log(error) }
 	}
 
-	//fetch department Name
+	// Fetch Department Name
+
 	const handleIdChange = async (value) => {
 		setSelectedDeptId(value)
 		try {
-			const response = await axios.post(`${apiUrl}/api/departmentname`, {
-				dept_id: value
-			})
-
+			const response = await axios.post(`${apiUrl}/api/departmentname`, { dept_id: value })
 			setDeptName(response.data.uniqueDeptNames)
 			setDegree(response.data.uniqueDegrees)
 			setSemester(response.data.uniqueSemester)
-
-
 		}
-		catch (error) {
-			console.log(error);
-
-		}
-
+		catch (error) { console.log(error) }
 	}
 
-	//fetch section
-	const handleSemChange = async (value) => {
-		console.log(value);
+	// Fetch Section
 
+	const handleSemChange = async (value) => {
 		setSelectedSemester(value)
 		try {
 			const response = await axios.post(`${apiUrl}/api/scmsection`, {
 				semester: value,
+				dept_id: selectedDeptId,
+				category: selectedCategory,
 			})
-
-
-
-
-
+			setSection(response.data.section)
+			setCourseCode(response.data.courseCode)
 		}
-		catch (error) {
-			console.log(error);
-
-		}
+		catch (error) { console.log(error) }
 	}
 
+	// Section Change
 
+	const handleSectionChange = async (value) => { setSelectedSection(value) }
 
+	// Course Code change and Fetch Course Title
 
+	const handleCourseCodeChange = async (value) => {
+		setSelectedCourseCode(value)
+		try {
+			const response = await axios.post(`${apiUrl}/api/scmcoursetitle`, { courseCode: value })
+			setCourseTitle(response.data.courseTitle)
+			setBatch(response.data.batch)
+		}
+		catch (error) { console.log(error) }
+	}
 
+	const handleSaveStaff = async () => {
+		const payload = {
+			staff_id: selectedStaffId?.toString().trim() || '',
+			staff_name: Array.isArray(staffName) ? staffName[0]?.toString().trim() : staffName?.toString().trim() || '',
+			category: selectedCategory?.toString().trim() || '',
+			dept_id: selectedDeptId?.toString().trim() || '',
+			dept_name: Array.isArray(deptName) ? deptName[0]?.toString().trim() : deptName?.toString().trim() || '',
+			degree: Array.isArray(degree) ? degree[0]?.toString().trim() : degree?.toString().trim() || '',
+			semester: selectedSemester?.toString().trim() || '',
+			section: selectedSection?.toString().trim() || '',
+			course_code: selectedCourseCode?.toString().trim() || '',
+			course_title: Array.isArray(courseTitle) ? courseTitle[0]?.toString().trim() : courseTitle?.toString().trim() || '',
+			batch: Array.isArray(batch) ? batch[0]?.toString().trim() : batch?.toString().trim() || '',
+		}
+
+		try {
+			const response = await axios.post(`${apiUrl}/api/scmNewStaff`, payload);
+			if (response.status === 201) {
+				alert('Staff saved successfully!');
+				setStaffData((prevData) => [...prevData, response.data.data]);
+			}
+			else {
+				alert(`Failed to save staff. Status code: ${response.status}`);
+			}
+		}
+		catch (error) {
+			console.error('Error saving staff:', error);
+			alert('Failed to save staff. Please check your input or network.');
+		}
+	}
 
 	return (
 		<div className="scm-manage">
@@ -269,7 +274,6 @@ const Staffcoursemanage = () =>
 								<td className="scm-data">
 									<button
 										className="scm-edit-btn"
-									// onClick={openEditModal}
 									>
 										<span className="scm-edit-btn">
 											Edit &nbsp;
@@ -295,6 +299,7 @@ const Staffcoursemanage = () =>
 			</table>
 
 			{/* Delete Modal */}
+
 			{deleteCourseMap && (
 				<div className="scm-overlay">
 					<div className="scm-delete">
@@ -327,11 +332,11 @@ const Staffcoursemanage = () =>
 			)}
 
 			{/* Add Modal */}
+
 			{isAddModalOpen && (
 				<div className="scm-modal-overlay">
 					<div className="scm-modal-content">
 						<h3>Add Staff</h3>
-
 						<select
 							name="staff_id"
 							value={selectedStaffId}
@@ -344,7 +349,6 @@ const Staffcoursemanage = () =>
 								</option>
 							))}
 						</select>
-
 						<input
 							type="text"
 							name="staff_name"
@@ -353,7 +357,6 @@ const Staffcoursemanage = () =>
 							onChange={handleAddInputChange}
 							disabled
 						/>
-
 						<select
 							name="category"
 							value={selectedCategory}
@@ -408,37 +411,44 @@ const Staffcoursemanage = () =>
 								</option>
 							))}
 						</select>
-
-						<input
-							type="text"
-							name="section"
-							placeholder="Section"
-							// value={}
-							onChange={handleAddInputChange}
-						/>
-
-						<input
-							type="text"
-							name="course_code"
-							placeholder="Course Code"
-							value={newStaff.course_code}
-							onChange={handleAddInputChange}
-						/>
+						<select
+							value={selectedSection}
+							name='section'
+							onChange={(e) => handleSectionChange(e.target.value)}
+						>
+							<option value="">Select Section</option>
+							{section.map((sec, index) => (
+								<option key={index} value={sec}>
+									{sec}
+								</option>
+							))}
+						</select>
+						<select
+							value={selectedCourseCode}
+							name='courseCode'
+							onChange={(e) => handleCourseCodeChange(e.target.value)}
+						>
+							<option value="">Select Course Code</option>
+							{courseCode.map((course, index) => (
+								<option key={index} value={course}>
+									{course}
+								</option>
+							))}
+						</select>
 						<input
 							type="text"
 							name="course_title"
 							placeholder="Course Title"
-							value={newStaff.course_title}
-							onChange={handleAddInputChange}
+							value={courseTitle}
+							disabled
 						/>
 						<input
 							type="text"
 							name="batch"
 							placeholder="Batch"
-							value={newStaff.batch}
-							onChange={handleAddInputChange}
+							value={batch}
+							disabled
 						/>
-
 						<div className='scm-scm-save'>
 							<button onClick={handleSaveStaff} className='scm-save-btn'>Save</button>
 							<button onClick={closeAddModal} className='scm-save-btn'>Cancel</button>
@@ -450,4 +460,4 @@ const Staffcoursemanage = () =>
 	)
 }
 
-export default Staffcoursemanage
+export default Staffcoursemanage;
