@@ -281,31 +281,6 @@ function Stumark()
             setIsSaveLoading(true);
         }
 
-        const allFieldsFilled = stuData.every(user => 
-        {
-            if (activeSection === "3" || activeSection === "4") {
-                return user.lot !== undefined && user.lot !== "";
-            }
-            
-            return (
-                user.lot !== undefined &&
-                user.mot !== undefined &&
-                user.hot !== undefined &&
-                user.total !== undefined &&
-                user.lot !== "" &&
-                user.mot !== "" &&
-                user.hot !== "" &&
-                user.total !== ""
-            )
-        })
-        
-        if (!allFieldsFilled) {
-            alert("Please Fill all the Fields before Saving.");
-            setIsSaveConfirmLoading(false);
-            setIsSaveLoading(false);
-            return
-        }
-
         const updates = {};
         stuData.forEach(user => 
         {
@@ -319,6 +294,31 @@ function Stumark()
     
         if( button_value === "1" )
         {
+            const allFieldsFilled = stuData.every(user => 
+            {
+                if (activeSection === "3" || activeSection === "4") {
+                    return user.lot !== undefined && user.lot !== "";
+                }
+                
+                return (
+                    user.lot !== undefined &&
+                    user.mot !== undefined &&
+                    user.hot !== undefined &&
+                    user.total !== undefined &&
+                    user.lot !== "" &&
+                    user.mot !== "" &&
+                    user.hot !== "" &&
+                    user.total !== ""
+                )
+            })
+            
+            if (!allFieldsFilled) {
+                alert("Please Fill all the Fields before Saving.");
+                setIsSaveConfirmLoading(false);
+                setIsSaveLoading(false);
+                return
+            }
+            
             const confirmAction = window.confirm("You can't able to Edit it Later. Are you sure you want to Proceed ?");
             if (confirmAction) 
             {
