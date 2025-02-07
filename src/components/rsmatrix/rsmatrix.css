@@ -111,6 +111,10 @@
     overflow-y: auto;
 }
 
+.rsmatrix-modal-content h2 {
+    text-align: center;
+}
+
 .rsmatrix-table {
     width: 100%;
     border-collapse: collapse;
