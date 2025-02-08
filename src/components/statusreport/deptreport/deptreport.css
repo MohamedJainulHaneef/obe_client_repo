@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
+    height: 100vh;
 }
 
 .dept-repo-btn-content {
@@ -151,4 +153,25 @@
     height: 70px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.dept-table-wrapper {
+    flex-grow: 1; 
+    overflow-y: auto;
+    max-height: 85%; 
+    flex-grow: 1;
+    overflow-y: auto; 
+    border: 1px solid #ddd;
+}
+
+.dept-repo-heading {
+    top: 0;
+    z-index: 1;
+}
+
+.dept-repo-header thead {
+    position: sticky;
+    top: 0;
+    z-index: 1; 
+    background-color: #f9f9f9;
 }

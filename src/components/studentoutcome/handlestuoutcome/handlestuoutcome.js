@@ -101,7 +101,7 @@ function HandleStuOutcome()
 		setSelectedClass("");
 		setSelectedSection("");
 		setSelectedSemester("");
-		fetchCourseData({ academic_year: academicSem, category: value, staff_id: staffId });
+		fetchCourseData({ academic_sem: academicSem, category: value, staff_id: staffId });
 	}
 
 	const handleDepartmentChange = (value) => {
@@ -110,7 +110,7 @@ function HandleStuOutcome()
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: selectedCategory,
 			dept_name: value,
 			staff_id: staffId
@@ -122,7 +122,7 @@ function HandleStuOutcome()
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: value,
@@ -134,7 +134,7 @@ function HandleStuOutcome()
 		setSelectedSemester(value);
 		setSelectedSection("");
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: selectedClass,
@@ -146,7 +146,7 @@ function HandleStuOutcome()
 	const handleSectionChange = (value) => {
 		setSelectedSection(value);
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: selectedClass,

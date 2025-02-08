@@ -268,7 +268,7 @@ function Scope()
                                         />
                                     </td>
                                     <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
-                                        <input 
+                                        <input  
                                             type="checkbox"
                                             checked={scopeItem.work_progress_report === 1}
                                             onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'work_progress_report', e.target.checked)}

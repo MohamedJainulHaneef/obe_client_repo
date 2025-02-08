@@ -116,6 +116,7 @@
     padding: 10px;
     height: 65px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .mark-td-sno,

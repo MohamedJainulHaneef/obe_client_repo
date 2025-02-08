@@ -117,7 +117,7 @@ function HodStuOutcome()
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: selectedCategory, 
 			dept_name: value, 
 			staff_id: staffId,
@@ -129,7 +129,7 @@ function HodStuOutcome()
 		setSelectedSection("");
 		setSelectedSemester("");
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: selectedCategory, 
 			dept_name: selectedDept, 
 			staff_id: staffId,
@@ -141,7 +141,7 @@ function HodStuOutcome()
 		setSelectedSemester(value);
 		setSelectedSection("");
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: selectedClass,
@@ -152,7 +152,7 @@ function HodStuOutcome()
 	const handleSectionChange = (value) => {
 		setSelectedSection(value);
 		fetchCourseData({
-			academic_year: academicSem,
+			academic_sem: academicSem,
 			category: categories,
 			dept_name: departments,
 			dept_id: selectedClass,

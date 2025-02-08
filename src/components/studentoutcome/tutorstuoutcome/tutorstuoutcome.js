@@ -40,7 +40,7 @@ function AdminStuOutcome()
 				setCategory(tutorDetails.data.tutorDetails.category);
 				setDepartment(tutorDetails.data.tutorDetails.dept_name);
 				setDeptId(tutorDetails.data.tutorDetails.dept_id);
-				setSemester(tutorDetails.data.studentSection.semester);
+				setSemester(tutorDetails.data.studentSem.semester);
 				setSection(tutorDetails.data.tutorDetails.section);
 			}
 			catch (error) {

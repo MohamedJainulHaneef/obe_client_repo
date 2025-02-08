@@ -287,50 +287,52 @@ function DeptReport()
                 </div>
                 <button className='dept-repo-btn' onClick={handleDownload}>Download Excel</button>
             </div>
-            <table className="dept-repo-header">
-                <thead>
-                    <tr>
-                        <th className="dept-repo-heading">S. No.</th>
-                        <th className="dept-repo-heading">Staff Id</th>
-                        <th className="dept-repo-heading">Staff Name</th>
-                        <th className="dept-repo-heading">Dept Name</th>
-                        <th className="dept-repo-heading">Course Code</th>
-                        <th className="dept-repo-heading">Category</th>
-                        <th className="dept-repo-heading">Section</th>
-                        <th className="dept-repo-heading">Status</th>
-                    </tr>
-                </thead>
-                <tbody> 
-                    {sortedReport.length > 0 ? (
-                        sortedReport.map((dept, index) => (
-                            <tr 
-                                key={index} 
-                                className={index % 2 === 0 ? 'dept-repo-light' : 'dept-repo-dark'}
-                            >
-                                <td className="dept-repo-content">{index + 1}</td>
-                                <td className="dept-repo-content">{dept.staff_id}</td>
-                                <td className="dept-repo-content-sn">{dept.staff_name}</td>
-                                <td className="dept-repo-content-dn">{dept.dept_name}</td>
-                                <td className="dept-repo-content">{dept.course_code}</td>
-                                <td className="dept-repo-content">{dept.category}</td>
-                                <td className="dept-repo-content">{dept.section}</td>
-                                <td 
-                                    className="dept-repo-content-sr" 
-                                    style={getStatusColor(getActiveField(dept))}
-                                >
-                                    {getStatus(getActiveField(dept))}
-                                </td>                             
-                            </tr>
-                        ))
-                    ) : (
+            <div className='dept-table-wrapper'>
+                <table className="dept-repo-header">
+                    <thead>
                         <tr>
-                            <td colSpan="8" className="dept-repo-td">
-                                No Data Available.
-                            </td>
+                            <th className="dept-repo-heading">S. No.</th>
+                            <th className="dept-repo-heading">Staff Id</th>
+                            <th className="dept-repo-heading">Staff Name</th>
+                            <th className="dept-repo-heading">Dept Name</th>
+                            <th className="dept-repo-heading">Course Code</th>
+                            <th className="dept-repo-heading">Category</th>
+                            <th className="dept-repo-heading">Section</th>
+                            <th className="dept-repo-heading">Status</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody> 
+                        {sortedReport.length > 0 ? (
+                            sortedReport.map((dept, index) => (
+                                <tr 
+                                    key={index} 
+                                    className={index % 2 === 0 ? 'dept-repo-light' : 'dept-repo-dark'}
+                                >
+                                    <td className="dept-repo-content">{index + 1}</td>
+                                    <td className="dept-repo-content">{dept.staff_id}</td>
+                                    <td className="dept-repo-content-sn">{dept.staff_name}</td>
+                                    <td className="dept-repo-content-dn">{dept.dept_name}</td>
+                                    <td className="dept-repo-content">{dept.course_code}</td>
+                                    <td className="dept-repo-content">{dept.category}</td>
+                                    <td className="dept-repo-content">{dept.section}</td>
+                                    <td 
+                                        className="dept-repo-content-sr" 
+                                        style={getStatusColor(getActiveField(dept))}
+                                    >
+                                        {getStatus(getActiveField(dept))}
+                                    </td>                             
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="8" className="dept-repo-td">
+                                    No Data Available.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
