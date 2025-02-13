@@ -84,16 +84,6 @@ function MarkRelease()
             console.log('Error for the server', error)
         }
     }
-    const handleOverAll = async () => 
-    {
-        try {
-            await axios.put(`${apiUrl}/api/overallrelease`, { l_cia1, l_cia2 });
-            alert('Release Update Successfully....')
-        }
-        catch (error) {
-            console.log('Error for the Server', error)
-        }
-    }
 
     if (!filteredData) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
 
@@ -107,6 +97,14 @@ function MarkRelease()
                     onChange={handleSearch}
                 />
                 <span><b>No of Records : </b>{filteredData.length}</span>
+            </div>
+            <div className="release-check">
+                <p>Over All Lock</p>
+                <input type="checkbox" />
+                <input type="checkbox" />
+                <input type="checkbox" />
+                <input type="checkbox" />
+                <input type="checkbox" />
             </div>
             <div className="release-table-wrapper">
                 <table className="release-table">
