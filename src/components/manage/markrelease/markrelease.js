@@ -98,14 +98,6 @@ function MarkRelease()
                 />
                 <span><b>No of Records : </b>{filteredData.length}</span>
             </div>
-            <div className="release-check">
-                <p>Over All Lock</p>
-                <input type="checkbox" />
-                <input type="checkbox" />
-                <input type="checkbox" />
-                <input type="checkbox" />
-                <input type="checkbox" />
-            </div>
             <div className="release-table-wrapper">
                 <table className="release-table">
                     <thead className="release-table-head">

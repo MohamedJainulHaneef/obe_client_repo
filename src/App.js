@@ -36,6 +36,7 @@ import TutorStuOC from './components/studentoutcome/tutorstuoutcome/tutorstuoutc
 import ProgramOC from './components/prooutcome/prooutcome';
 import ProgramSpecOc from './components/prospecoutcome/prospecoutcome';
 import Terminologies from './components/terminologies/terminologies';
+import Lock from './components/manage/showblock/showblock'
 
 function App() 
 {
@@ -78,11 +79,12 @@ function App()
                         <Route path="programoutcome" element={<ProgramOC />} />
                         <Route path="programspecificoutcome" element={<ProgramSpecOc />} />
                         <Route path="terminologies" element={<Terminologies />} />
+                        <Route path="showandblock" element={<Lock />} />
                     </Route>  
                 </Routes>
             </Router>
         </AuthProvider>
-    );
+    )
 }
 
 export default App;

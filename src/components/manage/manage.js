@@ -74,6 +74,10 @@ function Manage()
         navigate(`/staff/${staffId}/studentmanage`);
     };
 
+    const handleShowBlock = () => {
+        navigate(`/staff/${staffId}/showandblock`);
+    };
+
     return (
         <div className="manage-body">
             <div className="manage-container">
@@ -84,6 +88,7 @@ function Manage()
                 <button className="manage-btn" onClick={handleMarkManage}>Mark Manage</button>
                 <button className="manage-btn" onClick={handleScopeManage}>Scope Manage</button>
                 <button className="manage-btn" onClick={handleRelease}>Mark Release</button>
+                <button className="manage-btn" onClick={handleShowBlock}>Show and Block</button>
             </div>
             <div className="manage-popup-container">
                 {academic && (
