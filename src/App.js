@@ -36,7 +36,9 @@ import TutorStuOC from './components/studentoutcome/tutorstuoutcome/tutorstuoutc
 import ProgramOC from './components/prooutcome/prooutcome';
 import ProgramSpecOc from './components/prospecoutcome/prospecoutcome';
 import Terminologies from './components/terminologies/terminologies';
-import Lock from './components/manage/showblock/showblock'
+import Lock from './components/manage/showblock/showblock';
+import HodReport from './components/hodreport/hodreport';
+import TutorReport from './components/tutorreport/tutorreport';
 
 function App() 
 {
@@ -80,6 +82,8 @@ function App()
                         <Route path="programspecificoutcome" element={<ProgramSpecOc />} />
                         <Route path="terminologies" element={<Terminologies />} />
                         <Route path="showandblock" element={<Lock />} />
+                        <Route path="hodreport" element={<HodReport />} />
+                        <Route path="tutorreport" element={<TutorReport />} />
                     </Route>  
                 </Routes>
             </Router>

@@ -49,3 +49,13 @@
     background-color: #057251ef;
     color: white;
 }
+
+.report-content-div {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 90%;
+    padding: 40px;
+    margin: 0 auto;
+    margin-top: 40px;
+    box-shadow: 2px  4px 5px rgb(183, 183, 183);
+}

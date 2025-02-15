@@ -16,6 +16,7 @@ function Stumark()
     const [activeSection, setActiveSection] = useState('1');
     const [academicSem, setAcademicSem] = useState('');
     const [maxMark, setMaxMark] = useState('');
+    const [lockInput, setLockIntput] = useState([]);
     const { deptName, section, semester, classDetails, courseCode, courseTitle, deptId, category } = location.state || {};
 
     useEffect(() => {
@@ -41,6 +42,25 @@ function Stumark()
             }
         }
         maxMarkSet();
+
+        const InputLock = async () => {
+            try {
+                const response = await axios.get(`${apiUrl}/api/showblock`, {});
+                if (response.data) {
+                    // console.log("API Response:", response.data); // 
+
+                    setLockIntput(response.data);
+
+                    // ✅ Since state updates asynchronously, log inside useEffect:
+                    // console.log("Updated Lock Input:", response.data);
+                }
+
+            }
+            catch (err) {
+                console.log('Error LOCK :', err);
+            }
+        }
+        InputLock();
 
     }, [apiUrl]);
 
@@ -222,21 +242,11 @@ function Stumark()
     }
 
     const handleDisable = () => {
-        if (activeSection === '1') {
-            return active?.cia_1 === 2;
-        }
-        else if (activeSection === '2') {
-            return active?.cia_2 === 2;
-        }
-        else if (activeSection === '3') {
-            return active?.ass_1 === 2;
-        }
-        else if (activeSection === '4') {
-            return active?.ass_2 === 2;
-        }
-        else if (activeSection === '5') {
-            return active?.ese === 2;
-        }
+        if (activeSection === '1') { return active?.cia_1 === 2 || lockInput.cia_1 === 1 }
+        else if (activeSection === '2') { return active?.cia_2 === 2 || lockInput.cia_2 === 1 }
+        else if (activeSection === '3') { return active?.ass_1 === 2 || lockInput.ass_1 === 1 }
+        else if (activeSection === '4') { return active?.ass_2 === 2 || lockInput.ass_2 === 1 }
+        else if (activeSection === '5') { return active?.ese === 2  }
         return false;
     }
 
