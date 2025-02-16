@@ -45,7 +45,7 @@ function StaffMasterManage()
             }
         }
         staffDetails();
-    }, [apiUrl, staffData]);
+    }, [apiUrl]);
 
     const [checkboxValues, setCheckboxValues] = useState(
     {

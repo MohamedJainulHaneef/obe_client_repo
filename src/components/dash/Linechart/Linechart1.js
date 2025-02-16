@@ -8,6 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const BarChart = () => 
 {
     const [chartData, setChartData] = useState(null);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => 
     {
@@ -17,7 +18,7 @@ const BarChart = () =>
             {
                 const response = await axios.post(`${apiUrl}/api/processedChartData`, {});
                 const data = response.data;
-                const total = response.data.countUniqueCourseCodes;
+                setTotal(response.data.countUniqueCourseCodes);
 
                 setChartData(
                 {
@@ -48,7 +49,7 @@ const BarChart = () =>
         },
         title: 
         {
-            text: `COMPLETION STATUS of ${chartData.total} COURSES`,            
+            text: `COMPLETION STATUS of ${total} COURSES`,            
             align: 'center', 
             style: {
                 fontSize: '15px', 
@@ -90,9 +91,9 @@ const BarChart = () =>
                 text: 'COUNTS',
                 margin: 20,
             },
-            max: chartData.total,
+            max: total,
             endOnTick: false,
-            tickInterval: Math.ceil(Math.max(...chartData.data) / 5),
+            tickInterval: Math.ceil(Math.max(total) / 8),
             labels: 
             {
                 enabled: true,

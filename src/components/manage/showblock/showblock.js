@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import './showblock.css'
-function Showblock() {
+import './showblock.css';
+
+function Showblock() 
+{
     const apiUrl = process.env.REACT_APP_API_URL;
     const [activeData, setActiveData] = useState({
         cia_1: 0,
@@ -14,37 +16,30 @@ function Showblock() {
         const showBlock = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/showblock`);
-                if (response.data) {
-                    setActiveData(response.data);
-                }
-            } catch (err) {
-                console.error("Error fetching data:", err);
+                if (response.data) { setActiveData(response.data) }
             }
-        };
-        showBlock();
-    }, []);
+            catch (err) { console.error("Error fetching data:", err) }
+        }
+        showBlock()
+    }, [])
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         setActiveData((prevData) => ({
             ...prevData,
             [name]: checked ? 1 : 0,
-        }));
-    };
+        }))
+    }
 
     const handleUpdateLock = async () => {
         try {
             const response = await axios.post(`${apiUrl}/api/updatelock`, activeData);
-            if (response.data.message === "Success") {
-                alert("Updated Successfully!");
-            }
-        } catch (err) {
-            console.error("Error updating data:", err);
+            if (response.data.message === "Success") { alert("Updated Successfully!") }
         }
-    };
+        catch (err) { console.error("Error updating data:", err) }
+    }
 
     return (
-
         <div className="course-main">
             <div className="show-content-box">
                 <h2>SHOW AND BLOCK</h2>
@@ -54,22 +49,13 @@ function Showblock() {
                     <input type='checkbox' checked={false} readOnly />
                     <span>BLOCK</span>
                 </div>
-            <hr />
+                <hr />
                 <div className="show-check">
                     <label>CIA-1</label>
-
-
                     <label>CIA-2</label>
-
-
                     <label>ASS-1</label>
-
-
                     <label>ASS-2</label>
-
-
                 </div>
-               
                 <div className="show-check-check">
                     <input
                         type="checkbox"
@@ -96,12 +82,10 @@ function Showblock() {
                         onChange={handleCheckboxChange}
                     />
                     <button onClick={handleUpdateLock} className="scope-save-btn">UPDATE</button>
-
                 </div>
-
             </div>
         </div>
-    );
+    )
 }
 
 export default Showblock;
