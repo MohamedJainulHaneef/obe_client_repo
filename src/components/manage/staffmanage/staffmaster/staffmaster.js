@@ -483,6 +483,8 @@ function StaffMasterManage()
                             <th className="smsm-th-sno">S. No.</th>
                             <th className="smsm-th-id">Staff Id</th>
                             <th className="smsm-th-name">Staff Name</th>
+                            <th className="smsm-th-name">Staff Category</th>
+                            <th className="smsm-th-name">Dept Category</th>
                             <th className="smsm-th-name">Dept Name</th>
                             <th className="smsm-th-edit">Edit</th>
                             <th className="smsm-th-delete">Delete</th>
@@ -495,6 +497,8 @@ function StaffMasterManage()
                                     <td className="smsm-td-sno">{index + 1}</td>
                                     <td className="smsm-td-id">{staff.staff_id}</td>
                                     <td className="smsm-td-name">{staff.staff_name}</td>
+                                    <td className="smsm-td-name">{staff.staff_category}</td>
+                                    <td className="smsm-td-name">{staff.dept_category}</td>
                                     <td className="smsm-td-name">{staff.staff_dept}</td>
                                     <td className="smsm-td-edit">
                                         <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.staff_category, staff.dept_category)} className="smsm-edit-btn">
