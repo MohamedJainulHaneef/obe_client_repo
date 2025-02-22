@@ -97,8 +97,8 @@ function StatusReport()
                                 ))}
                             </>
                         )}
-                        {hod && <button className='report-btn' onClick={handleHod}>DEPT WISE REPORT</button>}
-                        {mentor && <button className='report-btn' onClick={handleMentor}>CLASS WISE REPORT</button>}
+                        {hod && <button className='report-btn' onClick={handleHod}>DEPT REPORT</button>}
+                        {mentor && <button className='report-btn' onClick={handleMentor}>CLASS REPORT</button>}
                     </div>
                 </div>
             ) : (

@@ -130,7 +130,7 @@ function DeptReport()
         dept.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) || 
         dept.staff_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
         dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        dept.dept_name.toLowerCase().includes(searchTerm.toLowerCase());
+        dept.dept_name.toLowerCase().includes(searchTerm.toLowerCase())||
         dept.category.toLowerCase().includes(searchTerm.toLowerCase());
 
         if (!matchesSearch) return false;

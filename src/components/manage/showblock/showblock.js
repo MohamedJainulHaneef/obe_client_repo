@@ -44,9 +44,9 @@ function Showblock()
             <div className="show-content-box">
                 <h2>SHOW AND BLOCK</h2>
                 <div className="show-check">
-                    <input type='checkbox' checked readOnly />
-                    <span>SHOW</span>
                     <input type='checkbox' checked={false} readOnly />
+                    <span>SHOW</span>
+                    <input type='checkbox' checked readOnly />
                     <span>BLOCK</span>
                 </div>
                 <hr />

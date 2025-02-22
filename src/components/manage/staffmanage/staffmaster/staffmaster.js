@@ -126,6 +126,8 @@ function StaffMasterManage()
         const searchText = e.target.value.toLowerCase();
         const filterList = staffData.filter((staff) =>
             staff.staff_id.toLowerCase().includes(searchText) ||
+            staff.staff_category.toLowerCase().includes(searchText) ||
+            staff.dept_category.toLowerCase().includes(searchText) ||
             staff.staff_dept.toLowerCase().includes(searchText) ||
             staff.staff_name.toLowerCase().includes(searchText)
         )

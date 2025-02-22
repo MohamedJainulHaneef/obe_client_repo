@@ -123,6 +123,7 @@ function MatrixReport()
         const matchesSearch = 
         matrix.staff_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         matrix.staff_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        matrix.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
         matrix.course_code.toLowerCase().includes(searchTerm.toLowerCase());
 
         if (!matchesSearch) return false;
