@@ -22,7 +22,7 @@ const Piechart1 = () =>
             {
                 const response = await axios.get(`${apiUrl}/api/studentpiechart`);
                 const result = response.data;
-
+                
                 if (result && result.categories) 
                 {
                     const labels = result.categories.map(
@@ -53,7 +53,7 @@ const Piechart1 = () =>
                         ],
                     });
                 }
-            } 
+            }  
             catch (error) {
                 console.error('Error Fetching Data:', error);
             } 
