@@ -18,7 +18,7 @@ function Stumark()
     const [maxMark, setMaxMark] = useState('');
     const [lockInput, setLockIntput] = useState([]);
     const { deptName, section, semester, classDetails, courseCode, courseTitle, deptId, category } = location.state || {};
-
+    const [lockMessage,setLockMessage]=useState("");
     useEffect(() => {
 
         const academicSemSet = async () => {
@@ -109,6 +109,27 @@ function Stumark()
         }
     }, [academicSem, deptId, section, category, courseCode, deptName, activeSection, apiUrl]);
 
+    useEffect(() => {
+        if (activeSection === '1' && lockInput.cia_1 === 1) {
+            setLockMessage(
+                "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
+            );
+        } else if (activeSection === '2' && lockInput.cia_2 === 1) {
+            setLockMessage(
+                "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
+            );
+        } else if (activeSection === '3' && lockInput.ass_1 === 1) {
+            setLockMessage(
+                "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
+            );
+        } else if (activeSection === '4' && lockInput.ass_2 === 1) {
+            setLockMessage(
+                "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
+            );
+        } else {
+            setLockMessage("");
+        }
+    }, [activeSection, lockInput]);
 
     const handleSectionChange = (event) => {
         setActiveSection(event.target.value);
@@ -249,7 +270,8 @@ function Stumark()
         else if (activeSection === '5') { return active?.ese === 2  }
         return false;
     }
-
+    console.log(handleDisable(),"CHECK");
+    
     const handleUpdateMark = async (e, isConfirm) => {
 
         const button_value = isConfirm;
@@ -423,6 +445,8 @@ function Stumark()
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
     }
+    
+    
 
     return (
         <div className="mark-main">
@@ -478,6 +502,8 @@ function Stumark()
                         <option value="5">ESE</option>
                     </select>
                 </div>
+            {lockMessage && <p className="lockMessage">{lockMessage}</p>}
+
                 <div>
                     {activeSection && active && (
                         <div>
