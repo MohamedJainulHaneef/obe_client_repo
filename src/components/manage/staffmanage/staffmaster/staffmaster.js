@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash,faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './staffmaster.css';
 
-function StaffMasterManage() 
-{
-	const [staffData, setStaffData] = useState([]);
+function StaffMasterManage() {
+    const [staffData, setStaffData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
     const [popup, setPopup] = useState(false);
@@ -24,16 +23,14 @@ function StaffMasterManage()
     const [newDeptCategory, setNewDeptCategory] = useState("");
     const [newstaffid, setNewstaffid] = useState("");
     const [newpassword, setNewpassword] = useState("");
-    const [deletestaff, setDeletestaff]= useState(false);
-    const [deletestaffid, setDeletestaffid]=useState("");
-    const [deletestaffname, setDeletestaffname]=useState("")
+    const [deletestaff, setDeletestaff] = useState(false);
+    const [deletestaffid, setDeletestaffid] = useState("");
+    const [deletestaffname, setDeletestaffname] = useState("")
+    const [staff_Dept, setStaff_Dept] = useState([])
 
-    useEffect(() => 
-    {
-        const staffDetails = async () => 
-        {
-            try 
-            {
+    useEffect(() => {
+        const staffDetails = async () => {
+            try {
                 const StaffResponse = await axios.get(`${apiUrl}/api/staffdetails`);
                 if (StaffResponse.data) {
                     setStaffData(StaffResponse.data);
@@ -47,26 +44,40 @@ function StaffMasterManage()
         staffDetails();
     }, [apiUrl]);
 
-    const [checkboxValues, setCheckboxValues] = useState(
-    {
-        dashboard: true,
-        course: true,
-        co: false,
-        so: false,
-        po: false,
-        pso: false,
-        wpr: false,
-        obereport: false,
-        input: false,
-        manage: false,
-        rsm: true,
-        setting: true
-    })
 
-    const showPopup = () => {
+    const [checkboxValues, setCheckboxValues] = useState(
+        {
+            dashboard: true,
+            course: true,
+            co: false,
+            so: false,
+            po: false,
+            pso: false,
+            wpr: false,
+            obereport: false,
+            input: false,
+            manage: false,
+            rsm: true,
+            setting: true
+        })
+
+    const showPopup = async () => {
         setPopup(true);
         document.body.classList.add('blur');
-    }
+
+        try {
+            const response = await axios.get(`${apiUrl}/api/staffdepartments`);
+            if (response.data) {
+                setStaff_Dept(response.data);
+                console.log("STAFF DEPT", response.data);
+            } else {
+                console.log("NO RESPONSE ON STAFF DEPARTMENT");
+            }
+        } catch (err) {
+            console.log("ERROR FETCHING STAFF DEPARTMENT CATEGORY", err);
+        }
+    };
+
 
     const hidepopup = () => {
         setPopup(false);
@@ -81,15 +92,13 @@ function StaffMasterManage()
         }))
     }
 
-    const savenewstaff = async (e) => 
-    {
+    const savenewstaff = async (e) => {
         e.preventDefault();
-        if (!staffId || !staffName || !staffDept || !staffCategory || !staffpassword) 
-        {
+        if (!staffId || !staffName || !staffDept || !staffCategory || !staffpassword) {
             window.alert("All Fields are Required");
             return;
         }
-        const newStaffData = 
+        const newStaffData =
         {
             staff_id: staffId,
             staff_name: staffName,
@@ -100,11 +109,9 @@ function StaffMasterManage()
             permissions: checkboxValues
         }
 
-        try 
-        {
+        try {
             const newStaffResponce = await axios.post(`${apiUrl}/api/newstaff`, newStaffData);
-            if (newStaffResponce.data) 
-            {
+            if (newStaffResponce.data) {
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
                 window.alert("New Staff has been Added Successfully");
@@ -121,8 +128,7 @@ function StaffMasterManage()
         setPopup(false);
     }
 
-    const handleSearch = (e) => 
-    {
+    const handleSearch = (e) => {
         const searchText = e.target.value.toLowerCase();
         const filterList = staffData.filter((staff) =>
             staff.staff_id.toLowerCase().includes(searchText) ||
@@ -134,8 +140,7 @@ function StaffMasterManage()
         setFilteredData(filterList);
     }
 
-    const handleEdit = (id, name, pass, dept, staff_category, dept_category) => 
-    {
+    const handleEdit  =async  (id, name, pass, dept, staff_category, dept_category) => {
         setNewstaffid(id);
         setNewstaffname(name);
         setOldpassword(pass);
@@ -144,18 +149,28 @@ function StaffMasterManage()
         setNewDeptCategory(dept_category)
         setNewpassword("")
         setEdit(true);
+
+        try {
+            const response = await axios.get(`${apiUrl}/api/staffdepartments`);
+            if (response.data) {
+                setStaff_Dept(response.data);
+                console.log("STAFF DEPT", response.data);
+            } else {
+                console.log("NO RESPONSE ON STAFF DEPARTMENT");
+            }
+        } catch (err) {
+            console.log("ERROR FETCHING STAFF DEPARTMENT CATEGORY", err);
+        }
+
     }
 
-    const staffEditClose = () => 
-    {
+    const staffEditClose = () => {
         setEdit(false);
     }
 
-    const updatestaff = async () => 
-    {
-        try 
-        {
-            const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, { 
+    const updatestaff = async () => {
+        try {
+            const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, {
                 newstaffid, newstaffname, newpassword, newdept, newStaffCategory, newDeptCategory, oldpassword
             });
             if (updateresponse.data) {
@@ -168,31 +183,26 @@ function StaffMasterManage()
         }
     }
 
-    const handleDelete = (dstaffid,dstaffname) => 
-    {
+    const handleDelete = (dstaffid, dstaffname) => {
         setDeletestaffid(dstaffid);
         setDeletestaffname(dstaffname);
         setDeletestaff(true);
     }
 
-    const staffDeleteClose = () =>
-    {
+    const staffDeleteClose = () => {
         setDeletestaff(false);
     }
 
-    const Confirmdelete = async () =>
-    {
-        try 
-        {
-            const DeleteResponse = await axios.post(`${apiUrl}/api/staffdelete`,{deletestaffid});
-            if(DeleteResponse.data) 
-                {
+    const Confirmdelete = async () => {
+        try {
+            const DeleteResponse = await axios.post(`${apiUrl}/api/staffdelete`, { deletestaffid });
+            if (DeleteResponse.data) {
                 window.alert("Staff Deleted");
                 window.location.reload();
                 setDeletestaff(false);
             }
         }
-        catch(err){
+        catch (err) {
             window.alert("Error delete")
         }
     }
@@ -234,29 +244,45 @@ function StaffMasterManage()
                                     required
                                 />
                                 <div className="smsm-edit-psw">
-                                    <input
-                                        type="text"
+                                    <select type="text"
                                         value={staffCategory}
                                         onChange={(e) => setStaffCategory(e.target.value)}
                                         className="smsm-inputs"
                                         placeholder="STAFF CATEGORY"
-                                    />
-                                    <input
-                                        type="text"
+                                    >
+                                        <option value="" disabled>Staff Category</option>
+                                        <option value="SFM">SFM</option>
+                                        <option value="SFW">SFW</option>
+                                        <option value="AIDED">AIDED</option>
+                                    </select>
+
+                                    <select type="text"
                                         value={deptCategory}
                                         onChange={(e) => setDeptCategory(e.target.value)}
                                         className="smsm-inputs"
-                                        placeholder="DEPT CATEGORY"
-                                    />
-						        </div>
+                                        placeholder="STAFF CATEGORY"
+                                    >
+                                        <option value="" disabled>Dept Category</option>
+                                        <option value="SFM">SFM</option>
+                                        <option value="SFW">SFW</option>
+                                        <option value="AIDED">AIDED</option>
+                                    </select>
+                                </div>
                                 <div className="smsm-edit-psw">
-                                    <input
-                                        type="text"
+                                    
+                                    <select type="text"
                                         value={staffDept}
                                         onChange={(e) => setStaffDept(e.target.value)}
                                         className="smsm-inputs"
-                                        placeholder="STAFF DEPARTMENT"
-                                    />
+                                        placeholder="STAFF CATEGORY"
+                                    >
+                                        <option value="" disabled>Staff Department</option>
+                                        {staff_Dept.map((val,index)=>{
+                                           return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
+                                        })}
+                                    </select>
+
+
                                     <input
                                         type="text"
                                         value={staffpassword}
@@ -264,7 +290,7 @@ function StaffMasterManage()
                                         className="smsm-inputs"
                                         placeholder="PASSWORD"
                                     />
-						        </div>
+                                </div>
                             </div>
                             <div className="smsm-check-boxes">
                                 <div className="smsm-individual-check">
@@ -384,7 +410,7 @@ function StaffMasterManage()
                             </div>
                             <div className="smsh-delete-btn-container">
                                 <button onClick={savenewstaff} className="smsm-add-save-btn">SAVE</button>
-                                <button onClick={hidepopup} className="smsm-save-edit-btn">CANCEL</button> 
+                                <button onClick={hidepopup} className="smsm-save-edit-btn">CANCEL</button>
                             </div>
                         </div>
                     </>
@@ -410,27 +436,69 @@ function StaffMasterManage()
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
                             />
-                            <input
+                            {/* <input
                                 type="text"
                                 value={newdept}
                                 onChange={(e) => setNewdept(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
-                            />
-                            <input
+                            /> */}
+
+                            <select 
+                                    type="text"
+                                    value={newdept}
+                                    onChange={(e) => setNewdept(e.target.value)}
+                                    className="smsm-edit-inputbox"
+                                    placeholder={""}
+                            >   
+                               
+                                {staff_Dept.map((val,index)=>{
+                                           return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
+                                        })}
+
+                            </select>
+
+                                    {/* <option value="" disabled>Staff Department</option>
+                                        {staff_Dept.map((val,index)=>{
+                                           return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
+                                        })} */}
+                            {/* <input
                                 type="text"
                                 value={newStaffCategory}
                                 onChange={(e) => setNewStaffCategory(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
-                            />
-                            <input
+                            /> */}
+
+
+                            <select 
+                             type="text"
+                             value={newStaffCategory}
+                             onChange={(e) => setNewStaffCategory(e.target.value)}
+                             className="smsm-edit-inputbox"
+                             placeholder={""}
+                            >
+                                <option value="SFM">SFM</option>
+                                <option value="SFW">SFW</option>
+                                <option value="AIDED">AIDED</option>
+                            </select>
+
+
+
+                            <select
+                           
                                 type="text"
                                 value={newDeptCategory}
                                 onChange={(e) => setNewDeptCategory(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
-                            />
+                            >
+
+                                    <option value="SFM">SFM</option>
+                                    <option value="SFW">SFW</option>
+                                    <option value="AIDED">AIDED</option>
+                            </select>
+
                             <div className="smsm-edit-psw">
                                 <label className="smsm-edit-password">
                                     <span className="smsm-edit-span"> Old Password :</span>
@@ -472,8 +540,8 @@ function StaffMasterManage()
                         <h4>STAFF ID : {deletestaffid}</h4>
                         <h4>STAFF NAME : {deletestaffname}</h4>
                         <div className="smsm-delete-btn-container">
-                            <button onClick={Confirmdelete}className="smsm-confirm-btn">CONFIRM</button>
-                            <button onClick={staffDeleteClose}className="smsm-cancel-btn">CANCEL</button>
+                            <button onClick={Confirmdelete} className="smsm-confirm-btn">CONFIRM</button>
+                            <button onClick={staffDeleteClose} className="smsm-cancel-btn">CANCEL</button>
                         </div>
                     </div>
                 </div>
@@ -495,7 +563,7 @@ function StaffMasterManage()
                     <tbody>
                         {filteredData.length > 0 ? (
                             filteredData.map((staff, index) => (
-                                <tr key={index}className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
+                                <tr key={index} className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
                                     <td className="smsm-td-sno">{index + 1}</td>
                                     <td className="smsm-td-id">{staff.staff_id}</td>
                                     <td className="smsm-td-name">{staff.staff_name}</td>
@@ -508,8 +576,8 @@ function StaffMasterManage()
                                         </button>
                                     </td>
                                     <td className="smsm-td-delete">
-                                        <button onClick={() => handleDelete(staff.staff_id,staff.staff_name)} className="smsm-del-btn">
-                                        <span className="smsm-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="smsm-icon" /></span>
+                                        <button onClick={() => handleDelete(staff.staff_id, staff.staff_name)} className="smsm-del-btn">
+                                            <span className="smsm-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="smsm-icon" /></span>
                                         </button>
                                     </td>
                                 </tr>
