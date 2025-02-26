@@ -18,7 +18,8 @@ function Stumark()
     const [maxMark, setMaxMark] = useState('');
     const [lockInput, setLockIntput] = useState([]);
     const { deptName, section, semester, classDetails, courseCode, courseTitle, deptId, category } = location.state || {};
-    const [lockMessage,setLockMessage]=useState("");
+    const [lockMessage, setLockMessage] = useState("");
+    
     useEffect(() => {
 
         const academicSemSet = async () => {
@@ -46,19 +47,9 @@ function Stumark()
         const InputLock = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/api/showblock`, {});
-                if (response.data) {
-                    // console.log("API Response:", response.data); // 
-
-                    setLockIntput(response.data);
-
-                    // ✅ Since state updates asynchronously, log inside useEffect:
-                    // console.log("Updated Lock Input:", response.data);
-                }
-
+                if (response.data) { setLockIntput(response.data) }
             }
-            catch (err) {
-                console.log('Error LOCK :', err);
-            }
+            catch (err) { console.log('Error in Lock :', err) }
         }
         InputLock();
 
@@ -110,25 +101,29 @@ function Stumark()
     }, [academicSem, deptId, section, category, courseCode, deptName, activeSection, apiUrl]);
 
     useEffect(() => {
+
         if (activeSection === '1' && lockInput.cia_1 === 1) {
             setLockMessage(
                 "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
-            );
-        } else if (activeSection === '2' && lockInput.cia_2 === 1) {
+            )
+        } 
+        else if (activeSection === '2' && lockInput.cia_2 === 1) {
             setLockMessage(
                 "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
-            );
-        } else if (activeSection === '3' && lockInput.ass_1 === 1) {
+            )
+        } 
+        else if (activeSection === '3' && lockInput.ass_1 === 1) {
             setLockMessage(
                 "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
-            );
-        } else if (activeSection === '4' && lockInput.ass_2 === 1) {
+            )
+        } 
+        else if (activeSection === '4' && lockInput.ass_2 === 1) {
             setLockMessage(
                 "Mark entry is no longer allowed as the deadline has expired. Please contact the administrator for further assistance"
-            );
-        } else {
-            setLockMessage("");
-        }
+            )
+        } 
+        else { setLockMessage("") }
+
     }, [activeSection, lockInput]);
 
     const handleSectionChange = (event) => {
@@ -188,7 +183,7 @@ function Stumark()
             }
 
             else if (type === 'mot') {
-                
+
                 if (activeSection === '1') {
                     if (value > maxMark?.c1_mot) {
                         alert("Value for MOT cannot exceed " + maxMark?.c1_mot);
@@ -267,25 +262,17 @@ function Stumark()
         else if (activeSection === '2') { return active?.cia_2 === 2 || lockInput.cia_2 === 1 }
         else if (activeSection === '3') { return active?.ass_1 === 2 || lockInput.ass_1 === 1 }
         else if (activeSection === '4') { return active?.ass_2 === 2 || lockInput.ass_2 === 1 }
-        else if (activeSection === '5') { return active?.ese === 2  }
+        else if (activeSection === '5') { return active?.ese === 2 }
         return false;
     }
-    console.log(handleDisable(),"CHECK");
     
     const handleUpdateMark = async (e, isConfirm) => {
 
         const button_value = isConfirm;
-
         e.preventDefault();
-
         localStorage.setItem("activeSection", activeSection);
-
-        if (isConfirm === "1") {
-            setIsSaveConfirmLoading(true);
-        }
-        else {
-            setIsSaveLoading(true);
-        }
+        if (isConfirm === "1") { setIsSaveConfirmLoading(true) }
+        else { setIsSaveLoading(true) }
 
         const updates = {};
 
@@ -296,7 +283,7 @@ function Stumark()
                 const emptyFieldsCount = fields.filter(value => value === undefined || value === "").length;
                 if (emptyFieldsCount === fields.length) {
                     user.lot = user.mot = user.hot = user.total = -1;
-                } 
+                }
                 else {
                     fields.forEach((value, index) => {
                         if (value === undefined || value === "") {
@@ -337,21 +324,13 @@ function Stumark()
                                 activeSection, courseCode, deptName, section, category, button_value, academicSem
                             });
                         }
-                        catch (err) {
-                            console.log("Error in Submitting Report");
-                        }
+                        catch (err) { console.log("Error in Submitting Report") }
                     }
                 }
-                catch (err) {
-                    alert("Error in Mark Submitting");
-                }
-                finally {
-                    setIsSaveConfirmLoading(false);
-                }
+                catch (err) { alert("Error in Mark Submitting") }
+                finally { setIsSaveConfirmLoading(false) }
             }
-            else {
-                setIsSaveConfirmLoading(false);
-            }
+            else { setIsSaveConfirmLoading(false) }
         }
 
         else {
@@ -380,12 +359,8 @@ function Stumark()
                             activeSection, courseCode, deptName, section, category, button_value, academicSem
                         });
                     }
-                    catch (err) {
-                        console.log("Error in Submitting Report");
-                    }
-                    finally {
-                        setIsSaveLoading(false);
-                    }
+                    catch (err) { console.log("Error in Submitting Report") }
+                    finally { setIsSaveLoading(false) }
                 }
                 else {
                     setIsSaveLoading(false);
@@ -445,8 +420,6 @@ function Stumark()
         const data = new Blob([excelBuffer], { type: fileType });
         saveAs(data, fileName + fileExtension);
     }
-    
-    
 
     return (
         <div className="mark-main">
@@ -502,8 +475,7 @@ function Stumark()
                         <option value="5">ESE</option>
                     </select>
                 </div>
-            {lockMessage && <p className="lockMessage">{lockMessage}</p>}
-
+                {lockMessage && <p className="lockMessage">{lockMessage}</p>}
                 <div>
                     {activeSection && active && (
                         <div>
