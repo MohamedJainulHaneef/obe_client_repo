@@ -41,9 +41,7 @@ const Staffcoursemanage = () =>
 				const response = await axios.get(`${apiUrl}/api/staffcoursemanage`);
 				setStaffData(response.data);
 			}
-			catch (error) {
-				console.error('Error Fetching Staff Data', error);
-			}
+			catch (error) { console.error('Error Fetching Staff Data', error); }
 		}
 		fetchStaffDetails();
 	}, [apiUrl]);

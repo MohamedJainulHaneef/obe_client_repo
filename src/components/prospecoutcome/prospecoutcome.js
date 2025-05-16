@@ -70,9 +70,7 @@ function ProSpecOutcome()
             setAttainmentAllData(response.data)
             setAllTable(true)
         }
-        catch (error) {
-            alert('Error fetching Outcome Results');
-        }
+        catch (error) { alert('Error fetching Outcome Results') }
     }
 
     return (
