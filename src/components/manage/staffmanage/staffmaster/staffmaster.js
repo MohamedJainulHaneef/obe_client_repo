@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './staffmaster.css';
 
-function StaffMasterManage() {
+function StaffMasterManage() 
+{
     const [staffData, setStaffData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -76,8 +77,7 @@ function StaffMasterManage() {
         } catch (err) {
             console.log("ERROR FETCHING STAFF DEPARTMENT CATEGORY", err);
         }
-    };
-
+    }
 
     const hidepopup = () => {
         setPopup(false);
@@ -115,7 +115,6 @@ function StaffMasterManage() {
                 setStaffData([...staffData, newStaffResponce.data]);
                 setFilteredData([...staffData, newStaffResponce.data]);
                 window.alert("New Staff has been Added Successfully");
-                // window.location.reload();
             }
             setPopup(false);
         }
@@ -140,7 +139,7 @@ function StaffMasterManage() {
         setFilteredData(filterList);
     }
 
-    const handleEdit  =async  (id, name, pass, dept, staff_category, dept_category) => {
+    const handleEdit = async (id, name, pass, dept, staff_category, dept_category) => {
         setNewstaffid(id);
         setNewstaffname(name);
         setOldpassword(pass);
@@ -164,9 +163,7 @@ function StaffMasterManage() {
 
     }
 
-    const staffEditClose = () => {
-        setEdit(false);
-    }
+    const staffEditClose = () => { setEdit(false) }
 
     const updatestaff = async () => {
         try {
@@ -255,7 +252,6 @@ function StaffMasterManage() {
                                         <option value="SFW">SFW</option>
                                         <option value="AIDED">AIDED</option>
                                     </select>
-
                                     <select type="text"
                                         value={deptCategory}
                                         onChange={(e) => setDeptCategory(e.target.value)}
@@ -269,7 +265,6 @@ function StaffMasterManage() {
                                     </select>
                                 </div>
                                 <div className="smsm-edit-psw">
-                                    
                                     <select type="text"
                                         value={staffDept}
                                         onChange={(e) => setStaffDept(e.target.value)}
@@ -277,12 +272,10 @@ function StaffMasterManage() {
                                         placeholder="STAFF CATEGORY"
                                     >
                                         <option value="" disabled>Staff Department</option>
-                                        {staff_Dept.map((val,index)=>{
-                                           return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
+                                        {staff_Dept.map((val, index) => {
+                                            return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
                                         })}
                                     </select>
-
-
                                     <input
                                         type="text"
                                         value={staffpassword}
@@ -378,15 +371,6 @@ function StaffMasterManage() {
                                     />
                                     Report
                                 </div>
-                                {/* <div className="smsm-individual-check">
-                                    <input
-                                        type="checkbox"
-                                        name="obereport"
-                                        checked={checkboxValues.obereport}
-                                        onChange={handleCheckboxChange}
-                                    />
-                                    Obe Report
-                                </div> */}
                                 <div className="smsm-individual-check">
                                     <input
                                         type="checkbox"
@@ -436,69 +420,39 @@ function StaffMasterManage() {
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
                             />
-                            {/* <input
+                            <select
                                 type="text"
                                 value={newdept}
                                 onChange={(e) => setNewdept(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
-                            /> */}
-
-                            <select 
-                                    type="text"
-                                    value={newdept}
-                                    onChange={(e) => setNewdept(e.target.value)}
-                                    className="smsm-edit-inputbox"
-                                    placeholder={""}
-                            >   
-                               
-                                {staff_Dept.map((val,index)=>{
-                                           return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
-                                        })}
-
+                            >
+                                {staff_Dept.map((val, index) => {
+                                    return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
+                                })}
                             </select>
-
-                                    {/* <option value="" disabled>Staff Department</option>
-                                        {staff_Dept.map((val,index)=>{
-                                           return <option key={index} value={val.staff_dept}>{val.staff_dept}</option>
-                                        })} */}
-                            {/* <input
+                            <select
                                 type="text"
                                 value={newStaffCategory}
                                 onChange={(e) => setNewStaffCategory(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
-                            /> */}
-
-
-                            <select 
-                             type="text"
-                             value={newStaffCategory}
-                             onChange={(e) => setNewStaffCategory(e.target.value)}
-                             className="smsm-edit-inputbox"
-                             placeholder={""}
                             >
                                 <option value="SFM">SFM</option>
                                 <option value="SFW">SFW</option>
                                 <option value="AIDED">AIDED</option>
                             </select>
-
-
-
                             <select
-                           
                                 type="text"
                                 value={newDeptCategory}
                                 onChange={(e) => setNewDeptCategory(e.target.value)}
                                 className="smsm-edit-inputbox"
                                 placeholder={""}
                             >
-
-                                    <option value="SFM">SFM</option>
-                                    <option value="SFW">SFW</option>
-                                    <option value="AIDED">AIDED</option>
+                                <option value="SFM">SFM</option>
+                                <option value="SFW">SFW</option>
+                                <option value="AIDED">AIDED</option>
                             </select>
-
                             <div className="smsm-edit-psw">
                                 <label className="smsm-edit-password">
                                     <span className="smsm-edit-span"> Old Password :</span>

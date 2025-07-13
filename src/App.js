@@ -39,6 +39,7 @@ import Terminologies from './components/terminologies/terminologies';
 import Lock from './components/manage/showblock/showblock';
 import HodReport from './components/hodreport/hodreport';
 import TutorReport from './components/tutorreport/tutorreport';
+import ObeReport from './components/obereport/obereport';
 
 function App() 
 {
@@ -54,6 +55,7 @@ function App()
                         <Route path="inputfiles" element={<InputFile />} />
                         <Route path="settings" element={<Settings />} />
                         <Route path="workprogressreport" element={<StatusReport />} />
+                        <Route path="obereport" element={<ObeReport />} />
                         <Route path="matrixreport" element={<Rsmatrixreport />} />
                         <Route path="esereport" element={<EseReport />} />
                         <Route path="manage" element={<Manage />} />
