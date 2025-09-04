@@ -11,7 +11,7 @@
     width: 20rem;
     padding: 0.layout-75rem;
     overflow-y: auto;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     color: #000000;
@@ -68,9 +68,9 @@
 .layout-menu-item {
     display: flex;
     align-items: center;
-    width:280px;
+    width: 280px;
     font-size: 16px;
-    margin:0 auto;
+    margin: 0 auto;
     margin-bottom: 10px;
     height: 45px;
     padding-left: 20px;
@@ -79,7 +79,7 @@
     transition: all 0.layout-8s ease;
     color: #ffffff;
     transition: 0.3s;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     border: none;
     background-color: transparent;
 }
@@ -104,9 +104,9 @@
     margin-left: 10px;
 }
 
-.layout-logout-btn:hover {
-    background-color: rgba(0, 0, 0, 0.layout-5);
-    border-radius: 5px;
+.layout-menu-item:hover,
+.layout-active {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .layout-content {

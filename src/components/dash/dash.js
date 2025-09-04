@@ -11,53 +11,47 @@ import { FaBook } from "react-icons/fa";
 import { SiBookstack } from "react-icons/si";
 import axios from 'axios';
 
-function Dash() 
-{
+function Dash() {
     const [studentCount, setStudentCount] = useState(0);
     const [staffCount, setStaffCount] = useState(0);
     const [courseCount, setCourseCount] = useState(0);
     const [programCount, setProgramCount] = useState(0);
 
-    const fetchCounts = async () => 
-    {
-        try 
-        {
+    const fetchCounts = async () => {
+        try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/counts`);
             const { studentCount, staffCount, courseCount, programCount } = response.data;
             animateCount(setStudentCount, studentCount);
             animateCount(setStaffCount, staffCount);
-            animateCount(setCourseCount, courseCount); 
-            animateCount(setProgramCount, programCount); 
-        } 
+            animateCount(setCourseCount, courseCount);
+            animateCount(setProgramCount, programCount);
+        }
         catch (error) {
             console.error('Error fetching counts:', error);
         }
     }
 
-    const animateCount = (setCount, targetCount, initialCount = 0, duration = 1000) => 
-    {
+    const animateCount = (setCount, targetCount, initialCount = 0, duration = 1000) => {
         let currentCount = initialCount;
         const increment = Math.ceil(targetCount / 100);
         const intervalTime = duration / 100;
 
-        const timer = setInterval(() => 
-        {
+        const timer = setInterval(() => {
             currentCount += increment;
             if (currentCount > targetCount) {
                 currentCount = targetCount;
             }
             setCount(currentCount);
             if (currentCount === targetCount) {
-                clearInterval(timer); 
+                clearInterval(timer);
             }
         }, intervalTime);
 
         return () => clearInterval(timer);
     };
 
-    useEffect(() => 
-    {
-        fetchCounts(); 
+    useEffect(() => {
+        fetchCounts();
     }, []);
 
     return (
@@ -88,9 +82,9 @@ function Dash()
                 <Barchart />
             </div>
             <div className='dash-piechart-main'>
-                <Linechart1 />
-                <Piechart1 />
-                <Piechart2 />
+                <div className="chart-card"><Linechart1 /></div>
+                <div className="chart-card"><Piechart1 /></div>
+                <div className="chart-card"><Piechart2 /></div>
             </div>
         </div>
     )

@@ -2,7 +2,7 @@
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 12px;
 }
 
 .dash-barchart-heading {

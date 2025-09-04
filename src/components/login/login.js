@@ -7,57 +7,54 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './authenticate/authenticate';
 import './login.css';
 
-function Login() 
-{
+function Login() {
+
     const apiUrl = process.env.REACT_APP_API_URL;
     const [staffId, setStaffId] = useState('');
     const [password, setPassword] = useState('');
     const passwordInputRef = useRef(null);
     const navigate = useNavigate();
-    const { login } = useAuth(); 
+    const { login } = useAuth();
     const { logout } = useAuth();
 
-    const handleLogin = async () => 
-    {
-        try 
-        {
+    const handleLogin = async () => {
+
+        if (staffId === '' || password === '') {
+            alert('Fill both the fields');
+            return
+        }
+
+        try {
             const response = await axios.post(`${apiUrl}/login`, {
                 staff_id: staffId,
                 staff_pass: password,
             });
 
-            if (response.data.success) 
-            {
+            if (response.data.success) {
                 login(staffId);
                 navigate(`staff/${staffId}/dashboard`, { replace: true });
-            } 
-            else 
-            {
+            }
+            else {
                 alert(response.data.message);
                 setPassword('')
             }
-        } 
+        }
         catch (error) {
             alert('An error occurred. Please try again later.');
             console.error('Login Error: ', error);
         }
     }
 
-    const handleKeyPress = (e, field) => 
-    {
-        if (e.key === 'Enter') 
-        {
+    const handleKeyPress = (e, field) => {
+        if (e.key === 'Enter') {
             if (field === 'staffId') {
-                passwordInputRef.current.focus(); 
-            } 
-            else if (field === 'password') {
-                handleLogin();
+                passwordInputRef.current.focus();
             }
+            else if (field === 'password') { handleLogin() }
         }
     }
 
-    const handleLogout = () => 
-    {
+    const handleLogout = () => {
         logout();
         navigate('/', { replace: true });
     }
@@ -84,7 +81,7 @@ function Login()
                     placeholder="Enter Staff ID"
                     value={staffId}
                     onChange={(e) => setStaffId(e.target.value)}
-                    onKeyPress={(e) => handleKeyPress(e, 'staffId')}                    
+                    onKeyPress={(e) => handleKeyPress(e, 'staffId')}
                     required
                 />
                 <input
@@ -94,7 +91,7 @@ function Login()
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onKeyPress={(e) => handleKeyPress(e, 'password')}
-                    ref={passwordInputRef} 
+                    ref={passwordInputRef}
                     required
                 />
                 {/* <a href="www.obe.com" className="log-desc-anchor">Forgot Password</a> */}
