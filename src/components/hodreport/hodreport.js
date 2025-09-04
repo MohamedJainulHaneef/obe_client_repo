@@ -54,7 +54,7 @@ function HodReport()
         <div>
             {deptStatus.length > 0 && (
                 <div className="hod-main">
-                    <span className="hod-top-heading">OBE MARK INCOMPLETE DATA</span>
+                    <span className="hod-top-heading">OBE MARK ENTRY REPORT</span>
                     <div className="hod-input-btn">
                         <input
                             className="scope-search"

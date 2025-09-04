@@ -75,7 +75,7 @@ function TutorReport()
         <div>
             {deptStatus.length > 0 && (
                 <div className='tutor-main'>
-                    <span className="tutor-top-heading">OBE MARK INCOMPLETE DATA</span>
+                    <span className="tutor-top-heading">OBE MARK ENTRY REPORT</span>
                     <div className="tutor-input-btn">
                         <input
                             className="scope-search"
