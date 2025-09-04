@@ -371,12 +371,12 @@ function FileUpload()
                     <button className='file-download-btn' onClick={(e) => handleDownload(e, 'ese')}>ESE Mark</button>
                     <button className='file-model-btn' onClick={(e) => handleDownload(e, 'esemodel')}>ESE Mark</button>
                 </div>
-                {/* <div className='file-container'>
+                <div className='file-container'>
                     <input type='file' name='file4' onChange={handleFileChange} />
                     <button className='file-upload-btn' onClick={(e) => handleUpload(e, file4, 'scope')}>Scope</button>
                     <button className='file-download-btn' onClick={(e) => handleDownload(e, 'scope')}>Scope</button>
                     <button className='file-model-btn' onClick={(e) => handleDownload(e, 'scopemodel')}>Scope</button>
-                </div> */}
+                </div>
                 {/* <div className='file-container'>
                     <input type='file' name='file7' onChange={handleFileChange} />
                     <button className='file-upload-btn' onClick={(e) => handleUpload(e, file7, 'report')}>Report</button>
