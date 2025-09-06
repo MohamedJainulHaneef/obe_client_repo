@@ -132,6 +132,7 @@ function CourseList()
                                     {user.degree} ( {user.section} ) - Semester : {user.semester}
                                 </div>
                                 <div className="course-box-text">{user.course_code}</div>
+                                <div className="course-box-text">{user.course_title}</div>
                             </button>
                         ))
                     ) : (

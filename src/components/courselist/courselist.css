@@ -6,12 +6,13 @@
 .course-main {
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 30px;
 }
 
 .course-layout-top-div {
-    width: 90%;
-    padding: 20px 0px;
+    width: 100%;
+    padding-bottom: 20px;
+    /* margin-bottom: 20px; */
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -21,7 +22,7 @@
 .course-content-box {
     border: 1px solid black;
     border-radius: 10px;
-    width: 90%;
+    width: 100%;
     padding: 40px;
     margin: 0 auto;
     margin-bottom: 40px;
@@ -31,7 +32,7 @@
 .course-entire-box {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap: 25px;
+    gap: 40px;
 }
 
 .course-subject-box {

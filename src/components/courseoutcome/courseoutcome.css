@@ -7,12 +7,12 @@
 .co-main {
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 40px;
 }
 
 .co-layout-top-div {
-    width: 90%;
-    padding: 20px 0;
+    width: 100%;
+    padding-bottom: 20px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -30,8 +30,8 @@
 .co-content-box {
     border: 1px solid black;
     border-radius: 10px;
-    width: 90%;
-    padding: 35px;
+    width: 100%;
+    padding: 40px;
     margin: 0 auto;
     margin-bottom: 40px;
     box-shadow: 2px 4px 5px rgb(183, 183, 183);
@@ -40,7 +40,7 @@
 .co-entire-box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    gap: 40px;
 }
 
 .co-box {
@@ -70,7 +70,7 @@
 
 .content-info {
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
     font-size: 20px;
     line-height: 35px;
     text-align: justify;

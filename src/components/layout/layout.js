@@ -121,7 +121,7 @@ function Layout()
             // show: ['ADMIN', 'admin', 'Admin'].includes(urlStaffId),
             show: user        
         },
-    ];
+    ]
 
     return (
         <div className="layout-container">
