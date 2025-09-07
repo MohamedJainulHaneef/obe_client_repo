@@ -5,39 +5,34 @@ import './rsmatrix.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function Rsmatrix() 
-{
+function Rsmatrix() {
     const { staffId } = useParams();
     const [academicSem, setAcademicSem] = useState('');
     const [courseDetails, setCourseDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState(null);
-    const [inputValues, setInputValues] = useState({}); 
+    const [inputValues, setInputValues] = useState({});
     const [meanOverallScore, setMeanOverallScore] = useState('');
     const [correlation, setCorrelation] = useState('');
     const [staffName, setStaffName] = useState('');
 
-    useEffect(() => 
-    {
-        const fetchStaffName = async () => 
-        {
+    useEffect(() => {
+        const fetchStaffName = async () => {
             try {
-                const response = await axios.post(`${apiUrl}/staffName`,{staffId});
+                const response = await axios.post(`${apiUrl}/staffName`, { staffId });
                 setStaffName(response.data)
             }
-            catch(err) {}
+            catch (err) { }
         }
         fetchStaffName();
-    },[apiUrl,staffId])
+    }, [apiUrl, staffId])
 
-    useEffect(() => 
-    {
-        const fetchacademicSem = async () => 
-        {
+    useEffect(() => {
+        const fetchacademicSem = async () => {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
                 setAcademicSem(response.data.academic_sem);
-            } 
+            }
             catch (err) {
                 console.log('Error fetching active semester:', err);
             }
@@ -45,18 +40,16 @@ function Rsmatrix()
         fetchacademicSem();
     }, []);
 
-    useEffect(() => 
-    {
+    useEffect(() => {
         const fetchCourseCodes = async () => {
-            if (academicSem) 
-            {
+            if (academicSem) {
                 try {
                     const response = await axios.post(`${apiUrl}/api/rsmcoursecode`, {
                         staff_id: staffId,
                         academic_sem: academicSem,
                     })
                     setCourseDetails(response.data);
-                } 
+                }
                 catch (err) {
                     console.log('Error fetching course codes:', err);
                 }
@@ -65,8 +58,7 @@ function Rsmatrix()
         fetchCourseCodes();
     }, [staffId, academicSem, showModal]);
 
-    const handleCourseClick = async (course) => 
-    {
+    const handleCourseClick = async (course) => {
         setSelectedCourse(course);
 
         setInputValues({
@@ -79,8 +71,7 @@ function Rsmatrix()
         setMeanOverallScore('');
         setCorrelation('');
 
-        try 
-        {
+        try {
             const response = await axios.get(`${apiUrl}/api/rsmatrix/${course.course_code}`);
             const matrixData = response.data;
             const updateData = {
@@ -143,32 +134,29 @@ function Rsmatrix()
             setInputValues(updateData)
             setMeanOverallScore(matrixData.mean);
             setCorrelation(matrixData.olrel);
-        } 
+        }
         catch (err) {
             console.log('Error Fetching Matrix Data :', err);
         }
         setShowModal(true);
     }
 
-    const closeModal = () => 
-    {
+    const closeModal = () => {
         setShowModal(false);
         setSelectedCourse(null);
     }
 
-    const handleInputChange = (co, index, value) => 
-    {
+    const handleInputChange = (co, index, value) => {
         const numericValue = parseFloat(value);
-        if (numericValue > 3 || numericValue < 0) 
-        {
+        if (numericValue > 3 || numericValue < 0) {
             alert('Value must be between 0 and 3');
             setInputValues((prev) => ({
                 ...prev,
                 [`${co}_${index}`]: '',
             }));
-            return; 
+            return;
         }
-        const updatedInputValues = 
+        const updatedInputValues =
         {
             ...inputValues,
             [`${co}_${index}`]: value,
@@ -177,34 +165,29 @@ function Rsmatrix()
         calculateMeanAndCorrelation(updatedInputValues);
     }
 
-    const calculateMeanAndCorrelation = (inputData) => 
-    {
+    const calculateMeanAndCorrelation = (inputData) => {
         let overallTotal = 0;
         let overallCount = 0;
         const newInputValues = { ...inputData };
 
-        ['CO1', 'CO2', 'CO3', 'CO4', 'CO5'].forEach((co) => 
-        {
+        ['CO1', 'CO2', 'CO3', 'CO4', 'CO5'].forEach((co) => {
             let total = 0;
             let count = 0;
 
-            for (let i = 0; i < 10; i++)
-            {
+            for (let i = 0; i < 10; i++) {
                 const value = parseFloat(newInputValues[`${co}_${i}`]);
-                if (!isNaN(value)) 
-                {
+                if (!isNaN(value)) {
                     total += value;
                     count += 1;
                 }
             }
 
-            if (count > 0) 
-            {
+            if (count > 0) {
                 const meanScore = (total / count).toFixed(2);
                 newInputValues[`${co}_meanScore`] = meanScore;
                 overallTotal += parseFloat(meanScore);
                 overallCount += 1;
-            } 
+            }
             else {
                 newInputValues[`${co}_meanScore`] = '';
             }
@@ -213,29 +196,24 @@ function Rsmatrix()
 
         const meanOverall = overallCount > 0 ? (overallTotal / overallCount).toFixed(2) : '';
         setMeanOverallScore(meanOverall);
-        if (meanOverall !== '') 
-        {
+        if (meanOverall !== '') {
             let corrLevel = '';
             if (meanOverall < 1.5) corrLevel = 'Low';
             else if (meanOverall >= 1.5 && meanOverall < 2.5) corrLevel = 'Medium';
             else if (meanOverall >= 2.5) corrLevel = 'High';
             setCorrelation(corrLevel);
         }
-    } 
+    }
 
-    const handleSave = async () => 
-    {
-        for (const key in inputValues) 
-        {
-            if (!inputValues[key]) 
-                {
+    const handleSave = async () => {
+        for (const key in inputValues) {
+            if (!inputValues[key]) {
                 alert('All fields are Required');
                 return;
             }
         }
 
-        try 
-        {
+        try {
             const save = await axios.post(`${apiUrl}/api/rsmatrixSave`, {
                 course_code: selectedCourse.course_code, scores: inputValues,
                 meanOverallScore, correlation,
@@ -243,23 +221,27 @@ function Rsmatrix()
 
             if (save.status === 200) {
                 alert('Data Updated Successfully!');
-            } 
+            }
             else if (save.status === 201) {
                 alert('Data Saved Successfully!');
             }
             setShowModal(false)
-        } 
+        }
         catch (err) {
             console.error('Error saving data:', err);
             alert('All Fields are Required');
         }
     }
-    
+
     return (
         <div className="rsmatrix-main">
-            <div className="rsmatrix-layout-top-div">
-                <p className="course-layout-staff-id"><span className="course-staff">Welcome </span> {staffName.staff_name}</p>
-                <p className="rsmatrix-layout-staff-id"><span>Staff Id :</span> {staffId}</p>
+            <div className="course-layout-top-div">
+                <p className="course-layout-staff-id">
+                    <span className="course-staff">Welcome </span> {staffName.staff_name}
+                </p>
+                <p className="course-layout-staff-id">
+                    <span className="course-staff">Staff Id :</span> {staffId}
+                </p>
             </div>
             <div className="rsmatrix-parent">
                 <div className="rsmatrix-container">
@@ -277,7 +259,7 @@ function Rsmatrix()
                                         <span className="rsmatrix-incomplete">Incomplete</span>
                                     )}
                                 </div>
-                                <p><strong>COURSE CODE :</strong></p>
+                                <p className='rsmatrix-header-code' style={{ color: '#007bff' }}>COURSE CODE :</p>
                                 <p>{item.course_code}</p>
                             </div>
                         ))

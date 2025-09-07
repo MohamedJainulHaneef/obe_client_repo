@@ -7,7 +7,7 @@
 .rsmatrix-main {
     background-color: white;
     border-radius: 10px;
-    padding: 40px; 
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,10 +18,12 @@
     display: flex;
     flex-direction: column;
     font-weight: 500;
-    border: 2px solid black;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 2px  4px 5px rgb(183, 183, 183);
+    background: #fff;
+    padding: 18px 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .rsmatrix-label {
@@ -39,7 +41,7 @@
 
 .rsmatrix-container {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 40px;
 }
 
@@ -154,7 +156,7 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-} 
+}
 
 .rsmatrix-input:focus {
     border-color: black;
@@ -210,4 +212,163 @@ input[type="number"]::-webkit-inner-spin-button {
     padding-right: 20px;
     font-size: 17px;
     border: 0.5px solid #ccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.rsmatrix-main {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rsmatrix-layout-top-div {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 28px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 18px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.course-staff {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.rsmatrix-parent {
+    width: 100%;
+    background: #fff;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.6s ease;
+}
+
+.rsmatrix-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.rsmatrix-box {
+    background: linear-gradient(145deg, #ffffff, #f7faff);
+    border: 1px solid #e0e6ed;
+    border-radius: 12px;
+    padding: 20px 16px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-size: 17px;
+    font-weight: 600;
+    gap: 15px;
+}
+
+.rsmatrix-box:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(145deg, #fdfefe, #f2f6fb);
+}
+
+.course-status {
+    margin-bottom: 10px;
+}
+
+.rsmatrix-completed,
+.rsmatrix-incomplete {
+    font-size: 15px;
+    padding: 5px 12px;
+    border-radius: 18px;
+    font-weight: 700;
+}
+
+.rsmatrix-completed {
+    background: #eaf4e9;
+    color: #28a745;
+}
+
+.rsmatrix-incomplete {
+    background: #fdecea;
+    color: #e74c3c;
+}
+
+.rsmatrix-header-code {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #007bff;
+    margin-bottom: 4px;
+}
+
+.rsmatrix-box p {
+    font-size: 16px;
+    font-weight: 700;
+    color: #555;
+    line-height: 1.4;
+    margin: 2px 0;
+}
+
+.rsmatrix-no-code {
+    font-size: 16px;
+    color: #7f8c8d;
+    font-weight: 500;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .rsmatrix-layout-top-div {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        font-size: 16px;
+    }
+
+    .rsmatrix-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .rsmatrix-box {
+        padding: 18px;
+        min-height: 150px;
+    }
+}
+
+.rsmatrix-header-code {
+    color: red;
 }
