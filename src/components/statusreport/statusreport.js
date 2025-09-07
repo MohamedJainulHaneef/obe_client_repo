@@ -50,9 +50,7 @@ function StatusReport() {
                 const response = await axios.post(`${apiUrl}/staffName`, { staffId });
                 setStaffName(response.data)
             }
-            catch (err) {
-                console.log('Error Fetching Staff Name : ', err)
-            }
+            catch (err) { console.log('Error Fetching Staff Name : ', err)}
         }
         fetchStaffName();
     }, [apiUrl, staffId]);

@@ -36,6 +36,8 @@ function DeptReport()
         academicYearSet();
     }, []);
 
+    console.log(academicYear)
+
     useEffect(() => 
     {
         const fetchDeptStatusReport = async () => 
