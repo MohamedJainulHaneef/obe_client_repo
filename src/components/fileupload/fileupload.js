@@ -4,6 +4,7 @@ import { Upload, Download, FileText } from "lucide-react";
 import "./fileupload.css";
 
 function FileUpload() {
+
     const apiUrl = process.env.REACT_APP_API_URL;
     const [loading, setLoading] = useState(false);
     const [files, setFiles] = useState({});
@@ -31,10 +32,8 @@ function FileUpload() {
         } catch (error) {
             console.error(error);
             alert("File upload failed");
-        } finally {
-            setLoading(false);
-        }
-    };
+        } finally { setLoading(false) }
+    }
 
     const handleDownload = async (e, fileType, fileName) => {
         e.preventDefault();
@@ -53,7 +52,7 @@ function FileUpload() {
             console.error("Download failed:", error);
             alert("Failed to download the file.");
         }
-    };
+    }
 
     const LoadingModal = ({ loading }) => {
         if (!loading) return null;
@@ -64,29 +63,27 @@ function FileUpload() {
                     <h3>Processing...</h3>
                 </div>
             </div>
-        );
-    };
+        )
+    }
 
     const fileConfigs = [
+        { id: "file13", key: "coursemaster", label: "Course Master", download: "coursemaster", model: "coursemastermodel" },
         { id: "file2", key: "staffmaster", label: "Staff Master", download: "staff", model: "staffmodel" },
         { id: "file1", key: "coursemapping", label: "Staff Course Mapping", download: "coursemap", model: "coursemapmodel" },
         { id: "file3", key: "studentmaster", label: "Student Master", download: "studentmaster", model: "studentmastermodel" },
+        { id: "file9", key: "hod", label: "HOD Master", download: "hod", model: "hodmodel" },
+        { id: "file8", key: "mentor", label: "Mentor Master", download: "mentor", model: "mentormodel" },
         { id: "file5", key: "markentry", label: "Student Course Mapping", download: "mark", model: "markmodel" },
-        { id: "file13", key: "coursemaster", label: "Course Master", download: "coursemaster", model: "coursemastermodel" },
-        { id: "file9", key: "hod", label: "HOD", download: "hod", model: "hodmodel" },
-        { id: "file8", key: "mentor", label: "Mentor", download: "mentor", model: "mentormodel" },
         { id: "file6", key: "ese", label: "ESE Mark", download: "ese", model: "esemodel" },
-        { id: "file4", key: "scope", label: "Scope", download: "scope", model: "scopemodel" },
-    ];
+        { id: "file4", key: "scope", label: "Scope Master", download: "scope", model: "scopemodel" },
+    ]
 
     return (
         <div className="file-wrapper">
             <h2 className="file-title">📂 File Management</h2>
             <p className="file-subtitle">Upload, download, and manage system files securely</p>
-
             <div className="file-content">
                 <LoadingModal loading={loading} />
-
                 {fileConfigs.length === 0 ? (
                     <div className="file-empty">
                         <p>No files configured yet 🚀</p>
@@ -94,15 +91,17 @@ function FileUpload() {
                 ) : (
                     <>
                         <div className="file-header">
+                            <p>Name</p>
                             <p>File</p>
                             <p>Upload</p>
                             <p>Download</p>
                             <p>Sample</p>
                         </div>
-
                         {fileConfigs.map((f, idx) => (
                             <div key={f.id} className={`file-row ${idx % 2 === 0 ? "even" : "odd"}`}>
-                                {/* File Input */}
+                                <div className="file-name-label">
+                                    {f.label}
+                                </div>
                                 <div className="file-input-wrapper">
                                     <label htmlFor={f.id} className="file-input-label">Choose</label>
                                     <input type="file" id={f.id} name={f.id} onChange={handleFileChange} />
@@ -110,8 +109,6 @@ function FileUpload() {
                                         {files[f.id]?.name || "No file chosen"}
                                     </span>
                                 </div>
-
-                                {/* Upload button */}
                                 <button
                                     className="file-btn file-upload"
                                     title="Upload File"
@@ -119,8 +116,6 @@ function FileUpload() {
                                 >
                                     <Upload size={18} /> Upload
                                 </button>
-
-                                {/* Download button */}
                                 <button
                                     className="file-btn file-download"
                                     title="Download Data"
@@ -130,8 +125,6 @@ function FileUpload() {
                                 >
                                     <Download size={18} /> Download
                                 </button>
-
-                                {/* Sample button */}
                                 <button
                                     className="file-btn file-sample"
                                     title="Download Sample Format"
@@ -143,6 +136,7 @@ function FileUpload() {
                                 </button>
                             </div>
                         ))}
+
                     </>
                 )}
             </div>
