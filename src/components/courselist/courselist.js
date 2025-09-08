@@ -66,7 +66,9 @@ function CourseList()
                                     section: course.section,
                                     semester: course.semester,
                                     course_code: course.course_code,
+                                    academic_sem: academicSem
                                 })
+                                console.log(statusResponse)
                                 return { ...course, status: statusResponse.data.status };
                             } 
                             catch (err) {

@@ -77,9 +77,8 @@
 }
 
 .content-info {
-    max-width: 1200px;
     margin: 0 auto;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.6;
     color: #555;
     text-align: justify;
@@ -89,7 +88,7 @@
 
 .content-info span {
     font-weight: 700;
-    color: #007bff; /* highlight key terms in blue like courselist category */
+    color: #007bff;
 }
 
 /* Fade-in Animation */

@@ -74,8 +74,8 @@ function Stumark()
                         stu_section: section,
                         stu_category: category,
                         stu_course_code: courseCode,
-                        activeSection,
-                        academic_sem: academicSem
+                        activeSection, semester,
+                        academic_sem: academicSem,
                     })
 
                     setStuData(StuResponse.data);
