@@ -10,7 +10,7 @@
 
 .sso-dropdown-container {
      display: grid;
-     grid-template-columns: repeat(3,1fr);
+     grid-template-columns: repeat(3, 1fr);
      gap: 40px;
      border: 2px solid black;
      padding: 40px 20px;
@@ -19,15 +19,15 @@
 }
 
 .sso-content-cia {
-	background-color: #4a91e248
+     background-color: #4a91e248
 }
 
 .sso-content-ese {
-	background-color: rgba(255, 166, 0, 0.301)
+     background-color: rgba(255, 166, 0, 0.301)
 }
 
 .sso-content-all {
-	background-color: #81c7847c
+     background-color: #81c7847c
 }
 
 .sso-search-cnt {
@@ -67,7 +67,7 @@
      color: white;
      border: none;
      margin-left: 10px;
-     cursor: pointer; 
+     cursor: pointer;
 }
 
 .sso-btn:hover {
@@ -112,17 +112,17 @@
      border-collapse: collapse;
      font-size: 15px;
      text-align: center;
- }
+}
 
 .sso-table th {
-    background-color: #057252;
-    text-align: center;
-    font-size: 20px;
-    color: white;
-    padding: 20px;
-    border: 0.5px solid black;
-    font-weight: bold;
-    text-transform: uppercase;
+     background-color: #057252;
+     text-align: center;
+     font-size: 20px;
+     color: white;
+     padding: 20px;
+     border: 0.5px solid black;
+     font-weight: bold;
+     text-transform: uppercase;
 }
 
 .sso-table td {

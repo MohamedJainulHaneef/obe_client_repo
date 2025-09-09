@@ -67,7 +67,7 @@ function TutorCouOutcome()
             <div className="tco-header-title2">
                 <h3>OUTCOME BASED EDUCATION - {academicSem}</h3>
             </div>
-            <h2 className='aco-heading'  title='Click to View' onClick={handleCclaPopup}>
+            <h2 className='hco-heading'  title='Click to View' onClick={handleCclaPopup}>
                 CCLA - Course Cognitive Level Attainment
             </h2>
             {showCclaPopup && (
@@ -122,7 +122,7 @@ function TutorCouOutcome()
                     ))}
                 </tbody>
             </table>
-            <h2 className='aco-heading'  title='Click to View' onClick={handleCapsoPopup}>
+            <h2 className='hco-heading'  title='Click to View' onClick={handleCapsoPopup}>
                 CAPSO - Course Attainment by Programme Specific Outcome
             </h2>
             {showCapsoPopup && (

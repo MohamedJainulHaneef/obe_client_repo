@@ -6,6 +6,7 @@ import './rsmatrix.css';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 function Rsmatrix() {
+
     const { staffId } = useParams();
     const [academicSem, setAcademicSem] = useState('');
     const [courseDetails, setCourseDetails] = useState([]);
@@ -33,9 +34,7 @@ function Rsmatrix() {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
                 setAcademicSem(response.data.academic_sem);
             }
-            catch (err) {
-                console.log('Error fetching active semester:', err);
-            }
+            catch (err) { console.log('Error fetching active semester:', err) }
         }
         fetchacademicSem();
     }, []);
@@ -50,17 +49,15 @@ function Rsmatrix() {
                     })
                     setCourseDetails(response.data);
                 }
-                catch (err) {
-                    console.log('Error fetching course codes:', err);
-                }
+                catch (err) { console.log('Error fetching course codes:', err) }
             }
         }
         fetchCourseCodes();
     }, [staffId, academicSem, showModal]);
 
     const handleCourseClick = async (course) => {
-        setSelectedCourse(course);
 
+        setSelectedCourse(course);
         setInputValues({
             CO1_0: '', CO1_1: '', CO1_2: '', CO1_3: '', CO1_4: '', CO1_5: '', CO1_6: '', CO1_7: '', CO1_8: '', CO1_9: '', CO1_meanScore: '',
             CO2_0: '', CO2_1: '', CO2_2: '', CO2_3: '', CO2_4: '', CO2_5: '', CO2_6: '', CO2_7: '', CO2_8: '', CO2_9: '', CO2_meanScore: '',
@@ -135,9 +132,7 @@ function Rsmatrix() {
             setMeanOverallScore(matrixData.mean);
             setCorrelation(matrixData.olrel);
         }
-        catch (err) {
-            console.log('Error Fetching Matrix Data :', err);
-        }
+        catch (err) { console.log('Error Fetching Matrix Data :', err)}
         setShowModal(true);
     }
 
@@ -166,6 +161,7 @@ function Rsmatrix() {
     }
 
     const calculateMeanAndCorrelation = (inputData) => {
+
         let overallTotal = 0;
         let overallCount = 0;
         const newInputValues = { ...inputData };
@@ -219,12 +215,8 @@ function Rsmatrix() {
                 meanOverallScore, correlation,
             })
 
-            if (save.status === 200) {
-                alert('Data Updated Successfully!');
-            }
-            else if (save.status === 201) {
-                alert('Data Saved Successfully!');
-            }
+            if (save.status === 200) { alert('Data Updated Successfully!') }
+            else if (save.status === 201) { alert('Data Saved Successfully!') }
             setShowModal(false)
         }
         catch (err) {
