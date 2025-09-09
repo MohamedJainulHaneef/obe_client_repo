@@ -3,8 +3,8 @@ import axios from "axios";
 import './markrelease.css';
 import Loading from '../../../assets/load.svg';
 
-function MarkRelease() 
-{
+function MarkRelease() {
+
     const [originalData, setOriginalData] = useState();
     const [filteredData, setFilteredData] = useState(); const [l_cia1, setL_cia1] = useState();
     const [l_cia2, setL_cia2] = useState();
@@ -13,17 +13,12 @@ function MarkRelease()
     const [l_ese, setL_ese] = useState();
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    useEffect(() => 
-    {
-        const fetchReportData = async () => 
-        {
-            try 
-            {
+    useEffect(() => {
+        const fetchReportData = async () => {
+            try {
                 const response = await axios.get(`${apiUrl}/api/reportdata`);
                 const data = response.data;
-
-                if (response.data.length > 0) 
-                {
+                if (response.data.length > 0) {
                     setL_cia1(response.data[0].l_c1);
                     setL_cia2(response.data[0].l_c2);
                     setL_a1(response.data[0].l_a1);
@@ -31,37 +26,32 @@ function MarkRelease()
                     setL_ese(response.data[0].l_ese);
                 }
                 setFilteredData(data);
-                setOriginalData(data); 
-            } 
-            catch (err) {
-                console.log('Error fetching data:', err);
+                setOriginalData(data);
             }
+            catch (err) { console.log('Error fetching data:', err) }
         }
         fetchReportData();
     }, [apiUrl]);
 
-    const handleSearch = (e) => 
-    {
+    const handleSearch = (e) => {
         const searchText = e.target.value.toLowerCase();
         const filteredList = originalData.filter(item =>
-            item.staff_id.toLowerCase().includes(searchText) ||
-            item.staff_name.toLowerCase().includes(searchText) ||
-            item.dept_id.toLowerCase().includes(searchText) ||
-            item.course_title.toLowerCase().includes(searchText) ||
-            item.course_code.toLowerCase().includes(searchText)
+            (item.staff_id || '').toLowerCase().includes(searchText) ||
+            (item.staff_name || '').toLowerCase().includes(searchText) ||
+            (item.dept_id || '').toLowerCase().includes(searchText) ||
+            (item.course_title || '').toLowerCase().includes(searchText) ||
+            (item.course_code || '').toLowerCase().includes(searchText)
         )
         setFilteredData(filteredList);
     }
 
-    const handleCheckbox = (index, field, value) => 
-    {
+    const handleCheckbox = (index, field, value) => {
         const checkData = [...filteredData];
         checkData[index][field] = value ? 2 : 1;
         setFilteredData(checkData);
     }
 
-    const handleLockChange = (e) => 
-    {
+    const handleLockChange = (e) => {
         const { name, checked } = e.target;
         if (name === 'l_cia1') setL_cia1(checked ? 2 : 1);
         if (name === 'l_cia2') setL_cia2(checked ? 2 : 1);
@@ -70,19 +60,13 @@ function MarkRelease()
         if (name === 'l_ese') setL_ese(checked ? 2 : 1);
     }
 
-    const handleUpdate = async (index) => 
-    {
+    const handleUpdate = async (index) => {
         const data = filteredData[index];
-        try 
-        {
+        try {
             const res = await axios.put(`${apiUrl}/api/reportrelease`, data);
-            if (res) {
-                alert('Release Update Successfully....')
-            }
+            if (res) { alert('Release Update Successfully....') }
         }
-        catch (error) {
-            console.log('Error for the server', error)
-        }
+        catch (error) { console.log('Error for the server', error) }
     }
 
     if (!filteredData) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
@@ -178,7 +162,7 @@ function MarkRelease()
                                             onClick={() => handleUpdate(index)}
                                             className="row-save-btn">
                                             SAVE
-                                        </button> 
+                                        </button>
                                     </td>
                                 </tr>
                             ))
