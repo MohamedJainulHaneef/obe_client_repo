@@ -267,7 +267,7 @@ function HodStuOutcome()
 								3.69 out of 4.0
 							</span>
 							<span>Affiliated to Bharathidasan University</span>
-							<h3>TIRUCHIRAPPALLI - 620 020 .</h3>
+							<span>TIRUCHIRAPPALLI - 620 020 .</span>
 						</div>
 					</div>
 					<div className="hso-header-title2">

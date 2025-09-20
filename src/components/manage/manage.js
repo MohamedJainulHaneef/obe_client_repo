@@ -3,80 +3,50 @@ import { useNavigate, useParams } from "react-router-dom";
 import './manage.css';
 import axios from "axios";
 
-function Manage() 
-{
+function Manage() {
+
     const { staffId } = useParams();
     const apiUrl = process.env.REACT_APP_API_URL;
     const [academic, setAcademic] = useState(false);
     const [academicsem, setAcademicSem] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => 
-    {
-        const fetchActiveSem = async () => 
-        {
+    useEffect(() => {
+        const fetchActiveSem = async () => {
             try {
                 const response = await axios.post(`${apiUrl}/activesem`, {});
-                setAcademicSem(response.data.academic_sem); 
-            } 
-            catch (err) {
-                console.error('Error fetching data:', err);
-            }
+                setAcademicSem(response.data.academic_sem);
+            } catch (err) { console.error('Error fetching data:', err)}
         };
         fetchActiveSem();
     }, [apiUrl]);
 
-    const handleAcademic = () => 
-    {
-        setAcademic(true);
-    }
+    useEffect(() => {
+        document.body.style.overflow = academic ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [academic]);
 
-    const hidepopup = () => {
-        setAcademic(false);
-    }
+    const handleAcademic = () => setAcademic(true);
+    const hidepopup = () => setAcademic(false);
 
-    const handleAcademicSem = async () => 
-    {
+    const handleAcademicSem = async () => {
         try {
-            const response = await axios.put(`${apiUrl}/academic`, {
-                academicsem
-            });
-            window.alert("Academic Year Set Successfully", response.data);
+            await axios.put(`${apiUrl}/academic`, { academicsem });
+            window.alert("Academic Year Set Successfully");
             window.location.reload();
-        }
-        catch (err) {
+        } catch (err) {
             console.error('Error ', err);
             window.alert("Something Went Wrong with the Server");
         }
-    }
-
-    const handleStaffManage = () => {
-        navigate(`/staff/${staffId}/staffmanage`);
     };
 
-    const handleScopeManage = () => {
-        navigate(`/staff/${staffId}/scopemanage`);
-    };
-
-    const handleRelease = () => {
-        navigate(`/staff/${staffId}/markrelease`);
-    };
-
-    const handleMarkManage = () => {
-        navigate(`/staff/${staffId}/markmanage`);
-    };
-
-    const handleCourseMapManage = () => {
-        navigate(`/staff/${staffId}/staffcoursemapmanage`);
-    };
-    
-    const handleStudentManage = () => {
-        navigate(`/staff/${staffId}/studentmanage`);
-    };
-
-    const handleShowBlock = () => {
-        navigate(`/staff/${staffId}/showandblock`);
-    };
+    const handleStaffManage = () => navigate(`/staff/${staffId}/staffmanage`);
+    const handleScopeManage = () => navigate(`/staff/${staffId}/scopemanage`);
+    const handleRelease = () => navigate(`/staff/${staffId}/markrelease`);
+    const handleMarkManage = () => navigate(`/staff/${staffId}/markmanage`);
+    const handleCourseMapManage = () => navigate(`/staff/${staffId}/staffcoursemapmanage`);
+    const handleStudentManage = () => navigate(`/staff/${staffId}/studentmanage`);
+    const handleShowBlock = () => navigate(`/staff/${staffId}/showandblock`);
 
     return (
         <div className="manage-body">
@@ -90,13 +60,21 @@ function Manage()
                 <button className="manage-btn" onClick={handleRelease}>Mark Release</button>
                 <button className="manage-btn" onClick={handleShowBlock}>Show and Block</button>
             </div>
-            <div className="manage-popup-container">
-                {academic && (
-                    <div className="manage-popup">
+            {academic && (
+                <div
+                    className="manage-popup-container"
+                    role="dialog"
+                    aria-modal="true"
+                    onClick={hidepopup}              
+                >
+                    <div
+                        className="manage-popup"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="manage-close-div">
+                            <button onClick={hidepopup} className="manage-close" aria-label="Close">✖</button>
+                        </div>
                         <div className="manage-academic-wrapper">
-                            <div className="manage-close-div">
-                                    <button onClick={hidepopup} className="manage-close">✖</button>
-                            </div>
                             <select
                                 value={academicsem}
                                 onChange={(e) => setAcademicSem(e.target.value)}
@@ -119,10 +97,10 @@ function Manage()
                             <button onClick={handleAcademicSem} className="manage-submit-btn">SAVE</button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     )
 }
- 
+
 export default Manage;
