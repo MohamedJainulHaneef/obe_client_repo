@@ -1,9 +1,12 @@
-/* Reset + Base */
 * {
      margin: 0;
      padding: 0;
      box-sizing: border-box;
      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.blur {
+     filter: blur(3px);
 }
 
 .smsm-manage {
@@ -12,7 +15,6 @@
      min-height: 100vh;
 }
 
-/* Top Heading */
 .smsm-top-heading {
      font-size: 25px;
      font-weight: bold;
@@ -20,11 +22,9 @@
      text-align: center;
      margin-bottom: 20px;
      text-transform: uppercase;
-     text-align: center;
-     width: 100%;
 }
 
-/* Search + Add Button */
+/* Search + Add button */
 .smsm-input-btn {
      display: flex;
      justify-content: space-between;
@@ -34,7 +34,6 @@
 
 .smsm-search {
      width: 300px;
-     height: 45px;
      padding: 10px 15px;
      border-radius: 6px;
      border: 1px solid #ccc;
@@ -42,35 +41,25 @@
 }
 
 .smsm-save-btn {
-     display: flex;
-     align-items: center;
-     gap: 10px;
-     padding: 10px 20px;
      background-color: rgba(0, 0, 255, 0.582);
-     color: white;
-     font-weight: bold;
-     border: none;
-     border-radius: 8px;
-     cursor: pointer;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
      display: flex;
-     gap: 10px;
-     justify-content: center;
+     width: 100px;
      align-items: center;
-     width: 120px;
+     justify-content: center;
+     color: white;
+     font-size: 17px;
+     gap: 7px;
      height: 40px;
-     /* padding: 8px 12px; */
-     font-size: 18px;
-     font-weight: 700;
-     border: none;
+     padding: 12px;
+     font-weight: 600;
      border-radius: 10px;
      cursor: pointer;
-     transition: all 0.3s ease;
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+     border: none;
 }
 
 .smsm-save-btn:hover {
-     background-color: #049e6f;
+     background-color: rgba(14, 14, 167, 0.76);
+
 }
 
 /* Table */
@@ -79,19 +68,15 @@
      border-collapse: collapse;
      font-size: 16px;
      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-     border-radius: 8px;
-     overflow: hidden;
-     background-color: white;
+     background: white;
 }
 
 .smsm-header th {
-     background-color: #057252;
+     background: #057252;
      color: white;
      padding: 12px;
      text-transform: uppercase;
-     font-size: 16px;
      font-weight: bold;
-     text-align: center;
      border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -106,23 +91,20 @@
      background-color: #f9f9f9;
 }
 
-/* Enhanced Edit/Delete Buttons */
 .smsm-edit-btn,
 .smsm-del-btn {
      display: flex;
-     gap: 10px;
-     justify-content: center;
+     width: 100px;
      align-items: center;
-     width: 120px;
-     height: 40px;
-     /* padding: 8px 12px; */
+     justify-content: center;
      font-size: 17px;
-     font-weight: 700;
-     border: none;
+     gap: 7px;
+     height: 40px;
+     padding: 12px;
+     font-weight: 600;
      border-radius: 10px;
      cursor: pointer;
-     transition: all 0.3s ease;
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+     border: none;
 }
 
 .smsm-edit-btn {
@@ -130,70 +112,149 @@
      color: white;
 }
 
+.smsm-edit-btn:hover {
+     background-color: #168d32;
+}
+
 .smsm-del-btn {
      background-color: #fd3535;
      color: white;
 }
 
-/* Popup Overlay */
+.smsm-del-btn:hover {
+     background-color: #ec2a2a;
+}
+
+/* Overlay */
 .smsm-overlay {
      position: fixed;
      top: 0;
      left: 0;
-     right: 0;
-     bottom: 0;
-     background-color: rgba(0, 0, 0, 0.5);
-     z-index: 999;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.45);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
 }
 
-/* Popup Box */
+/* Modal Boxes */
 .smsm-addstaff,
 .smsm-edit,
 .smsm-delete {
-     position: fixed;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     background-color: white;
-     border-radius: 8px;
-     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-     z-index: 1000;
-     padding: 25px;
-     width: 550px;
+     background: #fff;
+     border-radius: 12px;
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+     padding: 30px 25px;
+     width: 570px;
+     max-width: 95%;
+     position: relative;
+     z-index: 1010;
+     animation: slideDown 0.3s ease;
 }
 
-.smsm-edit {
-     width: 500px;
+/* Slide Down Animation */
+@keyframes slideDown {
+     0% {
+          transform: translateY(-50px);
+          opacity: 0;
+     }
+
+     100% {
+          transform: translateY(0);
+          opacity: 1;
+     }
 }
 
-.smsm-delete {
-     width: 400px;
+
+.smsm-close-div {
+     display: flex;
+     justify-content: flex-end;
 }
 
-/* Input Fields */
+/* Close Button */
+.smsm-close {
+     cursor: pointer;
+     background: none;
+     border: none;
+     font-size: 22px;
+     color: #555;
+     transition: color 0.2s;
+}
+
+.smsm-close:hover {
+     color: #ff3b3b;
+}
+
+/* Modal Header */
+.smsm-addstaff h3,
+.smsm-edit h3,
+.smsm-delete h3 {
+     font-size: 22px;
+     font-weight: 700;
+     color: #173d61;
+     margin-bottom: 20px;
+     text-align: center;
+}
+
+.smsm-delete p {
+     text-align: center;
+     font-size: 18px;
+     font-weight: bold;
+     margin-top: 15pxcx;
+}
+
+.smsm-form-grid {
+     display: grid;
+     grid-template-columns: repeat(2, 1fr);
+     gap: 25px 20px;
+}
+
+.smsm-form-grid-2 {
+     display: grid;
+     grid-template-columns: repeat(1, 1fr);
+     gap: 25px 20px;
+     margin: 25px 0px;
+}
+
+.smsm-fullwidth {
+     grid-column: 1 / -1;
+}
+
+/* Inputs & select */
 .smsm-inputs,
-.smsm-edit-inputbox {
+.smsm-edit-inputbox,
+.smsm-edit-inputbox-psw,
+.smsm-addstaff select,
+.smsm-edit select {
      width: 100%;
-     padding: 10px;
-     margin-bottom: 15px;
-     border-radius: 6px;
+     padding: 12px 15px;
+     border-radius: 8px;
      border: 1px solid #ccc;
      font-size: 16px;
+     transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Checkboxes */
+.smsm-inputs:focus,
+.smsm-edit-inputbox:focus,
+.smsm-edit-inputbox-psw:focus,
+.smsm-addstaff select:focus,
+.smsm-edit select:focus {
+     outline: none;
+     border-color: #057252;
+     box-shadow: 0 0 8px rgba(5, 114, 82, 0.3);
+}
+
+/* Checkbox Section 4 per row */
 .smsm-check-boxes {
-     display: flex;
-     flex-wrap: wrap;
-     gap: 15px;
+     margin-top: 30px;
+     display: grid;
+     grid-template-columns: repeat(4, 1fr);
+     gap: 28px;
      margin-bottom: 15px;
-}
-
-.smsm-individual-check {
-     display: flex;
-     align-items: center;
-     gap: 5px;
-     font-weight: 500;
+     font-size: 17px;
+     font-weight: 600;
 }
 
 .smsm-check-boxes input[type="checkbox"] {
@@ -202,46 +263,74 @@
      cursor: pointer;
 }
 
-/* Buttons inside Popup */
+.smsm-individual-check {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+
+}
+
+/* Buttons Container */
+.smsh-delete-btn-container {
+     display: flex;
+     justify-content: flex-end;
+     gap: 25px;
+     grid-column: 1 / -1;
+}
+
 .smsm-add-save-btn,
 .smsm-save-edit-btn,
 .smsm-confirm-btn,
 .smsm-cancel-btn {
-     width: 48%;
+     flex: 1;
      padding: 12px 0;
-     margin: 5px 1%;
      font-size: 16px;
-     font-weight: bold;
+     font-weight: 600;
+     border-radius: 8px;
      border: none;
-     border-radius: 6px;
      cursor: pointer;
+     transition: all 0.2s ease;
 }
 
-.smsm-add-save-btn {
+.smsm-add-save-btn,
+.smsm-confirm-btn {
+     margin-top: 15px;
      background-color: #057252;
-     color: white;
+     color: #fff;
 }
 
-.smsm-add-save-btn:hover {
+.smsm-add-save-btn:hover,
+.smsm-confirm-btn:hover {
      background-color: #049e6f;
 }
 
-.smsm-save-edit-btn {
-     background-color: #fd3535;
-     color: white;
-}
-
-.smsm-save-edit-btn:hover {
-     background-color: #d62b2b;
-}
-
-.smsm-confirm-btn {
-     background-color: #057252;
-     color: white;
-}
-
+.smsm-save-edit-btn,
 .smsm-cancel-btn {
-     background-color: #fd3535;
-     color: white;
+     margin-top: 15px;
+     background: #fd3535;
+     color: #fff;
 }
 
+.smsm-save-edit-btn:hover,
+.smsm-cancel-btn:hover {
+     background: #d62b2b;
+}
+
+/* Password fields */
+.smsm-edit-psw {
+     display: flex;
+     justify-content: space-between;
+     gap: 25px;
+     margin-bottom: 15px;
+}
+
+.smsm-edit-password {
+     display: flex;
+     flex-direction: column;
+     flex: 1;
+}
+
+.smsm-edit-span {
+     font-weight: 600;
+     margin-bottom: 5px;
+}
