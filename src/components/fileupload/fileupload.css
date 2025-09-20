@@ -14,6 +14,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background: #f8f9fb;
 }
 
 /* Titles */
@@ -45,7 +46,7 @@
 .file-header {
 	display: grid;
 	grid-template-columns: 1.5fr 2fr 1fr 1fr 1fr;
-	background: linear-gradient(to right, #173d61, #1f507a);
+	background-color: #057252;
 	color: white;
 	font-weight: 600;
 	text-align: center;
@@ -86,7 +87,7 @@
 	font-weight: 700;
 	font-size: 16px;
 	color: #007bff;
-	/* text-align: center; */
+	color: #057252;
 }
 
 /* File Input Wrapper */
@@ -226,6 +227,7 @@
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
@@ -237,6 +239,7 @@
 		opacity: 0;
 		transform: translateY(20px);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0);
@@ -245,7 +248,9 @@
 
 @media (max-width: 900px) {
 
-	.file-header { display: none }
+	.file-header {
+		display: none
+	}
 
 	.file-row {
 		grid-template-columns: 1fr;
@@ -256,5 +261,7 @@
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 	}
 
-	.file-btn { width: 100% }
+	.file-btn {
+		width: 100%
+	}
 }

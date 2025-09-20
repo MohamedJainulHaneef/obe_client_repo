@@ -1,51 +1,80 @@
+/* Base Reset */
 * {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main Container */
 .staff-main {
     width: 100%;
-    height: 100%;
-    padding: 50px;
+    min-height: 100vh;
+    padding: 40px 30px;
+    background: #f8f9fb;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
+/* Content Box */
 .staff-content-box {
-    border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 100%;
-    padding: 35px;
-    margin: 0 auto;
-    margin-bottom: 40px;
-    box-shadow: 2px 4px 5px rgb(183, 183, 183);
+    max-width: 1100px;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
 }
 
+/* Grid Layout */
 .staff-entire-box {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
 }
 
+/* Buttons */
 .staff-box {
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    background-color: white;
-    padding: 65px 0px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
+    padding: 60px 20px;
     font-size: 18px;
-    font-family: Arial;
-    font-weight: bold;
+    font-weight: 700;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    text-transform: uppercase;
+    border: 1px solid #e0e0e0;
 }
 
+
 .staff-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    background-color: #f9f9f9;
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    /* color: #fff; */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .staff-entire-box {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .staff-main {
+        padding: 20px 15px;
+    }
+
+    .staff-box {
+        padding: 50px 10px;
+        font-size: 16px;
+    }
 }

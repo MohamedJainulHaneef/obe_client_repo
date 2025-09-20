@@ -39,7 +39,7 @@ function DeptReport()
     console.log(academicYear)
 
     useEffect(() => 
-    {
+    { 
         const fetchDeptStatusReport = async () => 
         {
             if (academicYear) 
@@ -134,9 +134,7 @@ function DeptReport()
         dept.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
         dept.dept_name.toLowerCase().includes(searchTerm.toLowerCase())||
         dept.category.toLowerCase().includes(searchTerm.toLowerCase());
-
         if (!matchesSearch) return false;
-
         if (filter.all) return true;
         if (status === 0 && filter.incomplete) return true;
         if (status === 1 && filter.processing) return true;
@@ -218,11 +216,11 @@ function DeptReport()
     return (
         <div className='dept-repo-main'>
             <p className='dept-heading'>OBE MARK Entry REPORT</p>
-            <div>
+            <div className='dept-main-div'>
                 <select
                     value={activeSection || ''}
                     onChange={handleSectionChange}
-                    className="mark-dropdown"
+                    className="dept-dropdown"
                 >
                     <option value="1">CIA - 1</option>
                     <option value="2">CIA - 2</option>

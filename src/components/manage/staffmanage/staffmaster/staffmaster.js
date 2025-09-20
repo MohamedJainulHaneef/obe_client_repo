@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './staffmaster.css';
 
-function StaffMasterManage() 
-{
+function StaffMasterManage() {
     const [staffData, setStaffData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -206,7 +205,7 @@ function StaffMasterManage()
 
     return (
         <div className="smsm-manage">
-            <span className="smsm-top-heading">STAFF DATA</span>
+            <p className="smsm-top-heading">STAFF Master Data</p>
             <div className="smsm-input-btn">
                 <input className="smsm-search"
                     type="text"
@@ -214,7 +213,10 @@ function StaffMasterManage()
                     onChange={handleSearch}
                 />
                 <div>
-                    <button className="smsm-save-btn" onClick={showPopup}><span>ADD</span><FontAwesomeIcon icon={faPlus} className="smsm-icon-add" /></button>
+                    <button className="smsm-save-btn" onClick={showPopup}>
+                        <FontAwesomeIcon icon={faPlus} className="smsm-icon" />
+                        <p className="">Add</p>
+                    </button>
                 </div>
                 {popup && (
                     <>
@@ -484,22 +486,22 @@ function StaffMasterManage()
                         </div>
                     </div>
                 )}
-            </div>
-            {deletestaff && (
-                <div className="smsm-overlay">
-                    <div className="smsm-delete">
-                        <div className="smsm-close-class">
-                            <span onClick={staffDeleteClose} className="smsm-close">✖</span>
-                        </div>
-                        <h4>STAFF ID : {deletestaffid}</h4>
-                        <h4>STAFF NAME : {deletestaffname}</h4>
-                        <div className="smsm-delete-btn-container">
-                            <button onClick={Confirmdelete} className="smsm-confirm-btn">CONFIRM</button>
-                            <button onClick={staffDeleteClose} className="smsm-cancel-btn">CANCEL</button>
+                {deletestaff && (
+                    <div className="smsm-overlay">
+                        <div className="smsm-delete">
+                            <div className="smsm-close-class">
+                                <span onClick={staffDeleteClose} className="smsm-close">✖</span>
+                            </div>
+                            <h4>STAFF ID : {deletestaffid}</h4>
+                            <h4>STAFF NAME : {deletestaffname}</h4>
+                            <div className="smsm-delete-btn-container">
+                                <button onClick={Confirmdelete} className="smsm-confirm-btn">CONFIRM</button>
+                                <button onClick={staffDeleteClose} className="smsm-cancel-btn">CANCEL</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
             <div>
                 <table className="smsm-header">
                     <thead>
@@ -526,12 +528,14 @@ function StaffMasterManage()
                                     <td className="smsm-td-name">{staff.staff_dept}</td>
                                     <td className="smsm-td-edit">
                                         <button onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.staff_category, staff.dept_category)} className="smsm-edit-btn">
-                                            <span className="smsm-edit-btn">Edit &nbsp; <FontAwesomeIcon icon={faEdit} className="smsm-icon" /></span>
+                                            <FontAwesomeIcon icon={faEdit} className="smsm-icon" />
+                                            <p className="">Edit</p>
                                         </button>
                                     </td>
                                     <td className="smsm-td-delete">
                                         <button onClick={() => handleDelete(staff.staff_id, staff.staff_name)} className="smsm-del-btn">
-                                            <span className="smsm-delete-btn">Delete &nbsp;<FontAwesomeIcon icon={faTrash} className="smsm-icon" /></span>
+                                            <FontAwesomeIcon icon={faTrash} className="smsm-icon" />
+                                            <p className="">Delete</p>
                                         </button>
                                     </td>
                                 </tr>

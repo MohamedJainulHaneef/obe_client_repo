@@ -2,8 +2,7 @@ import React from "react";
 import './staffmanage.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function StaffManage() 
-{
+function StaffManage() {
     const { staffId } = useParams();
     const navigate = useNavigate();
 
@@ -18,7 +17,7 @@ function StaffManage()
     const handleTutorManage = () => {
         navigate(`/staff/${staffId}/tutormanage`);
     }
-    
+
     return (
         <div className='staff-main'>
             <div className="staff-content-box">

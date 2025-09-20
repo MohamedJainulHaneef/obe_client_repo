@@ -1,112 +1,152 @@
+/* Reset + Base */
 * {
-     margin: 0px;
-     padding: 0px;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .smsm-manage {
-     padding: 10px;
-     width: 100%;
-     text-align: center;
+     padding: 25px;
+     background-color: #f9fafc;
+     min-height: 100vh;
 }
 
-.smsm-search {
-     width: 270px;
-     height: 45px;
-     padding: 15px;
-     border-radius: 7px;
-     font-size: 17px;
-     font-weight: 500;
-     background-color: rgb(250, 250, 254);
-     border: 2px solid black;
-}
-
-.smsm-header {
-     width: 100%;
-     border-collapse: collapse;
-     margin-top: 10px;
-     font-size: 16px;
-     text-align: left;
-}
-
+/* Top Heading */
 .smsm-top-heading {
-     text-align: center;
-     margin-top: 5px;
      font-size: 25px;
-     font-weight: 700;
-     letter-spacing: 1px;
-     word-spacing: 2px;
-     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.smsm-save-btn {
-     display: flex;
-     gap: 10px;
-     justify-content: center;
-     align-items: center;
-}
-
-.smsm-th-sno,
-.smsm-th-id,
-.smsm-th-name,
-.smsm-th-edit,
-.smsm-th-delete {
-     background-color: #1c8163;
-     text-align: center;
-     font-size: 19px;
-     color: white;
-     border: 1px solid gray;
-     padding: 15px;
-     height: 65px;
      font-weight: bold;
-     border-color: black;
-}
-
-.smsm-td-sno,
-.smsm-td-id,
-.smsm-td-edit,
-.smsm-td-delete,
-.smsm-td-name {
+     color: #173d61;
      text-align: center;
-     font-size: 16px;
-     border: 1px solid gray;
-     padding: 10px 13px;
-     font-weight: bold;
+     margin-bottom: 20px;
      text-transform: uppercase;
+     text-align: center;
+     width: 100%;
 }
 
-.smsm-icon {
-     font-size: 16px;
-     color: white;
-}
-
-.smsm-span {
-     font-size: 16px;
-}
-
-.smsm-save-btn, .smsm-confirm-btn, .smsm-cancel-btn {
-     padding: 12px;
-     border-radius: 10px;
-     width: 120px;
-     font-size: 18px;
-     font-weight: 700;
-     background-color: #007BFF;
-     color: white;
-     margin-left: 10px;
-     cursor: pointer;
-     border: none;
-}
-
-.smsm-confirm-btn {
-     background-color: red;
-}
-
+/* Search + Add Button */
 .smsm-input-btn {
      display: flex;
      justify-content: space-between;
      align-items: center;
-     margin-top: 15px;
+     margin-bottom: 20px;
 }
 
+.smsm-search {
+     width: 300px;
+     height: 45px;
+     padding: 10px 15px;
+     border-radius: 6px;
+     border: 1px solid #ccc;
+     font-size: 16px;
+}
+
+.smsm-save-btn {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     padding: 10px 20px;
+     background-color: rgba(0, 0, 255, 0.582);
+     color: white;
+     font-weight: bold;
+     border: none;
+     border-radius: 8px;
+     cursor: pointer;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     display: flex;
+     gap: 10px;
+     justify-content: center;
+     align-items: center;
+     width: 120px;
+     height: 40px;
+     /* padding: 8px 12px; */
+     font-size: 18px;
+     font-weight: 700;
+     border: none;
+     border-radius: 10px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.smsm-save-btn:hover {
+     background-color: #049e6f;
+}
+
+/* Table */
+.smsm-header {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 16px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+     border-radius: 8px;
+     overflow: hidden;
+     background-color: white;
+}
+
+.smsm-header th {
+     background-color: #057252;
+     color: white;
+     padding: 12px;
+     text-transform: uppercase;
+     font-size: 16px;
+     font-weight: bold;
+     text-align: center;
+     border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.smsm-header td {
+     text-align: center;
+     padding: 12px;
+     border: 1px solid #e0e0e0;
+     font-weight: 500;
+}
+
+.smsm-header tbody tr:nth-child(even) {
+     background-color: #f9f9f9;
+}
+
+/* Enhanced Edit/Delete Buttons */
+.smsm-edit-btn,
+.smsm-del-btn {
+     display: flex;
+     gap: 10px;
+     justify-content: center;
+     align-items: center;
+     width: 120px;
+     height: 40px;
+     /* padding: 8px 12px; */
+     font-size: 17px;
+     font-weight: 700;
+     border: none;
+     border-radius: 10px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.smsm-edit-btn {
+     background-color: #18a539;
+     color: white;
+}
+
+.smsm-del-btn {
+     background-color: #fd3535;
+     color: white;
+}
+
+/* Popup Overlay */
+.smsm-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: rgba(0, 0, 0, 0.5);
+     z-index: 999;
+}
+
+/* Popup Box */
 .smsm-addstaff,
 .smsm-edit,
 .smsm-delete {
@@ -118,195 +158,90 @@
      border-radius: 8px;
      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
      z-index: 1000;
-}
-
-.smsm-addstaff {
      padding: 25px;
      width: 550px;
 }
 
 .smsm-edit {
-     padding: 25px;
      width: 500px;
 }
 
-.smsm-edit input {
-     width: 100%;
-}
-
-.smsm-edit-psw {
-     display: flex;
-     gap: 20px;
-}
-
-.smsm-edit-span {
-     text-align: left;
-}
-
 .smsm-delete {
-     padding: 20px;
-     display: flex;
-     flex-direction: column;
-     gap: 10px;
+     width: 400px;
 }
 
-.smsm-delete-btn-container {
-     display: flex;
-     justify-content: center;
-     padding: 30px;
-     gap: 30px;
-}
-
-.smsm-close-class {
-     display: flex;
-     justify-content: flex-end;
-     margin-bottom: 17px;
-}
-
-.smsm-close-header {
-     width: 90%;
-     font-size: 25px;
-     font-weight: bolder;
-}
-
-.smsm-close {
-     background: none;
-     border: none;
-     font-size: 20px;
-     cursor: pointer;
-     padding: 5px 8px;
-}
-
+/* Input Fields */
 .smsm-inputs,
 .smsm-edit-inputbox {
      width: 100%;
      padding: 10px;
-     height: 43px;
-     margin-bottom: 20px;
-     border: .5px solid rgb(48, 47, 47);
-     border-radius: 4px;
-     font-size: 17px;
+     margin-bottom: 15px;
+     border-radius: 6px;
+     border: 1px solid #ccc;
+     font-size: 16px;
 }
 
-.smsm-edit-inputbox-psw {
-     width: 30px;
-     padding: 10px;
-     height: 43px;
-     margin-bottom: 10px;
-     border: .5px solid rgb(48, 47, 47);
-     border-radius: 4px;
-     font-size: 17px;
-}
-
-.smsm-addpopup input::placeholder {
-     color: rgb(59, 58, 58);
-     font-size: 13px;
-}
-
+/* Checkboxes */
 .smsm-check-boxes {
      display: flex;
-     font-weight: 500;
+     flex-wrap: wrap;
+     gap: 15px;
+     margin-bottom: 15px;
 }
 
 .smsm-individual-check {
-     width: 25%;
      display: flex;
-     justify-content: left;
      align-items: center;
-     padding: 5px;
-     padding-bottom: 15px;
-
+     gap: 5px;
+     font-weight: 500;
 }
 
 .smsm-check-boxes input[type="checkbox"] {
-     width: 15px;
-     height: 15px;
-     margin-right: 10px;
+     width: 16px;
+     height: 16px;
+     cursor: pointer;
+}
+
+/* Buttons inside Popup */
+.smsm-add-save-btn,
+.smsm-save-edit-btn,
+.smsm-confirm-btn,
+.smsm-cancel-btn {
+     width: 48%;
+     padding: 12px 0;
+     margin: 5px 1%;
+     font-size: 16px;
+     font-weight: bold;
+     border: none;
+     border-radius: 6px;
      cursor: pointer;
 }
 
 .smsm-add-save-btn {
-     width: 100%;
-     height: 45px;
-     margin-top: 15px;
-     cursor: pointer;
+     background-color: #057252;
      color: white;
-     background-color: #007BFF;
-     border-radius: 8px;
-     font-size: 19px;
-     font-weight: bold;
-     border: none;
 }
 
 .smsm-add-save-btn:hover {
-     background-color: #076ad4;
+     background-color: #049e6f;
 }
-
-body.blur {
-     transition: filter 0.3s ease;
-}
-
-.smsm-overlay {
-     position: fixed;
-     top: 0;
-     left: 0;
-     right: 0;
-     bottom: 0;
-     background-color: rgba(0, 0, 0, 0.5);
-     z-index: 999;
-}
-
-.smsm-close:hover {
-     background-color: red;
-     color: white;
-} 
 
 .smsm-save-edit-btn {
-     width: 100%;
-     height: 45px;
-     margin-top: 15px;
-     border-radius: 8px;
-     font-size: 19px;
-     font-weight: bold;
-     background-color: rgba(255, 0, 0, 0.842);
+     background-color: #fd3535;
      color: white;
-     cursor: pointer;
-     border: none;
 }
 
 .smsm-save-edit-btn:hover {
-     background-color: rgb(255, 0, 0);
+     background-color: #d62b2b;
 }
 
-.smsm-edit-btn,
-.smsm-del-btn {
-     border-radius: 10px;
-     width: 120px;
-     padding: 10px 0px;
-     font-size: 17px;
-     font-weight: 600;
-     margin: 3px 0px;
-     background-color: #18a539;
+.smsm-confirm-btn {
+     background-color: #057252;
      color: white;
-     border: none;
-     cursor: pointer;
 }
 
-.smsm-del-btn {
-     background-color: rgb(253, 53, 53);
+.smsm-cancel-btn {
+     background-color: #fd3535;
+     color: white;
 }
 
-.smsm-edit-password {
-     font-weight: bold;
-     display: flex;
-     flex-direction: column;
-     gap: 15px;
-}
-
-.smsm-repo-dark {
-     background-color: rgb(250, 250, 254);
-}
-
-.smsm-repo-light {
-     background-color: white;
-}
