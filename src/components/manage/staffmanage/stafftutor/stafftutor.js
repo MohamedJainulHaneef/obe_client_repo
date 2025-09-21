@@ -244,10 +244,10 @@ function StaffTutorManage() {
                                 onChange={(e) => setTuturBatch(e.target.value)}
                             />
                         </div>
-                        <div className="smsh-delete-btn-container">
-                            <button className="smsh-add-save-btn" onClick={handleNewMentor}>SAVE</button>
-                            <button className="smsh-save-edit-btn" onClick={tututaddClose}>CANCEL</button>
-                        </div>
+                        <div className="smshh-delete-btn-container">
+							<button onClick={handleNewMentor} className="smsm-add-save-btn">SAVE</button>
+							<button onClick={tututaddClose} className="smsm-save-edit-btn">CANCEL</button>
+						</div>
                     </div>
                 </div>
             )}
@@ -326,9 +326,9 @@ function StaffTutorManage() {
                                 className="smst-fullwidth"
                             />
                         </div>
-                        <div className="smsh-delete-btn-container">
-                            <button className="smsh-add-save-btn" onClick={handleEditSave}>SAVE</button>
-                            <button className="smsh-save-edit-btn" onClick={() => setEditingStaff(null)}>CANCEL</button>
+                        <div className="smshh-delete-btn-container">
+                            <button className="smsm-add-save-btn" onClick={handleEditSave}>SAVE</button>
+                            <button className="smsm-save-edit-btn" onClick={() => setEditingStaff(null)}>CANCEL</button>
                         </div>
                     </div>
                 </div>
@@ -348,10 +348,10 @@ function StaffTutorManage() {
                         <p>Degree : {deleteStaff.degree}</p>
                         <p>Dept Name : {deleteStaff.dept_name}</p>
                         <p>Section : {deleteStaff.section}</p>
-                        <div className="smsh-delete-btn-container">
-                            <button className="smsh-save-edit-btn" onClick={() => confirmDelete(deleteStaff.staff_id)}>DELETE</button>
-                            <button className="smsh-add-save-btn" onClick={cancelDelete}>CANCEL</button>
-                        </div>
+                        <div className="smshh-delete-btn-container">
+							<button onClick={() => confirmDelete(deleteStaff.staff_id)} className="smsm-add-save-btn">DELETE</button>
+							<button onClick={cancelDelete} className="smsm-save-edit-btn">CANCEL</button>
+						</div>
                     </div>
                 </div>
             )}

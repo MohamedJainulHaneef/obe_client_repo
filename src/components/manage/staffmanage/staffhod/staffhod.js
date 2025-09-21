@@ -149,7 +149,7 @@ function StaffHodManage() {
 				<input
 					className="smsh-search"
 					type="text"
-					placeholder="Search by Id or Name..."
+					placeholder="Search ..."
 					onChange={handleSearch}
 				/>
 				<button className="smsm-save-btn" onClick={handleAddHod}>
@@ -210,24 +210,29 @@ function StaffHodManage() {
 						<div className="smsh-close-class">
 							<span onClick={() => setEditingHod(null)} className="smsh-close">✖</span>
 						</div>
-						<label className="smsh-edit-label">STAFF ID :</label>
-						<input
-							type="text"
-							name="staff_id"
-							className="smsh-edit-inputbox"
-							value={editForm.staff_id || ""}
-							readOnly
-							disabled
-						/>
-						<label className="smsh-edit-label">HOD NAME :</label>
-						<input
-							type="text"
-							name="hod_name"
-							value={editForm.hod_name || ""}
-							onChange={handleEditChange}
-							className="smsh-edit-inputbox"
-						/>
-						<div className="smsm-edit-psw">
+						<h3>EDIT HOD</h3>
+						<div className="smsh-form">
+							<label className="smsh-edit-label">STAFF ID :</label>
+							<input
+								type="text"
+								name="staff_id"
+								className="smsh-edit-inputbox"
+								value={editForm.staff_id || ""}
+								readOnly
+								disabled
+							/>
+						</div>
+						<div className="smsh-form">
+							<label className="smsh-edit-label">HOD NAME :</label>
+							<input
+								type="text"
+								name="hod_name"
+								value={editForm.hod_name || ""}
+								onChange={handleEditChange}
+								className="smsh-edit-inputbox"
+							/>
+						</div>
+						<div className="smsh-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">GRADUATE :</label>
 								<input
@@ -249,7 +254,7 @@ function StaffHodManage() {
 								/>
 							</label>
 						</div>
-						<div className="smsm-edit-psw">
+						<div className="smsh-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">CATEGORY :</label>
 								<input
@@ -271,9 +276,9 @@ function StaffHodManage() {
 								/>
 							</label>
 						</div>
-						<div className="smsh-delete-btn-container">
-							<button onClick={handleEditSave} className="smsh-add-save-btn">Save</button>
-							<button onClick={() => setEditingHod(null)} className="smsh-save-edit-btn">Cancel</button>
+						<div className="smshh-delete-btn-container">
+							<button onClick={handleEditSave} className="smsm-add-save-btn">SAVE</button>
+							<button onClick={() => setEditingHod(null)} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
@@ -286,13 +291,16 @@ function StaffHodManage() {
 						<div className="smsh-close-class">
 							<span onClick={cancelDelete} className="smsh-close">✖</span>
 						</div>
-						<h4>STAFF ID : {deleteHod.staff_id}</h4>
-						<h4>HOD NAME : {deleteHod.hod_name}</h4>
-						<h4>DEPARTMENT NAME : {deleteHod.dept_name}</h4>
-						<h4>CATEGORY : {deleteHod.category}</h4>
-						<div className="smsh-delete-btn-container">
-							<button onClick={() => confirmDelete(deleteHod.staff_id, deleteHod.dept_id)} className="smsh-save-edit-btn">DELETE</button>
-							<button onClick={cancelDelete} className="smsh-add-save-btn">CANCEL</button>
+						<h3>CONFIRM DELETE</h3>
+						<div className="smsh-del-div">
+							<h4>STAFF ID : {deleteHod.staff_id}</h4>
+							<h4>HOD NAME : {deleteHod.hod_name}</h4>
+							<h4>DEPARTMENT NAME : {deleteHod.dept_name}</h4>
+							<h4>CATEGORY : {deleteHod.category}</h4>
+						</div>
+						<div className="smshh-delete-btn-container">
+							<button onClick={() => confirmDelete(deleteHod.staff_id, deleteHod.dept_id)} className="smsm-add-save-btn">DELETE</button>
+							<button onClick={cancelDelete} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
@@ -305,22 +313,27 @@ function StaffHodManage() {
 						<div className="smsh-close-class">
 							<span onClick={() => setAddhod(false)} className="smsh-close">✖</span>
 						</div>
-						<label className="smsh-edit-label">STAFF ID :</label>
-						<input
-							type="text"
-							name="staff_id"
-							className="smsh-edit-inputbox"
-							value={newstaffId}
-							onChange={(e) => setNewStaffId(e.target.value)}
-						/>
-						<label className="smsh-edit-label">HOD NAME :</label>
-						<input
-							type="text"
-							name="hod_name"
-							className="smsh-edit-inputbox"
-							value={newhodName}
-							onChange={(e) => setNewHodName(e.target.value)}
-						/>
+						<h3>ADD HOD</h3>
+						<div className="smsh-form">
+							<label className="smsh-edit-label">STAFF ID :</label>
+							<input
+								type="text"
+								name="staff_id"
+								className="smsh-edit-inputbox"
+								value={newstaffId}
+								onChange={(e) => setNewStaffId(e.target.value)}
+							/>
+						</div>
+						<div className="smsh-form">
+							<label className="smsh-edit-label">HOD NAME :</label>
+							<input
+								type="text"
+								name="hod_name"
+								className="smsh-edit-inputbox"
+								value={newhodName}
+								onChange={(e) => setNewHodName(e.target.value)}
+							/>
+						</div>
 						<div className="smsm-edit-psw">
 							<label className="smsm-edit-password">
 								<label className="smsh-edit-label">GRADUATE :</label>
@@ -365,9 +378,9 @@ function StaffHodManage() {
 								/>
 							</label>
 						</div>
-						<div className="smsh-delete-btn-container">
-							<button onClick={handleNewHodSave} className="smsh-add-save-btn">Save</button>
-							<button onClick={() => setAddhod(false)} className="smsh-save-edit-btn">Cancel</button>
+						<div className="smshh-delete-btn-container">
+							<button onClick={handleNewHodSave} className="smsm-add-save-btn">SAVE</button>
+							<button onClick={() => setAddhod(false)} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
