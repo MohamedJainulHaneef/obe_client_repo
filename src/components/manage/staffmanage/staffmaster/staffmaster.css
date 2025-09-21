@@ -43,7 +43,7 @@
 .smsm-save-btn {
      background-color: rgba(0, 0, 255, 0.582);
      display: flex;
-     width: 100px;
+     width: 120px;
      align-items: center;
      justify-content: center;
      color: white;
@@ -94,7 +94,7 @@
 .smsm-edit-btn,
 .smsm-del-btn {
      display: flex;
-     width: 100px;
+     width: 100%;
      align-items: center;
      justify-content: center;
      font-size: 17px;
@@ -167,7 +167,6 @@
      }
 }
 
-
 .smsm-close-div {
      display: flex;
      justify-content: flex-end;
@@ -191,7 +190,7 @@
 .smsm-addstaff h3,
 .smsm-edit h3,
 .smsm-delete h3 {
-     font-size: 22px;
+     font-size: 20px;
      font-weight: 700;
      color: #173d61;
      margin-bottom: 20px;
@@ -202,7 +201,7 @@
      text-align: center;
      font-size: 18px;
      font-weight: bold;
-     margin-top: 15pxcx;
+     margin-top: 15px    ;
 }
 
 .smsm-form-grid {
@@ -333,4 +332,8 @@
 .smsm-edit-span {
      font-weight: 600;
      margin-bottom: 5px;
+}
+
+.staff-repo-action{
+     width: 12%;
 }

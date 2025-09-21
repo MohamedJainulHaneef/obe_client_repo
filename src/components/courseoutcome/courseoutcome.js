@@ -4,8 +4,8 @@ import axios from "axios";
 import './courseoutcome.css';
 const apiUrl = process.env.REACT_APP_API_URL;
 
-function CourseOutcome() 
-{
+function CourseOutcome() {
+
     const { staffId } = useParams();
     const navigate = useNavigate();
     const [courseHandle, setCourseHandle] = useState(false);
@@ -14,54 +14,35 @@ function CourseOutcome()
     const [admin, setAdmin] = useState(false);
     const [staffName, setStaffName] = useState('');
 
-    useEffect(() => 
-    {
-            const fetchStaffName = async () => 
-            {
-                try {
-                    const response = await axios.post(`${apiUrl}/staffName`,{staffId});
-                    setStaffName(response.data)
-                }
-                catch(err) {
-    
-                }
+    useEffect(() => {
+        const fetchStaffName = async () => {
+            try {
+                const response = await axios.post(`${apiUrl}/staffName`, { staffId });
+                setStaffName(response.data)
             }
-            fetchStaffName();
-    },[apiUrl,staffId]);
-    
-    useEffect(() => 
-    {
-        const checkStaffId = async () => 
-        {
-            if(staffId === 'ADMIN' || staffId === 'admin' || staffId === 'Admin' )
-            {
+            catch (err) { }
+        }
+        fetchStaffName();
+    }, [apiUrl, staffId]);
+
+    useEffect(() => {
+        const checkStaffId = async () => {
+            if (staffId === 'ADMIN' || staffId === 'admin' || staffId === 'Admin') {
                 setAdmin(true);
                 return;
             }
-            else 
-            {
-                try 
-                {
+            else {
+                try {
                     const response = await axios.post(`${apiUrl}/api/chkstaffId`, {
                         staff_id: staffId
                     })
-
-                    if (response.data) 
-                    {
-                        if (response.data.courseHandleStaffId) {
-                            setCourseHandle(true);
-                        }
-                        if (response.data.tutorHandleStaffId) {
-                            setTutorHandle(true);
-                        }
-                        if (response.data.hodHandleStaffId) {
-                            setHodHandle(true);
-                        }
+                    if (response.data) {
+                        if (response.data.courseHandleStaffId) { setCourseHandle(true) }
+                        if (response.data.tutorHandleStaffId) { setTutorHandle(true) }
+                        if (response.data.hodHandleStaffId) { setHodHandle(true) }
                     }
-                } 
-                catch (err) {
-                    console.log('Error fetching data:', err);
                 }
+                catch (err) { console.log('Error fetching data:', err) }
             }
         }
         checkStaffId();
@@ -82,7 +63,7 @@ function CourseOutcome()
     const handleAdmin = () => {
         navigate(`/staff/${staffId}/admincourseoutcome`);
     }
-    
+
     return (
         <div className='co-main'>
             <div className="co-layout-top-div">
@@ -125,8 +106,8 @@ function CourseOutcome()
                     To calculate CCLA the input is the various assessment scores scored by the students in the specified course.
                 </p><br />
                 <p ><span>Course Attainment by Programme Specific Outcome (CAPSO) : </span>
-                    The CAPSO is a systematic process for evaluating the impact of a course on achieving the program-specific outcome (PSO). 
-                    To calculate CAPSO the values of the Relationship Matrix and the values of the three cognitive levels calculated in CCLA 
+                    The CAPSO is a systematic process for evaluating the impact of a course on achieving the program-specific outcome (PSO).
+                    To calculate CAPSO the values of the Relationship Matrix and the values of the three cognitive levels calculated in CCLA
                     for a specified course are given as input.
                 </p><br />
                 <span>Note : </span><lable>The calculation process are given in OBE Terminologies Menu</lable>

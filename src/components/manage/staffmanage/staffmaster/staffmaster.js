@@ -134,7 +134,7 @@ function StaffMasterManage() {
             const response = await axios.get(`${apiUrl}/api/staffdepartments`);
             if (response.data) setStaff_Dept(response.data);
         } catch (err) {
-            console.log("ERROR FETCHING STAFF DEPARTMENT CATEGORY", err);
+            console.log("Error fetching Staff Category : ", err);
         }
     }
 
@@ -147,11 +147,9 @@ function StaffMasterManage() {
             const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, {
                 newstaffid, newstaffname, newpassword, newdept, newStaffCategory, newDeptCategory, oldpassword
             });
-            if (updateresponse.data) window.alert("Staff Data Modified");
+            if (updateresponse.data) window.alert("Staff has been modified successfully");
             staffEditClose();
-        } catch (err) {
-            console.log("Err Update Staff", err);
-        }
+        } catch (err) { console.log("Errpr in Updating Staff : ", err) }
     }
 
     const handleDelete = (dstaffid, dstaffname) => {
@@ -168,14 +166,12 @@ function StaffMasterManage() {
         try {
             const DeleteResponse = await axios.post(`${apiUrl}/api/staffdelete`, { deletestaffid });
             if (DeleteResponse.data) {
-                window.alert("Staff Deleted");
+                window.alert("Staff has been deleted successfully");
                 setStaffData(staffData.filter(s => s.staff_id !== deletestaffid));
                 setFilteredData(filteredData.filter(s => s.staff_id !== deletestaffid));
                 staffDeleteClose();
             }
-        } catch (err) {
-            window.alert("Error deleting Staff");
-        }
+        } catch (err) { console.log("Error in deleting Staff : ", err) }
     }
 
     return (
@@ -184,16 +180,55 @@ function StaffMasterManage() {
             <div className="smsm-input-btn">
                 <input className="smsm-search" type="text" placeholder="Search ..." onChange={handleSearch} />
                 <button className="smsm-save-btn" onClick={showPopup}>
-                    <FontAwesomeIcon icon={faPlus} className="smsm-icon" /> Add
+                    <FontAwesomeIcon icon={faPlus} className="smsm-icon" />
+                    <span>Add</span>
                 </button>
             </div>
+
+            {/* Staff Table */}
+            <table className="smsm-header">
+                <thead>
+                    <tr>
+                        <th>S. No.</th>
+                        <th>Staff Id</th>
+                        <th>Staff Name</th>
+                        <th>Staff Category</th>
+                        <th>Dept Category</th>
+                        <th>Dept Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredData.length > 0 ? filteredData.map((staff, index) => (
+                        <tr key={index} className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
+                            <td>{index + 1}</td>
+                            <td>{staff.staff_id}</td>
+                            <td>{staff.staff_name}</td>
+                            <td>{staff.staff_category}</td>
+                            <td>{staff.dept_category}</td>
+                            <td>{staff.staff_dept}</td>
+                            <td className='staff-repo-action'>
+                                <button className="smsm-edit-btn" onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.staff_category, staff.dept_category)}>
+                                    <FontAwesomeIcon icon={faEdit} /> Edit
+                                </button>
+                            </td>
+                            <td className='staff-repo-action'>
+                                <button className="smsm-del-btn" onClick={() => handleDelete(staff.staff_id, staff.staff_name)}>
+                                    <FontAwesomeIcon icon={faTrash} /> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    )) : <tr><td colSpan="8">No Data Available.</td></tr>}
+                </tbody>
+            </table>
 
             {/* Add Staff Modal */}
             {popup && (
                 <div className="smsm-overlay">
                     <div className="smsm-addstaff">
                         <div className='smsm-close-div'><button onClick={hidepopup} className="smsm-close">✖</button></div>
-                        <h3>Add New Staff</h3>
+                        <h3>ADD NEW STAFF</h3>
                         <div className="smsm-form-grid">
                             <input type="text" value={staffId} onChange={(e) => setStaffId(e.target.value)} className="smsm-inputs" placeholder="Staff ID" />
                             <input type="text" value={staffName} onChange={(e) => setStaffName(e.target.value)} className="smsm-inputs" placeholder="Staff Name" />
@@ -236,7 +271,7 @@ function StaffMasterManage() {
                 <div className="smsm-overlay">
                     <div className="smsm-edit">
                         <div className='smsm-close-div'><button onClick={staffEditClose} className="smsm-close">✖</button></div>
-                        <h3>Edit Staff</h3>
+                        <h3>EDIT STAFF</h3>
                         <div className="smsm-form-grid">
                             <input type="text" value={newstaffid} disabled className="smsm-edit-inputbox" />
                             <input type="text" value={newstaffname} onChange={(e) => setNewstaffname(e.target.value)} className="smsm-edit-inputbox" />
@@ -279,7 +314,7 @@ function StaffMasterManage() {
                 <div className="smsm-overlay">
                     <div className="smsm-delete">
                         <div className='smsm-close-div'><button onClick={staffDeleteClose} className="smsm-close">✖</button></div>
-                        <h3>Confirm Delete</h3>
+                        <h3>CONFRIM DELETE</h3>
                         <p>Staff ID : {deletestaffid}</p>
                         <p>Staff Name : {deletestaffname}</p>
                         <div className="smsh-delete-btn-container">
@@ -289,36 +324,6 @@ function StaffMasterManage() {
                     </div>
                 </div>
             )}
-
-            {/* Staff Table */}
-            <table className="smsm-header">
-                <thead>
-                    <tr>
-                        <th>S. No.</th>
-                        <th>Staff Id</th>
-                        <th>Staff Name</th>
-                        <th>Staff Category</th>
-                        <th>Dept Category</th>
-                        <th>Dept Name</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredData.length > 0 ? filteredData.map((staff, index) => (
-                        <tr key={index} className={index % 2 === 0 ? 'staff-repo-light' : 'staff-repo-dark'}>
-                            <td>{index + 1}</td>
-                            <td>{staff.staff_id}</td>
-                            <td>{staff.staff_name}</td>
-                            <td>{staff.staff_category}</td>
-                            <td>{staff.dept_category}</td>
-                            <td>{staff.staff_dept}</td>
-                            <td><button className="smsm-edit-btn" onClick={() => handleEdit(staff.staff_id, staff.staff_name, staff.staff_pass, staff.staff_dept, staff.staff_category, staff.dept_category)}><FontAwesomeIcon icon={faEdit} /> Edit</button></td>
-                            <td><button className="smsm-del-btn" onClick={() => handleDelete(staff.staff_id, staff.staff_name)}><FontAwesomeIcon icon={faTrash} /> Delete</button></td>
-                        </tr>
-                    )) : <tr><td colSpan="8">No Data Available.</td></tr>}
-                </tbody>
-            </table>
         </div>
     )
 }

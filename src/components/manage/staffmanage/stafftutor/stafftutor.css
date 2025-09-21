@@ -1,187 +1,281 @@
+/* General Reset */
 * {
-     padding: 0px;
-     margin: 0px;
+     margin: 0;
+     padding: 0;
      box-sizing: border-box;
+     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Main container */
 .smst-main {
-     padding: 12px;
+     padding: 25px;
+     background-color: #f9fafc;
+     min-height: 100vh;
      display: flex;
      flex-direction: column;
-     gap: 17px;
+     gap: 18px;
 }
 
+/* Top Heading */
+.smst-top-heading {
+     text-align: center;
+     font-size: 26px;
+     font-weight: 700;
+     letter-spacing: 1px;
+     word-spacing: 2px;
+     color: #173d61;
+     text-transform: uppercase;
+     margin-bottom: 20px;
+}
+
+/* Search + Add button container */
 .smst-input-btn {
      display: flex;
      justify-content: space-between;
-}
-
-.smst-save-btn {
-     display: flex;
-     gap: 10px;
-     justify-content: center;
      align-items: center;
 }
 
-.smsh-icon-add {
-     font-size: 18px;
-     font-weight: bolder;
+/* Search input */
+.smst-search {
+     width: 270px;
+     height: 45px;
+     padding: 12px 14px;
+     border-radius: 7px;
+     font-size: 16px;
+     border: 2px solid #173d61;
+     background-color: #fafafe;
 }
 
+/* Add button */
+.smst-save-btn {
+     background-color: rgba(0, 0, 255, 0.582);
+     display: flex;
+     width: 120px;
+     align-items: center;
+     justify-content: center;
+     color: white;
+     font-size: 17px;
+     gap: 7px;
+     height: 40px;
+     padding: 12px;
+     font-weight: 600;
+     border-radius: 10px;
+     cursor: pointer;
+     border: none;
+}
+
+.smst-save-btn:hover {
+     background-color: rgba(14, 14, 167, 0.76);
+}
+
+/* Table styling */
 .smst-table {
      width: 100%;
      border-collapse: collapse;
      font-size: 16px;
-     text-align: left;
-}
-
-.smst-span {
-     font-size: 18px;
-     margin-left: 2px;
-}
-
-.smst-top-heading {
-     text-align: center; 
-     margin-top: 5px;
-     font-size: 25px;
-     font-weight: 700;
-     letter-spacing: 1px;
-     word-spacing: 2px;
-     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.smst-search {
-     width: 270px;
-     height: 45px;
-     padding: 15px;
-     border-radius: 7px;
-     font-size: 17px;
-     font-weight: 500;
-     background-color: rgb(250, 250, 254);
-     border: 2px solid black;
+     text-align: center;
+     background: white;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .smst-table thead th {
-     background-color: #1c8163;
-     text-align: center;
-     font-size: 19px;
+     background-color: #057252;
      color: white;
-     padding: 10px 13px;
-     height: 65px;
      font-weight: bold;
-     border: 1px solid black;
-}
-
-.smst-table tbody td {
-     text-align: center;
-     font-size: 16px;
-     border: 1px solid gray;
-     padding: 13px 14px;
-     font-weight: bold;
+     padding: 12px;
+     border: 1px solid rgba(255, 255, 255, 0.2);
+     height: 60px;
      text-transform: uppercase;
 }
 
+.smst-table tbody td {
+     border: 1px solid #e0e0e0;
+     padding: 12px;
+     font-weight: 500;
+}
+
+.smst-table tbody tr:nth-child(even) {
+     background-color: #f9f9f9;
+}
+
+/* Action buttons */
 .smst-edit-btn,
 .smst-delete-btn {
-     border-radius: 10px;
-     width: 100px;
-     padding: 10px 0px;
-     font-size: 17px;
+     width: 90px;
+     padding: 10px;
+     font-size: 15px;
      font-weight: 600;
-     margin: 3px 0px;
-     background-color: #18a539;
-     color: white;
-     border: none;
+     border-radius: 10px;
      cursor: pointer;
+     border: none;
+     color: white;
+     margin: 3px;
+     transition: background-color 0.2s ease;
+}
+
+.smst-edit-btn {
+     background-color: #18a539;
+}
+
+.smst-edit-btn:hover {
+     background-color: #168d32;
 }
 
 .smst-delete-btn {
-     background-color: red;
+     background-color: #fd3535;
 }
 
-.smst-count {
-     display: flex;
-     justify-content: flex-end;
-}
-.smst-icon {
-     font-size: 16px;
-     color: white;
+.smst-delete-btn:hover {
+     background-color: #ec2a2a;
 }
 
-.smst-repo-dark {
-     background-color: rgb(250, 250, 254);
-}
-
-.smst-repo-light {
-     background-color: white;
-}
-
+/* Overlay for modals */
 .smst-overlay {
      position: fixed;
      top: 0;
      left: 0;
      width: 100%;
      height: 100%;
-     background-color: rgba(0, 0, 0, 0.6); 
+     background-color: rgba(0, 0, 0, 0.45);
      display: flex;
      justify-content: center;
      align-items: center;
      z-index: 1000;
 }
 
-.smst-content {
+/* Modal container */
+.smst-modal {
      background: #fff;
-     padding: 25px;
-     width: 450px;
-     border-radius: 8px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-     text-align: center;
+     border-radius: 12px;
+     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+     padding: 30px 25px;
+     width: 570px;
+     max-width: 95%;
      position: relative;
+     z-index: 1010;
+     animation: slideDown 0.3s ease;
      display: flex;
      flex-direction: column;
-     gap: 15px;
+     gap: 20px;
 }
 
-.smst-content h4 {
-     font-size: 18px;
+/* Modal heading */
+.smst-modal h3 {
+     font-size: 20px;
+     font-weight: 700;
+     color: #173d61;
+     text-align: center;
      text-transform: uppercase;
+     margin-bottom: 10px;
 }
 
+/* Close button */
+.smst-close-div {
+     display: flex;
+     justify-content: flex-end;
+}
 
+/* Close Button */
+.smst-close {
+     cursor: pointer;
+     background: none;
+     border: none;
+     font-size: 22px;
+     color: #555;
+     transition: color 0.2s;
+}
 
+.smst-close:hover {
+     color: #ff3b3b;
+}
 
+.smst-modal p {
+     text-align: center;
+     font-size: 18px;
+     font-weight: bold;
+}
 
+/* Form grid inside modal */
+.smst-form-grid {
+     display: grid;
+     grid-template-columns: repeat(2, 1fr);
+     gap: 25px 20px;
+}
 
+.smst-form-grid input,
+.smst-form-grid select {
+     width: 100%;
+     padding: 12px 15px;
+     border-radius: 8px;
+     border: 1px solid #ccc;
+     font-size: 16px;
+     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-.modal {
-    
- }
- 
- /* Modal content box */
- .modal-content {
-     
- }
- 
- /* Close button */
- .modal-content button {
-     margin-top: 10px;
-     padding: 10px 20px;
-     font-size: 14px;
+.smst-form-grid input:focus,
+.smst-form-grid select:focus {
+     outline: none;
+     border-color: #057252;
+     box-shadow: 0 0 8px rgba(5, 114, 82, 0.3);
+}
+
+/* Make full width inputs span both columns */
+.smst-fullwidth {
+     grid-column: 1 / -1;
+}
+
+/* Button container below forms */
+.smsh-delete-btn-container {
+     display: flex;
+     justify-content: flex-end;
+     gap: 25px;
+}
+
+/* Save button style */
+.smsh-add-save-btn {
+     background-color: #057252;
+     color: white;
+     padding: 12px 25px;
+     font-weight: 700;
+     border-radius: 8px;
      border: none;
      cursor: pointer;
-     border-radius: 4px;
- }
- 
- .modal-content button:hover {
-     background-color: #ddd;
- }
- 
- .modal-content h2 {
-     margin-bottom: 20px;
- }
- 
- .modal-buttons {
-     display: flex;
-     justify-content: space-between;
-     gap: 10px;
- }
+     transition: background-color 0.2s ease;
+}
+
+.smsh-add-save-btn:hover {
+     background-color: #049e6f;
+}
+
+/* Cancel / delete buttons style */
+.smsh-save-edit-btn {
+     background-color: #fd3535;
+     color: white;
+     padding: 12px 25px;
+     font-weight: 700;
+     border-radius: 8px;
+     border: none;
+     cursor: pointer;
+     transition: background-color 0.2s ease;
+}
+
+.smsh-save-edit-btn:hover {
+     background-color: #d62b2b;
+}
+
+.staff-repo-action{
+     width: 12%;
+}
+
+/* Animation for modals */
+@keyframes slideDown {
+     0% {
+          transform: translateY(-50px);
+          opacity: 0;
+     }
+
+     100% {
+          transform: translateY(0);
+          opacity: 1;
+     }
+}
