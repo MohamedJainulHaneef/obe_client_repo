@@ -59,7 +59,7 @@ function StaffTutorManage() {
             setData(updatedData);
             setFilteredData(updatedData);
             setDeleteStaff(null);
-            alert("Record deleted successfully.");
+            alert("Mentor deleted successfully.");
         } catch (err) {
             alert("Failed to delete the record. Please try again.");
         }
@@ -84,7 +84,7 @@ function StaffTutorManage() {
             setData(updatedData);
             setFilteredData(updatedData);
             setEditingStaff(null);
-            alert("Record updated successfully.");
+            alert("Mentor updated successfully.");
         } catch {
             alert("Failed to update the record. Please try again.");
         }
@@ -111,15 +111,14 @@ function StaffTutorManage() {
                 setData((prev) => [...prev, response.data.mentor]);
                 setFilteredData((prev) => [...prev, response.data.mentor]);
                 setAddtutur(false);
-                alert("New Mentor Added Successfully.");
+                alert("Mentor Added Successfully.");
             }
         } catch {
-            alert("Failed to add new mentor. Please try again.");
+            console.log("Failed to add new mentor. Please try again.");
         }
     }
 
     if (loading) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
-    
 
     return (
         <div className="smst-main">
@@ -131,9 +130,9 @@ function StaffTutorManage() {
                     placeholder="Search ..."
                     onChange={handleSearch}
                 />
-                <button className="smsh-save-btn" onClick={handleaddtutur}>
-                    <FontAwesomeIcon icon={faPlus} className="smsh-icon-add" />
-                    <span>ADD</span>
+                <button className="smsm-save-btn" onClick={handleaddtutur}>
+                    <FontAwesomeIcon icon={faPlus} className="smsm-icon" />
+                    <span>Add</span>
                 </button>
             </div>
             {/* <div className="smst-count">
