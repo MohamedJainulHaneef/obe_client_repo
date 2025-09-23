@@ -3,6 +3,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './staffmaster.css';
+import SearchableDropdown from "../../../common/SearchableDropdown";
 
 function StaffMasterManage() {
 
@@ -102,7 +103,7 @@ function StaffMasterManage() {
             if (newStaffResponse.data) {
                 setStaffData([...staffData, newStaffResponse.data.newStaff]);
                 setFilteredData([...staffData, newStaffResponse.data.newStaff]);
-                window.alert("New Staff has been Added Successfully");
+                window.alert("Staff has been added successfully");
             }
             hidepopup();
         } catch (err) {
@@ -237,29 +238,82 @@ function StaffMasterManage() {
             {popup && (
                 <div className="smsm-overlay">
                     <div className="smsm-addstaff">
-                        <div className='smsm-close-div'><button onClick={hidepopup} className="smsm-close">✖</button></div>
+                        <div className='smsm-close-div'>
+                            <button onClick={hidepopup} className="smsm-close">✖</button>
+                        </div>
                         <h3>ADD NEW STAFF</h3>
                         <div className="smsm-form-grid">
-                            <input type="text" value={staffId} onChange={(e) => setStaffId(e.target.value)} className="smsm-inputs" placeholder="Staff ID" />
-                            <input type="text" value={staffName} onChange={(e) => setStaffName(e.target.value)} className="smsm-inputs" placeholder="Staff Name" />
-                            <select value={staffCategory} onChange={(e) => setStaffCategory(e.target.value)} className="smsm-inputs">
-                                <option value="" disabled>Staff Category</option>
-                                <option value="SFM">SFM</option>
-                                <option value="SFW">SFW</option>
-                                <option value="AIDED">AIDED</option>
-                            </select>
-                            <select value={deptCategory} onChange={(e) => setDeptCategory(e.target.value)} className="smsm-inputs">
-                                <option value="" disabled>Dept Category</option>
-                                <option value="SFM">SFM</option>
-                                <option value="SFW">SFW</option>
-                                <option value="AIDED">AIDED</option>
-                            </select>
-                            <select value={staffDept} onChange={(e) => setStaffDept(e.target.value)} className="smsm-inputs smsms-fullwidth">
-                                <option value="" disabled>Staff Department</option>
-                                {staff_Dept.map((val, idx) => <option key={idx} value={val.staff_dept}>{val.staff_dept}</option>)}
-                            </select>
-                            <input type="text" value={staffpassword} onChange={(e) => setStaffpassword(e.target.value)} className="smsm-inputs smsms-fullwidth" placeholder="Password" />
+                            <input
+                                type="text"
+                                value={staffId}
+                                onChange={(e) => setStaffId(e.target.value)}
+                                className="smsm-inputs"
+                                placeholder="Staff ID"
+                            />
+                            <input
+                                type="text"
+                                value={staffName}
+                                onChange={(e) => setStaffName(e.target.value)}
+                                className="smsm-inputs"
+                                placeholder="Staff Name"
+                            />
+
+                            {/* Staff Category */}
+                            <SearchableDropdown
+                                options={[
+                                    { value: "SFM", label: "SFM" },
+                                    { value: "SFW", label: "SFW" },
+                                    { value: "AIDED", label: "AIDED" }
+                                ]}
+                                value={staffCategory}
+                                getOptionLabel={(opt) => (typeof opt === "string" ? opt : opt.label)}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setStaffCategory(opt);
+                                    else if (opt) setStaffCategory(opt.value);
+                                    else setStaffCategory("");
+                                }}
+                                placeholder="Staff Category"
+                            />
+
+                            {/* Dept Category */}
+                            <SearchableDropdown
+                                options={[
+                                    { value: "SFM", label: "SFM" },
+                                    { value: "SFW", label: "SFW" },
+                                    { value: "AIDED", label: "AIDED" }
+                                ]}
+                                value={deptCategory}
+                                getOptionLabel={(opt) => (typeof opt === "string" ? opt : opt.label)}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setDeptCategory(opt);
+                                    else if (opt) setDeptCategory(opt.value);
+                                    else setDeptCategory("");
+                                }}
+                                placeholder="Dept Category"
+                            />
+
+                            {/* Staff Department */}
+                            <SearchableDropdown
+                                options={staff_Dept.map(d => ({ value: d.staff_dept, label: d.staff_dept }))}
+                                value={staffDept}
+                                getOptionLabel={(opt) => (typeof opt === "string" ? opt : opt.label)}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setStaffDept(opt);
+                                    else if (opt) setStaffDept(opt.value);
+                                    else setStaffDept("");
+                                }}
+                                placeholder="Staff Department"
+                            />
+
+                            <input
+                                type="text"
+                                value={staffpassword}
+                                onChange={(e) => setStaffpassword(e.target.value)}
+                                className="smsm-inputs"
+                                placeholder="Password"
+                            />
                         </div>
+
                         <div className="smsm-check-boxes smsms-fullwidth">
                             {Object.keys(checkboxValues).map((key, idx) => (
                                 <label key={idx} className="smsm-individual-check">
@@ -268,6 +322,7 @@ function StaffMasterManage() {
                                 </label>
                             ))}
                         </div>
+
                         <div className="smsh-delete-btn-container">
                             <button onClick={savenewstaff} className="smsm-add-save-btn">SAVE</button>
                             <button onClick={hidepopup} className="smsm-save-edit-btn">CANCEL</button>
@@ -280,27 +335,65 @@ function StaffMasterManage() {
             {edit && (
                 <div className="smsm-overlay">
                     <div className="smsm-edit">
-                        <div className='smsm-close-div'><button onClick={staffEditClose} className="smsm-close">✖</button></div>
+                        <div className='smsm-close-div'>
+                            <button onClick={staffEditClose} className="smsm-close">✖</button>
+                        </div>
                         <h3>EDIT STAFF</h3>
+
                         <div className="smsm-form-grid">
+                            
                             <input type="text" value={newstaffid} disabled className="smsm-edit-inputbox" />
                             <input type="text" value={newstaffname} onChange={(e) => setNewstaffname(e.target.value)} className="smsm-edit-inputbox" />
-                            <select value={newStaffCategory} onChange={(e) => setNewStaffCategory(e.target.value)} className="smsm-edit-inputbox">
-                                <option value="SFM">SFM</option>
-                                <option value="SFW">SFW</option>
-                                <option value="AIDED">AIDED</option>
-                            </select>
-                            <select value={newDeptCategory} onChange={(e) => setNewDeptCategory(e.target.value)} className="smsm-edit-inputbox">
-                                <option value="SFM">SFM</option>
-                                <option value="SFW">SFW</option>
-                                <option value="AIDED">AIDED</option>
-                            </select>
+
+                            {/* Staff Category */}
+                            <SearchableDropdown
+                                options={[
+                                    { value: "SFM", label: "SFM" },
+                                    { value: "SFW", label: "SFW" },
+                                    { value: "AIDED", label: "AIDED" }
+                                ]}
+                                value={newStaffCategory}
+                                getOptionLabel={(opt) => (typeof opt === "string" ? opt : opt.label)}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setNewStaffCategory(opt);
+                                    else if (opt) setNewStaffCategory(opt.value);
+                                    else setNewStaffCategory("");
+                                }}
+                                placeholder="Staff Category"
+                            />
+
+                            {/* Dept Category */}
+                            <SearchableDropdown
+                                options={[
+                                    { value: "SFM", label: "SFM" },
+                                    { value: "SFW", label: "SFW" },
+                                    { value: "AIDED", label: "AIDED" }
+                                ]}
+                                value={newDeptCategory}
+                                getOptionLabel={(opt) => (typeof opt === "string" ? opt : opt.label)}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setNewDeptCategory(opt);
+                                    else if (opt) setNewDeptCategory(opt.value);
+                                    else setNewDeptCategory("");
+                                }}
+                                placeholder="Dept Category"
+                            />
                         </div>
+
                         <div className="smsm-form-grid-2">
-                            <select value={newdept} onChange={(e) => setNewdept(e.target.value)} className="smsm-edit-inputbox smsms-fullwidth">
-                                {staff_Dept.map((val, idx) => <option key={idx} value={val.staff_dept}>{val.staff_dept}</option>)}
-                            </select>
+                            <SearchableDropdown
+                                options={staff_Dept.map(d => ({ value: d.staff_dept, label: d.staff_dept }))}
+                                value={newdept}
+                                getOptionLabel={(opt) => (typeof opt === "string" ? opt : opt.label)}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setNewdept(opt);
+                                    else if (opt) setNewdept(opt.value);
+                                    else setNewdept("");
+                                }}
+                                placeholder="Staff Department"
+                            />
                         </div>
+
                         <div className="smsm-edit-psw smsms-fullwidth">
                             <label className="smsm-edit-password">
                                 <span className="smsm-edit-span">Old Password :</span>
@@ -311,6 +404,7 @@ function StaffMasterManage() {
                                 <input type="text" value={newpassword} onChange={(e) => setNewpassword(e.target.value)} className="smsm-edit-inputbox-psw" placeholder="New Password" />
                             </label>
                         </div>
+
                         <div className="smsh-delete-btn-container">
                             <button onClick={updatestaff} className="smsm-add-save-btn">SAVE</button>
                             <button onClick={staffEditClose} className="smsm-save-edit-btn">CANCEL</button>

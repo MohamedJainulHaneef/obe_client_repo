@@ -146,12 +146,17 @@
      background: #fff;
      border-radius: 12px;
      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-     padding: 30px 25px;
+     padding: 30px;
      width: 570px;
      max-width: 95%;
      position: relative;
      z-index: 1010;
      animation: slideDown 0.3s ease;
+}
+
+.smsm-delete {
+     width: 500px;
+     height: 300px;
 }
 
 /* Slide Down Animation */
@@ -193,8 +198,13 @@
      font-size: 20px;
      font-weight: 700;
      color: #173d61;
-     margin-bottom: 20px;
+     margin: 20px 0px 30px;
      text-align: center;
+}
+
+.smsm-delete h3 {
+     margin: 18px 0px;
+
 }
 
 .smsm-delete p {
@@ -207,14 +217,14 @@
 .smsm-form-grid {
      display: grid;
      grid-template-columns: repeat(2, 1fr);
-     gap: 25px 20px;
+     gap: 25px;
 }
 
 .smsm-form-grid-2 {
      display: grid;
      grid-template-columns: repeat(1, 1fr);
-     gap: 25px 20px;
-     margin: 25px 0px;
+     gap: 25px;
+     margin: 30px 0px;
 }
 
 .smsm-fullwidth {
@@ -228,7 +238,8 @@
 .smsm-addstaff select,
 .smsm-edit select {
      width: 100%;
-     padding: 12px 15px;
+     padding: 0px 15px;
+     height: 50px;
      border-radius: 8px;
      border: 1px solid #ccc;
      font-size: 16px;
@@ -301,7 +312,7 @@
 
 .smsm-add-save-btn,
 .smsm-confirm-btn {
-     margin-top: 15px;
+     margin-top: 25px;
      background-color: #057252;
      color: #fff;
 }
@@ -313,7 +324,7 @@
 
 .smsm-save-edit-btn,
 .smsm-cancel-btn {
-     margin-top: 15px;
+     margin-top: 25px;
      background: #fd3535;
      color: #fff;
 }
@@ -328,7 +339,7 @@
      display: flex;
      justify-content: space-between;
      gap: 25px;
-     margin-bottom: 15px;
+     margin-bottom: 10px;
 }
 
 .smsm-edit-password {
@@ -344,38 +355,4 @@
 
 .staff-repo-action {
      width: 12%;
-}
-
-/* Dropdown Search */
-.dropdown-input {
-     width: 100%;
-     padding: 11px 15px;
-     font-size: 16px;
-     border-radius: 8px;
-     border: 1px solid #ccc;
-     background: white;
-}
-
-.dropdown-list {
-     position: absolute;
-     top: 100%;
-     left: 0;
-     width: 100%;
-     max-height: 160px;
-     overflow-y: auto;
-     background: #fff;
-     border: 1px solid #ddd;
-     border-radius: 6px;
-     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-     z-index: 999;
-}
-
-.dropdown-item {
-     padding: 10px 12px;
-     cursor: pointer;
-     font-size: 15px;
-}
-
-.dropdown-item:hover {
-     background: #f1f1f1;
 }

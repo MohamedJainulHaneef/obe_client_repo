@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './stafftutor.css';
 import Loading from '../../../../assets/load.svg'
+import SearchableDropdown from "../../../common/SearchableDropdown";
 
 function StaffTutorManage() {
 
@@ -73,8 +74,6 @@ function StaffTutorManage() {
         setNewtuturName(selectedStaff[0].staff_name);
     }
 
-    // Mentor CRUD
-
     const handleNewMentor = async () => {
         const newMentor = {
             staff_id: newTuturId,
@@ -93,7 +92,7 @@ function StaffTutorManage() {
                 setData((prev) => [...prev, response.data.mentor]);
                 setFilteredData((prev) => [...prev, response.data.mentor]);
                 setAddtutur(false);
-                alert("Mentor Added Successfully.");
+                alert("Mentor has been added successfully.");
             }
         } catch {
             console.log("Failed to add new mentor. Please try again.");
@@ -109,7 +108,7 @@ function StaffTutorManage() {
             setData(updatedData);
             setFilteredData(updatedData);
             setEditingStaff(null);
-            alert("Mentor updated successfully.");
+            alert("Mentor has been modified successfully");
         } catch {
             alert("Failed to update the record. Please try again.");
         }
@@ -122,13 +121,15 @@ function StaffTutorManage() {
             setData(updatedData);
             setFilteredData(updatedData);
             setDeleteStaff(null);
-            alert("Mentor deleted successfully.");
+            alert("Mentor has been deleted successfully.");
         } catch (err) {
             alert("Failed to delete the record. Please try again.");
         }
     }
 
-    const getUniqueValues = (key) => { return [...new Set(deptDetails.map((item) => item[key]))]}
+    const getUniqueValues = (key) => {
+        return [...new Set(deptDetails.map((item) => item[key]).filter(Boolean))];
+    }
 
     if (loading) return <div><center><img src={Loading} alt="" className="img" /></center></div>;
 
@@ -177,7 +178,10 @@ function StaffTutorManage() {
                             <td>{row.dept_name}</td>
                             <td>{row.section}</td>
                             <td className='staff-repo-action'>
-                                <button className="smsm-edit-btn" onClick={() => handleEditClick(row)}>
+                                <button
+                                    className="smsm-edit-btn"
+                                    // onClick={() => handleEditClick(row)}
+                                >
                                     <FontAwesomeIcon icon={faEdit} /> Edit
                                 </button>
                             </td>
@@ -203,98 +207,126 @@ function StaffTutorManage() {
                             <button className="smst-close" onClick={tututaddClose}>✖</button>
                         </div>
                         <h3>ADD NEW TUTOR</h3>
+
+                        {/* STAFF ID Dropdown */}
+                        <SearchableDropdown
+                            options={filteredData.map(staff => ({ value: staff.staff_id, label: `${staff.staff_id} - ${staff.staff_name}` }))}
+                            value={newTuturId}
+                            getOptionLabel={(opt) => typeof opt === "string" ? opt : opt.label}
+                            onSelect={(opt) => {
+                                if (typeof opt === "string") {
+                                    setNewTuturId(opt);
+                                    setNewtuturName("");
+                                } else if (opt) {
+                                    setNewTuturId(opt.value);
+                                    setNewtuturName(filteredData.find(s => s.staff_id === opt.value)?.staff_name || "");
+                                }
+                            }}
+                            placeholder="STAFF ID"
+                        />
+
+                        {/* Tutor Name (auto-filled) */}
                         <div className="smst-form-grid">
-                            <select name="staff_id" onChange={(e) => { setNewTuturId(e.target.value); handleSelectstaff(e.target.value) }} placeholder="Mentor Id" defaultValue={"Select"} >
-                                {filteredData.length > 0 && filteredData.map((item, index) => (
-                                    <option key={index} value={item.staff_id}>{item.staff_id}</option>
-                                ))}
-                            </select>
                             <input
                                 type="text"
-                                placeholder="Mentor Name"
-                                value={newtuturName || ''}
-                                onChange={(e) => setNewtuturName(e.target.value)}
+                                value={newtuturName}
+                                readOnly
+                                placeholder="TUROR NAME"
                             />
-                            <select
+
+                            {/* CATEGORY Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("category").map(c => ({ value: c, label: c }))}
                                 value={tuturCategory}
-                                onChange={(e) => setTuturCategory(e.target.value)}
-                            >
-                                <option value="">Select Category</option>
-                                {getUniqueValues("category").map((cat, idx) => (
-                                    <option key={idx} value={cat}>
-                                        {cat}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
+                                getOptionLabel={(c) => (typeof c === "string" ? c : c.label)}
+                                onSelect={(c) => {
+                                    if (typeof c === "string") setTuturCategory(c);
+                                    else if (c) setTuturCategory(c.value);
+                                    else setTuturCategory("");
+                                }}
+                                placeholder="CATEGORY"
+                            />
+
+                            {/* DEGREE Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("degree").map(d => ({ value: d, label: d }))}
                                 value={tuturDegree}
-                                onChange={(e) => setTuturDegree(e.target.value)}
-                            >
-                                <option value="">Select Degree</option>
-                                {getUniqueValues("degree").map((deg, idx) => (
-                                    <option key={idx} value={deg}>
-                                        {deg}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
+                                getOptionLabel={(d) => (typeof d === "string" ? d : d.label)}
+                                onSelect={(d) => {
+                                    if (typeof d === "string") setTuturDegree(d);
+                                    else if (d) setTuturDegree(d.value);
+                                    else setTuturDegree("");
+                                }}
+                                placeholder="DEGREE"
+                            />
+
+                            {/* GRADUATE Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("graduate").map(g => ({ value: g, label: g }))}
                                 value={tuturgraduate}
-                                onChange={(e) => setTuturGraduate(e.target.value)}
-                            >
-                                <option value="">Select Graduate</option>
-                                {getUniqueValues("graduate").map((grad, idx) => (
-                                    <option key={idx} value={grad}>
-                                        {grad}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
+                                getOptionLabel={(g) => (typeof g === "string" ? g : g.label)}
+                                onSelect={(g) => {
+                                    if (typeof g === "string") setTuturGraduate(g);
+                                    else if (g) setTuturGraduate(g.value);
+                                    else setTuturGraduate("");
+                                }}
+                                placeholder="GRADUATE"
+                            />
+
+                            {/* SECTION Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("section").map(s => ({ value: s, label: s }))}
                                 value={tuturSection}
-                                onChange={(e) => setTuturSection(e.target.value)}
-                            >
-                                <option value="">Select Section</option>
-                                {getUniqueValues("section").map((sec, idx) => (
-                                    <option key={idx} value={sec}>
-                                        {sec}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
+                                getOptionLabel={(s) => (typeof s === "string" ? s : s.label)}
+                                onSelect={(s) => {
+                                    if (typeof s === "string") setTuturSection(s);
+                                    else if (s) setTuturSection(s.value);
+                                    else setTuturSection("");
+                                }}
+                                placeholder="SECTION"
+                            />
+
+                            {/* DEPT ID Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("dept_id").map(d => ({ value: d, label: d }))}
                                 value={tuturDeptId}
-                                onChange={(e) => setTuturDeptId(e.target.value)}
-                            >
-                                <option value="">Select Dept ID</option>
-                                {getUniqueValues("dept_id").map((id, idx) => (
-                                    <option key={idx} value={id}>
-                                        {id}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
+                                getOptionLabel={(d) => (typeof d === "string" ? d : d.label)}
+                                onSelect={(d) => {
+                                    if (typeof d === "string") setTuturDeptId(d);
+                                    else if (d) setTuturDeptId(d.value);
+                                    else setTuturDeptId("");
+                                }}
+                                placeholder="DEPT ID"
+                            />
+
+                            {/* DEPT NAME Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("dept_name").map(d => ({ value: d, label: d }))}
                                 value={tuturdeptName}
-                                onChange={(e) => setTuturdeptName(e.target.value)}
-                            >
-                                <option value="">Select Dept Name</option>
-                                {getUniqueValues("dept_name").map((name, idx) => (
-                                    <option key={idx} value={name}>
-                                        {name}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
-                                className="smst-fullwidth"
+                                getOptionLabel={(d) => (typeof d === "string" ? d : d.label)}
+                                onSelect={(d) => {
+                                    if (typeof d === "string") setTuturdeptName(d);
+                                    else if (d) setTuturdeptName(d.value);
+                                    else setTuturdeptName("");
+                                }}
+                                placeholder="DEPT NAME"
+                            />
+
+                            {/* BATCH Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("batch").map(b => ({ value: b, label: b }))}
                                 value={tuturBatch}
-                                onChange={(e) => setTuturBatch(e.target.value)}
-                            >
-                                <option value="">Select Batch</option>
-                                {getUniqueValues("batch").map((batch, idx) => (
-                                    <option key={idx} value={batch}>
-                                        {batch}
-                                    </option>
-                                ))}
-                            </select>
+                                getOptionLabel={(b) => (typeof b === "string" ? b : b.label)}
+                                onSelect={(b) => {
+                                    if (typeof b === "string") setTuturBatch(b);
+                                    else if (b) setTuturBatch(b.value);
+                                    else setTuturBatch("");
+                                }}
+                                placeholder="BATCH"
+                            />
                         </div>
-                        <div className="smshh-delete-btn-container">
+
+                        <div className="smst-delete-btn-container">
                             <button onClick={handleNewMentor} className="smsm-add-save-btn">SAVE</button>
                             <button onClick={tututaddClose} className="smsm-save-edit-btn">CANCEL</button>
                         </div>
@@ -310,101 +342,129 @@ function StaffTutorManage() {
                             <button className="smst-close" onClick={() => setEditingStaff(null)}>✖</button>
                         </div>
                         <h3>EDIT TUTOR</h3>
+
+                        {/* STAFF ID Dropdown */}
+                        <SearchableDropdown
+                            options={filteredData.map(staff => ({ value: staff.staff_id, label: `${staff.staff_id} - ${staff.staff_name}` }))}
+                            value={editForm.staff_id}
+                            getOptionLabel={(opt) => typeof opt === "string" ? opt : opt.label}
+                            onSelect={(opt) => {
+                                if (typeof opt === "string") {
+                                    setEditForm(prev => ({ ...prev, staff_id: opt, staff_name: "" }));
+                                } else if (opt) {
+                                    const selectedStaff = filteredData.find(s => s.staff_id === opt.value);
+                                    setEditForm(prev => ({
+                                        ...prev,
+                                        staff_id: opt.value,
+                                        staff_name: selectedStaff?.staff_name || ""
+                                    }));
+                                }
+                            }}
+                            placeholder="STAFF ID"
+                        />
+
+                        {/* Tutor Name (auto-filled) */}
                         <div className="smst-form-grid">
                             <input
                                 type="text"
-                                name="staff_id"
-                                value={editForm.staff_id || ""}
-                                readOnly
-                                placeholder="Staff ID"
-                            />
-                            <input
-                                type="text"
-                                name="staff_name"
                                 value={editForm.staff_name || ""}
-                                onChange={handleEditChange}
-                                placeholder="Mentor Name"
+                                readOnly
+                                placeholder="TUTOR NAME"
                             />
-                            {/* CATEGORY DROPDOWN */}
-                            <select
-                                name="category"
+
+                            {/* CATEGORY Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("category").map(c => ({ value: c, label: c }))}
                                 value={editForm.category || ""}
-                                onChange={handleEditChange}
-                            >
-                                <option value="">Select Category</option>
-                                {Array.from(new Set(deptDetails.map(item => item.category))).map((cat, i) => (
-                                    <option key={i} value={cat}>{cat}</option>
-                                ))}
-                            </select>
-                            {/* DEGREE DROPDOWN */}
-                            <select
-                                name="degree"
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, category: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, category: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, category: "" }));
+                                }}
+                                placeholder="CATEGORY"
+                            />
+
+                            {/* DEGREE Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("degree").map(d => ({ value: d, label: d }))}
                                 value={editForm.degree || ""}
-                                onChange={handleEditChange}
-                            >
-                                <option value="">Select Degree</option>
-                                {Array.from(new Set(deptDetails.map(item => item.degree))).map((deg, i) => (
-                                    <option key={i} value={deg}>{deg}</option>
-                                ))}
-                            </select>
-                            {/* GRADUATE DROPDOWN */}
-                            <select
-                                name="graduate"
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, degree: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, degree: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, degree: "" }));
+                                }}
+                                placeholder="DEGREE"
+                            />
+
+                            {/* GRADUATE Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("graduate").map(g => ({ value: g, label: g }))}
                                 value={editForm.graduate || ""}
-                                onChange={handleEditChange}
-                            >
-                                <option value="">Select Graduate</option>
-                                {Array.from(new Set(deptDetails.map(item => item.graduate))).map((grad, i) => (
-                                    <option key={i} value={grad}>{grad}</option>
-                                ))}
-                            </select>
-                            {/* SECTION DROPDOWN */}
-                            <select
-                                name="section"
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, graduate: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, graduate: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, graduate: "" }));
+                                }}
+                                placeholder="GRADUATE"
+                            />
+
+                            {/* SECTION Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("section").map(s => ({ value: s, label: s }))}
                                 value={editForm.section || ""}
-                                onChange={handleEditChange}
-                            >
-                                <option value="">Select Section</option>
-                                {Array.from(new Set(deptDetails.map(item => item.section))).map((sec, i) => (
-                                    <option key={i} value={sec}>{sec}</option>
-                                ))}
-                            </select>
-                            {/* DEPT ID DROPDOWN */}
-                            <select
-                                name="dept_id"
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, section: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, section: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, section: "" }));
+                                }}
+                                placeholder="SECTION"
+                            />
+
+                            {/* DEPT ID Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("dept_id").map(d => ({ value: d, label: d }))}
                                 value={editForm.dept_id || ""}
-                                onChange={handleEditChange}
-                            >
-                                <option value="">Select Dept ID</option>
-                                {Array.from(new Set(deptDetails.map(item => item.dept_id))).map((id, i) => (
-                                    <option key={i} value={id}>{id}</option>
-                                ))}
-                            </select>
-                            {/* DEPT NAME DROPDOWN */}
-                            <select
-                                name="dept_name"
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, dept_id: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, dept_id: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, dept_id: "" }));
+                                }}
+                                placeholder="DEPT ID"
+                            />
+
+                            {/* DEPT NAME Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("dept_name").map(d => ({ value: d, label: d }))}
                                 value={editForm.dept_name || ""}
-                                onChange={handleEditChange}
-                            >
-                                <option value="">Select Dept Name</option>
-                                {Array.from(new Set(deptDetails.map(item => item.dept_name))).map((dn, i) => (
-                                    <option key={i} value={dn}>{dn}</option>
-                                ))}
-                            </select>
-                            {/* BATCH DROPDOWN */}
-                            <select
-                                name="batch"
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, dept_name: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, dept_name: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, dept_name: "" }));
+                                }}
+                                placeholder="DEPT NAME"
+                            />
+
+                            {/* BATCH Dropdown */}
+                            <SearchableDropdown
+                                options={getUniqueValues("batch").map(b => ({ value: b, label: b }))}
                                 value={editForm.batch || ""}
-                                onChange={handleEditChange}
-                                className="smst-fullwidth"
-                            >
-                                <option value="">Select Batch</option>
-                                {Array.from(new Set(deptDetails.map(item => item.batch))).map((batch, i) => (
-                                    <option key={i} value={batch}>{batch}</option>
-                                ))}
-                            </select>
+                                getOptionLabel={(opt) => typeof opt === "string" ? opt : (opt ? opt.label : "")}
+                                onSelect={(opt) => {
+                                    if (typeof opt === "string") setEditForm(prev => ({ ...prev, batch: opt }));
+                                    else if (opt) setEditForm(prev => ({ ...prev, batch: opt.value }));
+                                    else setEditForm(prev => ({ ...prev, batch: "" }));
+                                }}
+                                placeholder="BATCH"
+                            />
                         </div>
-                        <div className="smshh-delete-btn-container">
+
+                        <div className="smst-delete-btn-container">
                             <button className="smsm-add-save-btn" onClick={handleEditSave}>SAVE</button>
                             <button className="smsm-save-edit-btn" onClick={() => setEditingStaff(null)}>CANCEL</button>
                         </div>
@@ -415,7 +475,7 @@ function StaffTutorManage() {
             {/* Delete Tutor Modal */}
             {deleteStaff && (
                 <div className="smst-overlay">
-                    <div className="smst-modal" style={{ width: "450px", padding: "20px", textAlign: "center" }}>
+                    <div className="smst-modal">
                         <div className='smsm-close-div'>
                             <button className="smst-close" onClick={cancelDelete}>✖</button>
                         </div>
@@ -423,9 +483,7 @@ function StaffTutorManage() {
                         <p>Staff ID : {deleteStaff.staff_id}</p>
                         <p>Mentor Name : {deleteStaff.staff_name}</p>
                         <p>Category : {deleteStaff.category}</p>
-                        <p>Degree : {deleteStaff.degree}</p>
-                        <p>Dept Name : {deleteStaff.dept_name}</p>
-                        <p>Section : {deleteStaff.section}</p>
+                        <p>Class : {deleteStaff.degree} {deleteStaff.dept_name} - {deleteStaff.section}</p>
                         <div className="smshh-delete-btn-container">
                             <button onClick={() => confirmDelete(deleteStaff.staff_id)} className="smsm-add-save-btn">DELETE</button>
                             <button onClick={cancelDelete} className="smsm-save-edit-btn">CANCEL</button>

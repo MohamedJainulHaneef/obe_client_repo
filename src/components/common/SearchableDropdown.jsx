@@ -1,29 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../manage/staffmanage/staffhod/staffhod.css";
 
 function SearchableDropdown({ label, options, value, onSelect, getOptionLabel, placeholder }) {
 
-    const [search, setSearch] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 
-    const filteredOptions = options.filter((opt) =>
-        getOptionLabel(opt).toLowerCase().includes(search.toLowerCase())
-    )
+    const inputValue = typeof value === "string" ? value : value?.value || "";
+
+    const filteredOptions = options.filter(opt => {
+        const labelStr = getOptionLabel(opt) || "";
+        return labelStr.toLowerCase().includes(inputValue.toLowerCase());
+    });
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     return (
-        <div className="smsh-form">
+        <div className="smsh-form" ref={dropdownRef}>
             {label && <label className="smsh-edit-label">{label}</label>}
             <div className="relative">
                 <input
                     type="text"
                     className="smsm-inputs dropdown-input"
-                    value={search || value || ""}
+                    value={inputValue}
                     onChange={(e) => {
-                        setSearch(e.target.value);
+                        onSelect(e.target.value); 
                         setShowDropdown(true);
                     }}
                     onFocus={() => setShowDropdown(true)}
-                    placeholder={placeholder || (label ? `Search ${label}...` : "Search...")}
+                    placeholder={placeholder || `Search ${label}...`}
                 />
                 {showDropdown && filteredOptions.length > 0 && (
                     <ul className="dropdown-list">
@@ -33,7 +46,6 @@ function SearchableDropdown({ label, options, value, onSelect, getOptionLabel, p
                                 className="dropdown-item"
                                 onClick={() => {
                                     onSelect(opt);
-                                    setSearch(getOptionLabel(opt));
                                     setShowDropdown(false);
                                 }}
                             >
@@ -44,7 +56,9 @@ function SearchableDropdown({ label, options, value, onSelect, getOptionLabel, p
                 )}
             </div>
         </div>
-    )
+    );
 }
+
+
 
 export default SearchableDropdown;

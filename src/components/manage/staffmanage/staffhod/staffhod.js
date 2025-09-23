@@ -95,7 +95,7 @@ function StaffHodManage() {
 			setData(updatedData);
 			setFilteredData(updatedData);
 			setDeleteHod(null);
-			alert("Hod Deleted Successfully.");
+			alert("Hod has been deleted successfully.");
 		} catch (err) {
 			alert("Failed to delete the record. Please try again.");
 		}
@@ -120,7 +120,7 @@ function StaffHodManage() {
 			setData(updatedData);
 			setFilteredData(updatedData);
 			setEditingHod(null);
-			alert("Record updated successfully.");
+			alert("Hod has been modified successfully.");
 		} catch {
 			alert("Failed to update the record. Please try again.");
 		}
@@ -147,7 +147,7 @@ function StaffHodManage() {
 				dept_id: newDeptId,
 			});
 			if (newHodAdded.data) {
-				alert(newHodAdded.data.message);
+				alert('Hod has been added successfully');
 				setAddhod(false);
 				setData((prev) => [...prev, newHodAdded.data.newHod]);
 				setFilteredData((prev) => [...prev, newHodAdded.data.newHod]);
@@ -162,7 +162,7 @@ function StaffHodManage() {
 		const selectedId = e.target.value;
 		setNewStaffId(selectedId);
 		const selectedStaff = staff.find(s => s.staff_id === selectedId);
-		if (selectedStaff) { setNewHodName(selectedStaff.staff_name) 	}
+		if (selectedStaff) { setNewHodName(selectedStaff.staff_name) }
 	}
 
 	if (loading) return (<div> <center> <img src={Loading} alt="Loading" className="img" /> </center> </div>)
@@ -186,6 +186,8 @@ function StaffHodManage() {
 			{/* <div className="smsh-count">
 				<span className="smsh-span"><b>Total Number of Heads : </b>{filteredData.length}</span>
 			</div> */}
+
+			{/* Staff Hod Table */}
 			<table className="smsh-table">
 				<thead>
 					<tr>
@@ -210,7 +212,10 @@ function StaffHodManage() {
 								<td>{row?.hod_name || "-"}</td>
 								<td>{row?.dept_name || "-"}</td>
 								<td className='staff-repo-action'>
-									<button className="smsh-edit-btn" onClick={() => handleEditClick(row)}>
+									<button
+										className="smsh-edit-btn"
+										// onClick={() => handleEditClick(row)}
+									>
 										<FontAwesomeIcon icon={faEdit} />
 										<span>Edit</span>
 									</button>
@@ -229,6 +234,132 @@ function StaffHodManage() {
 				</tbody>
 			</table>
 
+			{/* Add HOD Modal */}
+			{addhod && (
+				<div className="smsh-overlay">
+					<div className="smsh-edit">
+						<div className="smsh-close-class">
+							<span onClick={() => setAddhod(false)} className="smsh-close">✖</span>
+						</div>
+						<h3>ADD HOD</h3>
+
+						{/* STAFF ID Dropdown */}
+						<SearchableDropdown
+							options={staff}
+							value={newstaffId}
+							getOptionLabel={(s) =>
+								typeof s === "string" ? s : `${s.staff_id} - ${s.staff_name}`
+							}
+							onSelect={(s) => {
+								if (typeof s === "string") {
+									setNewStaffId(s);
+									setNewHodName("");
+								} else if (s) {
+									setNewStaffId(s.staff_id);
+									setNewHodName(s.staff_name);
+								} else {
+									setNewStaffId("");
+									setNewHodName("");
+								}
+							}}
+							placeholder="STAFF ID"
+						/>
+
+						{/* HOD NAME (auto-filled) */}
+						<div className="smsh-form">
+							<input
+								type="text"
+								name="hod_name"
+								className="smsh-edit-inputbox"
+								value={newhodName}
+								placeholder="STAFF NAME"
+								readOnly
+							/>
+						</div>
+
+						{/* GRADUATE Dropdown */}
+						<div className="smsh-edit-psw">
+							<SearchableDropdown
+								options={[{ value: "UG", label: "UG" }, { value: "PG", label: "PG" }]}
+								value={newgraduate}
+								getOptionLabel={(g) => (typeof g === "string" ? g : g.label)}
+								onSelect={(g) => {
+									if (typeof g === "string") setNewGraduate(g);
+									else if (g) setNewGraduate(g.value);
+									else setNewGraduate("");
+								}}
+								placeholder="GRADUATE"
+							/>
+
+							{/* DEPT ID Dropdown */}
+							<SearchableDropdown
+								options={depts}
+								value={newDeptId}
+								getOptionLabel={(d) =>
+									typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`
+								}
+								onSelect={(d) => {
+									if (typeof d === "string") {
+										setNewDeptId(d);
+										setNewDeptName("");
+									} else if (d) {
+										setNewDeptId(d.dept_id);
+										setNewDeptName(d.dept_name);
+									} else {
+										setNewDeptId("");
+										setNewDeptName("");
+									}
+								}}
+								placeholder="DEPT ID"
+							/>
+						</div>
+
+						{/* CATEGORY Dropdown */}
+						<div className="smsh-edit-psw">
+							<label className="smsm-edit-password">
+								<SearchableDropdown
+									options={[
+										{ value: "AIDED", label: "AIDED" },
+										{ value: "SFM", label: "SFM" },
+										{ value: "SFW", label: "SFW" },
+									]}
+									value={newcategory}
+									getOptionLabel={(c) => (typeof c === "string" ? c : c.label)}
+									onSelect={(c) => {
+										if (typeof c === "string") setNewCategory(c);
+										else if (c) setNewCategory(c.value);
+										else setNewCategory("");
+									}}
+									placeholder="CATEGORY"
+								/>
+							</label>
+
+							{/* DEPT NAME (auto-filled) */}
+							<label className="smsm-edit-password">
+								<input
+									type="text"
+									name="dept_name"
+									className="smsh-edit-inputbox-psw"
+									value={newdeptName}
+									readOnly
+									placeholder="DEPT NAME"
+								/>
+							</label>
+						</div>
+
+						{/* Buttons */}
+						<div className="smst-delete-btn-container">
+							<button onClick={handleNewHodSave} className="smsm-add-save-btn">
+								SAVE
+							</button>
+							<button onClick={() => setAddhod(false)} className="smsm-save-edit-btn">
+								CANCEL
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+
 			{/* Edit HOD Modal */}
 			{editingHod && (
 				<div className="smsh-overlay">
@@ -237,80 +368,123 @@ function StaffHodManage() {
 							<span onClick={() => setEditingHod(null)} className="smsh-close">✖</span>
 						</div>
 						<h3>EDIT HOD</h3>
+
+						{/* STAFF ID Dropdown */}
+						<SearchableDropdown
+							options={staff}
+							value={editForm.staff_id || ""}
+							getOptionLabel={(s) =>
+								typeof s === "string" ? s : `${s.staff_id} - ${s.staff_name}`
+							}
+							onSelect={(s) => {
+								if (typeof s === "string") {
+									setEditForm(prev => ({ ...prev, staff_id: s, hod_name: "" }));
+								} else if (s) {
+									setEditForm(prev => ({
+										...prev,
+										staff_id: s.staff_id,
+										hod_name: s.staff_name
+									}));
+								} else {
+									setEditForm(prev => ({ ...prev, staff_id: "", hod_name: "" }));
+								}
+							}}
+							placeholder="STAFF ID"
+						/>
+
+						{/* HOD NAME (auto-filled) */}
 						<div className="smsh-form">
-							<label className="smsh-edit-label">STAFF ID :</label>
-							<input
-								type="text"
-								name="staff_id"
-								className="smsh-edit-inputbox"
-								value={editForm.staff_id || ""}
-								readOnly
-								disabled
-							/>
-						</div>
-						<div className="smsh-form">
-							<label className="smsh-edit-label">HOD NAME :</label>
 							<input
 								type="text"
 								name="hod_name"
-								value={editForm.hod_name || ""}
-								onChange={handleEditChange}
 								className="smsh-edit-inputbox"
+								value={editForm.hod_name || ""}
+								placeholder="HOD NAME"
+								readOnly
 							/>
 						</div>
+
+						{/* GRADUATE & DEPT ID */}
 						<div className="smsh-edit-psw">
-							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">GRADUATE :</label>
-								<input
-									type="text"
-									name="graduate"
-									value={editForm.graduate || ""}
-									onChange={handleEditChange}
-									className="smsh-edit-inputbox-psw"
-								/>
-							</label>
-							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">DEPT ID :</label>
-								<input
-									type="text"
-									name="dept_id"
-									value={editForm.dept_id || ""}
-									onChange={handleEditChange}
-									className="smsh-edit-inputbox-psw"
-								/>
-							</label>
+							<SearchableDropdown
+								options={[{ value: "UG", label: "UG" }, { value: "PG", label: "PG" }]}
+								value={editForm.graduate || ""}
+								getOptionLabel={(g) => (typeof g === "string" ? g : g.label)}
+								onSelect={(g) => {
+									if (typeof g === "string") setEditForm(prev => ({ ...prev, graduate: g }));
+									else if (g) setEditForm(prev => ({ ...prev, graduate: g.value }));
+									else setEditForm(prev => ({ ...prev, graduate: "" }));
+								}}
+								placeholder="GRADUATE"
+							/>
+
+							<SearchableDropdown
+								options={depts}
+								value={editForm.dept_id || ""}
+								getOptionLabel={(d) =>
+									typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`
+								}
+								onSelect={(d) => {
+									if (typeof d === "string") {
+										setEditForm(prev => ({ ...prev, dept_id: d, dept_name: "" }));
+									} else if (d) {
+										setEditForm(prev => ({
+											...prev,
+											dept_id: d.dept_id,
+											dept_name: d.dept_name
+										}));
+									} else {
+										setEditForm(prev => ({ ...prev, dept_id: "", dept_name: "" }));
+									}
+								}}
+								placeholder="DEPT ID"
+							/>
 						</div>
+
+						{/* CATEGORY & DEPT NAME */}
 						<div className="smsh-edit-psw">
+							<SearchableDropdown
+								options={[
+									{ value: "AIDED", label: "AIDED" },
+									{ value: "SFM", label: "SFM" },
+									{ value: "SFW", label: "SFW" },
+								]}
+								value={editForm.category || ""}
+								getOptionLabel={(c) => (typeof c === "string" ? c : c.label)}
+								onSelect={(c) => {
+									if (typeof c === "string") setEditForm(prev => ({ ...prev, category: c }));
+									else if (c) setEditForm(prev => ({ ...prev, category: c.value }));
+									else setEditForm(prev => ({ ...prev, category: "" }));
+								}}
+								placeholder="CATEGORY"
+							/>
+
 							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">CATEGORY :</label>
-								<input
-									type="text"
-									name="category"
-									value={editForm.category || ""}
-									onChange={handleEditChange}
-									className="smsh-edit-inputbox-psw"
-								/>
-							</label>
-							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">DEPT NAME :</label>
 								<input
 									type="text"
 									name="dept_name"
-									value={editForm.dept_name || ""}
-									onChange={handleEditChange}
 									className="smsh-edit-inputbox-psw"
+									value={editForm.dept_name || ""}
+									readOnly
+									placeholder="DEPT NAME"
 								/>
 							</label>
 						</div>
-						<div className="smsh-delete-btn-container">
-							<button onClick={handleEditSave} className="smsm-add-save-btn">SAVE</button>
-							<button onClick={() => setEditingHod(null)} className="smsm-save-edit-btn">CANCEL</button>
+
+						{/* Buttons */}
+						<div className="smst-delete-btn-container">
+							<button onClick={handleEditSave} className="smsm-add-save-btn">
+								SAVE
+							</button>
+							<button onClick={() => setEditingHod(null)} className="smsm-save-edit-btn">
+								CANCEL
+							</button>
 						</div>
 					</div>
 				</div>
 			)}
 
-			{/* Delete HOD Confirmation Modal */}
+			{/* Delete HOD Modal */}
 			{deleteHod && (
 				<div className="smsh-overlay">
 					<div className="smsh-delete">
@@ -327,107 +501,6 @@ function StaffHodManage() {
 						<div className="smshh-delete-btn-container">
 							<button onClick={() => confirmDelete(deleteHod)} className="smsm-add-save-btn">DELETE</button>
 							<button onClick={cancelDelete} className="smsm-save-edit-btn">CANCEL</button>
-						</div>
-					</div>
-				</div>
-			)}
-
-			{/* Add HOD Modal */}
-			{addhod && (
-				<div className="smsh-overlay">
-					<div className="smsh-edit">
-						<div className="smsh-close-class">
-							<span onClick={() => setAddhod(false)} className="smsh-close">✖</span>
-						</div>
-						<h3>ADD HOD</h3>
-
-						{/* STAFF ID Searchable Dropdown */}
-						<SearchableDropdown
-							label="STAFF ID"
-							options={staff}
-							value={newstaffId ? `${newstaffId} - ${newhodName}` : ""}
-							getOptionLabel={(s) => `${s.staff_id} - ${s.staff_name}`}
-							onSelect={(selectedStaff) => {
-								setNewStaffId(selectedStaff.staff_id);
-								setNewHodName(selectedStaff.staff_name);
-							}}
-						/>
-
-						{/* HOD NAME (auto) */}
-						<div className="smsh-form">
-							<label className="smsh-edit-label">HOD NAME :</label>
-							<input
-								type="text"
-								name="hod_name"
-								className="smsh-edit-inputbox"
-								value={newhodName}
-								onChange={(e) => setNewHodName(e.target.value)}
-								readOnly
-							/>
-						</div>
-
-						{/* GRADUATE Dropdown */}
-						<div className="smsh-edit-psw">
-							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">GRADUATE :</label>
-								<select
-									name="graduate"
-									className="smsh-edit-inputbox-psw"
-									value={newgraduate}
-									onChange={(e) => setNewGraduate(e.target.value)}
-								>
-									<option value=''>Select</option>
-									<option value='UG'>UG</option>
-									<option value='PG'>PG</option>
-								</select>
-							</label>
-
-							{/* DEPT ID Searchable Dropdown */}
-							<SearchableDropdown
-								label="DEPT ID"
-								options={depts}
-								value={newDeptId ? `${newDeptId} - ${newdeptName}` : ""}
-								getOptionLabel={(d) => `${d.dept_id} - ${d.dept_name}`}
-								onSelect={(selectedDept) => {
-									setNewDeptId(selectedDept.dept_id);
-									setNewDeptName(selectedDept.dept_name);
-								}}
-							/>
-						</div>
-
-						{/* CATEGORY Dropdown & DEPT NAME */}
-						<div className="smsh-edit-psw">
-							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">CATEGORY :</label>
-								<select
-									name="category"
-									className="smsh-edit-inputbox-psw"
-									value={newcategory}
-									onChange={(e) => setNewCategory(e.target.value)}
-								>
-									<option value=''>Select</option>
-									<option value='AIDED'>AIDED</option>
-									<option value='SFM'>SFM</option>
-									<option value='SFW'>SFW</option>
-								</select>
-							</label>
-
-							<label className="smsm-edit-password">
-								<label className="smsh-edit-label">DEPT NAME :</label>
-								<input
-									type="text"
-									name="dept_name"
-									className="smsh-edit-inputbox-psw"
-									value={newdeptName}
-									readOnly
-								/>
-							</label>
-						</div>
-
-						{/* Buttons */}
-						<div className="smshhd-delete-btn-container">
-							<button onClick={handleNewHodSave} className="smsm-add-save-btn">SAVE</button>
-							<button onClick={() => setAddhod(false)} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>

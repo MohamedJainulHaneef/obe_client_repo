@@ -149,14 +149,14 @@
      border-radius: 12px;
      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
      padding: 30px 25px;
-     width: 570px;
+     width: 550px;
      max-width: 95%;
      position: relative;
      z-index: 1010;
      animation: slideDown 0.3s ease;
      display: flex;
      flex-direction: column;
-     gap: 20px;
+     gap: 25px;
 }
 
 /* Modal heading */
@@ -199,7 +199,7 @@
 .smst-form-grid {
      display: grid;
      grid-template-columns: repeat(2, 1fr);
-     gap: 25px 20px;
+     gap: 25px;
 }
 
 .smst-form-grid input,
@@ -266,6 +266,14 @@
 .staff-repo-action {
      width: 12%;
 }
+
+.smst-delete-btn-container {
+     display: flex;
+     justify-content: flex-end;
+     gap: 25px;
+     margin-top: -20px
+}
+
 
 /* Animation for modals */
 @keyframes slideDown {
