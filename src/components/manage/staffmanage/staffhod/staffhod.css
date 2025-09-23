@@ -210,6 +210,20 @@
      display: flex;
      justify-content: flex-end;
      gap: 25px;
+     margin-top: -10px
+}
+
+.smshhd-delete-btn-container {
+     display: flex;
+     justify-content: flex-end;
+     gap: 25px;
+     /* margin-top: -20px */
+}
+
+.smsh-delete-btn-container {
+     display: flex;
+     justify-content: flex-end;
+     gap: 25px;
 }
 
 .smsh-add-save-btn {
@@ -272,6 +286,12 @@
      gap: 8px;
 }
 
+.smsh-edit-psw {
+     display: flex;
+     justify-content: space-between;
+     gap: 25px;
+}
+
 .smsh-del-div {
      margin-top: 20px;
      margin-bottom: 15px;
@@ -280,4 +300,44 @@
      flex-direction: column;
      gap: 13px;
      font-size: 18px;
+}
+
+.relative {
+     position: relative;
+     width: 100%;
+}
+
+.dropdown-input {
+     /* look like your select box */
+     width: 100%;
+     padding: 10px;
+     border-radius: 8px;
+     border: 1px solid #ccc;
+     font-size: 16px;
+     margin-top: 5px;
+}
+
+.dropdown-list {
+     position: absolute;
+     top: 100%;
+     left: 0;
+     right: 0;
+     z-index: 2000;
+     background: #fff;
+     border: 1px solid #ccc;
+     border-radius: 6px;
+     margin-top: 2px;
+     max-height: 150px;
+     overflow-y: auto;
+     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+     padding: 8px 12px;
+     font-size: 14px;
+     cursor: pointer;
+}
+
+.dropdown-item:hover {
+     background: #f5f5f5;
 }

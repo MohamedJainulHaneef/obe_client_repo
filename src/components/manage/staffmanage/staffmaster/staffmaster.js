@@ -80,6 +80,7 @@ function StaffMasterManage() {
     }
 
     const savenewstaff = async (e) => {
+
         e.preventDefault();
         if (!staffId || !staffName || !staffDept || !staffCategory || !staffpassword) {
             window.alert("All Fields are Required");
@@ -99,13 +100,14 @@ function StaffMasterManage() {
         try {
             const newStaffResponse = await axios.post(`${apiUrl}/api/newstaff`, newStaffData);
             if (newStaffResponse.data) {
-                setStaffData([...staffData, newStaffResponse.data]);
-                setFilteredData([...staffData, newStaffResponse.data]);
+                setStaffData([...staffData, newStaffResponse.data.newStaff]);
+                setFilteredData([...staffData, newStaffResponse.data.newStaff]);
                 window.alert("New Staff has been Added Successfully");
             }
             hidepopup();
         } catch (err) {
-            console.log("Fetching Error", err);
+            console.log("Error in adding staff : ", err);
+            alert('Error in adding staff')
         }
     }
 
@@ -146,10 +148,18 @@ function StaffMasterManage() {
         try {
             const updateresponse = await axios.put(`${apiUrl}/api/staffupdate`, {
                 newstaffid, newstaffname, newpassword, newdept, newStaffCategory, newDeptCategory, oldpassword
-            });
-            if (updateresponse.data) window.alert("Staff has been modified successfully");
+            })
+            if (updateresponse.data) {
+                const updatedStaff = updateresponse.data.updatedStaff;
+                const updatedStaffList = staffData.map(staff =>
+                    staff.staff_id === updatedStaff.staff_id ? updatedStaff : staff
+                )
+                setStaffData(updatedStaffList);
+                setFilteredData(updatedStaffList);
+                window.alert("Staff has been modified successfully");
+            }
             staffEditClose();
-        } catch (err) { console.log("Errpr in Updating Staff : ", err) }
+        } catch (err) { console.log("Error in Updating Staff : ", err) }
     }
 
     const handleDelete = (dstaffid, dstaffname) => {
@@ -317,7 +327,7 @@ function StaffMasterManage() {
                         <h3>CONFRIM DELETE</h3>
                         <p>Staff ID : {deletestaffid}</p>
                         <p>Staff Name : {deletestaffname}</p>
-                        <div className="smsh-delete-btn-container">
+                        <div className="smsh-delete-btn-containers">
                             <button onClick={Confirmdelete} className="smsm-confirm-btn">CONFIRM</button>
                             <button onClick={staffDeleteClose} className="smsm-cancel-btn">CANCEL</button>
                         </div>
