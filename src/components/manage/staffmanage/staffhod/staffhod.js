@@ -10,30 +10,36 @@ function StaffHodManage() {
 
 	const API_URL = "http://localhost:5000/api/hod";
 	const apiUrl = process.env.REACT_APP_API_URL;
+
+	// States
 	const [data, setData] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+
 	const [editingHod, setEditingHod] = useState(null);
 	const [editForm, setEditForm] = useState({});
-	const [deleteHod, setDeleteHod] = useState(null);
-	const [addhod, setAddhod] = useState(false);
-	const [newstaffId, setNewStaffId] = useState("");
-	const [newhodName, setNewHodName] = useState("");
-	const [newgraduate, setNewGraduate] = useState("");
-	const [newcategory, setNewCategory] = useState("");
-	const [newdeptName, setNewDeptName] = useState("");
-	const [newDeptId, setNewDeptId] = useState("");
-	const [staff, setStaff] = useState([]);
-	const [depts, setDepts] = useState([])
+	const [originalStaffId, setOriginalStaffId] = useState(null);
 
+	const [deleteHod, setDeleteHod] = useState(null);
+
+	const [addHodModal, setAddHodModal] = useState(false);
+	const [newStaffId, setNewStaffId] = useState("");
+	const [newHodName, setNewHodName] = useState("");
+	const [newGraduate, setNewGraduate] = useState("");
+	const [newCategory, setNewCategory] = useState("");
+	const [newDeptName, setNewDeptName] = useState("");
+	const [newDeptId, setNewDeptId] = useState("");
+
+	const [staff, setStaff] = useState([]);
+	const [depts, setDepts] = useState([]);
+
+	// Fetch HODs
 	useEffect(() => {
 		const fetchHods = async () => {
 			try {
 				const response = await axios.get(API_URL);
-				const hods = Array.isArray(response.data)
-					? response.data
-					: response.data?.hods || [];
+				const hods = Array.isArray(response.data) ? response.data : response.data?.hods || [];
 				const order = ["AIDED", "SFM", "SFW"];
 				const sortedData = hods
 					.filter(item => item && item.category)
@@ -41,93 +47,53 @@ function StaffHodManage() {
 				setData(sortedData);
 				setFilteredData(sortedData);
 			} catch (err) {
-				console.error("Error fetching HODs:", err);
+				console.error("Error fetching HODs : ", err);
 				setError(err.message);
 			} finally { setLoading(false) }
 		}
 		fetchHods();
 	}, [API_URL]);
 
+	// Fetch dropdown values for staff and departments
 	useEffect(() => {
 		const fetchHodDropDownValues = async () => {
-			const response = await axios.get(`${apiUrl}/api/hodDropDownValues`);
-			setStaff(response.data.uniqueStaffs)
-			setDepts(response.data.uniqueDepts)
+			try {
+				const response = await axios.get(`${apiUrl}/api/hodDropDownValues`);
+				setStaff(response.data.uniqueStaffs);
+				setDepts(response.data.uniqueDepts);
+			} catch (err) { console.error("Error fetching dropdown values : ", err) }
 		}
 		fetchHodDropDownValues();
-	}, [])
+	}, [apiUrl]);
 
-	// console.log(depts)
-
+	// Handle search
 	const handleSearch = (e) => {
 		const searchText = e.target.value.toLowerCase();
 		const filtered = data.filter(
 			row =>
-				row.staff_id.toLowerCase().includes(searchText) ||
-				row.hod_name.toLowerCase().includes(searchText) ||
-				row.category.toLowerCase().includes(searchText) ||
-				row.dept_id.toLowerCase().includes(searchText) ||
-				row.dept_name.toLowerCase().includes(searchText)
+				row.staff_id?.toLowerCase().includes(searchText) ||
+				row.hod_name?.toLowerCase().includes(searchText) ||
+				row.category?.toLowerCase().includes(searchText) ||
+				row.dept_id?.toLowerCase().includes(searchText) ||
+				row.dept_name?.toLowerCase().includes(searchText)
 		);
 		setFilteredData(filtered);
-	};
-
-	const handleDelete = (row) => { setDeleteHod(row) }
-
-	const cancelDelete = () => setDeleteHod(null);
-
-	const confirmDelete = async (deleteHod) => {
-		try {
-			await axios.delete(`${API_URL}/${deleteHod.staff_id}`, {
-				data: {
-					staff_id: deleteHod.staff_id,
-					dept_id: deleteHod.dept_id,
-					graduate: deleteHod.graduate,
-					category: deleteHod.category,
-				}
-			});
-			const updatedData = data.filter(row => !(
-				row.staff_id === deleteHod.staff_id &&
-				row.dept_id === deleteHod.dept_id &&
-				row.category === deleteHod.category &&
-				row.graduate === deleteHod.graduate
-			));
-			setData(updatedData);
-			setFilteredData(updatedData);
-			setDeleteHod(null);
-			alert("Hod has been deleted successfully.");
-		} catch (err) {
-			alert("Failed to delete the record. Please try again.");
-		}
 	}
 
-	const handleEditClick = (row) => {
-		setEditingHod(row);
-		setEditForm({ ...row });
-	};
+	// Open Add HOD modal
+	const openAddHodModal = () => {
+		setAddHodModal(true);
+		resetAddHodForm();
+	}
 
-	const handleEditChange = (e) => {
-		const { name, value } = e.target;
-		setEditForm((prev) => ({ ...prev, [name]: value }));
-	};
+	// Close Add HOD modal
+	const closeAddHodModal = () => {
+		setAddHodModal(false);
+		resetAddHodForm();
+	}
 
-	const handleEditSave = async () => {
-		try {
-			await axios.put(`${API_URL}/${editForm.staff_id}`, editForm);
-			const updatedData = data.map(row =>
-				row.staff_id === editForm.staff_id ? editForm : row
-			);
-			setData(updatedData);
-			setFilteredData(updatedData);
-			setEditingHod(null);
-			alert("Hod has been modified successfully.");
-		} catch {
-			alert("Failed to update the record. Please try again.");
-		}
-	};
-
-	const handleAddHod = () => {
-		setAddhod(true);
+	// Reset Add HOD form
+	const resetAddHodForm = () => {
 		setNewStaffId("");
 		setNewHodName("");
 		setNewGraduate("");
@@ -136,33 +102,100 @@ function StaffHodManage() {
 		setNewDeptId("");
 	}
 
-	const handleNewHodSave = async () => {
+	// Open Edit HOD modal
+	const openEditHodModal = (row) => {
+		setEditingHod(row);
+		setEditForm({ ...row });
+		setOriginalStaffId(row.staff_id);
+	}
+
+	// Close Edit HOD modal
+	const closeEditHodModal = () => {
+		setEditingHod(null);
+		setEditForm({});
+		setOriginalStaffId(null);
+	}
+
+	// Open Delete HOD modal
+	const openDeleteHodModal = (row) => {
+		setDeleteHod(row);
+	}
+
+	// Cancel Delete
+	const cancelDelete = () => { setDeleteHod(null) }
+
+	// Add Hod
+	const handleSaveNewHod = async () => {
+
 		try {
+
 			const newHodAdded = await axios.post(`${apiUrl}/api/newhodadded`, {
-				staff_id: newstaffId,
-				hod_name: newhodName,
-				graduate: newgraduate,
-				category: newcategory,
-				dept_name: newdeptName,
+				staff_id: newStaffId,
+				hod_name: newHodName,
+				graduate: newGraduate,
+				category: newCategory,
+				dept_name: newDeptName,
 				dept_id: newDeptId,
 			});
+
 			if (newHodAdded.data) {
 				alert('Hod has been added successfully');
-				setAddhod(false);
-				setData((prev) => [...prev, newHodAdded.data.newHod]);
-				setFilteredData((prev) => [...prev, newHodAdded.data.newHod]);
+				setData(prev => [...prev, newHodAdded.data.newHod]);
+				setFilteredData(prev => [...prev, newHodAdded.data.newHod]);
+				closeAddHodModal();
 			}
+
 		} catch {
 			alert("Error: Something went wrong while adding the new HOD");
-			setAddhod(false);
+			closeAddHodModal();
 		}
 	}
 
-	const handleStaffChange = (e) => {
-		const selectedId = e.target.value;
-		setNewStaffId(selectedId);
-		const selectedStaff = staff.find(s => s.staff_id === selectedId);
-		if (selectedStaff) { setNewHodName(selectedStaff.staff_name) }
+	// Edit HOD
+	const handleSaveEditedHod = async () => {
+
+		try {
+
+			await axios.put(`${API_URL}/${editForm.staff_id}`, editForm);
+			const updatedData = data.map(row =>
+				row.staff_id === originalStaffId ? editForm : row
+			);
+
+			setData(updatedData);
+			setFilteredData(updatedData);
+			alert("HOD has been modified successfully.");
+			closeEditHodModal();
+			
+		} catch { alert("Failed to update the record. Please try again.") }
+	}
+
+	// Delete HOD
+	const handleConfirmDelete = async (hod) => {
+
+		try {
+
+			await axios.delete(`${API_URL}/${hod.staff_id}`, {
+				data: {
+					staff_id: hod.staff_id,
+					dept_id: hod.dept_id,
+					graduate: hod.graduate,
+					category: hod.category,
+				}
+			});
+
+			const updatedData = data.filter(row => !(
+				row.staff_id === hod.staff_id &&
+				row.dept_id === hod.dept_id &&
+				row.category === hod.category &&
+				row.graduate === hod.graduate
+			));
+
+			setData(updatedData);
+			setFilteredData(updatedData);
+			alert("Hod has been deleted successfully.");
+			cancelDelete(); 
+
+		} catch { alert("Failed to delete the record. Please try again.") }
 	}
 
 	if (loading) return (<div> <center> <img src={Loading} alt="Loading" className="img" /> </center> </div>)
@@ -171,6 +204,7 @@ function StaffHodManage() {
 	return (
 		<div className="smsh-main">
 			<span className="smsh-top-heading">HOD DETAILS</span>
+
 			<div className="smsh-input-btn">
 				<input
 					className="smsh-search"
@@ -178,16 +212,13 @@ function StaffHodManage() {
 					placeholder="Search ..."
 					onChange={handleSearch}
 				/>
-				<button className="smsm-save-btn" onClick={handleAddHod}>
+				<button className="smsm-save-btn" onClick={openAddHodModal}>
 					<FontAwesomeIcon icon={faPlus} className="smsm-icon" />
 					<span>Add</span>
 				</button>
 			</div>
-			{/* <div className="smsh-count">
-				<span className="smsh-span"><b>Total Number of Heads : </b>{filteredData.length}</span>
-			</div> */}
 
-			{/* Staff Hod Table */}
+			{/* HOD Table */}
 			<table className="smsh-table">
 				<thead>
 					<tr>
@@ -212,16 +243,13 @@ function StaffHodManage() {
 								<td>{row?.hod_name || "-"}</td>
 								<td>{row?.dept_name || "-"}</td>
 								<td className='staff-repo-action'>
-									<button
-										className="smsh-edit-btn"
-										// onClick={() => handleEditClick(row)}
-									>
+									<button className="smsh-edit-btn" onClick={() => openEditHodModal(row)}>
 										<FontAwesomeIcon icon={faEdit} />
 										<span>Edit</span>
 									</button>
 								</td>
 								<td className='staff-repo-action'>
-									<button className="smsh-delete-btn" onClick={() => handleDelete(row)}>
+									<button className="smsh-delete-btn" onClick={() => openDeleteHodModal(row)}>
 										<FontAwesomeIcon icon={faTrash} />
 										<span>Delete</span>
 									</button>
@@ -235,126 +263,74 @@ function StaffHodManage() {
 			</table>
 
 			{/* Add HOD Modal */}
-			{addhod && (
+			{addHodModal && (
 				<div className="smsh-overlay">
 					<div className="smsh-edit">
 						<div className="smsh-close-class">
-							<span onClick={() => setAddhod(false)} className="smsh-close">✖</span>
+							<span onClick={closeAddHodModal} className="smsh-close">✖</span>
 						</div>
 						<h3>ADD HOD</h3>
 
-						{/* STAFF ID Dropdown */}
+						{/* STAFF ID */}
 						<SearchableDropdown
 							options={staff}
-							value={newstaffId}
-							getOptionLabel={(s) =>
-								typeof s === "string" ? s : `${s.staff_id} - ${s.staff_name}`
-							}
+							value={newStaffId}
+							getOptionLabel={(s) => typeof s === "string" ? s : `${s.staff_id} - ${s.staff_name}`}
 							onSelect={(s) => {
 								if (typeof s === "string") {
-									setNewStaffId(s);
-									setNewHodName("");
+									setNewStaffId(s); setNewHodName("");
 								} else if (s) {
-									setNewStaffId(s.staff_id);
-									setNewHodName(s.staff_name);
+									setNewStaffId(s.staff_id); setNewHodName(s.staff_name);
 								} else {
-									setNewStaffId("");
-									setNewHodName("");
+									setNewStaffId(""); setNewHodName("");
 								}
 							}}
 							placeholder="STAFF ID"
 						/>
 
-						{/* HOD NAME (auto-filled) */}
+						{/* HOD Name */}
 						<div className="smsh-form">
-							<input
-								type="text"
-								name="hod_name"
-								className="smsh-edit-inputbox"
-								value={newhodName}
-								placeholder="STAFF NAME"
-								readOnly
-							/>
+							<input type="text" className="smsh-edit-inputbox" value={newHodName} placeholder="STAFF NAME" readOnly />
 						</div>
 
-						{/* GRADUATE Dropdown */}
+						{/* Graduate & Dept ID */}
 						<div className="smsh-edit-psw">
 							<SearchableDropdown
 								options={[{ value: "UG", label: "UG" }, { value: "PG", label: "PG" }]}
-								value={newgraduate}
-								getOptionLabel={(g) => (typeof g === "string" ? g : g.label)}
-								onSelect={(g) => {
-									if (typeof g === "string") setNewGraduate(g);
-									else if (g) setNewGraduate(g.value);
-									else setNewGraduate("");
-								}}
+								value={newGraduate}
+								getOptionLabel={(g) => typeof g === "string" ? g : g.label}
+								onSelect={(g) => setNewGraduate(typeof g === "string" ? g : g?.value || "")}
 								placeholder="GRADUATE"
 							/>
-
-							{/* DEPT ID Dropdown */}
 							<SearchableDropdown
 								options={depts}
 								value={newDeptId}
-								getOptionLabel={(d) =>
-									typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`
-								}
+								getOptionLabel={(d) => typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`}
 								onSelect={(d) => {
-									if (typeof d === "string") {
-										setNewDeptId(d);
-										setNewDeptName("");
-									} else if (d) {
-										setNewDeptId(d.dept_id);
-										setNewDeptName(d.dept_name);
-									} else {
-										setNewDeptId("");
-										setNewDeptName("");
-									}
+									if (typeof d === "string") { setNewDeptId(d); setNewDeptName(""); }
+									else if (d) { setNewDeptId(d.dept_id); setNewDeptName(d.dept_name); }
+									else { setNewDeptId(""); setNewDeptName(""); }
 								}}
 								placeholder="DEPT ID"
 							/>
 						</div>
 
-						{/* CATEGORY Dropdown */}
+						{/* Category & Dept Name */}
 						<div className="smsh-edit-psw">
-							<label className="smsm-edit-password">
-								<SearchableDropdown
-									options={[
-										{ value: "AIDED", label: "AIDED" },
-										{ value: "SFM", label: "SFM" },
-										{ value: "SFW", label: "SFW" },
-									]}
-									value={newcategory}
-									getOptionLabel={(c) => (typeof c === "string" ? c : c.label)}
-									onSelect={(c) => {
-										if (typeof c === "string") setNewCategory(c);
-										else if (c) setNewCategory(c.value);
-										else setNewCategory("");
-									}}
-									placeholder="CATEGORY"
-								/>
-							</label>
-
-							{/* DEPT NAME (auto-filled) */}
-							<label className="smsm-edit-password">
-								<input
-									type="text"
-									name="dept_name"
-									className="smsh-edit-inputbox-psw"
-									value={newdeptName}
-									readOnly
-									placeholder="DEPT NAME"
-								/>
-							</label>
+							<SearchableDropdown
+								options={[{ value: "AIDED", label: "AIDED" }, { value: "SFM", label: "SFM" }, { value: "SFW", label: "SFW" }]}
+								value={newCategory}
+								getOptionLabel={(c) => typeof c === "string" ? c : c.label}
+								onSelect={(c) => setNewCategory(typeof c === "string" ? c : c?.value || "")}
+								placeholder="CATEGORY"
+							/>
+							<input type="text" className="smsh-edit-inputbox-psw" value={newDeptName} placeholder="DEPT NAME" readOnly />
 						</div>
 
 						{/* Buttons */}
 						<div className="smst-delete-btn-container">
-							<button onClick={handleNewHodSave} className="smsm-add-save-btn">
-								SAVE
-							</button>
-							<button onClick={() => setAddhod(false)} className="smsm-save-edit-btn">
-								CANCEL
-							</button>
+							<button onClick={handleSaveNewHod} className="smsm-add-save-btn">SAVE</button>
+							<button onClick={closeAddHodModal} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
@@ -365,120 +341,66 @@ function StaffHodManage() {
 				<div className="smsh-overlay">
 					<div className="smsh-edit">
 						<div className="smsh-close-class">
-							<span onClick={() => setEditingHod(null)} className="smsh-close">✖</span>
+							<span onClick={closeEditHodModal} className="smsh-close">✖</span>
 						</div>
 						<h3>EDIT HOD</h3>
 
-						{/* STAFF ID Dropdown */}
+						{/* STAFF ID */}
 						<SearchableDropdown
 							options={staff}
 							value={editForm.staff_id || ""}
-							getOptionLabel={(s) =>
-								typeof s === "string" ? s : `${s.staff_id} - ${s.staff_name}`
-							}
+							getOptionLabel={(s) => typeof s === "string" ? s : `${s.staff_id} - ${s.staff_name}`}
 							onSelect={(s) => {
-								if (typeof s === "string") {
-									setEditForm(prev => ({ ...prev, staff_id: s, hod_name: "" }));
-								} else if (s) {
-									setEditForm(prev => ({
-										...prev,
-										staff_id: s.staff_id,
-										hod_name: s.staff_name
-									}));
-								} else {
-									setEditForm(prev => ({ ...prev, staff_id: "", hod_name: "" }));
-								}
+								if (typeof s === "string") { setEditForm(prev => ({ ...prev, staff_id: s, hod_name: "" })); }
+								else if (s) { setEditForm(prev => ({ ...prev, staff_id: s.staff_id, hod_name: s.staff_name })); }
+								else { setEditForm(prev => ({ ...prev, staff_id: "", hod_name: "" })); }
 							}}
 							placeholder="STAFF ID"
 						/>
 
-						{/* HOD NAME (auto-filled) */}
+						{/* HOD Name */}
 						<div className="smsh-form">
-							<input
-								type="text"
-								name="hod_name"
-								className="smsh-edit-inputbox"
-								value={editForm.hod_name || ""}
-								placeholder="HOD NAME"
-								readOnly
-							/>
+							<input type="text" className="smsh-edit-inputbox" value={editForm.hod_name || ""} placeholder="HOD NAME" readOnly />
 						</div>
 
-						{/* GRADUATE & DEPT ID */}
+						{/* Graduate & Dept ID */}
 						<div className="smsh-edit-psw">
 							<SearchableDropdown
 								options={[{ value: "UG", label: "UG" }, { value: "PG", label: "PG" }]}
 								value={editForm.graduate || ""}
-								getOptionLabel={(g) => (typeof g === "string" ? g : g.label)}
-								onSelect={(g) => {
-									if (typeof g === "string") setEditForm(prev => ({ ...prev, graduate: g }));
-									else if (g) setEditForm(prev => ({ ...prev, graduate: g.value }));
-									else setEditForm(prev => ({ ...prev, graduate: "" }));
-								}}
+								getOptionLabel={(g) => typeof g === "string" ? g : g.label}
+								onSelect={(g) => setEditForm(prev => ({ ...prev, graduate: typeof g === "string" ? g : g?.value || "" }))}
 								placeholder="GRADUATE"
 							/>
-
 							<SearchableDropdown
 								options={depts}
 								value={editForm.dept_id || ""}
-								getOptionLabel={(d) =>
-									typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`
-								}
+								getOptionLabel={(d) => typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`}
 								onSelect={(d) => {
-									if (typeof d === "string") {
-										setEditForm(prev => ({ ...prev, dept_id: d, dept_name: "" }));
-									} else if (d) {
-										setEditForm(prev => ({
-											...prev,
-											dept_id: d.dept_id,
-											dept_name: d.dept_name
-										}));
-									} else {
-										setEditForm(prev => ({ ...prev, dept_id: "", dept_name: "" }));
-									}
+									if (typeof d === "string") { setEditForm(prev => ({ ...prev, dept_id: d, dept_name: "" })); }
+									else if (d) { setEditForm(prev => ({ ...prev, dept_id: d.dept_id, dept_name: d.dept_name })); }
+									else { setEditForm(prev => ({ ...prev, dept_id: "", dept_name: "" })); }
 								}}
 								placeholder="DEPT ID"
 							/>
 						</div>
 
-						{/* CATEGORY & DEPT NAME */}
+						{/* Category & Dept Name */}
 						<div className="smsh-edit-psw">
 							<SearchableDropdown
-								options={[
-									{ value: "AIDED", label: "AIDED" },
-									{ value: "SFM", label: "SFM" },
-									{ value: "SFW", label: "SFW" },
-								]}
+								options={[{ value: "AIDED", label: "AIDED" }, { value: "SFM", label: "SFM" }, { value: "SFW", label: "SFW" }]}
 								value={editForm.category || ""}
-								getOptionLabel={(c) => (typeof c === "string" ? c : c.label)}
-								onSelect={(c) => {
-									if (typeof c === "string") setEditForm(prev => ({ ...prev, category: c }));
-									else if (c) setEditForm(prev => ({ ...prev, category: c.value }));
-									else setEditForm(prev => ({ ...prev, category: "" }));
-								}}
+								getOptionLabel={(c) => typeof c === "string" ? c : c.label}
+								onSelect={(c) => setEditForm(prev => ({ ...prev, category: typeof c === "string" ? c : c?.value || "" }))}
 								placeholder="CATEGORY"
 							/>
-
-							<label className="smsm-edit-password">
-								<input
-									type="text"
-									name="dept_name"
-									className="smsh-edit-inputbox-psw"
-									value={editForm.dept_name || ""}
-									readOnly
-									placeholder="DEPT NAME"
-								/>
-							</label>
+							<input type="text" className="smsh-edit-inputbox-psw" value={editForm.dept_name || ""} placeholder="DEPT NAME" readOnly />
 						</div>
 
 						{/* Buttons */}
 						<div className="smst-delete-btn-container">
-							<button onClick={handleEditSave} className="smsm-add-save-btn">
-								SAVE
-							</button>
-							<button onClick={() => setEditingHod(null)} className="smsm-save-edit-btn">
-								CANCEL
-							</button>
+							<button onClick={handleSaveEditedHod} className="smsm-add-save-btn">SAVE</button>
+							<button onClick={closeEditHodModal} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
@@ -499,12 +421,13 @@ function StaffHodManage() {
 							<h4>CATEGORY : {deleteHod.category}</h4>
 						</div>
 						<div className="smshh-delete-btn-container">
-							<button onClick={() => confirmDelete(deleteHod)} className="smsm-add-save-btn">DELETE</button>
+							<button onClick={() => handleConfirmDelete(deleteHod)} className="smsm-add-save-btn">DELETE</button>
 							<button onClick={cancelDelete} className="smsm-save-edit-btn">CANCEL</button>
 						</div>
 					</div>
 				</div>
 			)}
+
 		</div>
 	)
 }

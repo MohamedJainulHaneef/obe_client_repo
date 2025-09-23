@@ -213,7 +213,7 @@ function MarkManage()
                 <table className="mark-mng-mark-table">
                     <thead>
                         <tr>
-                            <th className='mark-mng-th'></th>
+                            <th className='mark-mng-th'>COMPONENT</th>
                             <th className='mark-mng-th'>LOT</th>
                             <th className='mark-mng-th'>MOT</th>
                             <th className='mark-mng-th'>HOT</th>
@@ -451,16 +451,15 @@ function MarkManage()
                 <table className="mark-mng-ltable">
                     <thead>
                         <tr>
-                            <th className="mark-mng-th"></th>
-                            <th className="mark-mng-th" colSpan={2}>UG</th>
-                            <th className="mark-mng-th" colSpan={2}>PG</th>
+                            <th className="mark-mng-thg" rowSpan={2}>Level</th>
+                            <th className="mark-mng-thg" colSpan={2}>UG</th>
+                            <th className="mark-mng-thg" colSpan={2}>PG</th>
                         </tr>
                         <tr>
-                            <th className="mark-mng-th"></th>
-                            <th className="mark-mng-th">START RANGE</th>
-                            <th className="mark-mng-th">END RANGE</th>
-                            <th className="mark-mng-th">START RANGE</th>
-                            <th className="mark-mng-th">END RANGE</th>
+                            <th className="mark-mng-thg">START RANGE</th>
+                            <th className="mark-mng-thg">END RANGE</th>
+                            <th className="mark-mng-thg">START RANGE</th>
+                            <th className="mark-mng-thg">END RANGE</th>
                         </tr>
                     </thead>
                     <tbody>

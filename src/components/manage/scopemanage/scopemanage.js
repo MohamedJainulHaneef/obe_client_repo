@@ -105,14 +105,14 @@ function Scope()
                     <thead className="scope-table-head">
                         <tr>
                             <th className="scope-table-header-checkbox">Options</th>
-                            <th className="scope-table-header-checkbox">
+                            {/* <th className="scope-table-header-checkbox">
                                 <input
                                     type="checkbox"
                                     className="scope-header-inputbox"
                                     onChange={() => handleAllCheckboxChange('dashboard')}
                                     checked={scopeData.every(item => item.dashboard === 1)}
                                 />
-                            </th>
+                            </th> */}
                             <th className="scope-table-header-checkbox">
                                 <input
                                     type="checkbox"
@@ -202,9 +202,9 @@ function Scope()
                                 />
                             </th>
                         </tr>
-                        <tr>
+                        <tr className="scope-table-options">
                             <th className="scope-table-header">STAFF ID</th>
-                            <th className="scope-table-header">Dashboard</th>
+                            {/* <th className="scope-table-header">Dashboard</th> */}
                             <th className="scope-table-header">Course</th>
                             <th className="scope-table-header">CO</th>
                             <th className="scope-table-header">SO</th>
@@ -225,13 +225,13 @@ function Scope()
                                     <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                         {scopeItem.staff_id}
                                     </td>
-                                    <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
+                                    {/* <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                         <input 
                                             type="checkbox"
                                             checked={scopeItem.dashboard === 1}
                                             onChange={(e) => handleCheckboxChange(scopeItem.staff_id, 'dashboard', e.target.checked)}
                                         />
-                                    </td>
+                                    </td> */}
                                     <td className={rowIndex % 2 === 0 ? 'scope-dark' : 'scope-light'}>
                                         <input 
                                             type="checkbox"
@@ -313,7 +313,7 @@ function Scope()
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="16" className="hod-repo-td">
+                                <td colSpan="15" className="hod-repo-td">
                                     No Data Available.
                                 </td>
                             </tr>
