@@ -180,7 +180,7 @@ function StaffTutorManage() {
                             <td className='staff-repo-action'>
                                 <button
                                     className="smsm-edit-btn"
-                                    // onClick={() => handleEditClick(row)}
+                                    onClick={() => handleEditClick(row)}
                                 >
                                     <FontAwesomeIcon icon={faEdit} /> Edit
                                 </button>

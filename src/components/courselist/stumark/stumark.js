@@ -262,7 +262,7 @@ function Stumark()
         else if (activeSection === '2') { return active?.cia_2 === 2 || lockInput.cia_2 === 1 }
         else if (activeSection === '3') { return active?.ass_1 === 2 || lockInput.ass_1 === 1 }
         else if (activeSection === '4') { return active?.ass_2 === 2 || lockInput.ass_2 === 1 }
-        else if (activeSection === '5') { return active?.ese === 2 }
+        else if (activeSection === '5') { return active?.ese === 0 }
         return false;
     }
     

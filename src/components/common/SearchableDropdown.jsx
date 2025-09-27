@@ -25,7 +25,7 @@ function SearchableDropdown({ label, options, value, onSelect, getOptionLabel, p
 
     return (
         <div className="smsh-form" ref={dropdownRef}>
-            {label && <label className="smsh-edit-label">{label}</label>}
+            {label && <label className="smsh-edit-search-label">{label}</label>}
             <div className="relative">
                 <input
                     type="text"

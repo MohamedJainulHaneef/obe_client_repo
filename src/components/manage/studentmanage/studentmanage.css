@@ -1,4 +1,4 @@
-* {
+/* * {
 	margin: 0px;
 	padding: 0px;
 }
@@ -232,14 +232,13 @@
 	text-align: center;
 }
 
-.stu-del-actions{
+.stu-del-actions {
 	display: flex;
 	justify-content: flex-end;
 	gap: 15px;
 }
 
-@keyframes slide-down 
-{
+@keyframes slide-down {
 	from {
 		transform: translateY(-20px);
 		opacity: 0;
@@ -249,4 +248,123 @@
 		transform: translateY(0);
 		opacity: 1;
 	}
+} */
+
+
+/* ------------------------------------------------------------------------------------------------------- */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sm-main {
+	padding: 25px;
+	min-height: 100vh;
+}
+
+.sm-main {
+	padding: 25px;
+	min-height: 100vh;
+}
+
+/* Dropdown Container */
+.sm-dropdown-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 25px 35px;
+	padding: 30px 25px;
+	border-radius: 12px;
+	background: #ffffff;
+	box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.08);
+	border: 1px solid #e5e7eb;
+	margin-bottom: 25px;
+	transition: box-shadow 0.3s ease;
+}
+
+.sm-dropdown-container:hover {
+	box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Each dropdown field */
+.sm-search-cnt {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+/* Label */
+.sm-label {
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	color: #173d61;
+	text-transform: uppercase;
+}
+
+/* Input & Select (full equal width) */
+.sm-select,
+.sm-input {
+	width: 100%;
+	border: 1px solid #d1d5db;
+	border-radius: 10px;
+	font-size: 15px;
+	padding: 12px 14px;
+	background: linear-gradient(180deg, #fafafa, #fdfdfd);
+	transition: all 0.3s ease;
+	font-weight: 500;
+	color: #333;
+	cursor: pointer;
+}
+
+/* Remove native select arrow for styling */
+.sm-select {
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg fill='%23007bff' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	background-size: 16px;
+}
+
+/* Hover & Focus */
+.sm-select:hover,
+.sm-input:hover {
+	border-color: #007bff;
+	box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.25);
+}
+
+.sm-select:focus,
+.sm-input:focus {
+	outline: none;
+	border-color: #007bff;
+	box-shadow: 0 0 8px rgba(0, 123, 255, 0.35);
+	background: #fff;
+}
+
+/* Button */
+.sm-btn-content {
+	margin: 20px 0px 25px 0px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.sm-btn {
+	padding: 12px;
+	border-radius: 8px;
+	width: 180px;
+	font-size: 16px;
+	font-weight: 600;
+	background: linear-gradient(90deg, #057252, #049e6f);
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.sm-btn:hover {
+	background: linear-gradient(90deg, #049e6f, #057252);
+	transform: translateY(-1px);
 }
