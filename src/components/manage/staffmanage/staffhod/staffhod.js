@@ -165,7 +165,7 @@ function StaffHodManage() {
 			setFilteredData(updatedData);
 			alert("HOD has been modified successfully.");
 			closeEditHodModal();
-			
+
 		} catch { alert("Failed to update the record. Please try again.") }
 	}
 
@@ -193,7 +193,7 @@ function StaffHodManage() {
 			setData(updatedData);
 			setFilteredData(updatedData);
 			alert("Hod has been deleted successfully.");
-			cancelDelete(); 
+			cancelDelete();
 
 		} catch { alert("Failed to delete the record. Please try again.") }
 	}
@@ -302,30 +302,30 @@ function StaffHodManage() {
 								onSelect={(g) => setNewGraduate(typeof g === "string" ? g : g?.value || "")}
 								placeholder="GRADUATE"
 							/>
-							<SearchableDropdown
-								options={depts}
-								value={newDeptId}
-								getOptionLabel={(d) => typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`}
-								onSelect={(d) => {
-									if (typeof d === "string") { setNewDeptId(d); setNewDeptName(""); }
-									else if (d) { setNewDeptId(d.dept_id); setNewDeptName(d.dept_name); }
-									else { setNewDeptId(""); setNewDeptName(""); }
-								}}
-								placeholder="DEPT ID"
-							/>
+							<div className="smsh-edit-psw">
+								<SearchableDropdown
+									options={[{ value: "AIDED", label: "AIDED" }, { value: "SFM", label: "SFM" }, { value: "SFW", label: "SFW" }]}
+									value={newCategory}
+									getOptionLabel={(c) => typeof c === "string" ? c : c.label}
+									onSelect={(c) => setNewCategory(typeof c === "string" ? c : c?.value || "")}
+									placeholder="CATEGORY"
+								/>
+							</div>
 						</div>
 
-						{/* Category & Dept Name */}
-						<div className="smsh-edit-psw">
-							<SearchableDropdown
-								options={[{ value: "AIDED", label: "AIDED" }, { value: "SFM", label: "SFM" }, { value: "SFW", label: "SFW" }]}
-								value={newCategory}
-								getOptionLabel={(c) => typeof c === "string" ? c : c.label}
-								onSelect={(c) => setNewCategory(typeof c === "string" ? c : c?.value || "")}
-								placeholder="CATEGORY"
-							/>
-							<input type="text" className="smsh-edit-inputbox-psw" value={newDeptName} placeholder="DEPT NAME" readOnly />
-						</div>
+						{/* DeptId & Dept Name */}
+						<SearchableDropdown
+							options={depts}
+							value={newDeptId}
+							getOptionLabel={(d) => typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`}
+							onSelect={(d) => {
+								if (typeof d === "string") { setNewDeptId(d); setNewDeptName(""); }
+								else if (d) { setNewDeptId(d.dept_id); setNewDeptName(d.dept_name); }
+								else { setNewDeptId(""); setNewDeptName(""); }
+							}}
+							placeholder="DEPT ID"
+						/>
+						<input type="text" className="smsm-inputs" value={newDeptName} placeholder="DEPT NAME" readOnly />
 
 						{/* Buttons */}
 						<div className="smst-delete-btn-container">
@@ -373,29 +373,27 @@ function StaffHodManage() {
 								placeholder="GRADUATE"
 							/>
 							<SearchableDropdown
-								options={depts}
-								value={editForm.dept_id || ""}
-								getOptionLabel={(d) => typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`}
-								onSelect={(d) => {
-									if (typeof d === "string") { setEditForm(prev => ({ ...prev, dept_id: d, dept_name: "" })); }
-									else if (d) { setEditForm(prev => ({ ...prev, dept_id: d.dept_id, dept_name: d.dept_name })); }
-									else { setEditForm(prev => ({ ...prev, dept_id: "", dept_name: "" })); }
-								}}
-								placeholder="DEPT ID"
-							/>
-						</div>
-
-						{/* Category & Dept Name */}
-						<div className="smsh-edit-psw">
-							<SearchableDropdown
 								options={[{ value: "AIDED", label: "AIDED" }, { value: "SFM", label: "SFM" }, { value: "SFW", label: "SFW" }]}
 								value={editForm.category || ""}
 								getOptionLabel={(c) => typeof c === "string" ? c : c.label}
 								onSelect={(c) => setEditForm(prev => ({ ...prev, category: typeof c === "string" ? c : c?.value || "" }))}
 								placeholder="CATEGORY"
 							/>
-							<input type="text" className="smsh-edit-inputbox-psw" value={editForm.dept_name || ""} placeholder="DEPT NAME" readOnly />
 						</div>
+
+						{/* Category & Dept Name */}
+						<SearchableDropdown
+							options={depts}
+							value={editForm.dept_id || ""}
+							getOptionLabel={(d) => typeof d === "string" ? d : `${d.dept_id} - ${d.dept_name}`}
+							onSelect={(d) => {
+								if (typeof d === "string") { setEditForm(prev => ({ ...prev, dept_id: d, dept_name: "" })); }
+								else if (d) { setEditForm(prev => ({ ...prev, dept_id: d.dept_id, dept_name: d.dept_name })); }
+								else { setEditForm(prev => ({ ...prev, dept_id: "", dept_name: "" })); }
+							}}
+							placeholder="DEPT ID"
+						/>
+						<input type="text" className="smsh-edit-inputbox-psw" value={editForm.dept_name || ""} placeholder="DEPT NAME" readOnly />
 
 						{/* Buttons */}
 						<div className="smst-delete-btn-container">
